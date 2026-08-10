@@ -10,9 +10,7 @@ export const NAV_LINKS = [
   { label: "Gallery", href: "/#gallery" },
   { label: "Clients", href: "/#clients" },
   { label: "Global", href: "/#global-presence" },
-  { label: "Community", href: "/#community" },
-  { label: "Life at Fabstract", href: "/#life-at-fabstract" },
-  { label: "CSR", href: "/#csr" },
+  { label: "CSR", href: "/csr" },
   { label: "Contact", href: "/#contact" },
 ];
 
