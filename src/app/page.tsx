@@ -252,16 +252,6 @@ function About() {
     { year: "2024", title: "35+ Years Strong", desc: "Serving 15+ global brands across 5 countries with USD 4M+ annual turnover and growing." },
   ];
 
-  const capabilities = [
-    { step: "01", title: "Fabric Sourcing", desc: "Procuring premium knitted and woven fabrics — Cambric, Voile, Poplin, Velour, Sherpa, French Terry, and more." },
-    { step: "02", title: "Sampling & Development", desc: "Rapid new sample turnaround with a dedicated team to develop concepts per buyer requirements." },
-    { step: "03", title: "Cutting", desc: "Precision cutting using 3 Eastman machines for accuracy and minimal fabric wastage." },
-    { step: "04", title: "Stitching & Assembly", desc: "175 Juki single-needle machines, 25 overlock and 17 flat-lock machines for high-volume production." },
-    { step: "05", title: "Embroidery & Embellishment", desc: "In-house computerised embroidery (Tajima), beading, sequins, and hand embroidery capabilities." },
-    { step: "06", title: "Finishing & QA", desc: "Five-stage garment checking, steam pressing, metal detection, and final QA inspection before packing." },
-    { step: "07", title: "Packing & Shipping", desc: "Export-ready packing and logistics coordination for timely delivery within 60–90 day lead times." },
-  ];
-
   return (
     <section id="about" className="bg-bone">
       {/* Intro */}
@@ -363,34 +353,6 @@ function About() {
               <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Environmental sustainability in every process</li>
               <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Transparency &amp; long-term partnerships</li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* End-to-End Capabilities */}
-      <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Capabilities</p>
-        <h3 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-4">
-          End-to-End, Under One Roof
-        </h3>
-        <p className="text-smoky-black/60 text-lg mb-16 max-w-2xl">
-          From raw fabric to export-ready garments — every step of the process is handled
-          in-house at our Noida facility.
-        </p>
-
-        <div className="relative">
-          <div className="hidden lg:block absolute top-10 left-0 right-0 h-px bg-olive-drab/20" />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-7 gap-6 lg:gap-4">
-            {capabilities.map((cap) => (
-              <div key={cap.step} className="relative text-center group">
-                <div className="w-10 h-10 bg-olive-drab rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 group-hover:scale-110 transition-transform">
-                  <span className="text-floral-white text-xs font-bold">{cap.step}</span>
-                </div>
-                <h4 className="text-smoky-black font-semibold text-sm mb-2">{cap.title}</h4>
-                <p className="text-smoky-black/50 text-xs leading-relaxed">{cap.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
