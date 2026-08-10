@@ -6,8 +6,11 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Products", href: "#products" },
-  { label: "Infrastructure", href: "#infrastructure" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Clients", href: "#clients" },
+  { label: "Global", href: "#global-presence" },
+  { label: "Community", href: "#community" },
+  { label: "Life at Fabstract", href: "#life-at-fabstract" },
   { label: "CSR", href: "#csr" },
   { label: "Contact", href: "#contact" },
 ];
@@ -396,9 +399,6 @@ function About() {
 }
 
 function Products() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const filters = ["All", "Women", "Men", "Kids"];
-
   const productLines = [
     {
       title: "Woven Apparel",
@@ -420,29 +420,12 @@ function Products() {
     },
   ];
 
-  const gallery = [
-    { name: "Embroidered Blouse", category: "Women", technique: "Embroidery" },
-    { name: "Yarn Dyed Hoodie", category: "Men", technique: "Yarn Dyed" },
-    { name: "Printed Dress", category: "Women", technique: "All Over Print" },
-    { name: "Kids Pyjama Set", category: "Kids", technique: "Placement Print" },
-    { name: "Sequinned Top", category: "Women", technique: "Beaded & Sequinned" },
-    { name: "Jogger Set", category: "Men", technique: "Solid Dyed" },
-    { name: "Tie Dye Tee", category: "Women", technique: "Tie Dyed" },
-    { name: "Children Jacket", category: "Kids", technique: "Woven" },
-    { name: "Burnout Top", category: "Women", technique: "Burnout" },
-    { name: "Ombre Sweatshirt", category: "Men", technique: "Ombre Dyed" },
-    { name: "Floral Skirt", category: "Women", technique: "Placement Print" },
-    { name: "Kids Knit Vest", category: "Kids", technique: "Solid Knit" },
-  ];
-
   const materialTags = [
-    { label: "Organic Cotton", icon: "🌱", desc: "GOTS-certified organic cotton sourcing" },
-    { label: "Recycled", icon: "♻️", desc: "Recycled polyester & upcycled fabrics" },
-    { label: "Cellulose", icon: "🌿", desc: "Modal, Tencel & viscose-based fibres" },
-    { label: "Spun Dyed", icon: "🎨", desc: "Reduced water usage dope-dyed yarns" },
+    { label: "Organic Cotton", desc: "GOTS-certified organic cotton sourcing" },
+    { label: "Recycled", desc: "Recycled polyester & upcycled fabrics" },
+    { label: "Cellulose", desc: "Modal, Tencel & viscose-based fibres" },
+    { label: "Spun Dyed", desc: "Reduced water usage dope-dyed yarns" },
   ];
-
-  const filtered = activeFilter === "All" ? gallery : gallery.filter((p) => p.category === activeFilter);
 
   return (
     <section id="products" className="bg-floral-white">
@@ -485,58 +468,6 @@ function Products() {
         </div>
       </div>
 
-      {/* Photo Gallery with Filters */}
-      <div className="bg-bone py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Gallery</p>
-          <h3 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-8">
-            Browse Our Collections
-          </h3>
-
-          <div className="flex flex-wrap gap-3 mb-12">
-            {filters.map((f) => (
-              <button
-                key={f}
-                onClick={() => setActiveFilter(f)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                  activeFilter === f
-                    ? "bg-olive-drab text-floral-white"
-                    : "bg-floral-white text-smoky-black/60 hover:bg-olive-drab/10 hover:text-smoky-black border border-smoky-black/10"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filtered.map((product, i) => (
-              <div
-                key={`${product.name}-${i}`}
-                className="group relative bg-floral-white rounded-2xl overflow-hidden border border-smoky-black/5 hover:border-olive-drab/30 transition-colors shadow-sm"
-              >
-                <div className="aspect-[3/4] flex items-center justify-center bg-bone/50">
-                  <div className="text-center p-4">
-                    <svg className="w-10 h-10 text-olive-drab/30 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-                    </svg>
-                    <p className="text-smoky-black/25 text-xs">{product.name}</p>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <p className="text-smoky-black font-medium text-sm">{product.name}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="text-olive-drab text-xs">{product.technique}</span>
-                    <span className="text-smoky-black/20 text-xs">&bull;</span>
-                    <span className="text-smoky-black/50 text-xs">{product.category}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Material Tags */}
       <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Sustainable Materials</p>
@@ -550,7 +481,6 @@ function Products() {
               key={mat.label}
               className="bg-bone/40 rounded-2xl p-6 border border-bone hover:border-olive-drab/30 transition-colors group"
             >
-              <span className="text-3xl mb-4 block">{mat.icon}</span>
               <h4 className="text-smoky-black font-bold mb-2">{mat.label}</h4>
               <p className="text-smoky-black/55 text-sm leading-relaxed">{mat.desc}</p>
             </div>
@@ -561,74 +491,86 @@ function Products() {
   );
 }
 
-function Infrastructure() {
-  const machinery = [
-    { name: "Single Needle Sewing Machines", brand: "Juki", count: 175 },
-    { name: "Steam Iron Tables", brand: "", count: 27 },
-    { name: "4/5 Thread Overlock", brand: "Pegasus / Juki", count: 25 },
-    { name: "5 Thread Flat Lock", brand: "Pegasus / Kansai", count: 17 },
-    { name: "Tumble Dryers", brand: "", count: 4 },
-    { name: "Circular Knitting Machines", brand: "Terrot", count: 3 },
-    { name: "Cutting Machines", brand: "Eastman", count: 3 },
-    { name: "Hydro Extractors", brand: "", count: 3 },
-    { name: "Computerized Embroidery", brand: "Tajima", count: 2 },
-    { name: "Mini Spotty (Air Pressure)", brand: "", count: 2 },
-    { name: "Metal Detector", brand: "", count: 1 },
-    { name: "Fusing Machine", brand: "", count: 1 },
+function Gallery() {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const filters = ["All", "Women", "Men", "Kids"];
+
+  const galleryItems = [
+    { name: "Embroidered Floral Blouse", category: "Women", technique: "Embroidery", fabric: "100% Organic Cotton Cambric" },
+    { name: "Yarn-Dyed Striped Hoodie", category: "Men", technique: "Yarn Dyed", fabric: "French Terry Fleece" },
+    { name: "All-Over Floral Maxi Dress", category: "Women", technique: "All Over Print", fabric: "Viscose Georgette" },
+    { name: "Placement Print Pyjama Set", category: "Kids", technique: "Placement Print", fabric: "Single Jersey Knit" },
+    { name: "Beaded & Sequinned Evening Top", category: "Women", technique: "Beaded & Sequinned", fabric: "Silk Blend Voile" },
+    { name: "Solid-Dyed Slim Joggers", category: "Men", technique: "Solid Dyed", fabric: "Cotton-Modal Blend" },
+    { name: "Hand Tie-Dye Oversized Tee", category: "Women", technique: "Tie Dyed", fabric: "Slub Cotton Jersey" },
+    { name: "Utility Woven Children Jacket", category: "Kids", technique: "Woven", fabric: "Cotton Twill & Flannel" },
+    { name: "Burnout Sheer Linen Top", category: "Women", technique: "Burnout", fabric: "Linen-Poly Blend" },
+    { name: "Ombre Dip-Dyed Sweatshirt", category: "Men", technique: "Ombre Dyed", fabric: "Brushed Fleece" },
+    { name: "Placement Embroidered Skirt", category: "Women", technique: "Embroidery", fabric: "Cotton Dobby" },
+    { name: "Kids Ribbed Solid Knit Vest", category: "Kids", technique: "Solid Knit", fabric: "100% Combed Cotton" },
   ];
 
-  return (
-    <section id="infrastructure" className="py-24 bg-floral-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Infrastructure</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-3xl">
-          State-of-the-Art Manufacturing Facility
-        </h2>
-        <p className="text-smoky-black/60 max-w-2xl mb-16">
-          Our Noida facility is equipped with world-class machinery from Terrot,
-          Juki, Pegasus, Eastman, and Tajima — backed by strong power backup
-          and a multi-skilled, dedicated workforce.
-        </p>
+  const filtered = activeFilter === "All" ? galleryItems : galleryItems.filter((p) => p.category === activeFilter);
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {machinery.map((item) => (
-            <div
-              key={item.name}
-              className="bg-bone p-6 rounded-xl flex items-center justify-between border border-smoky-black/5"
-            >
-              <div>
-                <p className="text-smoky-black font-medium text-sm">{item.name}</p>
-                {item.brand && (
-                  <p className="text-smoky-black/40 text-xs mt-0.5">{item.brand}</p>
-                )}
-              </div>
-              <span className="text-olive-drab font-bold text-2xl ml-4">
-                {item.count}
-              </span>
-            </div>
-          ))}
+  return (
+    <section id="gallery" className="py-24 bg-floral-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Gallery</p>
+            <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold">
+              Product Showcase &amp; Specialisations
+            </h2>
+            <p className="text-smoky-black/60 max-w-xl mt-3 text-sm">
+              Explore our diverse range of high-fashion garments featuring hand-embroidery, placement printing, yarn dyeing, and specialized washes.
+            </p>
+          </div>
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap gap-2">
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => setActiveFilter(f)}
+                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all ${
+                  activeFilter === f
+                    ? "bg-olive-drab text-floral-white shadow-sm"
+                    : "bg-bone text-smoky-black/60 hover:text-smoky-black hover:bg-bone/80"
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Production Capacity",
-              value: "80,000 – 1,00,000 units/month",
-            },
-            {
-              title: "Lead Time",
-              value: "60 – 90 days after PO confirmation",
-            },
-            {
-              title: "Power Backup",
-              value: "Strong backup arrangement for uninterrupted operations",
-            },
-          ].map((item) => (
-            <div key={item.title} className="bg-olive-drab/10 p-6 rounded-xl border border-olive-drab/15">
-              <p className="text-smoky-black/50 text-sm font-semibold tracking-wider uppercase mb-2">
-                {item.title}
-              </p>
-              <p className="text-smoky-black font-medium">{item.value}</p>
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filtered.map((item, i) => (
+            <div
+              key={`${item.name}-${i}`}
+              className="group bg-bone/50 rounded-2xl overflow-hidden border border-smoky-black/5 hover:border-olive-drab/30 transition-all duration-300 shadow-sm flex flex-col justify-between"
+            >
+              <div className="aspect-[3/4] flex items-center justify-center bg-bone p-6 relative">
+                <div className="text-center">
+                  <svg className="w-12 h-12 text-olive-drab/30 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                  </svg>
+                  <p className="text-smoky-black/40 text-xs font-medium">{item.fabric}</p>
+                </div>
+                <span className="absolute top-3 right-3 bg-floral-white/90 backdrop-blur-sm text-smoky-black/70 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full border border-smoky-black/5">
+                  {item.category}
+                </span>
+              </div>
+
+              <div className="p-5 bg-floral-white">
+                <h3 className="text-smoky-black font-bold text-sm mb-2 group-hover:text-olive-drab transition-colors">
+                  {item.name}
+                </h3>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-olive-drab font-semibold">{item.technique}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -657,13 +599,7 @@ function Clients() {
     { name: "Replay", country: "Italy" },
   ];
 
-  const countryFlags: Record<string, string> = {
-    USA: "🇺🇸",
-    France: "🇫🇷",
-    Canada: "🇨🇦",
-    Sweden: "🇸🇪",
-    Italy: "🇮🇹",
-  };
+  const countries = ["USA", "France", "Canada", "Sweden", "Italy"];
 
   const stats = [
     { value: "16+", label: "Brand Partners" },
@@ -703,19 +639,370 @@ function Clients() {
               <span className="text-smoky-black/80 group-hover:text-smoky-black text-sm font-medium transition-colors">
                 {client.name}
               </span>
-              <span className="ml-2 text-xs opacity-60 group-hover:opacity-100 transition-opacity">
-                {countryFlags[client.country]}
-              </span>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 flex flex-wrap justify-center gap-6">
-          {Object.entries(countryFlags).map(([country, flag]) => (
-            <span key={country} className="text-smoky-black/40 text-sm flex items-center gap-1.5">
-              <span>{flag}</span> {country}
+        <div className="mt-12 flex flex-wrap justify-center gap-6">
+          {countries.map((country) => (
+            <span key={country} className="text-smoky-black/40 text-xs tracking-wider uppercase font-medium">
+              {country}
             </span>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GlobalPresence() {
+  const [activeRegion, setActiveRegion] = useState("USA & Canada");
+
+  const regions = [
+    {
+      name: "USA & Canada",
+      share: "60% of Exports",
+      hubs: ["New York", "Los Angeles", "Toronto"],
+      desc: "Long-standing manufacturing partner for major North American fashion retailers, surfwear icons, and contemporary department stores.",
+      highlights: ["10+ Retailer Partnerships", "Dedicated QC Teams", "98% On-Time Air & Sea Freight"],
+    },
+    {
+      name: "UK & Europe",
+      share: "30% of Exports",
+      hubs: ["Paris", "Milan", "Stockholm", "London"],
+      desc: "Delivering trend-setting high-fashion wovens and eco-certified organic knits to leading European fashion houses across France, Italy, Sweden & UK.",
+      highlights: ["GOTS & Fairtrade Certified", "Complex Beadwork & Embroidery", "Express 45-day Sample-to-Ship"],
+    },
+    {
+      name: "Australia & NZ",
+      share: "10% of Exports",
+      hubs: ["Sydney", "Melbourne", "Auckland"],
+      desc: "Providing high-performance ocean & beachwear, casual knits, and sustainable lifestyle apparel for top Australian and New Zealand brands.",
+      highlights: ["Rapid Growth Market", "UPF Protective Fabrics", "Organic Cotton Basics"],
+    },
+  ];
+
+  const revenueData = [
+    { year: "2018", rev: "$12M", height: "30%" },
+    { year: "2019", rev: "$15M", height: "42%" },
+    { year: "2020", rev: "$18M", height: "50%" },
+    { year: "2021", rev: "$22M", height: "62%" },
+    { year: "2022", rev: "$28M", height: "76%" },
+    { year: "2023", rev: "$34M", height: "88%" },
+    { year: "2024", rev: "$40M+", height: "100%" },
+  ];
+
+  const testimonials = [
+    {
+      quote: "Fabstract has been our most trusted apparel supplier for over a decade. Their commitment to ethical production, Fairtrade standards, and consistent garment finishing is unmatched.",
+      author: "Director of Global Sourcing",
+      company: "Leading US Surf & Outdoor Brand",
+    },
+    {
+      quote: "Working with Nitin and the Fabstract team gives us total peace of mind. From intricate embroidery to sustainable fabric sourcing, they execute complex orders flawlessly.",
+      author: "Head of Product Development",
+      company: "European High Fashion House",
+    },
+  ];
+
+  const currentRegion = regions.find((r) => r.name === activeRegion) || regions[0];
+
+  return (
+    <section id="global-presence" className="py-24 bg-bone">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Export Network &amp; Growth</p>
+        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+          Global Presence &amp; Financial Trajectory
+        </h2>
+        <p className="text-smoky-black/60 max-w-2xl mb-16">
+          Exporting premium knitwear and woven garments across North America, Europe, and Oceania — supported by steady year-on-year revenue expansion.
+        </p>
+
+        {/* Interactive World Map & Region Selector */}
+        <div className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm mb-16">
+          <div className="flex flex-wrap gap-3 mb-8">
+            {regions.map((reg) => (
+              <button
+                key={reg.name}
+                onClick={() => setActiveRegion(reg.name)}
+                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all ${
+                  activeRegion === reg.name
+                    ? "bg-olive-drab text-floral-white shadow-sm"
+                    : "bg-bone text-smoky-black/60 hover:text-smoky-black hover:bg-bone/80"
+                }`}
+              >
+                {reg.name}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            {/* World Map SVG Visual */}
+            <div className="lg:col-span-7 bg-bone/60 rounded-2xl p-6 relative overflow-hidden border border-smoky-black/5 min-h-[280px] flex items-center justify-center">
+              <svg className="w-full h-auto opacity-80" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Simplified Continents */}
+                <path fill="#8B5E3C" fillOpacity="0.15" d="M150 120 h180 v120 h-180 z M180 260 h120 v160 h-120 z M460 100 h140 v120 h-140 z M480 240 h100 v180 h-100 z M720 120 h200 v120 h-200 z M760 300 h140 v120 h-140 z" />
+                {/* HQ Noida / Delhi */}
+                <circle cx="620" cy="230" r="6" fill="#8B5E3C" className="animate-ping opacity-75" />
+                <circle cx="620" cy="230" r="5" fill="#8B5E3C" />
+                <text x="620" y="255" fill="#101010" opacity="0.6" fontSize="12" textAnchor="middle" fontWeight="bold">HQ Noida / Delhi</text>
+
+                {/* Region Connection Arc & Markers */}
+                <path d="M 620 230 Q 400 120 260 180" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="4 4" strokeOpacity={activeRegion === "USA & Canada" ? "1" : "0.3"} />
+                <circle cx="260" cy="180" r={activeRegion === "USA & Canada" ? "8" : "5"} fill={activeRegion === "USA & Canada" ? "#8B5E3C" : "#8B5E3C80"} />
+
+                <path d="M 620 230 Q 560 160 520 150" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="4 4" strokeOpacity={activeRegion === "UK & Europe" ? "1" : "0.3"} />
+                <circle cx="520" cy="150" r={activeRegion === "UK & Europe" ? "8" : "5"} fill={activeRegion === "UK & Europe" ? "#8B5E3C" : "#8B5E3C80"} />
+
+                <path d="M 620 230 Q 750 300 830 360" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="4 4" strokeOpacity={activeRegion === "Australia & NZ" ? "1" : "0.3"} />
+                <circle cx="830" cy="360" r={activeRegion === "Australia & NZ" ? "8" : "5"} fill={activeRegion === "Australia & NZ" ? "#8B5E3C" : "#8B5E3C80"} />
+              </svg>
+            </div>
+
+            {/* Region Details */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-smoky-black">{currentRegion.name}</h3>
+                <span className="text-xs font-bold text-olive-drab bg-olive-drab/10 px-3 py-1 rounded-full">
+                  {currentRegion.share}
+                </span>
+              </div>
+              <p className="text-smoky-black/60 text-sm leading-relaxed">
+                {currentRegion.desc}
+              </p>
+              <div>
+                <p className="text-xs uppercase tracking-wider text-smoky-black/40 font-semibold mb-2">Major Shipping Hubs</p>
+                <div className="flex flex-wrap gap-2">
+                  {currentRegion.hubs.map((hub) => (
+                    <span key={hub} className="bg-bone text-smoky-black/70 text-xs px-3 py-1 rounded-md font-medium">
+                      {hub}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="pt-2">
+                <p className="text-xs uppercase tracking-wider text-smoky-black/40 font-semibold mb-2">Key Highlights</p>
+                <ul className="space-y-1.5">
+                  {currentRegion.highlights.map((h) => (
+                    <li key={h} className="text-sm text-smoky-black/70 flex items-center gap-2">
+                      <span className="text-olive-drab text-xs">✓</span> {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Revenue Growth Visual (2018 - Present) */}
+        <div className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+              <p className="text-olive-drab text-xs tracking-[0.3em] uppercase mb-2 font-semibold">Financial Trajectory</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-smoky-black">Revenue Expansion (2018 – Present)</h3>
+            </div>
+            <div className="flex items-center gap-6">
+              <div>
+                <p className="text-3xl font-bold text-olive-drab">3.3x</p>
+                <p className="text-xs text-smoky-black/50">Growth Expansion</p>
+              </div>
+              <div className="h-8 w-px bg-smoky-black/10" />
+              <div>
+                <p className="text-3xl font-bold text-smoky-black">$40M+</p>
+                <p className="text-xs text-smoky-black/50">Annual Capacity</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-64 flex items-end justify-between gap-2 sm:gap-6 pt-8 border-b border-smoky-black/10 px-2">
+            {revenueData.map((d) => (
+              <div key={d.year} className="flex-1 flex flex-col items-center gap-3 group">
+                <span className="text-xs font-bold text-olive-drab opacity-0 group-hover:opacity-100 transition-opacity">
+                  {d.rev}
+                </span>
+                <div
+                  className="w-full max-w-[48px] bg-olive-drab/20 group-hover:bg-olive-drab rounded-t-lg transition-all duration-300 relative"
+                  style={{ height: d.height }}
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-olive-drab rounded-t-lg" />
+                </div>
+                <span className="text-xs font-semibold text-smoky-black/60">{d.year}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Client Showcase & Testimonials */}
+        <div>
+          <h3 className="text-xl font-bold text-smoky-black mb-6">Client Showcase &amp; Testimonials</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((t, idx) => (
+              <div key={idx} className="bg-floral-white p-8 rounded-3xl border border-smoky-black/5 shadow-sm flex flex-col justify-between">
+                <p className="text-smoky-black/70 text-base leading-relaxed italic mb-6">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div>
+                  <p className="text-smoky-black font-bold text-sm">{t.author}</p>
+                  <p className="text-olive-drab text-xs">{t.company}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CommunityAndPeople() {
+  const initiatives = [
+    {
+      title: "Worker Welfare & Fair Living Wages",
+      tag: "25% Above Minimum Wage",
+      desc: "Guaranteeing living wages that exceed minimum government standards by 25%. We transparently distribute Fairtrade premiums directly to worker welfare funds, supporting staff and their families.",
+      bullets: ["Living wages 25% above minimums", "Fairtrade Premium distribution", "Direct financial literacy programs"],
+    },
+    {
+      title: "Women Empowerment & Mobility",
+      tag: "60%+ Female Workforce",
+      desc: "Empowering female factory staff through tailored technical training programs, pattern-making academies, and structured promotion paths into supervisory and leadership roles.",
+      bullets: ["Technical training & skill programs", "Equal pay & maternity support", "Upward mobility into leadership"],
+    },
+    {
+      title: "Healthcare, Housing & Appliance Support",
+      tag: "Comprehensive Welfare",
+      desc: "Providing family support through free on-site doctor consultations, subsidized housing allowances, and employee grants for purchasing essential household appliances.",
+      bullets: ["Free health checkups & consultations", "Subsidized housing support", "Household appliance assistance"],
+    },
+    {
+      title: "Tree Plantation & Nature Walks",
+      tag: "Green Initiatives",
+      desc: "Fostering environmental stewardship with annual tree plantation drives across NCR, alongside guided nature walks for staff and their families to build ecological awareness.",
+      bullets: ["Annual tree plantation drives", "Guided nature walk programs", "Zero single-use plastic policy"],
+    },
+    {
+      title: "Fashion Revolution Participation",
+      tag: "#WhoMadeMyClothes",
+      desc: "Proud participants in global supply chain transparency initiatives. We champion open factory doors, fair labor standards, and consumer awareness under Fashion Revolution's banner.",
+      bullets: ["Supply chain transparency", "Worker story showcases", "Ethical manufacturing advocacy"],
+    },
+  ];
+
+  return (
+    <section id="community" className="py-24 bg-floral-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Impact</p>
+        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+          Community &amp; People
+        </h2>
+        <p className="text-smoky-black/60 max-w-2xl mb-16">
+          People are at the heart of Fabstract. We invest in worker welfare, women empowerment, family health, and environmental stewardship across all operations.
+        </p>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {initiatives.map((item) => (
+            <div
+              key={item.title}
+              className="bg-bone/40 rounded-3xl p-8 border border-bone hover:border-olive-drab/30 transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div>
+                <span className="inline-block bg-olive-drab/10 text-olive-drab text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                  {item.tag}
+                </span>
+                <h3 className="text-smoky-black font-bold text-xl mb-3">{item.title}</h3>
+                <p className="text-smoky-black/60 text-sm leading-relaxed mb-6">{item.desc}</p>
+              </div>
+              <div className="border-t border-smoky-black/5 pt-4">
+                <ul className="space-y-2">
+                  {item.bullets.map((b) => (
+                    <li key={b} className="text-xs text-smoky-black/70 flex items-center gap-2">
+                      <span className="text-olive-drab font-bold">✓</span> {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LifeAtFabstract() {
+  const pillars = [
+    {
+      title: "Employer Branding & Work Environment",
+      desc: "A progressive, inclusive factory culture where every worker feels valued, respected, and empowered to excel in their craft.",
+      stats: "85%+ Retention Rate",
+    },
+    {
+      title: "Skill Development & Advancement",
+      desc: "Continuous cross-training in modern sewing technology, pattern-making, quality management, and supervisory skills.",
+      stats: "100+ Hours Annual Training",
+    },
+    {
+      title: "Health, Sanitation & Well-being",
+      desc: "Clean RO drinking water stations, ergonomic seating, well-ventilated production bays, and female hygiene support.",
+      stats: "Zero Safety Violations",
+    },
+    {
+      title: "Team Culture & Factory Environment",
+      desc: "Celebrating national festivals, hosting sports tournaments, recognizing top performers, and maintaining high team spirit.",
+      stats: "Annual Recognition Events",
+    },
+  ];
+
+  return (
+    <section id="life-at-fabstract" className="py-24 bg-bone">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
+        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+          Life at Fabstract
+        </h2>
+        <p className="text-smoky-black/60 max-w-2xl mb-16">
+          A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
+        </p>
+
+        {/* Culture Highlight Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {pillars.map((pillar) => (
+            <div
+              key={pillar.title}
+              className="bg-floral-white rounded-3xl p-8 border border-smoky-black/5 hover:border-olive-drab/30 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <h3 className="text-smoky-black font-bold text-lg mb-3">{pillar.title}</h3>
+                <p className="text-smoky-black/60 text-sm leading-relaxed mb-6">{pillar.desc}</p>
+              </div>
+              <div className="pt-4 border-t border-smoky-black/5">
+                <span className="text-xs font-bold text-olive-drab uppercase tracking-wider">
+                  {pillar.stats}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Factory Environment Showcase Bar */}
+        <div className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="p-4">
+              <p className="text-4xl font-bold text-olive-drab mb-2">100%</p>
+              <p className="text-smoky-black font-semibold text-base mb-1">Safety Compliance</p>
+              <p className="text-smoky-black/50 text-xs">Strict adherence to BSCI, CSCC &amp; ETI codes</p>
+            </div>
+            <div className="p-4 border-y md:border-y-0 md:border-x border-smoky-black/10">
+              <p className="text-4xl font-bold text-olive-drab mb-2">60%+</p>
+              <p className="text-smoky-black font-semibold text-base mb-1">Female Workforce</p>
+              <p className="text-smoky-black/50 text-xs">Equal opportunities &amp; upward leadership mobility</p>
+            </div>
+            <div className="p-4">
+              <p className="text-4xl font-bold text-olive-drab mb-2">25%+</p>
+              <p className="text-smoky-black font-semibold text-base mb-1">Above Minimum Wage</p>
+              <p className="text-smoky-black/50 text-xs">Fair living wages and direct Fairtrade distribution</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -957,8 +1244,11 @@ export default function Home() {
       <Hero />
       <About />
       <Products />
-      <Infrastructure />
+      <Gallery />
       <Clients />
+      <GlobalPresence />
+      <CommunityAndPeople />
+      <LifeAtFabstract />
       <CSR />
       <Contact />
       <Footer />
