@@ -324,63 +324,36 @@ function GlobalPresence() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* World Map SVG Visual */}
+            {/* World Map Visual */}
             <div className="lg:col-span-7 bg-bone/60 rounded-2xl p-6 relative overflow-hidden border border-smoky-black/5 min-h-[280px] flex items-center justify-center">
-              <svg className="w-full h-auto" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* North America */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M120,60 L180,45 L220,50 L260,65 L270,55 L295,60 L300,80 L280,100 L290,120 L310,130 L300,145 L280,150 L260,170 L240,180 L225,200 L210,210 L195,230 L180,225 L170,235 L155,240 L140,230 L130,215 L120,200 L115,180 L105,165 L100,145 L95,125 L100,100 L110,80 Z" />
-                {/* Central America */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M180,225 L195,230 L205,245 L215,260 L210,275 L200,280 L190,270 L180,260 L175,245 Z" />
-                {/* South America */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M210,275 L230,270 L255,280 L270,300 L280,330 L285,360 L275,390 L260,410 L245,425 L235,430 L225,420 L220,400 L210,380 L200,355 L195,330 L200,305 L205,290 Z" />
-                {/* Europe */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M460,55 L480,50 L500,55 L520,60 L540,55 L555,65 L560,80 L555,95 L545,105 L535,115 L520,120 L510,130 L500,125 L490,130 L480,120 L470,115 L460,105 L455,90 L458,70 Z" />
-                {/* Africa */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M460,150 L480,145 L510,150 L530,155 L545,165 L555,185 L560,210 L555,240 L545,270 L535,300 L520,330 L505,350 L490,360 L480,355 L475,335 L470,310 L465,285 L460,260 L455,230 L450,200 L452,175 Z" />
-                {/* Asia (India region) */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M560,55 L600,50 L640,55 L680,50 L720,55 L750,65 L770,80 L780,100 L775,120 L760,140 L740,155 L720,165 L700,170 L680,180 L660,190 L640,200 L630,215 L620,235 L615,250 L605,240 L590,225 L580,210 L570,190 L565,170 L560,145 L555,120 L558,90 Z" />
-                {/* Southeast Asia */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M700,170 L720,180 L740,195 L750,215 L745,235 L735,250 L720,255 L710,245 L700,230 L695,210 L698,190 Z" />
-                {/* Australia */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M760,310 L790,300 L830,305 L860,315 L880,330 L885,350 L875,370 L855,385 L830,390 L800,385 L780,375 L765,355 L760,335 Z" />
-                {/* New Zealand */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M895,370 L900,385 L895,400 L888,395 L890,380 Z" />
-                {/* Russia / Northern Asia */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M560,55 L600,40 L650,35 L700,30 L760,35 L820,40 L870,50 L900,60 L910,75 L895,85 L870,80 L830,75 L790,80 L770,80 L750,65 L720,55 L680,50 L640,55 L600,50 L560,55 Z" />
-                {/* Japan */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M830,100 L840,110 L845,130 L840,145 L835,135 L830,115 Z" />
-                {/* UK / Ireland */}
-                <path fill="#8B5E3C" fillOpacity="0.12" d="M445,65 L450,55 L458,58 L458,75 L452,80 L445,75 Z" />
+              <div className="relative w-full">
+                <img src="/world-map.svg" alt="World map showing Fabstract export regions" className="w-full h-auto opacity-90" />
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* HQ Noida / Delhi marker */}
+                  <circle cx="648" cy="210" r="14" fill="#8B5E3C" fillOpacity="0.2">
+                    <animate attributeName="r" values="10;18;10" dur="2s" repeatCount="indefinite" />
+                    <animate attributeName="fill-opacity" values="0.3;0.05;0.3" dur="2s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="648" cy="210" r="6" fill="#8B5E3C" />
+                  <circle cx="648" cy="210" r="2.5" fill="#FFFFFF" />
+                  <text x="648" y="235" fill="#1A1A1A" opacity="0.7" fontSize="11" textAnchor="middle" fontWeight="600" fontFamily="system-ui, sans-serif">HQ Noida / Delhi</text>
 
-                {/* Dotted grid lines for map feel */}
-                <line x1="0" y1="125" x2="1000" y2="125" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
-                <line x1="0" y1="250" x2="1000" y2="250" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
-                <line x1="0" y1="375" x2="1000" y2="375" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
-                <line x1="250" y1="0" x2="250" y2="500" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
-                <line x1="500" y1="0" x2="500" y2="500" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
-                <line x1="750" y1="0" x2="750" y2="500" stroke="#8B5E3C" strokeOpacity="0.06" strokeWidth="0.5" strokeDasharray="2 6" />
+                  {/* USA arc & marker */}
+                  <path d="M 648 210 Q 400 70 195 155" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "USA & Canada" ? "0.8" : "0.15"} className="transition-all duration-500" />
+                  <circle cx="195" cy="155" r={activeRegion === "USA & Canada" ? "8" : "4"} fill="#8B5E3C" fillOpacity={activeRegion === "USA & Canada" ? "1" : "0.3"} className="transition-all duration-500" />
+                  {activeRegion === "USA & Canada" && <circle cx="195" cy="155" r="3" fill="#FFFFFF" />}
 
-                {/* HQ Noida / Delhi - pulsing marker */}
-                <circle cx="635" cy="215" r="12" fill="#8B5E3C" fillOpacity="0.15" className="animate-ping" />
-                <circle cx="635" cy="215" r="6" fill="#8B5E3C" />
-                <circle cx="635" cy="215" r="3" fill="#FFFFFF" />
-                <text x="635" y="240" fill="#1A1A1A" opacity="0.7" fontSize="11" textAnchor="middle" fontWeight="600" fontFamily="sans-serif">HQ Noida / Delhi</text>
+                  {/* UK & Europe arc & marker */}
+                  <path d="M 648 210 Q 580 110 480 85" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "UK & Europe" ? "0.8" : "0.15"} className="transition-all duration-500" />
+                  <circle cx="480" cy="85" r={activeRegion === "UK & Europe" ? "8" : "4"} fill="#8B5E3C" fillOpacity={activeRegion === "UK & Europe" ? "1" : "0.3"} className="transition-all duration-500" />
+                  {activeRegion === "UK & Europe" && <circle cx="480" cy="85" r="3" fill="#FFFFFF" />}
 
-                {/* USA marker & arc */}
-                <path d="M 635 215 Q 420 80 200 165" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "USA & Canada" ? "0.8" : "0.2"} className="transition-all duration-500" />
-                <circle cx="200" cy="165" r={activeRegion === "USA & Canada" ? "8" : "4"} fill={activeRegion === "USA & Canada" ? "#8B5E3C" : "#8B5E3C"} fillOpacity={activeRegion === "USA & Canada" ? "1" : "0.4"} className="transition-all duration-500" />
-                {activeRegion === "USA & Canada" && <circle cx="200" cy="165" r="3" fill="#FFFFFF" />}
-
-                {/* UK & Europe marker & arc */}
-                <path d="M 635 215 Q 580 120 500 100" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "UK & Europe" ? "0.8" : "0.2"} className="transition-all duration-500" />
-                <circle cx="500" cy="100" r={activeRegion === "UK & Europe" ? "8" : "4"} fill={activeRegion === "UK & Europe" ? "#8B5E3C" : "#8B5E3C"} fillOpacity={activeRegion === "UK & Europe" ? "1" : "0.4"} className="transition-all duration-500" />
-                {activeRegion === "UK & Europe" && <circle cx="500" cy="100" r="3" fill="#FFFFFF" />}
-
-                {/* Australia & NZ marker & arc */}
-                <path d="M 635 215 Q 730 310 830 345" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "Australia & NZ" ? "0.8" : "0.2"} className="transition-all duration-500" />
-                <circle cx="830" cy="345" r={activeRegion === "Australia & NZ" ? "8" : "4"} fill={activeRegion === "Australia & NZ" ? "#8B5E3C" : "#8B5E3C"} fillOpacity={activeRegion === "Australia & NZ" ? "1" : "0.4"} className="transition-all duration-500" />
-                {activeRegion === "Australia & NZ" && <circle cx="830" cy="345" r="3" fill="#FFFFFF" />}
-              </svg>
+                  {/* Australia & NZ arc & marker */}
+                  <path d="M 648 210 Q 770 330 885 395" stroke="#8B5E3C" strokeWidth="1.5" strokeDasharray="6 4" strokeOpacity={activeRegion === "Australia & NZ" ? "0.8" : "0.15"} className="transition-all duration-500" />
+                  <circle cx="885" cy="395" r={activeRegion === "Australia & NZ" ? "8" : "4"} fill="#8B5E3C" fillOpacity={activeRegion === "Australia & NZ" ? "1" : "0.3"} className="transition-all duration-500" />
+                  {activeRegion === "Australia & NZ" && <circle cx="885" cy="395" r="3" fill="#FFFFFF" />}
+                </svg>
+              </div>
             </div>
 
             {/* Region Details */}
