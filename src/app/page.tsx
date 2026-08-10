@@ -84,7 +84,7 @@ function Hero() {
           </div>
 
           {/* Key Stats */}
-          <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-6">
             {[
               { value: "30+", label: "Years Experience" },
               { value: "1L+", label: "Units / Month" },
