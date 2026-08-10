@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -311,6 +311,22 @@ function GlobalPresence() {
   ];
 
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  const goTo = (idx: number) => {
+    setFading(true);
+    setTimeout(() => {
+      setActiveTestimonial(idx);
+      setFading(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goTo((activeTestimonial + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [activeTestimonial]);
 
   const currentRegion = regions.find((r) => r.name === activeRegion) || regions[0];
 
@@ -394,54 +410,38 @@ function GlobalPresence() {
         {/* Client Showcase & Testimonials */}
         <div>
           <h3 className="text-xl font-bold text-smoky-black mb-6">Client Showcase &amp; Testimonials</h3>
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
-              >
-                {testimonials.map((t, idx) => (
-                  <div key={idx} className="min-w-full bg-floral-white p-10 border border-smoky-black/5 shadow-sm flex flex-col justify-between min-h-[220px]">
-                    <p className="text-smoky-black/70 text-base leading-relaxed italic mb-8">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-                    <div>
-                      <p className="text-smoky-black font-bold text-sm">{t.author}</p>
-                      <p className="text-olive-drab text-xs">{t.company}</p>
-                    </div>
-                  </div>
-                ))}
+          <div className="relative bg-floral-white rounded-3xl border border-smoky-black/5 shadow-sm p-10 sm:p-14 h-[320px] flex flex-col justify-between">
+            <div
+              style={{ opacity: fading ? 0 : 1, transform: fading ? "translateY(8px)" : "translateY(0)", transition: "opacity 300ms, transform 300ms" }}
+            >
+              <p className="text-smoky-black/70 text-lg leading-relaxed mb-8 max-w-2xl">
+                &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
+              </p>
+              <div>
+                <p className="text-smoky-black font-bold text-sm">{testimonials[activeTestimonial].author}</p>
+                <p className="text-olive-drab text-xs mt-0.5">{testimonials[activeTestimonial].company}</p>
               </div>
             </div>
 
-            {/* Prev / Next */}
-            <button
-              onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-bone border border-smoky-black/10 rounded-full w-10 h-10 flex items-center justify-center text-smoky-black/60 hover:text-smoky-black hover:border-olive-drab/40 transition-colors shadow-sm"
-              aria-label="Previous"
-            >
-              &#8592;
-            </button>
-            <button
-              onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-bone border border-smoky-black/10 rounded-full w-10 h-10 flex items-center justify-center text-smoky-black/60 hover:text-smoky-black hover:border-olive-drab/40 transition-colors shadow-sm"
-              aria-label="Next"
-            >
-              &#8594;
-            </button>
-
             {/* Dots */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex items-center gap-2 mt-8">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveTestimonial(idx)}
-                  className={`rounded-full transition-all duration-300 ${
-                    idx === activeTestimonial ? "bg-olive-drab w-6 h-2" : "bg-smoky-black/20 w-2 h-2"
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  onClick={() => goTo(idx)}
+                  className={`rounded-full transition-all duration-300 ${idx === activeTestimonial ? "bg-olive-drab w-6 h-2" : "bg-smoky-black/15 w-2 h-2"}`}
                 />
               ))}
+              <div className="ml-auto flex gap-2">
+                <button
+                  onClick={() => goTo((activeTestimonial - 1 + testimonials.length) % testimonials.length)}
+                  className="w-9 h-9 rounded-full border border-smoky-black/10 flex items-center justify-center text-smoky-black/40 hover:border-olive-drab/50 hover:text-olive-drab transition-all text-sm"
+                >&#8592;</button>
+                <button
+                  onClick={() => goTo((activeTestimonial + 1) % testimonials.length)}
+                  className="w-9 h-9 rounded-full border border-smoky-black/10 flex items-center justify-center text-smoky-black/40 hover:border-olive-drab/50 hover:text-olive-drab transition-all text-sm"
+                >&#8594;</button>
+              </div>
             </div>
           </div>
         </div>
