@@ -107,26 +107,6 @@ export default function CareerPage() {
               ))}
             </div>
 
-            {/* Stats Bar */}
-            <div className="bg-bone rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm">
-              <div className="grid md:grid-cols-3 gap-8 text-center">
-                <div className="p-4">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">100%</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Safety Compliance</p>
-                  <p className="text-smoky-black/50 text-xs">Strict adherence to BSCI, CSCC &amp; ETI codes</p>
-                </div>
-                <div className="p-4 border-y md:border-y-0 md:border-x border-smoky-black/10">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">60%+</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Female Workforce</p>
-                  <p className="text-smoky-black/50 text-xs">Equal opportunities &amp; upward leadership mobility</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">25%+</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Above Minimum Wage</p>
-                  <p className="text-smoky-black/50 text-xs">Fair living wages and direct Fairtrade distribution</p>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
