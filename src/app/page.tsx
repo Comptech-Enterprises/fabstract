@@ -760,40 +760,43 @@ function GlobalPresence() {
         </div>
 
         {/* Revenue Growth Visual (2018 - Present) */}
-        <div className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm mb-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div className="bg-floral-white rounded-3xl p-6 sm:p-8 md:p-12 border border-smoky-black/5 shadow-sm mb-16">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-6">
             <div>
               <p className="text-olive-drab text-xs tracking-[0.3em] uppercase mb-2 font-semibold">Financial Trajectory</p>
               <h3 className="text-2xl sm:text-3xl font-bold text-smoky-black">Revenue Expansion (2018 – Present)</h3>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 sm:gap-6 bg-bone/50 sm:bg-transparent p-4 sm:p-0 rounded-2xl w-fit">
               <div>
-                <p className="text-3xl font-bold text-olive-drab">3.3x</p>
-                <p className="text-xs text-smoky-black/50">Growth Expansion</p>
+                <p className="text-2xl sm:text-3xl font-bold text-olive-drab">3.3x</p>
+                <p className="text-[11px] sm:text-xs text-smoky-black/50">Growth Expansion</p>
               </div>
               <div className="h-8 w-px bg-smoky-black/10" />
               <div>
-                <p className="text-3xl font-bold text-smoky-black">$40M+</p>
-                <p className="text-xs text-smoky-black/50">Annual Capacity</p>
+                <p className="text-2xl sm:text-3xl font-bold text-smoky-black">$40M+</p>
+                <p className="text-[11px] sm:text-xs text-smoky-black/50">Annual Capacity</p>
               </div>
             </div>
           </div>
 
-          <div className="h-64 flex items-end justify-between gap-2 sm:gap-6 pt-8 border-b border-smoky-black/10 px-2">
-            {revenueData.map((d) => (
-              <div key={d.year} className="flex-1 flex flex-col items-center gap-3 group">
-                <span className="text-xs font-bold text-olive-drab opacity-0 group-hover:opacity-100 transition-opacity">
-                  {d.rev}
-                </span>
-                <div
-                  className="w-full max-w-[48px] bg-olive-drab/20 group-hover:bg-olive-drab rounded-t-lg transition-all duration-300 relative"
-                  style={{ height: d.height }}
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-olive-drab rounded-t-lg" />
+          {/* Scrollable Container for Mobile Responsiveness */}
+          <div className="overflow-x-auto pb-4 pt-2 -mx-2 px-2">
+            <div className="h-64 min-w-[440px] sm:min-w-0 flex items-end justify-between gap-3 sm:gap-6 border-b border-smoky-black/10 pb-2">
+              {revenueData.map((d) => (
+                <div key={d.year} className="flex-1 flex flex-col items-center gap-2 group">
+                  <span className="text-[11px] sm:text-xs font-bold text-olive-drab group-hover:scale-110 transition-transform">
+                    {d.rev}
+                  </span>
+                  <div
+                    className="w-full max-w-[48px] min-w-[24px] bg-olive-drab/20 group-hover:bg-olive-drab rounded-t-lg transition-all duration-300 relative"
+                    style={{ height: d.height }}
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-olive-drab rounded-t-lg" />
+                  </div>
+                  <span className="text-[11px] sm:text-xs font-semibold text-smoky-black/70">{d.year}</span>
                 </div>
-                <span className="text-xs font-semibold text-smoky-black/60">{d.year}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
