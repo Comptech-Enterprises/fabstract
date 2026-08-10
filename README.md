@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fabstract Clothing India Pvt. Ltd.
+
+Corporate website for **Fabstract Clothing India Private Limited** — a government-recognized garment export house manufacturing and exporting high fashion knitwear and woven garments since 1991.
+
+## About
+
+Fabstract is an ethical and sustainable apparel manufacturer based in New Delhi, India, exporting to USA, Canada, and Europe. This website showcases the company's capabilities, product lines, infrastructure, and commitment to social responsibility.
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Architecture:** Single-page application with anchor navigation
+
+## Sections
+
+- **Home** — Hero with company tagline and call-to-action
+- **About Us** — Company timeline (1991–2024), leadership team, mission/vision/values, end-to-end capabilities
+- **Products** — Woven apparel, knitted apparel, home textiles with interactive photo gallery and material tags
+- **Infrastructure** — Manufacturing facility details and machinery
+- **Clients** — Brand carousel featuring international partners
+- **CSR** — Corporate social responsibility and compliance certifications
+- **Contact** — Inquiry form with office locations
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Company Info
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Founded:** 1991
+- **Headquarters:** New Delhi, India
+- **Manufacturing:** Noida, India
+- **Capacity:** 80,000–1,00,000 units/month
+- **Export Markets:** USA, Canada, France, Sweden, Italy
