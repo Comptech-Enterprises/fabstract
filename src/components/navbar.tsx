@@ -6,12 +6,8 @@ import Link from "next/link";
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Products", href: "/#products" },
-  { label: "Gallery", href: "/#gallery" },
-  { label: "Clients", href: "/#clients" },
-  { label: "Global", href: "/#global-presence" },
+  { label: "Products", href: "/products" },
   { label: "CSR", href: "/csr" },
-  { label: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
