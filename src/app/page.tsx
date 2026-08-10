@@ -249,12 +249,6 @@ function About() {
     { year: "2024", title: "35+ Years Strong", desc: "Serving 15+ global brands across 5 countries with USD 4M+ annual turnover and growing." },
   ];
 
-  const leaders = [
-    { name: "Nitin Batra", role: "Managing Director", desc: "Founder & visionary with 35+ years in the garment export industry. Leads strategic direction, global client relationships, and business development." },
-    { name: "O.P. Chawla", role: "Director", desc: "Oversees operations, compliance, and supply chain management. Instrumental in building Fabstract's reputation for quality and timely delivery." },
-    { name: "Jatin Chawla", role: "General Manager, Production", desc: "Heads the entire production floor — from cutting to packing. Drives efficiency, quality control, and capacity planning." },
-  ];
-
   const capabilities = [
     { step: "01", title: "Fabric Sourcing", desc: "Procuring premium knitted and woven fabrics — Cambric, Voile, Poplin, Velour, Sherpa, French Terry, and more." },
     { step: "02", title: "Sampling & Development", desc: "Rapid new sample turnaround with a dedicated team to develop concepts per buyer requirements." },
@@ -366,31 +360,6 @@ function About() {
               <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Environmental sustainability in every process</li>
               <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Transparency &amp; long-term partnerships</li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Leadership Team */}
-      <div className="bg-floral-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Leadership</p>
-          <h3 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-            The Team Behind the Craft
-          </h3>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {leaders.map((person) => (
-              <div key={person.name} className="bg-bone/40 rounded-2xl p-8 text-center">
-                <div className="w-24 h-24 bg-olive-drab rounded-full flex items-center justify-center mx-auto mb-5">
-                  <span className="text-floral-white font-bold text-3xl">
-                    {person.name.charAt(0)}
-                  </span>
-                </div>
-                <h4 className="text-smoky-black font-bold text-lg">{person.name}</h4>
-                <p className="text-olive-drab text-sm font-medium mb-3">{person.role}</p>
-                <p className="text-smoky-black/60 text-sm leading-relaxed">{person.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -669,61 +638,83 @@ function Infrastructure() {
 }
 
 function Clients() {
-  const clientsByCountry = [
-    {
-      country: "U.S.A.",
-      clients: [
-        "Billabong", "Quicksilver (Roxy)", "Volcom", "Foxhead Inc.",
-        "Rip Curl", "O'Neill", "Delia's", "Ella Moss",
-        "Urban Outfitters", "Anthropologie",
-      ],
-    },
-    {
-      country: "France",
-      clients: ["NAF NAF", "Sud Express", "Kookai"],
-    },
-    {
-      country: "Canada",
-      clients: ["O'Neill"],
-    },
-    {
-      country: "Sweden",
-      clients: ["JC Brothers & Sisters"],
-    },
-    {
-      country: "Italy",
-      clients: ["Replay"],
-    },
+  const allClients = [
+    { name: "Billabong", country: "USA" },
+    { name: "Quicksilver (Roxy)", country: "USA" },
+    { name: "Volcom", country: "USA" },
+    { name: "Foxhead Inc.", country: "USA" },
+    { name: "Rip Curl", country: "USA" },
+    { name: "O'Neill", country: "USA" },
+    { name: "Delia's", country: "USA" },
+    { name: "Ella Moss", country: "USA" },
+    { name: "Urban Outfitters", country: "USA" },
+    { name: "Anthropologie", country: "USA" },
+    { name: "NAF NAF", country: "France" },
+    { name: "Sud Express", country: "France" },
+    { name: "Kookai", country: "France" },
+    { name: "O'Neill", country: "Canada" },
+    { name: "JC Brothers & Sisters", country: "Sweden" },
+    { name: "Replay", country: "Italy" },
+  ];
+
+  const countryFlags: Record<string, string> = {
+    USA: "🇺🇸",
+    France: "🇫🇷",
+    Canada: "🇨🇦",
+    Sweden: "🇸🇪",
+    Italy: "🇮🇹",
+  };
+
+  const stats = [
+    { value: "16+", label: "Brand Partners" },
+    { value: "5", label: "Countries" },
+    { value: "30+", label: "Years of Trust" },
   ];
 
   return (
-    <section id="clients" className="py-24 bg-bone">
+    <section id="clients" className="py-24 bg-floral-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Clients</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
-          Trusted by Leading Global Brands
-        </h2>
-        <p className="text-smoky-black/60 max-w-2xl mb-16">
-          Our consistent efforts towards providing trend-setting garments at
-          economical prices and within committed timeframes have earned us
-          partnerships with prestigious international brands.
-        </p>
+        <div className="text-center mb-16">
+          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Clients</p>
+          <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6">
+            Trusted by Leading Global Brands
+          </h2>
+          <p className="text-smoky-black/60 max-w-2xl mx-auto">
+            Delivering trend-setting garments at competitive prices with
+            committed timelines — earning long-standing partnerships worldwide.
+          </p>
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {clientsByCountry.map((group) => (
-            <div key={group.country}>
-              <h3 className="text-olive-drab font-semibold tracking-wider text-sm uppercase mb-4 pb-2 border-b border-olive-drab/20">
-                {group.country}
-              </h3>
-              <ul className="space-y-2">
-                {group.clients.map((client) => (
-                  <li key={client} className="text-smoky-black/70 text-sm flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-olive-drab/40 rounded-full flex-shrink-0" />
-                    {client}
-                  </li>
-                ))}
-              </ul>
+        <div className="flex justify-center gap-8 sm:gap-16 mb-16">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-3xl sm:text-4xl font-bold text-olive-drab">{stat.value}</p>
+              <p className="text-smoky-black/50 text-sm mt-1">{stat.label}</p>
             </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          {allClients.map((client, i) => (
+            <div
+              key={`${client.name}-${i}`}
+              className="group relative bg-bone hover:bg-olive-drab/10 border border-smoky-black/5 hover:border-olive-drab/30 rounded-full px-5 py-2.5 transition-all duration-300 cursor-default"
+            >
+              <span className="text-smoky-black/80 group-hover:text-smoky-black text-sm font-medium transition-colors">
+                {client.name}
+              </span>
+              <span className="ml-2 text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                {countryFlags[client.country]}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 flex flex-wrap justify-center gap-6">
+          {Object.entries(countryFlags).map(([country, flag]) => (
+            <span key={country} className="text-smoky-black/40 text-sm flex items-center gap-1.5">
+              <span>{flag}</span> {country}
+            </span>
           ))}
         </div>
       </div>
