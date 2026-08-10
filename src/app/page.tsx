@@ -84,16 +84,16 @@ function Hero() {
           </div>
 
           {/* Key Stats */}
-          <div className="mt-20 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-6">
+          <div className="mt-20 grid grid-cols-4 gap-2 sm:gap-6">
             {[
               { value: "30+", label: "Years Experience" },
               { value: "1L+", label: "Units / Month" },
               { value: "15+", label: "Global Clients" },
               { value: "5", label: "Countries Served" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-bone rounded-2xl p-6 text-center border border-smoky-black/5">
-                <p className="text-olive-drab text-3xl sm:text-4xl font-bold">{stat.value}</p>
-                <p className="text-smoky-black/50 text-sm mt-1">{stat.label}</p>
+              <div key={stat.label} className="bg-bone rounded-2xl p-3 sm:p-6 text-center border border-smoky-black/5">
+                <p className="text-olive-drab text-xl sm:text-4xl font-bold">{stat.value}</p>
+                <p className="text-smoky-black/50 text-[10px] sm:text-sm mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
