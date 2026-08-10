@@ -1,76 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Products", href: "#products" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Clients", href: "#clients" },
-  { label: "Global", href: "#global-presence" },
-  { label: "Community", href: "#community" },
-  { label: "Life at Fabstract", href: "#life-at-fabstract" },
-  { label: "CSR", href: "#csr" },
-  { label: "Contact", href: "#contact" },
-];
-
-function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-bone/95 backdrop-blur-sm shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <a href="#home" className="flex items-center">
-            <img src="/logo.png" alt="Fabstract Clothing India" className="h-12" />
-          </a>
-
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-smoky-black/70 hover:text-olive-drab text-sm tracking-wider transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-smoky-black"
-            aria-label="Toggle menu"
-          >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="md:hidden bg-bone border-t border-smoky-black/10 pb-2">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block mx-3 my-1 px-4 py-2.5 rounded-xl text-smoky-black/70 hover:text-olive-drab hover:bg-smoky-black/5 text-sm tracking-wider transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </nav>
-  );
-}
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 const CLIENT_NAMES = [
   "Billabong", "Quicksilver", "Volcom", "Rip Curl", "O'Neill",
@@ -234,125 +166,6 @@ function Hero() {
                 <p className="text-smoky-black/50 text-sm leading-relaxed">{strength.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function About() {
-  const timeline = [
-    { year: "1991", title: "Founded", desc: "Fabstract Clothing India established by Mr. Nitin Batra in New Delhi as a garment export house." },
-    { year: "1995", title: "First International Buyers", desc: "Secured first export orders to the USA and Canada, laying the foundation for global partnerships." },
-    { year: "2002", title: "Noida Manufacturing Facility", desc: "Expanded operations with a dedicated manufacturing unit at Hosiery Complex, Phase II, Noida." },
-    { year: "2008", title: "European Expansion", desc: "Entered European markets — France, Sweden, and Italy — partnering with brands like NAF NAF and Replay." },
-    { year: "2015", title: "BSCI Certified", desc: "Achieved BSCI certification for 3 years, reinforcing commitment to ethical and sustainable manufacturing." },
-    { year: "2020", title: "1 Lakh Units/Month", desc: "Scaled production capacity to 80,000–1,00,000 units per month with 20% average annual growth." },
-    { year: "2024", title: "35+ Years Strong", desc: "Serving 15+ global brands across 5 countries with USD 4M+ annual turnover and growing." },
-  ];
-
-  return (
-    <section id="about" className="bg-bone">
-      {/* Intro */}
-      <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">About Us</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-3xl">
-          Three Decades of Crafting Fashion for the World
-        </h2>
-        <p className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed">
-          Founded in 1991, Fabstract Clothing India Pvt. Ltd. is a government-recognized
-          garment export house manufacturing high fashion knitwear &amp; woven garments. With
-          an average growth of 20% year-over-year, we serve leading brands across the USA,
-          Canada, and Europe.
-        </p>
-      </div>
-
-      {/* Timeline */}
-      <div className="bg-bone py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Journey</p>
-          <h3 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-16">
-            From a Vision to a Global Export House
-          </h3>
-
-          <div className="relative">
-            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-olive-drab/30 sm:-translate-x-px" />
-
-            <div className="space-y-12">
-              {timeline.map((item, i) => (
-                <div key={item.year} className={`relative flex items-start gap-8 sm:gap-0 ${i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"}`}>
-                  <div className={`hidden sm:block sm:w-1/2 ${i % 2 === 0 ? "sm:pr-16 sm:text-right" : "sm:pl-16"}`}>
-                    <div className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5 shadow-sm">
-                      <p className="text-olive-drab font-bold text-lg mb-1">{item.title}</p>
-                      <p className="text-smoky-black/60 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute left-4 sm:left-1/2 w-8 h-8 -translate-x-1/2 bg-olive-drab rounded-full flex items-center justify-center z-10">
-                    <span className="text-floral-white text-[10px] font-bold">{item.year.slice(2)}</span>
-                  </div>
-
-                  <div className={`pl-16 sm:hidden`}>
-                    <div className="bg-floral-white rounded-2xl p-5 border border-smoky-black/5 shadow-sm">
-                      <p className="text-olive-drab font-bold text-sm mb-1">{item.year} — {item.title}</p>
-                      <p className="text-smoky-black/60 text-xs leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-
-                  <div className={`hidden sm:block sm:w-1/2 ${i % 2 === 0 ? "sm:pl-16" : "sm:pr-16 sm:text-right"}`}>
-                    <p className="text-olive-drab font-bold text-2xl">{item.year}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mission, Vision, Values */}
-      <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">What Drives Us</p>
-        <h3 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-          Mission, Vision &amp; Values
-        </h3>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-floral-white rounded-2xl p-8 border border-bone/50">
-            <div className="w-12 h-12 bg-olive-drab/15 rounded-xl flex items-center justify-center mb-5">
-              <svg className="w-6 h-6 text-olive-drab" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg>
-            </div>
-            <h4 className="text-smoky-black font-bold text-lg mb-3">Our Mission</h4>
-            <p className="text-smoky-black/65 leading-relaxed">
-              To deliver world-class apparel through ethical manufacturing, empowering our
-              workforce and partners while upholding the highest standards of quality,
-              sustainability, and timely delivery.
-            </p>
-          </div>
-
-          <div className="bg-floral-white rounded-2xl p-8 border border-bone/50">
-            <div className="w-12 h-12 bg-olive-drab/15 rounded-xl flex items-center justify-center mb-5">
-              <svg className="w-6 h-6 text-olive-drab" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            </div>
-            <h4 className="text-smoky-black font-bold text-lg mb-3">Our Vision</h4>
-            <p className="text-smoky-black/65 leading-relaxed">
-              To be the most trusted garment manufacturing partner globally — known for
-              innovation, integrity, and an unwavering commitment to fashion excellence
-              that sets the benchmark for the industry.
-            </p>
-          </div>
-
-          <div className="bg-floral-white rounded-2xl p-8 border border-bone/50">
-            <div className="w-12 h-12 bg-olive-drab/15 rounded-xl flex items-center justify-center mb-5">
-              <svg className="w-6 h-6 text-olive-drab" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
-            </div>
-            <h4 className="text-smoky-black font-bold text-lg mb-3">Our Values</h4>
-            <ul className="text-smoky-black/65 leading-relaxed space-y-2">
-              <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Ethical labour practices &amp; fair wages</li>
-              <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Quality over quantity — zero-compromise standards</li>
-              <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Environmental sustainability in every process</li>
-              <li className="flex items-start gap-2"><span className="text-olive-drab mt-1.5 text-xs">&#9679;</span> Transparency &amp; long-term partnerships</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -1153,64 +966,11 @@ function Contact() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="bg-smoky-black py-12 border-t border-bone/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-2">
-            <p className="text-floral-white font-bold text-lg tracking-wide mb-4">
-              FABSTRACT
-            </p>
-            <p className="text-bone/50 text-sm leading-relaxed max-w-sm">
-              Government recognized garment export house, manufacturing &amp;
-              exporting high fashion knitwear &amp; woven garments since 1991.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-bone/80 font-semibold text-sm mb-4">Quick Links</p>
-            <ul className="space-y-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-bone/40 text-sm hover:text-olive-drab transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-bone/80 font-semibold text-sm mb-4">Certifications</p>
-            <ul className="space-y-2 text-bone/40 text-sm">
-              <li>CSCC Approved</li>
-              <li>BSCI Certified</li>
-              <li>ETI Aligned</li>
-              <li>ILO Compliant</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-8 border-t border-bone/10 text-center">
-          <p className="text-bone/30 text-sm">
-            &copy; {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function Home() {
   return (
     <>
       <Navbar />
       <Hero />
-      <About />
       <Products />
       <Gallery />
       <Clients />
