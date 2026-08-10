@@ -262,6 +262,7 @@ function GlobalPresence() {
       hubs: ["New York", "Los Angeles", "Toronto"],
       desc: "Long-standing manufacturing partner for major North American fashion retailers, surfwear icons, and contemporary department stores.",
       highlights: ["10+ Retailer Partnerships", "Dedicated QC Teams", "98% On-Time Air & Sea Freight"],
+      mapEmbed: "https://www.google.com/maps?q=United+States&z=3&output=embed",
     },
     {
       name: "UK & Europe",
@@ -269,6 +270,7 @@ function GlobalPresence() {
       hubs: ["Paris", "Milan", "Stockholm", "London"],
       desc: "Delivering trend-setting high-fashion wovens and eco-certified organic knits to leading European fashion houses across France, Italy, Sweden & UK.",
       highlights: ["GOTS & Fairtrade Certified", "Complex Beadwork & Embroidery", "Express 45-day Sample-to-Ship"],
+      mapEmbed: "https://www.google.com/maps?q=Europe&z=4&output=embed",
     },
     {
       name: "Australia & NZ",
@@ -276,6 +278,7 @@ function GlobalPresence() {
       hubs: ["Sydney", "Melbourne", "Auckland"],
       desc: "Providing high-performance ocean & beachwear, casual knits, and sustainable lifestyle apparel for top Australian and New Zealand brands.",
       highlights: ["Rapid Growth Market", "UPF Protective Fabrics", "Organic Cotton Basics"],
+      mapEmbed: "https://www.google.com/maps?q=Australia+and+New+Zealand&z=4&output=embed",
     },
   ];
 
@@ -324,32 +327,16 @@ function GlobalPresence() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* World Map Visual */}
-            <div className="lg:col-span-7 bg-bone/60 rounded-2xl p-3 relative overflow-hidden border border-smoky-black/5 min-h-[280px] flex items-center justify-center">
-              <div className="relative w-full">
-                <img src="/world-map.jpg" alt="World map showing Fabstract export regions" className="w-full h-auto rounded-xl" />
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* HQ Noida / Delhi marker (28.6139°N, 77.2090°E) */}
-                  <circle cx="857" cy="205" r="14" fill="#8B5E3C" fillOpacity="0.3">
-                    <animate attributeName="r" values="10;18;10" dur="2s" repeatCount="indefinite" />
-                    <animate attributeName="fill-opacity" values="0.4;0.05;0.4" dur="2s" repeatCount="indefinite" />
-                  </circle>
-                  <circle cx="857" cy="205" r="6" fill="#8B5E3C" stroke="#FFFFFF" strokeWidth="1.5" />
-                  <text x="857" y="228" fill="#1A1A1A" fontSize="11" textAnchor="middle" fontWeight="700" fontFamily="system-ui, sans-serif" stroke="#FFFFFF" strokeWidth="3" paintOrder="stroke">HQ Noida / Delhi</text>
-
-                  {/* USA arc & marker (New York: 40.7128°N, 74.0060°W) */}
-                  <path d="M 857 205 Q 600 60 353 164" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="6 4" strokeOpacity={activeRegion === "USA & Canada" ? "0.9" : "0.3"} className="transition-all duration-500" />
-                  <circle cx="353" cy="164" r={activeRegion === "USA & Canada" ? "8" : "4"} fill="#8B5E3C" stroke="#FFFFFF" strokeWidth="1.5" fillOpacity={activeRegion === "USA & Canada" ? "1" : "0.6"} className="transition-all duration-500" />
-
-                  {/* UK & Europe arc & marker (London: 51.5074°N, 0.1278°W) */}
-                  <path d="M 857 205 Q 750 100 600 128" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="6 4" strokeOpacity={activeRegion === "UK & Europe" ? "0.9" : "0.3"} className="transition-all duration-500" />
-                  <circle cx="600" cy="128" r={activeRegion === "UK & Europe" ? "8" : "4"} fill="#8B5E3C" stroke="#FFFFFF" strokeWidth="1.5" fillOpacity={activeRegion === "UK & Europe" ? "1" : "0.6"} className="transition-all duration-500" />
-
-                  {/* Australia & NZ arc & marker (Sydney: 33.8688°S, 151.2093°E) */}
-                  <path d="M 857 205 Q 1000 320 1104 413" stroke="#8B5E3C" strokeWidth="2" strokeDasharray="6 4" strokeOpacity={activeRegion === "Australia & NZ" ? "0.9" : "0.3"} className="transition-all duration-500" />
-                  <circle cx="1104" cy="413" r={activeRegion === "Australia & NZ" ? "8" : "4"} fill="#8B5E3C" stroke="#FFFFFF" strokeWidth="1.5" fillOpacity={activeRegion === "Australia & NZ" ? "1" : "0.6"} className="transition-all duration-500" />
-                </svg>
-              </div>
+            {/* Google Map Visual */}
+            <div className="lg:col-span-7 bg-bone/60 rounded-2xl p-3 relative overflow-hidden border border-smoky-black/5 min-h-[280px]">
+              <iframe
+                key={currentRegion.mapEmbed}
+                src={currentRegion.mapEmbed}
+                className="w-full h-[320px] rounded-xl border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={`Map of ${currentRegion.name}`}
+              />
             </div>
 
             {/* Region Details */}
