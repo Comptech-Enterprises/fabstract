@@ -592,17 +592,20 @@ function Clients() {
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3">
-          {allClients.map((client, i) => (
-            <div
-              key={`${client.name}-${i}`}
-              className="group relative bg-bone hover:bg-olive-drab/10 border border-smoky-black/5 hover:border-olive-drab/30 rounded-full px-5 py-2.5 transition-all duration-300 cursor-default"
-            >
-              <span className="text-smoky-black/80 group-hover:text-smoky-black text-sm font-medium transition-colors">
-                {client.name}
-              </span>
-            </div>
-          ))}
+        {/* Animated Client Ticker */}
+        <div className="overflow-hidden py-4 my-8 relative">
+          <div className="flex animate-scroll gap-6 w-max">
+            {[...allClients, ...allClients, ...allClients].map((client, i) => (
+              <div
+                key={`${client.name}-${i}`}
+                className="flex-shrink-0 group relative bg-bone hover:bg-olive-drab/10 border border-smoky-black/5 hover:border-olive-drab/30 rounded-full px-6 py-3 transition-all duration-300 cursor-default"
+              >
+                <span className="text-smoky-black/80 group-hover:text-smoky-black text-sm font-medium transition-colors whitespace-nowrap">
+                  {client.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-12 flex flex-wrap justify-center gap-6">
