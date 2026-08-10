@@ -59,15 +59,6 @@ export default function CareerPage() {
     { title: "Women Empowerment", desc: "60%+ female workforce with equal pay and maternity support" },
   ];
 
-  const openPositions = [
-    { role: "Pattern Making Specialist", dept: "Production", type: "Full-time" },
-    { role: "Quality Control Manager", dept: "Quality Assurance", type: "Full-time" },
-    { role: "Merchandiser", dept: "Exports", type: "Full-time" },
-    { role: "Sewing Line Supervisor", dept: "Production", type: "Full-time" },
-    { role: "Fabric Sourcing Executive", dept: "Procurement", type: "Full-time" },
-    { role: "Sustainability Coordinator", dept: "Compliance", type: "Full-time" },
-  ];
-
   return (
     <>
       <Navbar />
@@ -151,33 +142,6 @@ export default function CareerPage() {
                 <div key={b.title} className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5 hover:border-olive-drab/30 transition-colors">
                   <h4 className="text-smoky-black font-bold mb-2">{b.title}</h4>
                   <p className="text-smoky-black/55 text-sm leading-relaxed">{b.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Open Positions */}
-        <section className="py-24 bg-floral-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Opportunities</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-              Open Positions
-            </h2>
-            <div className="space-y-4">
-              {openPositions.map((pos) => (
-                <div key={pos.role} className="bg-bone/50 rounded-2xl p-6 border border-smoky-black/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-smoky-black font-bold text-lg">{pos.role}</h3>
-                    <div className="flex gap-3 mt-1">
-                      <span className="text-smoky-black/50 text-sm">{pos.dept}</span>
-                      <span className="text-smoky-black/30">·</span>
-                      <span className="text-smoky-black/50 text-sm">{pos.type}</span>
-                    </div>
-                  </div>
-                  <a href="#apply" className="inline-block bg-olive-drab text-floral-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-olive-dark transition-colors text-center">
-                    Apply Now
-                  </a>
                 </div>
               ))}
             </div>
