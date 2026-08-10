@@ -19,7 +19,7 @@ function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(139,94,60,0.06),_transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(245,240,235,0.5),_transparent_50%)]" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6">
@@ -84,7 +84,7 @@ function Hero() {
           </div>
 
           {/* Key Stats */}
-          <div className="mt-20 grid grid-cols-4 gap-2 sm:gap-6">
+          <div className="mt-10 sm:mt-20 grid grid-cols-4 gap-2 sm:gap-6">
             {[
               { value: "30+", label: "Years Experience" },
               { value: "1L+", label: "Units / Month" },
