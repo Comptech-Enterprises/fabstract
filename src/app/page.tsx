@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const DottedMap = dynamic(() => import("@/components/DottedMap"), { ssr: false });
+const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const CLIENT_NAMES = [
   "Billabong", "Quicksilver", "Volcom", "Rip Curl", "O'Neill",
@@ -376,9 +376,9 @@ function GlobalPresence() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* Dotted World Map */}
-            <div className="lg:col-span-7 rounded-2xl relative overflow-hidden bg-floral-white border border-smoky-black/5" style={{ height: 380 }}>
-              <DottedMap activeRegion={activeRegion} onRegionClick={setActiveRegion} />
+            {/* 3D Globe */}
+            <div className="lg:col-span-7 rounded-2xl relative overflow-hidden" style={{ height: 420 }}>
+              <Globe activeRegion={activeRegion} onRegionClick={setActiveRegion} />
             </div>
 
             {/* Region Details */}

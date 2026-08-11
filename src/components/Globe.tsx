@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 interface GlobePin {
   name: string;
   lat: number;
   lng: number;
-  color: string;
-  share: string;
 }
 
 const PINS: GlobePin[] = [
-  { name: "USA & Canada", lat: 40, lng: -100, color: "#6B7C3C", share: "60%" },
-  { name: "UK & Europe", lat: 50, lng: 10, color: "#6B7C3C", share: "30%" },
-  { name: "Australia & NZ", lat: -27, lng: 134, color: "#6B7C3C", share: "10%" },
+  { name: "USA & Canada", lat: 42, lng: -100 },
+  { name: "UK & Europe", lat: 52, lng: 12 },
+  { name: "Australia & NZ", lat: -27, lng: 134 },
 ];
 
 function latLngToVec3(lat: number, lng: number, r: number): THREE.Vector3 {
@@ -27,6 +25,32 @@ function latLngToVec3(lat: number, lng: number, r: number): THREE.Vector3 {
   );
 }
 
+function isLand(lat: number, lng: number): boolean {
+  if (lat > 60 && lat < 85 && lng > -140 && lng < -55) return true;
+  if (lat > 48 && lat <= 60 && lng > -135 && lng < -52) return true;
+  if (lat > 24 && lat <= 48 && lng > -125 && lng < -65) return true;
+  if (lat > 14 && lat <= 24 && lng > -118 && lng < -80) return true;
+  if (lat > 60 && lng > -55 && lng < -15) return true; // Greenland
+  if (lat > -5 && lat <= 14 && lng > -82 && lng < -50) return true;
+  if (lat > -25 && lat <= -5 && lng > -80 && lng < -34) return true;
+  if (lat > -40 && lat <= -25 && lng > -75 && lng < -48) return true;
+  if (lat > -56 && lat <= -40 && lng > -75 && lng < -58) return true;
+  if (lat > 35 && lat <= 72 && lng > -10 && lng < 42) return true;
+  if (lat > 55 && lat <= 72 && lng > -25 && lng < 32) return true;
+  if (lat > 20 && lat <= 38 && lng > -18 && lng < 38) return true;
+  if (lat > 0 && lat <= 20 && lng > -18 && lng < 50) return true;
+  if (lat > -20 && lat <= 0 && lng > -18 && lng < 52) return true;
+  if (lat > -35 && lat <= -20 && lng > 14 && lng < 52) return true;
+  if (lat > 50 && lat <= 80 && lng > 30 && lng < 180) return true;
+  if (lat > 12 && lat <= 42 && lng > 34 && lng < 62) return true;
+  if (lat > 8 && lat <= 50 && lng > 62 && lng < 150) return true;
+  if (lat > -10 && lat <= 8 && lng > 95 && lng < 142) return true;
+  if (lat > 30 && lat <= 46 && lng > 129 && lng < 146) return true;
+  if (lat > -40 && lat <= -10 && lng > 113 && lng < 154) return true;
+  if (lat > -47 && lat <= -34 && lng > 166 && lng < 178) return true;
+  return false;
+}
+
 interface Props {
   activeRegion: string;
   onRegionClick: (name: string) => void;
@@ -34,317 +58,237 @@ interface Props {
 
 export default function Globe({ activeRegion, onRegionClick }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [hoveredPin, setHoveredPin] = useState<string | null>(null);
-  const sceneRef = useRef<{
-    renderer: THREE.WebGLRenderer;
+  const stateRef = useRef({
+    rotX: 0.2,
+    rotY: 0.6,
+    isDragging: false,
+    prevMouse: { x: 0, y: 0 },
+    autoRotate: true,
+  });
+  const pinMeshesRef = useRef<{ mesh: THREE.Mesh; name: string }[]>([]);
+  const sceneObjRef = useRef<{
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
+    renderer: THREE.WebGLRenderer;
     globe: THREE.Mesh;
-    pinMeshes: { mesh: THREE.Mesh; pin: GlobePin }[];
-    animId: number;
-    isDragging: boolean;
-    prevMouse: { x: number; y: number };
-    rotX: number;
-    rotY: number;
-    autoRotate: boolean;
+    dotMesh: THREE.Mesh;
+    pinGroup: THREE.Group;
   } | null>(null);
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
     const el = mountRef.current;
     if (!el) return;
 
-    const w = el.clientWidth;
-    const h = el.clientHeight;
+    const w = el.clientWidth || el.offsetWidth || 600;
+    const h = el.clientHeight || el.offsetHeight || 420;
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
     el.appendChild(renderer.domElement);
 
-    // Scene & camera
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.z = 2.8;
+    const camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
+    camera.position.z = 2.7;
 
-    // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-    const dir = new THREE.DirectionalLight(0xffffff, 0.8);
-    dir.position.set(5, 3, 5);
-    scene.add(dir);
+    // Lighting — soft, like reference image
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const sun = new THREE.DirectionalLight(0xffffff, 0.4);
+    sun.position.set(4, 2, 4);
+    scene.add(sun);
 
-    // Globe sphere
-    const globeGeo = new THREE.SphereGeometry(1, 64, 64);
+    // Globe base — light/white sphere
+    const globeGeo = new THREE.SphereGeometry(1, 80, 80);
     const globeMat = new THREE.MeshPhongMaterial({
       color: 0xf5f0eb,
-      shininess: 20,
+      shininess: 8,
       transparent: true,
-      opacity: 0.95,
+      opacity: 0.92,
     });
     const globe = new THREE.Mesh(globeGeo, globeMat);
     scene.add(globe);
 
-    // Dotted land overlay using canvas texture
+    // Subtle edge glow ring
+    const glowGeo = new THREE.SphereGeometry(1.01, 80, 80);
+    const glowMat = new THREE.MeshBasicMaterial({
+      color: 0xe8e0d8,
+      transparent: true,
+      opacity: 0.15,
+      side: THREE.BackSide,
+    });
+    scene.add(new THREE.Mesh(glowGeo, glowMat));
+
+    // Build dot texture on canvas
     const dotCanvas = document.createElement("canvas");
-    dotCanvas.width = 2048;
-    dotCanvas.height = 1024;
+    const CW = 2048, CH = 1024;
+    dotCanvas.width = CW;
+    dotCanvas.height = CH;
     const ctx = dotCanvas.getContext("2d")!;
 
-    // Draw dotted pattern for continents using simplified point cloud
-    ctx.fillStyle = "rgba(107,124,60,0.35)";
-    const landPoints: [number, number][] = [];
-
-    // North America
-    for (let lat = 15; lat < 75; lat += 3) {
-      for (let lng = -170; lng < -50; lng += 3) {
-        if (isLand(lat, lng, "NA")) landPoints.push([lat, lng]);
+    const step = 3.5; // degrees between dots
+    for (let lat = -85; lat <= 85; lat += step) {
+      for (let lng = -180; lng <= 180; lng += step) {
+        if (!isLand(lat, lng)) continue;
+        const x = ((lng + 180) / 360) * CW;
+        const y = ((90 - lat) / 180) * CH;
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(107,124,60,0.55)";
+        ctx.fill();
       }
-    }
-    // Europe
-    for (let lat = 35; lat < 72; lat += 3) {
-      for (let lng = -10; lng < 45; lng += 3) {
-        if (isLand(lat, lng, "EU")) landPoints.push([lat, lng]);
-      }
-    }
-    // Asia
-    for (let lat = 0; lat < 75; lat += 3) {
-      for (let lng = 45; lng < 150; lng += 3) {
-        if (isLand(lat, lng, "AS")) landPoints.push([lat, lng]);
-      }
-    }
-    // Africa
-    for (let lat = -40; lat < 38; lat += 3) {
-      for (let lng = -20; lng < 55; lng += 3) {
-        if (isLand(lat, lng, "AF")) landPoints.push([lat, lng]);
-      }
-    }
-    // South America
-    for (let lat = -60; lat < 15; lat += 3) {
-      for (let lng = -82; lng < -34; lng += 3) {
-        if (isLand(lat, lng, "SA")) landPoints.push([lat, lng]);
-      }
-    }
-    // Australia
-    for (let lat = -45; lat < -10; lat += 3) {
-      for (let lng = 113; lng < 155; lng += 3) {
-        if (isLand(lat, lng, "AU")) landPoints.push([lat, lng]);
-      }
-    }
-
-    for (const [lat, lng] of landPoints) {
-      const x = ((lng + 180) / 360) * 2048;
-      const y = ((90 - lat) / 180) * 1024;
-      ctx.beginPath();
-      ctx.arc(x, y, 4, 0, Math.PI * 2);
-      ctx.fill();
     }
 
     const dotTex = new THREE.CanvasTexture(dotCanvas);
-    const dotGeo = new THREE.SphereGeometry(1.002, 64, 64);
-    const dotMat = new THREE.MeshBasicMaterial({ map: dotTex, transparent: true, depthWrite: false });
+    const dotGeo = new THREE.SphereGeometry(1.003, 80, 80);
+    const dotMat = new THREE.MeshBasicMaterial({
+      map: dotTex,
+      transparent: true,
+      depthWrite: false,
+    });
     const dotMesh = new THREE.Mesh(dotGeo, dotMat);
     scene.add(dotMesh);
 
-    // Pins
-    const pinMeshes: { mesh: THREE.Mesh; pin: GlobePin }[] = [];
+    // Pin group — rotates with globe
+    const pinGroup = new THREE.Group();
+    scene.add(pinGroup);
+    pinMeshesRef.current = [];
+
     for (const pin of PINS) {
-      const pos = latLngToVec3(pin.lat, pin.lng, 1.05);
-      const geo = new THREE.SphereGeometry(0.04, 16, 16);
-      const mat = new THREE.MeshPhongMaterial({ color: 0x6b7c3c, emissive: 0x3a4a1a });
+      const pos = latLngToVec3(pin.lat, pin.lng, 1.06);
+      const isActive = pin.name === activeRegion;
+
+      // Pin sphere
+      const geo = new THREE.SphereGeometry(isActive ? 0.055 : 0.04, 16, 16);
+      const mat = new THREE.MeshPhongMaterial({
+        color: isActive ? 0xd4a54a : 0x6b7c3c,
+        emissive: isActive ? 0x8b6a1a : 0x3a4a1a,
+        shininess: 30,
+      });
       const mesh = new THREE.Mesh(geo, mat);
       mesh.position.copy(pos);
-      scene.add(mesh);
+      pinGroup.add(mesh);
+      pinMeshesRef.current.push({ mesh, name: pin.name });
 
-      // Pulse ring
-      const ringGeo = new THREE.RingGeometry(0.05, 0.07, 32);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0x6b7c3c, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
+      // Outer pulse ring
+      const ringGeo = new THREE.RingGeometry(0.065, 0.085, 32);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: isActive ? 0xd4a54a : 0x6b7c3c,
+        transparent: true,
+        opacity: isActive ? 0.6 : 0.3,
+        side: THREE.DoubleSide,
+      });
       const ring = new THREE.Mesh(ringGeo, ringMat);
       ring.position.copy(pos);
       ring.lookAt(new THREE.Vector3(0, 0, 0));
-      ring.rotateX(Math.PI / 2);
-      scene.add(ring);
-
-      pinMeshes.push({ mesh, pin });
+      pinGroup.add(ring);
     }
 
-    // Rotation state
-    let rotX = 0.3;
-    let rotY = 0.5;
-    let isDragging = false;
-    let prevMouse = { x: 0, y: 0 };
-    let autoRotate = true;
+    sceneObjRef.current = { scene, camera, renderer, globe, dotMesh, pinGroup };
 
-    const onMouseDown = (e: MouseEvent) => {
-      isDragging = true;
-      autoRotate = false;
-      prevMouse = { x: e.clientX, y: e.clientY };
+    // Drag controls
+    const s = stateRef.current;
+    const onDown = (e: MouseEvent) => { s.isDragging = true; s.autoRotate = false; s.prevMouse = { x: e.clientX, y: e.clientY }; };
+    const onMove = (e: MouseEvent) => {
+      if (!s.isDragging) return;
+      s.rotY += (e.clientX - s.prevMouse.x) * 0.005;
+      s.rotX += (e.clientY - s.prevMouse.y) * 0.005;
+      s.rotX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, s.rotX));
+      s.prevMouse = { x: e.clientX, y: e.clientY };
     };
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      const dx = (e.clientX - prevMouse.x) * 0.005;
-      const dy = (e.clientY - prevMouse.y) * 0.005;
-      rotY += dx;
-      rotX += dy;
-      rotX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotX));
-      prevMouse = { x: e.clientX, y: e.clientY };
-    };
-    const onMouseUp = () => { isDragging = false; };
+    const onUp = () => { s.isDragging = false; };
 
-    // Touch
-    const onTouchStart = (e: TouchEvent) => {
-      isDragging = true;
-      autoRotate = false;
-      prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    };
+    const onTouchDown = (e: TouchEvent) => { s.isDragging = true; s.autoRotate = false; s.prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
     const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-      const dx = (e.touches[0].clientX - prevMouse.x) * 0.005;
-      const dy = (e.touches[0].clientY - prevMouse.y) * 0.005;
-      rotY += dx;
-      rotX += dy;
-      prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      if (!s.isDragging) return;
+      s.rotY += (e.touches[0].clientX - s.prevMouse.x) * 0.005;
+      s.rotX += (e.touches[0].clientY - s.prevMouse.y) * 0.005;
+      s.prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     };
-    const onTouchEnd = () => { isDragging = false; };
+    const onTouchUp = () => { s.isDragging = false; };
 
-    // Click detection
+    // Click pins
     const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
+    const mouse2 = new THREE.Vector2();
     const onClick = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      raycaster.setFromCamera(mouse, camera);
-      const hits = raycaster.intersectObjects(pinMeshes.map((p) => p.mesh));
-      if (hits.length > 0) {
-        const hit = pinMeshes.find((p) => p.mesh === hits[0].object);
-        if (hit) onRegionClick(hit.pin.name);
+      mouse2.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse2.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(mouse2, camera);
+      const hits = raycaster.intersectObjects(pinMeshesRef.current.map(p => p.mesh));
+      if (hits.length) {
+        const hit = pinMeshesRef.current.find(p => p.mesh === hits[0].object);
+        if (hit) onRegionClick(hit.name);
       }
     };
 
-    el.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("mousedown", onDown);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    el.addEventListener("touchstart", onTouchDown, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchend", onTouchUp);
     el.addEventListener("click", onClick);
 
-    // Animate
-    let animId: number;
     const animate = () => {
-      animId = requestAnimationFrame(animate);
-      if (autoRotate) rotY += 0.003;
-      globe.rotation.x = rotX;
-      globe.rotation.y = rotY;
-      dotMesh.rotation.x = rotX;
-      dotMesh.rotation.y = rotY;
-      for (const { mesh } of pinMeshes) {
-        mesh.rotation.x = rotX;
-        mesh.rotation.y = rotY;
-      }
-      // sync rings
-      scene.children.forEach((c) => {
-        if (c instanceof THREE.Mesh && c !== globe && c !== dotMesh && !pinMeshes.find((p) => p.mesh === c)) {
-          c.rotation.x = rotX;
-          c.rotation.y = rotY;
-        }
-      });
+      animRef.current = requestAnimationFrame(animate);
+      if (s.autoRotate) s.rotY += 0.003;
+      const rx = s.rotX, ry = s.rotY;
+      globe.rotation.set(rx, ry, 0);
+      dotMesh.rotation.set(rx, ry, 0);
+      pinGroup.rotation.set(rx, ry, 0);
       renderer.render(scene, camera);
     };
     animate();
 
-    const ref = {
-      renderer, scene, camera, globe, pinMeshes, animId,
-      isDragging, prevMouse, rotX, rotY, autoRotate,
-    };
-    sceneRef.current = ref;
-
     const onResize = () => {
-      if (!el) return;
-      const w2 = el.clientWidth;
-      const h2 = el.clientHeight;
-      camera.aspect = w2 / h2;
+      const nw = el.clientWidth || el.offsetWidth;
+      const nh = el.clientHeight || el.offsetHeight;
+      if (nw < 10 || nh < 10) return;
+      camera.aspect = nw / nh;
       camera.updateProjectionMatrix();
-      renderer.setSize(w2, h2);
+      renderer.setSize(nw, nh);
     };
+    const ro = new ResizeObserver(onResize);
+    ro.observe(el);
     window.addEventListener("resize", onResize);
+    // Retry after layout settles
+    setTimeout(onResize, 100);
+    setTimeout(onResize, 500);
 
     return () => {
-      cancelAnimationFrame(animId);
+      cancelAnimationFrame(animRef.current);
+      ro.disconnect();
       renderer.dispose();
-      el.removeChild(renderer.domElement);
-      el.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-      el.removeEventListener("touchstart", onTouchStart);
+      if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
+      el.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      el.removeEventListener("touchstart", onTouchDown);
       window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchend", onTouchUp);
       el.removeEventListener("click", onClick);
       window.removeEventListener("resize", onResize);
     };
   }, []);
 
-  // Highlight active pin
+  // Update pin colors when activeRegion changes
   useEffect(() => {
-    if (!sceneRef.current) return;
-    for (const { mesh, pin } of sceneRef.current.pinMeshes) {
+    for (const { mesh, name } of pinMeshesRef.current) {
       const mat = mesh.material as THREE.MeshPhongMaterial;
-      if (pin.name === activeRegion) {
-        mat.color.set(0xd4a54a);
-        mat.emissive.set(0x8b6a1a);
-        mesh.scale.setScalar(1.6);
-      } else {
-        mat.color.set(0x6b7c3c);
-        mat.emissive.set(0x3a4a1a);
-        mesh.scale.setScalar(1.0);
-      }
+      const active = name === activeRegion;
+      mat.color.set(active ? 0xd4a54a : 0x6b7c3c);
+      mat.emissive.set(active ? 0x8b6a1a : 0x3a4a1a);
+      mesh.scale.setScalar(active ? 1.5 : 1.0);
     }
   }, [activeRegion]);
 
   return (
-    <div ref={mountRef} className="w-full h-full" style={{ cursor: "grab" }} />
+    <div
+      ref={mountRef}
+      className="w-full h-full"
+      style={{ cursor: "grab", background: "transparent" }}
+    />
   );
-}
-
-// Simplified land-detection heuristic
-function isLand(lat: number, lng: number, continent: string): boolean {
-  if (continent === "NA") {
-    if (lat > 60) return lng > -140 && lng < -60;
-    if (lat > 50) return lng > -135 && lng < -55;
-    if (lat > 30) return lng > -125 && lng < -65;
-    if (lat > 20) return lng > -120 && lng < -80 || (lng > -90 && lng < -60);
-    return lng > -110 && lng < -75;
-  }
-  if (continent === "EU") {
-    if (lat > 60) return lng > -25 && lng < 30;
-    if (lat > 50) return lng > -10 && lng < 40;
-    if (lat > 40) return lng > -10 && lng < 42;
-    return lng > -5 && lng < 30;
-  }
-  if (continent === "AS") {
-    if (lat > 60) return lng > 55 && lng < 145;
-    if (lat > 40) return lng > 45 && lng < 145;
-    if (lat > 20) return lng > 50 && lng < 150;
-    if (lat > 0) return (lng > 70 && lng < 150) || (lng > 95 && lng < 140);
-    return lng > 100 && lng < 145;
-  }
-  if (continent === "AF") {
-    if (lat > 20) return lng > -18 && lng < 40;
-    if (lat > 0) return lng > -18 && lng < 50;
-    if (lat > -20) return lng > 10 && lng < 52;
-    return lng > 15 && lng < 50;
-  }
-  if (continent === "SA") {
-    if (lat > 0) return lng > -82 && lng < -50;
-    if (lat > -25) return lng > -82 && lng < -34;
-    if (lat > -40) return lng > -75 && lng < -45;
-    return lng > -75 && lng < -55;
-  }
-  if (continent === "AU") {
-    if (lat > -20) return lng > 130 && lng < 155;
-    if (lat > -35) return lng > 113 && lng < 155;
-    return lng > 115 && lng < 152;
-  }
-  return false;
 }
