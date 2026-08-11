@@ -121,52 +121,65 @@ function Hero() {
         </div>
       </div>
 
-      {/* Key Strengths */}
-      <div className="border-t border-smoky-black/10 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Design",
-                desc: "Dedicated sourcing & development team turning buyer concepts into production-ready samples.",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
-                ),
-              },
-              {
-                title: "Manufacturing",
-                desc: "Full vertical integration — knitting to packing, 1L+ units/month capacity.",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
-                ),
-              },
-              {
-                title: "Sustainability",
-                desc: "BSCI certified, ETI & ILO aligned. Ethical practices across entire supply chain.",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438a2.25 2.25 0 01-1.228 2.39l-.403.2a9.001 9.001 0 01-5.395-3.232" /></svg>
-                ),
-              },
-              {
-                title: "Operational Excellence",
-                desc: "60–90 day lead times, five-stage QA, professional management team.",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
-                ),
-              },
-            ].map((strength) => (
-              <div
-                key={strength.title}
-                className="bg-bone border border-smoky-black/5 rounded-2xl p-8 group hover:border-olive-drab/30 transition-all"
-              >
-                <div className="text-olive-drab mb-4">{strength.icon}</div>
-                <h3 className="text-smoky-black font-semibold text-lg mb-2 group-hover:text-olive-drab transition-colors">
-                  {strength.title}
-                </h3>
-                <p className="text-smoky-black/50 text-sm leading-relaxed">{strength.desc}</p>
-              </div>
-            ))}
-          </div>
+    </section>
+  );
+}
+
+function Capabilities() {
+  const strengths = [
+    {
+      title: "Design",
+      desc: "Dedicated sourcing & development team turning buyer concepts into production-ready samples.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+      ),
+    },
+    {
+      title: "Manufacturing",
+      desc: "Full vertical integration — knitting to packing, 1L+ units/month capacity.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
+      ),
+    },
+    {
+      title: "Sustainability",
+      desc: "BSCI certified, ETI & ILO aligned. Ethical practices across entire supply chain.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438a2.25 2.25 0 01-1.228 2.39l-.403.2a9.001 9.001 0 01-5.395-3.232" /></svg>
+      ),
+    },
+    {
+      title: "Operational Excellence",
+      desc: "60–90 day lead times, five-stage QA, professional management team.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
+      ),
+    },
+  ];
+
+  return (
+    <section id="capabilities" className="py-24 bg-floral-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">What We Do</p>
+        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+          End-to-End Garment Capabilities
+        </h2>
+        <p className="text-smoky-black/60 max-w-2xl mb-16">
+          From concept to carton — we handle design, manufacturing, compliance, and logistics under one roof, so global brands can focus on selling.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {strengths.map((strength) => (
+            <div
+              key={strength.title}
+              className="bg-bone border border-smoky-black/5 rounded-2xl p-8 group hover:border-olive-drab/30 transition-all"
+            >
+              <div className="text-olive-drab mb-4">{strength.icon}</div>
+              <h3 className="text-smoky-black font-semibold text-lg mb-2 group-hover:text-olive-drab transition-colors">
+                {strength.title}
+              </h3>
+              <p className="text-smoky-black/50 text-sm leading-relaxed">{strength.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -624,6 +637,7 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <Capabilities />
       <Clients />
       <GlobalPresence />
       <Contact />
