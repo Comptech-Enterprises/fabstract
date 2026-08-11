@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+
+const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const CLIENT_NAMES = [
   "Billabong", "Quicksilver", "Volcom", "Rip Curl", "O'Neill",
@@ -373,16 +376,9 @@ function GlobalPresence() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* Google Map Visual */}
-            <div className="lg:col-span-7 bg-bone/60 rounded-2xl p-3 relative overflow-hidden border border-smoky-black/5 min-h-[280px]">
-              <iframe
-                key={currentRegion.mapEmbed}
-                src={currentRegion.mapEmbed}
-                className="w-full h-[320px] rounded-xl border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={`Map of ${currentRegion.name}`}
-              />
+            {/* 3D Globe */}
+            <div className="lg:col-span-7 rounded-2xl relative overflow-hidden" style={{ height: 380 }}>
+              <Globe activeRegion={activeRegion} onRegionClick={setActiveRegion} />
             </div>
 
             {/* Region Details */}
