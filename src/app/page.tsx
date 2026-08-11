@@ -17,108 +17,75 @@ const CLIENT_NAMES = [
 
 function Hero() {
   return (
-    <section id="home" className="relative bg-floral-white overflow-hidden">
-      {/* Hero Banner */}
+    <section id="home" className="relative bg-smoky-black overflow-hidden">
+      {/* Video Background */}
       <div className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(139,94,60,0.06),_transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(245,240,235,0.5),_transparent_50%)]" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/clothing-background.mp4"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-smoky-black/60" />
+        {/* Subtle bottom fade into carousel */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-smoky-black/80 to-transparent" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          <div className="max-w-3xl">
+            <motion.p
+              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <motion.p
-                className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                Since 1991 &mdash; Government Recognized Export House
-              </motion.p>
-              <motion.h1
-                className="text-smoky-black text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Crafting Fashion
-                <br />
-                <span className="text-olive-drab">for the World</span>
-              </motion.h1>
-              <motion.p
-                className="mt-8 text-smoky-black/60 text-lg sm:text-xl max-w-xl leading-relaxed"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-              >
-                Ethical and sustainable apparel manufacturing — high fashion knitwear
-                &amp; woven garments exported to USA, Canada, and Europe.
-              </motion.p>
-              <motion.div
-                className="mt-10 flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.55 }}
-              >
-                <a
-                  href="#contact"
-                  className="inline-block bg-olive-drab text-floral-white px-8 py-3.5 rounded-full text-sm tracking-wider hover:bg-olive-dark transition-colors"
-                >
-                  REQUEST A QUOTE
-                </a>
-                <a
-                  href="#"
-                  className="inline-block border border-smoky-black/20 text-smoky-black px-8 py-3.5 rounded-full text-sm tracking-wider hover:border-olive-drab hover:text-olive-drab transition-colors"
-                >
-                  DOWNLOAD PROFILE
-                </a>
-              </motion.div>
-            </motion.div>
-
-            {/* Factory / Product imagery placeholders */}
-            <motion.div
-              className="hidden lg:grid grid-cols-2 gap-4"
-              initial={{ opacity: 0, scale: 0.95, x: 30 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              Since 1991 &mdash; Government Recognized Export House
+            </motion.p>
+            <motion.h1
+              className="text-floral-white text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="space-y-4">
-                <div className="bg-bone rounded-2xl h-48 flex items-center justify-center border border-smoky-black/5">
-                  <div className="text-center">
-                    <svg className="w-10 h-10 text-olive-drab/40 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
-                    <p className="text-olive-drab/40 text-xs">Factory Floor</p>
-                  </div>
-                </div>
-                <div className="bg-bone rounded-2xl h-64 flex items-center justify-center border border-smoky-black/5">
-                  <div className="text-center">
-                    <svg className="w-10 h-10 text-smoky-black/15 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
-                    <p className="text-smoky-black/20 text-xs">Woven Collection</p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="bg-bone rounded-2xl h-64 flex items-center justify-center border border-smoky-black/5">
-                  <div className="text-center">
-                    <svg className="w-10 h-10 text-smoky-black/15 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" /></svg>
-                    <p className="text-smoky-black/20 text-xs">Knit Collection</p>
-                  </div>
-                </div>
-                <div className="bg-bone rounded-2xl h-48 flex items-center justify-center border border-smoky-black/5">
-                  <div className="text-center">
-                    <svg className="w-10 h-10 text-olive-drab/40 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
-                    <p className="text-olive-drab/40 text-xs">Manufacturing</p>
-                  </div>
-                </div>
-              </div>
+              Crafting Fashion
+              <br />
+              <span className="text-olive-drab">for the World</span>
+            </motion.h1>
+            <motion.p
+              className="mt-8 text-floral-white/70 text-lg sm:text-xl max-w-xl leading-relaxed"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+            >
+              Ethical and sustainable apparel manufacturing — high fashion knitwear
+              &amp; woven garments exported to USA, Canada, and Europe.
+            </motion.p>
+            <motion.div
+              className="mt-10 flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.55 }}
+            >
+              <a
+                href="#contact"
+                className="inline-block bg-olive-drab text-floral-white px-8 py-3.5 rounded-full text-sm tracking-wider hover:bg-olive-dark transition-colors"
+              >
+                REQUEST A QUOTE
+              </a>
+              <a
+                href="#"
+                className="inline-block border border-floral-white/30 text-floral-white px-8 py-3.5 rounded-full text-sm tracking-wider hover:border-olive-drab hover:text-olive-drab transition-colors"
+              >
+                DOWNLOAD PROFILE
+              </a>
             </motion.div>
           </div>
 
           {/* Key Stats */}
           <motion.div
-            className="mt-10 sm:mt-20 grid grid-cols-4 gap-2 sm:gap-6"
+            className="mt-16 sm:mt-24 grid grid-cols-4 gap-2 sm:gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
@@ -131,13 +98,13 @@ function Hero() {
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
-                className="bg-bone rounded-2xl p-3 sm:p-6 text-center border border-smoky-black/5"
+                className="bg-floral-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-6 text-center border border-floral-white/10"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.75 + i * 0.08 }}
               >
                 <p className="text-olive-drab text-xl sm:text-4xl font-bold">{stat.value}</p>
-                <p className="text-smoky-black/50 text-[10px] sm:text-sm mt-1">{stat.label}</p>
+                <p className="text-floral-white/50 text-[10px] sm:text-sm mt-1">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -145,8 +112,8 @@ function Hero() {
       </div>
 
       {/* Client Logo Carousel */}
-      <div className="border-t border-smoky-black/10 py-10 overflow-hidden">
-        <p className="text-center text-smoky-black/30 text-xs tracking-[0.3em] uppercase mb-8">
+      <div className="border-t border-floral-white/10 bg-smoky-black py-10 overflow-hidden">
+        <p className="text-center text-floral-white/30 text-xs tracking-[0.3em] uppercase mb-8">
           Trusted by global brands
         </p>
         <div className="relative">
@@ -154,9 +121,9 @@ function Hero() {
             {[...CLIENT_NAMES, ...CLIENT_NAMES].map((name, i) => (
               <div
                 key={`${name}-${i}`}
-                className="flex-shrink-0 bg-bone border border-smoky-black/5 rounded-xl px-8 py-4 flex items-center justify-center min-w-[160px]"
+                className="flex-shrink-0 bg-floral-white/8 border border-floral-white/10 rounded-xl px-8 py-4 flex items-center justify-center min-w-[160px]"
               >
-                <span className="text-smoky-black/50 text-sm font-medium tracking-wide whitespace-nowrap">
+                <span className="text-floral-white/50 text-sm font-medium tracking-wide whitespace-nowrap">
                   {name}
                 </span>
               </div>
