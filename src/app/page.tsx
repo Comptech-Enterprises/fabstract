@@ -506,7 +506,7 @@ function Contact() {
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left: Contact Info + Map + Social */}
           <motion.div
-            className="space-y-8"
+            className="space-y-8 order-2 lg:order-1"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -594,7 +594,7 @@ function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             onSubmit={(e) => e.preventDefault()}
-            className="bg-floral-white p-8 rounded-2xl border border-smoky-black/10 shadow-sm space-y-6 h-fit"
+            className="order-1 lg:order-2 bg-floral-white p-8 rounded-2xl border border-smoky-black/10 shadow-sm space-y-6 h-fit"
           >
             <h3 className="text-smoky-black font-bold text-lg">Send an Enquiry</h3>
             <div className="grid sm:grid-cols-2 gap-6">
