@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const DottedMap = dynamic(() => import("@/components/DottedMap"), { ssr: false });
+const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const CLIENT_NAMES = [
   "Billabong", "Quicksilver", "Volcom", "Rip Curl", "O'Neill",
@@ -422,41 +422,16 @@ function GlobalPresence() {
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             {/* Dotted World Map */}
-            <div className="lg:col-span-7 rounded-2xl relative overflow-hidden bg-floral-white border border-smoky-black/5" style={{ height: 380 }}>
-              <DottedMap activeRegion={activeRegion} onRegionClick={setActiveRegion} />
+            <div className="lg:col-span-7 rounded-2xl relative overflow-hidden bg-floral-white border border-smoky-black/5 aspect-square">
+              <Globe />
             </div>
 
             {/* Region Details */}
             <div className="lg:col-span-5 space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-smoky-black">{currentRegion.name}</h3>
-                <span className="text-xs font-bold text-olive-drab bg-olive-drab/10 px-3 py-1 rounded-full">
-                  {currentRegion.share}
-                </span>
-              </div>
+              <h3 className="text-2xl font-bold text-smoky-black">{currentRegion.name}</h3>
               <p className="text-smoky-black/60 text-sm leading-relaxed">
                 {currentRegion.desc}
               </p>
-              <div>
-                <p className="text-xs uppercase tracking-wider text-smoky-black/40 font-semibold mb-2">Major Shipping Hubs</p>
-                <div className="flex flex-wrap gap-2">
-                  {currentRegion.hubs.map((hub) => (
-                    <span key={hub} className="bg-bone text-smoky-black/70 text-xs px-3 py-1 rounded-md font-medium">
-                      {hub}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="pt-2">
-                <p className="text-xs uppercase tracking-wider text-smoky-black/40 font-semibold mb-2">Key Highlights</p>
-                <ul className="space-y-1.5">
-                  {currentRegion.highlights.map((h) => (
-                    <li key={h} className="text-sm text-smoky-black/70 flex items-center gap-2">
-                      <span className="text-olive-drab text-xs">✓</span> {h}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
         </motion.div>
