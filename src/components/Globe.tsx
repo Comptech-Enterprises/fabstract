@@ -33,7 +33,8 @@ export default function Globe() {
     import("globe.gl").then(({ default: GlobeGL }) => {
       if (destroyed || !mountRef.current) return;
 
-      const globe = GlobeGL()(mountRef.current as HTMLElement);
+      const GlobeFactory = GlobeGL as unknown as () => (el: HTMLElement) => object;
+      const globe = GlobeFactory()(mountRef.current as HTMLElement);
       globeRef.current = globe;
 
       // Earth texture
