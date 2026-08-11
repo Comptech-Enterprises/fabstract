@@ -204,25 +204,36 @@ function Capabilities() {
   return (
     <section id="capabilities" className="py-24 bg-floral-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">What We Do</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
-          End-to-End Garment Capabilities
-        </h2>
-        <p className="text-smoky-black/60 max-w-2xl mb-16">
-          From concept to carton — we handle design, manufacturing, compliance, and logistics under one roof, so global brands can focus on selling.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">What We Do</p>
+          <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+            End-to-End Garment Capabilities
+          </h2>
+          <p className="text-smoky-black/60 max-w-2xl mb-16">
+            From concept to carton — we handle design, manufacturing, compliance, and logistics under one roof, so global brands can focus on selling.
+          </p>
+        </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {strengths.map((strength) => (
-            <div
+          {strengths.map((strength, i) => (
+            <motion.div
               key={strength.title}
               className="bg-bone border border-smoky-black/5 rounded-2xl p-8 group hover:border-olive-drab/30 transition-all"
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-olive-drab mb-4">{strength.icon}</div>
               <h3 className="text-smoky-black font-semibold text-lg mb-2 group-hover:text-olive-drab transition-colors">
                 {strength.title}
               </h3>
               <p className="text-smoky-black/50 text-sm leading-relaxed">{strength.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -261,7 +272,13 @@ function Clients() {
   return (
     <section id="clients" className="py-24 bg-floral-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Clients</p>
           <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6">
             Trusted by Leading Global Brands
@@ -270,16 +287,22 @@ function Clients() {
             Delivering trend-setting garments at competitive prices with
             committed timelines — earning long-standing partnerships worldwide.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex justify-center gap-8 sm:gap-16 mb-16">
+        <motion.div
+          className="flex justify-center gap-8 sm:gap-16 mb-16"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-olive-drab">{stat.value}</p>
               <p className="text-smoky-black/50 text-sm mt-1">{stat.label}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Animated Client Ticker */}
         <div className="overflow-hidden py-4 my-8 relative">
@@ -390,16 +413,29 @@ function GlobalPresence() {
   return (
     <section id="global-presence" className="py-24 bg-bone">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Export Network &amp; Growth</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
-          Global Presence
-        </h2>
-        <p className="text-smoky-black/60 max-w-2xl mb-16">
-          Exporting premium knitwear and woven garments across North America, Europe, and Oceania — supported by steady year-on-year revenue expansion.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Export Network &amp; Growth</p>
+          <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+            Global Presence
+          </h2>
+          <p className="text-smoky-black/60 max-w-2xl mb-16">
+            Exporting premium knitwear and woven garments across North America, Europe, and Oceania — supported by steady year-on-year revenue expansion.
+          </p>
+        </motion.div>
 
         {/* Interactive World Map & Region Selector */}
-        <div className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm mb-16">
+        <motion.div
+          className="bg-floral-white rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="flex flex-wrap gap-3 mb-8">
             {regions.map((reg) => (
               <button
@@ -455,10 +491,15 @@ function GlobalPresence() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Client Showcase & Testimonials */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
           <h3 className="text-xl font-bold text-smoky-black mb-6">Client Showcase &amp; Testimonials</h3>
           <div className="relative bg-floral-white rounded-3xl border border-smoky-black/5 shadow-sm p-10 sm:p-14 h-[320px] flex flex-col justify-between">
             <div
@@ -494,7 +535,7 @@ function GlobalPresence() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -504,17 +545,30 @@ function Contact() {
   return (
     <section id="contact" className="py-24 bg-bone">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Contact &amp; Enquiry</p>
-        <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
-          Let&apos;s Work Together
-        </h2>
-        <p className="text-smoky-black/60 max-w-2xl mb-16">
-          Ready to start your next collection? Send us your requirements and our team will get back to you within 24 hours.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Contact &amp; Enquiry</p>
+          <h2 className="text-smoky-black text-3xl sm:text-4xl font-bold mb-6 max-w-2xl">
+            Let&apos;s Work Together
+          </h2>
+          <p className="text-smoky-black/60 max-w-2xl mb-16">
+            Ready to start your next collection? Send us your requirements and our team will get back to you within 24 hours.
+          </p>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left: Contact Info + Map + Social */}
-          <div className="space-y-8">
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             {/* Direct Contacts */}
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5">
@@ -588,10 +642,14 @@ function Contact() {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Enquiry Form */}
-          <form
+          <motion.form
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             onSubmit={(e) => e.preventDefault()}
             className="bg-floral-white p-8 rounded-2xl border border-smoky-black/10 shadow-sm space-y-6 h-fit"
           >
@@ -662,7 +720,7 @@ function Contact() {
             >
               SEND ENQUIRY
             </button>
-          </form>
+          </motion.form>
         </div>
       </div>
     </section>
