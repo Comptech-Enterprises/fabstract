@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { GlobeInstance } from "globe.gl";
 
 const LOCATIONS = [
   { name: "New York",    lat: 40.71,  lng: -74.01,  region: "USA & Canada"  },
@@ -33,7 +34,7 @@ export default function Globe() {
     import("globe.gl").then(({ default: GlobeGL }) => {
       if (destroyed || !mountRef.current) return;
 
-      const GlobeFactory = GlobeGL as unknown as () => (el: HTMLElement) => object;
+      const GlobeFactory = GlobeGL as unknown as () => (el: HTMLElement) => GlobeInstance;
       const globe = GlobeFactory()(mountRef.current as HTMLElement);
       globeRef.current = globe;
 
