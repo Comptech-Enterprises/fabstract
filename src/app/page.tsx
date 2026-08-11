@@ -109,28 +109,31 @@ function Hero() {
         </div>
       </div>
 
-      {/* Client Logo Carousel */}
-      <div className="relative border-t border-floral-white/10 bg-smoky-black/80 backdrop-blur-sm py-10 overflow-hidden">
-        <p className="text-center text-floral-white/30 text-xs tracking-[0.3em] uppercase mb-8">
-          Trusted by global brands
-        </p>
-        <div className="relative">
-          <div className="flex animate-scroll gap-12 w-max">
-            {[...CLIENT_NAMES, ...CLIENT_NAMES].map((name, i) => (
-              <div
-                key={`${name}-${i}`}
-                className="flex-shrink-0 bg-floral-white/8 border border-floral-white/10 rounded-xl px-8 py-4 flex items-center justify-center min-w-[160px]"
-              >
-                <span className="text-floral-white/50 text-sm font-medium tracking-wide whitespace-nowrap">
-                  {name}
-                </span>
-              </div>
-            ))}
-          </div>
+    </section>
+  );
+}
+
+function BrandCarousel() {
+  return (
+    <div className="bg-bone border-b border-smoky-black/5 py-10 overflow-hidden">
+      <p className="text-center text-smoky-black/30 text-xs tracking-[0.3em] uppercase mb-8">
+        Trusted by global brands
+      </p>
+      <div className="relative">
+        <div className="flex animate-scroll gap-12 w-max">
+          {[...CLIENT_NAMES, ...CLIENT_NAMES].map((name, i) => (
+            <div
+              key={`${name}-${i}`}
+              className="flex-shrink-0 bg-floral-white border border-smoky-black/8 rounded-xl px-8 py-4 flex items-center justify-center min-w-[160px]"
+            >
+              <span className="text-smoky-black/50 text-sm font-medium tracking-wide whitespace-nowrap">
+                {name}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
-
-    </section>
+    </div>
   );
 }
 
@@ -697,6 +700,7 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <BrandCarousel />
       <Capabilities />
       <Clients />
       <GlobalPresence />
