@@ -444,11 +444,11 @@ function GlobalPresence() {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           <h3 className="text-xl font-bold text-smoky-black mb-6">Client Showcase &amp; Testimonials</h3>
-          <div className="relative bg-floral-white rounded-3xl border border-smoky-black/5 shadow-sm p-10 sm:p-14 h-[320px] flex flex-col justify-between">
+          <div className="relative bg-floral-white rounded-3xl border border-smoky-black/5 shadow-sm p-6 sm:p-10 lg:p-14 min-h-[280px] flex flex-col justify-between">
             <div
               style={{ opacity: fading ? 0 : 1, transform: fading ? "translateY(8px)" : "translateY(0)", transition: "opacity 300ms, transform 300ms" }}
             >
-              <p className="text-smoky-black/70 text-lg leading-relaxed mb-8 max-w-2xl">
+              <p className="text-smoky-black/70 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 max-w-2xl">
                 &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
               </p>
               <div>
