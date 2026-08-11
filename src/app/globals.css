@@ -22,8 +22,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {

@@ -115,11 +115,11 @@ function Hero() {
 
 function BrandCarousel() {
   return (
-    <div className="bg-bone border-b border-smoky-black/5 py-10 overflow-hidden">
+    <div className="bg-bone border-b border-smoky-black/5 py-10">
       <p className="text-center text-smoky-black/30 text-xs tracking-[0.3em] uppercase mb-8">
         Trusted by global brands
       </p>
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <div className="flex animate-scroll gap-12 w-max">
           {[...CLIENT_NAMES, ...CLIENT_NAMES].map((name, i) => (
             <div
