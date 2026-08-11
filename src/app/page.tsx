@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -24,20 +25,44 @@ function Hero() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.p
+                className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
                 Since 1991 &mdash; Government Recognized Export House
-              </p>
-              <h1 className="text-smoky-black text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+              </motion.p>
+              <motion.h1
+                className="text-smoky-black text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              >
                 Crafting Fashion
                 <br />
                 <span className="text-olive-drab">for the World</span>
-              </h1>
-              <p className="mt-8 text-smoky-black/60 text-lg sm:text-xl max-w-xl leading-relaxed">
+              </motion.h1>
+              <motion.p
+                className="mt-8 text-smoky-black/60 text-lg sm:text-xl max-w-xl leading-relaxed"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+              >
                 Ethical and sustainable apparel manufacturing — high fashion knitwear
                 &amp; woven garments exported to USA, Canada, and Europe.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
+              </motion.p>
+              <motion.div
+                className="mt-10 flex flex-wrap gap-4"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.55 }}
+              >
                 <a
                   href="#contact"
                   className="inline-block bg-olive-drab text-floral-white px-8 py-3.5 rounded-full text-sm tracking-wider hover:bg-olive-dark transition-colors"
@@ -50,11 +75,16 @@ function Hero() {
                 >
                   DOWNLOAD PROFILE
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Factory / Product imagery placeholders */}
-            <div className="hidden lg:grid grid-cols-2 gap-4">
+            <motion.div
+              className="hidden lg:grid grid-cols-2 gap-4"
+              initial={{ opacity: 0, scale: 0.95, x: 30 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div className="space-y-4">
                 <div className="bg-bone rounded-2xl h-48 flex items-center justify-center border border-smoky-black/5">
                   <div className="text-center">
@@ -83,23 +113,34 @@ function Hero() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Key Stats */}
-          <div className="mt-10 sm:mt-20 grid grid-cols-4 gap-2 sm:gap-6">
+          <motion.div
+            className="mt-10 sm:mt-20 grid grid-cols-4 gap-2 sm:gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+          >
             {[
               { value: "30+", label: "Years Experience" },
               { value: "1L+", label: "Units / Month" },
               { value: "15+", label: "Global Clients" },
               { value: "5", label: "Countries Served" },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-bone rounded-2xl p-3 sm:p-6 text-center border border-smoky-black/5">
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                className="bg-bone rounded-2xl p-3 sm:p-6 text-center border border-smoky-black/5"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.75 + i * 0.08 }}
+              >
                 <p className="text-olive-drab text-xl sm:text-4xl font-bold">{stat.value}</p>
                 <p className="text-smoky-black/50 text-[10px] sm:text-sm mt-1">{stat.label}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
