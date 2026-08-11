@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export const NAV_LINKS = [
@@ -13,6 +13,14 @@ export const NAV_LINKS = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bone/95 backdrop-blur-sm shadow-sm">
@@ -27,7 +35,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-smoky-black/70 hover:text-olive-drab text-sm tracking-wider transition-colors"
+                className="text-sm tracking-wider transition-colors hover:text-olive-drab text-smoky-black/70"
               >
                 {link.label}
               </Link>
