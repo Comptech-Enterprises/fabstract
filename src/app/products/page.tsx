@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function ProductsPage() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -60,28 +63,59 @@ export default function ProductsPage() {
         {/* Hero */}
         <section className="bg-bone">
           <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Products</p>
-            <h1 className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4"
+            >
+              Our Products
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.2, ease }}
+              className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl"
+            >
               High Fashion Knitwear &amp; Woven Garments
-            </h1>
-            <p className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease }}
+              className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed"
+            >
               From delicate beadwork to bold prints — our product range spans women&apos;s (60%),
               men&apos;s (20%), and children&apos;s (20%) collections across woven, knitted, and home textile categories.
-            </p>
+            </motion.p>
           </div>
         </section>
 
         {/* Product Lines */}
         <section className="py-24 bg-floral-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Product Lines</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-              What We Manufacture
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Product Lines</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
+                What We Manufacture
+              </h2>
+            </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {productLines.map((line) => (
-                <div key={line.title} className="bg-bone/50 rounded-2xl p-8 border border-bone">
+              {productLines.map((line, i) => (
+                <motion.div
+                  key={line.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                  className="bg-bone/50 rounded-2xl p-8 border border-bone"
+                >
                   <div className="flex items-center justify-between mb-5">
                     <h3 className="text-smoky-black font-bold text-lg">{line.title}</h3>
                   </div>
@@ -102,7 +136,7 @@ export default function ProductsPage() {
                     <p className="text-smoky-black/40 text-xs uppercase tracking-wider mb-2">Key Fabrics</p>
                     <p className="text-smoky-black/60 text-sm leading-relaxed">{line.fabrics}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -111,20 +145,31 @@ export default function ProductsPage() {
         {/* Sustainable Materials */}
         <section className="py-24 bg-bone">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Sustainable Materials</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-              Fabrics We Believe In
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Sustainable Materials</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
+                Fabrics We Believe In
+              </h2>
+            </motion.div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {materialTags.map((mat) => (
-                <div
+              {materialTags.map((mat, i) => (
+                <motion.div
                   key={mat.label}
+                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease }}
                   className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5 hover:border-olive-drab/30 transition-colors group"
                 >
                   <h4 className="text-smoky-black font-bold mb-2">{mat.label}</h4>
                   <p className="text-smoky-black/55 text-sm leading-relaxed">{mat.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -133,7 +178,13 @@ export default function ProductsPage() {
         {/* Gallery */}
         <section className="py-24 bg-floral-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+              className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+            >
               <div>
                 <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Gallery</p>
                 <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold">
@@ -159,12 +210,16 @@ export default function ProductsPage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filtered.map((item, i) => (
-                <div
+                <motion.div
                   key={`${item.name}-${i}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.05, ease }}
                   className="group bg-bone/50 rounded-2xl overflow-hidden border border-smoky-black/5 hover:border-olive-drab/30 transition-all duration-300 shadow-sm flex flex-col justify-between"
                 >
                   <div className="aspect-[3/4] flex items-center justify-center bg-bone p-6 relative">
@@ -187,7 +242,7 @@ export default function ProductsPage() {
                       <span className="text-olive-drab font-semibold">{item.technique}</span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

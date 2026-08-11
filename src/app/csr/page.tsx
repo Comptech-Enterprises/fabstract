@@ -1,7 +1,10 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function CSRPage() {
   const initiatives = [
@@ -86,38 +89,73 @@ export default function CSRPage() {
         {/* Hero / Intro */}
         <section className="bg-bone">
           <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4"
+            >
               Corporate Social Responsibility
-            </p>
-            <h1 className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl">
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.2, ease }}
+              className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl"
+            >
               Operating Responsibly, Always
-            </h1>
-            <p className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease }}
+              className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed"
+            >
               Our CSR policy, developed under Section 135 of the Companies Act 2013,
               reflects our commitment to integrity, trust, and ethical business
               practices aligned with ETI and ILO conventions.
-            </p>
+            </motion.p>
           </div>
         </section>
 
         {/* CSR Focus Areas */}
         <section className="py-24 bg-floral-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Focus Areas</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-              Where We Make a Difference
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Focus Areas</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
+                Where We Make a Difference
+              </h2>
+            </motion.div>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              {csrAreas.map((area) => (
-                <div key={area.title} className="bg-bone/40 p-8 rounded-2xl">
+              {csrAreas.map((area, i) => (
+                <motion.div
+                  key={area.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease }}
+                  className="bg-bone/40 p-8 rounded-2xl"
+                >
                   <h3 className="text-olive-dark font-semibold mb-3">{area.title}</h3>
                   <p className="text-smoky-black/60 text-sm leading-relaxed">{area.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
-            <div className="mt-12 p-8 rounded-2xl bg-bone border border-smoky-black/5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+              className="mt-12 p-8 rounded-2xl bg-bone border border-smoky-black/5"
+            >
               <h3 className="text-smoky-black font-semibold mb-4">Compliance Standards</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-2">
                 {[
@@ -139,25 +177,36 @@ export default function CSRPage() {
                   </p>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Community & People */}
         <section className="py-24 bg-bone">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Impact</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
-              Community &amp; People
-            </h2>
-            <p className="text-smoky-black/60 max-w-2xl mb-16">
-              People are at the heart of Fabstract. We invest in worker welfare, women empowerment, family health, and environmental stewardship across all operations.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Our Impact</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
+                Community &amp; People
+              </h2>
+              <p className="text-smoky-black/60 max-w-2xl mb-16">
+                People are at the heart of Fabstract. We invest in worker welfare, women empowerment, family health, and environmental stewardship across all operations.
+              </p>
+            </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {initiatives.map((item) => (
-                <div
+              {initiatives.map((item, i) => (
+                <motion.div
                   key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease }}
                   className="bg-floral-white rounded-3xl p-8 border border-smoky-black/5 hover:border-olive-drab/30 transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div>
@@ -176,7 +225,7 @@ export default function CSRPage() {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -185,19 +234,29 @@ export default function CSRPage() {
         {/* Life at Fabstract */}
         <section className="py-24 bg-floral-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
-              Life at Fabstract
-            </h2>
-            <p className="text-smoky-black/60 max-w-2xl mb-16">
-              A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
+                Life at Fabstract
+              </h2>
+              <p className="text-smoky-black/60 max-w-2xl mb-16">
+                A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
+              </p>
+            </motion.div>
 
-            {/* Culture Highlight Grid */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {pillars.map((pillar) => (
-                <div
+              {pillars.map((pillar, i) => (
+                <motion.div
                   key={pillar.title}
+                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease }}
                   className="bg-bone/40 rounded-3xl p-8 border border-bone hover:border-olive-drab/30 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
@@ -209,30 +268,38 @@ export default function CSRPage() {
                       {pillar.stats}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
-            {/* Factory Environment Showcase Bar */}
-            <div className="bg-bone rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+              className="bg-bone rounded-3xl p-8 sm:p-12 border border-smoky-black/5 shadow-sm"
+            >
               <div className="grid md:grid-cols-3 gap-8 text-center">
-                <div className="p-4">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">100%</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Safety Compliance</p>
-                  <p className="text-smoky-black/50 text-xs">Strict adherence to BSCI, CSCC &amp; ETI codes</p>
-                </div>
-                <div className="p-4 border-y md:border-y-0 md:border-x border-smoky-black/10">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">60%+</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Female Workforce</p>
-                  <p className="text-smoky-black/50 text-xs">Equal opportunities &amp; upward leadership mobility</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-4xl font-bold text-olive-drab mb-2">25%+</p>
-                  <p className="text-smoky-black font-semibold text-base mb-1">Above Minimum Wage</p>
-                  <p className="text-smoky-black/50 text-xs">Fair living wages and direct Fairtrade distribution</p>
-                </div>
+                {[
+                  { stat: "100%", label: "Safety Compliance", sub: "Strict adherence to BSCI, CSCC & ETI codes" },
+                  { stat: "60%+", label: "Female Workforce", sub: "Equal opportunities & upward leadership mobility" },
+                  { stat: "25%+", label: "Above Minimum Wage", sub: "Fair living wages and direct Fairtrade distribution" },
+                ].map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                    className={`p-4 ${i === 1 ? "border-y md:border-y-0 md:border-x border-smoky-black/10" : ""}`}
+                  >
+                    <p className="text-4xl font-bold text-olive-drab mb-2">{s.stat}</p>
+                    <p className="text-smoky-black font-semibold text-base mb-1">{s.label}</p>
+                    <p className="text-smoky-black/50 text-xs">{s.sub}</p>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>

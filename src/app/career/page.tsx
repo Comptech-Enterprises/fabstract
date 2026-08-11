@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function CareerPage() {
   const [formData, setFormData] = useState({
@@ -66,32 +69,60 @@ export default function CareerPage() {
         {/* Hero */}
         <section className="bg-bone">
           <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Join Our Team</p>
-            <h1 className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4"
+            >
+              Join Our Team
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.2, ease }}
+              className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl"
+            >
               Build Your Career at Fabstract
-            </h1>
-            <p className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease }}
+              className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed"
+            >
               Join a team of 500+ skilled professionals crafting world-class garments for global brands.
               We invest in people — with fair wages, continuous training, and real career growth.
-            </p>
+            </motion.p>
           </div>
         </section>
 
         {/* Life at Fabstract */}
         <section className="py-24 bg-floral-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
-              Life at Fabstract
-            </h2>
-            <p className="text-smoky-black/60 max-w-2xl mb-16">
-              A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6 max-w-2xl">
+                Life at Fabstract
+              </h2>
+              <p className="text-smoky-black/60 max-w-2xl mb-16">
+                A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
+              </p>
+            </motion.div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {pillars.map((pillar) => (
-                <div
+              {pillars.map((pillar, i) => (
+                <motion.div
                   key={pillar.title}
+                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease }}
                   className="bg-bone/40 rounded-3xl p-8 border border-bone hover:border-olive-drab/30 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
@@ -103,26 +134,39 @@ export default function CareerPage() {
                       {pillar.stats}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-
           </div>
         </section>
 
         {/* Benefits */}
         <section className="py-24 bg-bone">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Why Fabstract</p>
-            <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
-              Benefits &amp; Perks
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Why Fabstract</p>
+              <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-12">
+                Benefits &amp; Perks
+              </h2>
+            </motion.div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {benefits.map((b) => (
-                <div key={b.title} className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5 hover:border-olive-drab/30 transition-colors">
+              {benefits.map((b, i) => (
+                <motion.div
+                  key={b.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08, ease }}
+                  className="bg-floral-white rounded-2xl p-6 border border-smoky-black/5 hover:border-olive-drab/30 transition-colors"
+                >
                   <h4 className="text-smoky-black font-bold mb-2">{b.title}</h4>
                   <p className="text-smoky-black/55 text-sm leading-relaxed">{b.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -132,7 +176,12 @@ export default function CareerPage() {
         <section id="apply" className="py-24 bg-bone">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease }}
+              >
                 <p className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4">Apply Now</p>
                 <h2 className="text-smoky-black text-2xl sm:text-3xl font-bold mb-6">
                   Submit Your Application
@@ -155,9 +204,16 @@ export default function CareerPage() {
                     <p className="text-smoky-black/70 text-sm">Freshers welcome — training provided for entry-level production roles</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <form onSubmit={handleSubmit} className="bg-floral-white rounded-3xl p-8 border border-smoky-black/5 shadow-sm space-y-5">
+              <motion.form
+                onSubmit={handleSubmit}
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease }}
+                className="bg-floral-white rounded-3xl p-8 border border-smoky-black/5 shadow-sm space-y-5"
+              >
                 <div>
                   <label className="block text-smoky-black text-sm font-semibold mb-1.5">Full Name *</label>
                   <input
@@ -250,7 +306,7 @@ export default function CareerPage() {
                 >
                   SUBMIT APPLICATION
                 </button>
-              </form>
+              </motion.form>
             </div>
           </div>
         </section>
