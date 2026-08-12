@@ -311,6 +311,11 @@ function GlobalPresence() {
       desc: "Long-standing manufacturing partner for major North American fashion retailers, surfwear icons, and contemporary department stores.",
       highlights: ["10+ Retailer Partnerships", "Dedicated QC Teams", "98% On-Time Air & Sea Freight"],
       mapEmbed: "https://www.google.com/maps?q=United+States&z=3&output=embed",
+      shipments: [
+        { product: "Knitwear", units: "42,000 units/mo", pct: 70 },
+        { product: "Woven Apparel", units: "12,000 units/mo", pct: 20 },
+        { product: "Home Textiles", units: "6,000 units/mo", pct: 10 },
+      ],
     },
     {
       name: "UK & Europe",
@@ -319,6 +324,11 @@ function GlobalPresence() {
       desc: "Delivering trend-setting high-fashion wovens and eco-certified organic knits to leading European fashion houses across France, Italy, Sweden & UK.",
       highlights: ["GOTS & Fairtrade Certified", "Complex Beadwork & Embroidery", "Express 45-day Sample-to-Ship"],
       mapEmbed: "https://www.google.com/maps?q=Europe&z=4&output=embed",
+      shipments: [
+        { product: "Woven Apparel", units: "14,000 units/mo", pct: 60 },
+        { product: "Knitwear", units: "7,000 units/mo", pct: 30 },
+        { product: "Embroidered Pieces", units: "2,000 units/mo", pct: 10 },
+      ],
     },
     {
       name: "Australia & NZ",
@@ -327,6 +337,11 @@ function GlobalPresence() {
       desc: "Providing high-performance ocean & beachwear, casual knits, and sustainable lifestyle apparel for top Australian and New Zealand brands.",
       highlights: ["Rapid Growth Market", "UPF Protective Fabrics", "Organic Cotton Basics"],
       mapEmbed: "https://www.google.com/maps?q=Australia+and+New+Zealand&z=4&output=embed",
+      shipments: [
+        { product: "Swimwear & Beachwear", units: "5,500 units/mo", pct: 55 },
+        { product: "Casual Knitwear", units: "3,000 units/mo", pct: 30 },
+        { product: "Organic Basics", units: "1,500 units/mo", pct: 15 },
+      ],
     },
   ];
 
@@ -427,11 +442,19 @@ function GlobalPresence() {
             </div>
 
             {/* Region Details */}
-            <div className="lg:col-span-5 space-y-4">
-              <h3 className="text-2xl font-bold text-smoky-black">{currentRegion.name}</h3>
-              <p className="text-smoky-black/60 text-sm leading-relaxed">
-                {currentRegion.desc}
-              </p>
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold text-smoky-black">{currentRegion.name}</h3>
+              </div>
+              <p className="text-smoky-black/60 text-sm leading-relaxed">{currentRegion.desc}</p>
+              <div className="space-y-3">
+                <p className="text-smoky-black text-xs font-semibold uppercase tracking-widest">Product Shipments</p>
+                {currentRegion.shipments.map((s) => (
+                  <div key={s.product} className="py-2 border-b border-smoky-black/8 last:border-0">
+                    <span className="text-smoky-black text-sm font-medium">{s.product}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
