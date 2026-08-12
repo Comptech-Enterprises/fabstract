@@ -10,7 +10,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export default function CareerPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phone: "",
     position: "",
     experience: "",
@@ -23,11 +22,10 @@ export default function CareerPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Career Application: ${formData.position || "General"}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nPosition: ${formData.position}\nExperience: ${formData.experience}\n\nMessage:\n${formData.message}`
+    const text = encodeURIComponent(
+      `Hi Fabstract! I'd like to apply for a position.\n\nName: ${formData.name}\nPhone: ${formData.phone}\nPosition: ${formData.position}\nExperience: ${formData.experience}\n\n${formData.message}`
     );
-    window.location.href = `mailto:hr@fabstract.com?subject=${subject}&body=${body}`;
+    window.open(`https://wa.me/911140524038?text=${text}`, "_blank");
   };
 
   const pillars = [
@@ -112,8 +110,7 @@ export default function CareerPage() {
                   Submit Your Application
                 </h2>
                 <p className="text-smoky-black/60 leading-relaxed mb-8">
-                  Interested in joining Fabstract? Fill out the form and our HR team will get back to you within 3 business days. You can also email us directly at{" "}
-                  <a href="mailto:hr@fabstract.com" className="text-olive-drab font-semibold hover:underline">hr@fabstract.com</a>.
+                  Interested in joining Fabstract? Fill out the form and our HR team will get back to you within 3 business days.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -151,31 +148,17 @@ export default function CareerPage() {
                     placeholder="Your full name"
                   />
                 </div>
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-smoky-black text-sm font-semibold mb-1.5">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-bone border border-smoky-black/10 text-smoky-black text-sm focus:outline-none focus:border-olive-drab transition-colors"
-                      placeholder="you@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-smoky-black text-sm font-semibold mb-1.5">Phone *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-bone border border-smoky-black/10 text-smoky-black text-sm focus:outline-none focus:border-olive-drab transition-colors"
-                      placeholder="+91 XXXXX XXXXX"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-smoky-black text-sm font-semibold mb-1.5">Phone *</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-bone border border-smoky-black/10 text-smoky-black text-sm focus:outline-none focus:border-olive-drab transition-colors"
+                    placeholder="+91 XXXXX XXXXX"
+                  />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
