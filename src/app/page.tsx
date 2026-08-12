@@ -90,9 +90,9 @@ function Hero() {
           >
             {[
               { value: "30+", label: "Years Experience" },
-              { value: "1L+", label: "Units / Month" },
-              { value: "15+", label: "Global Clients" },
-              { value: "5", label: "Countries Served" },
+              { value: "100K+", label: "Units / Month" },
+              { value: "45+", label: "Global Clients" },
+              { value: "5", label: "Ongoing CSR Projects" },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
