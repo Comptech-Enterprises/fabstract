@@ -74,7 +74,7 @@ export default function AboutPage() {
               Management Team
             </motion.h1>
 
-            <div className="grid grid-cols-4 gap-4 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {TEAM.map((person, i) => (
                 <motion.article
                   key={person.name}
@@ -82,17 +82,17 @@ export default function AboutPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease }}
                   whileHover={{ y: -8 }}
-                  className="rounded-2xl bg-floral-white border border-smoky-black/10 p-3 flex flex-col shadow-sm"
+                  className="rounded-2xl bg-floral-white border border-smoky-black/10 p-4 flex flex-col shadow-sm max-w-sm mx-auto w-full sm:max-w-none"
                 >
                   <PhotoPlaceholder />
-                  <div className="px-2 pt-4 pb-3 text-center">
-                    <p className="text-olive-drab text-[10px] font-bold tracking-[0.16em] uppercase mb-1.5">
+                  <div className="px-1 sm:px-2 pt-4 pb-2 text-center">
+                    <p className="text-olive-drab text-xs sm:text-[10px] font-bold tracking-[0.16em] uppercase mb-1.5">
                       {person.role}
                     </p>
-                    <h2 className="text-smoky-black text-lg font-bold mb-2">
+                    <h2 className="text-smoky-black text-xl sm:text-lg font-bold mb-2">
                       {person.name}
                     </h2>
-                    <p className="text-smoky-black/60 text-xs leading-relaxed">
+                    <p className="text-smoky-black/60 text-sm sm:text-xs leading-relaxed">
                       {person.bio}
                     </p>
                   </div>
