@@ -1,19 +1,25 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const spring = { type: "spring" as const, stiffness: 260, damping: 24 };
+
+const PIN_ASPECT = [
+  "aspect-[4/5]",
+  "aspect-[3/2]",
+  "aspect-[1/1]",
+  "aspect-[5/6]",
+  "aspect-[16/10]",
+  "aspect-[3/4]",
+  "aspect-[4/3]",
+  "aspect-[5/7]",
+  "aspect-[16/9]",
+];
 
 function Pin({
   file,
@@ -26,80 +32,38 @@ function Pin({
 }) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
       setLoaded(true);
     }
   }, []);
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const sx = useSpring(px, { stiffness: 180, damping: 16 });
-  const sy = useSpring(py, { stiffness: 180, damping: 16 });
-  const rotateY = useTransform(sx, [-0.5, 0.5], [-14, 14]);
-  const rotateX = useTransform(sy, [-0.5, 0.5], [12, -12]);
-  const glareX = useTransform(sx, [-0.5, 0.5], ["0%", "100%"]);
-  const glareY = useTransform(sy, [-0.5, 0.5], ["0%", "100%"]);
-  const glareBg = useTransform(
-    [glareX, glareY],
-    ([x, y]) =>
-      `radial-gradient(420px circle at ${x} ${y}, rgba(255,255,255,0.55), transparent 55%)`,
-  );
-
-  function onMove(e: React.MouseEvent) {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    px.set((e.clientX - r.left) / r.width - 0.5);
-    py.set((e.clientY - r.top) / r.height - 0.5);
-  }
-
-  function onLeave() {
-    px.set(0);
-    py.set(0);
-  }
 
   return (
-    <div className="h-full min-w-0 [perspective:900px]">
-      <motion.button
-        ref={ref}
-        type="button"
-        onClick={onOpen}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        initial={{ opacity: 0, y: 40, rotateX: 8 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{ ...spring, delay: 0.12 + index * 0.07 }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        whileTap={{ scale: 0.97 }}
-        className="relative w-full aspect-[3/2] overflow-hidden rounded-2xl bg-bone text-left shadow-[0_10px_28px_rgba(26,26,26,0.1)] will-change-transform"
-      >
-        <span
-          aria-hidden
-          className={`absolute inset-0 bg-gradient-to-br from-bone via-olive-drab/25 to-bone bg-[length:200%_200%] animate-pulse transition-opacity duration-500 ${
-            loaded ? "opacity-0" : "opacity-100"
-          }`}
-        />
-        <img
-          ref={imgRef}
-          src={gallerySrc(file)}
-          alt=""
-          loading={index < 2 ? "eager" : "lazy"}
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-[filter,opacity,transform] duration-700 ease-out ${
-            loaded ? "opacity-100 blur-0 scale-100" : "opacity-70 blur-2xl scale-110"
-          }`}
-          draggable={false}
-        />
-        <motion.span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-          style={{ background: glareBg }}
-        />
-      </motion.button>
-    </div>
+    <button
+      type="button"
+      onClick={onOpen}
+      className={`relative w-full overflow-hidden rounded-2xl bg-bone text-left ${PIN_ASPECT[index % PIN_ASPECT.length]}`}
+    >
+      <span
+        aria-hidden
+        className={`absolute inset-0 bg-gradient-to-br from-bone via-olive-drab/25 to-bone animate-pulse transition-opacity duration-500 ${
+          loaded ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      <img
+        ref={imgRef}
+        src={gallerySrc(file)}
+        alt=""
+        loading={index < 2 ? "eager" : "lazy"}
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-[filter,opacity] duration-700 ${
+          loaded ? "opacity-100 blur-0" : "opacity-70 blur-2xl"
+        }`}
+        draggable={false}
+      />
+    </button>
   );
 }
 
@@ -199,17 +163,18 @@ export default function GalleryPage() {
         </header>
 
         <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
+          <div className="columns-2 md:columns-3 gap-3 sm:gap-4">
             {GALLERY_FILES.map((file, i) => (
-              <Pin
-                key={file}
-                file={file}
-                index={i}
-                onOpen={() => {
-                  setDir(0);
-                  setActive(i);
-                }}
-              />
+              <div key={file} className="mb-3 sm:mb-4 break-inside-avoid">
+                <Pin
+                  file={file}
+                  index={i}
+                  onOpen={() => {
+                    setDir(0);
+                    setActive(i);
+                  }}
+                />
+              </div>
             ))}
           </div>
         </section>
@@ -236,16 +201,14 @@ export default function GalleryPage() {
             >
               Close
             </button>
-            <motion.button
+            <button
               type="button"
-              whileHover={{ x: -4 }}
-              whileTap={{ scale: 0.9 }}
               onClick={prev}
-              className="absolute left-3 sm:left-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80 hover:bg-floral-white/10"
+              className="absolute left-3 sm:left-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80"
               aria-label="Previous"
             >
               &#8592;
-            </motion.button>
+            </button>
             <AnimatePresence mode="wait" custom={dir}>
               <LightboxShot
                 key={GALLERY_FILES[active]}
@@ -255,16 +218,14 @@ export default function GalleryPage() {
                 onNext={next}
               />
             </AnimatePresence>
-            <motion.button
+            <button
               type="button"
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.9 }}
               onClick={next}
-              className="absolute right-3 sm:right-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80 hover:bg-floral-white/10"
+              className="absolute right-3 sm:right-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80"
               aria-label="Next"
             >
               &#8594;
-            </motion.button>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

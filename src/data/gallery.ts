@@ -8,7 +8,10 @@ export function gallerySrc(file: string) {
 }
 
 export const GALLERY_FILES = [
+  "ASN_8150.jpg",
+  "ASN_8156.jpg",
   "ASN_8157.jpg",
+  "ASN_8161.jpg",
   "ASN_8199.jpg",
   "ASN_8208.jpg",
   "ASN_8209.jpg",
