@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { HeroVideos } from "@/components/HeroVideos";
 
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
@@ -18,15 +19,7 @@ const CLIENT_NAMES = [
 function Hero() {
   return (
     <section id="home" className="relative bg-smoky-black overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/clothing-background.mp4"
-      />
+      <HeroVideos />
       <div className="absolute inset-0 bg-smoky-black/75" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-smoky-black/70 to-transparent" />
 
