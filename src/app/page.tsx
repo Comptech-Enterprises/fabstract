@@ -65,12 +65,6 @@ function Hero() {
               >
                 REQUEST A QUOTE
               </a>
-              <a
-                href="#"
-                className="inline-block border border-floral-white/30 text-floral-white px-8 py-3.5 rounded-full text-sm tracking-wider hover:border-olive-drab hover:text-olive-drab transition-colors"
-              >
-                DOWNLOAD PROFILE
-              </a>
             </motion.div>
           </div>
 
