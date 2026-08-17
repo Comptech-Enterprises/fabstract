@@ -63,7 +63,7 @@ export default function CareerPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-14 md:pt-24">
         {/* Hero */}
         <section className="bg-bone">
           <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
