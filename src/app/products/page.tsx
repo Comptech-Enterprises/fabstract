@@ -38,7 +38,7 @@ export default function ProductsPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         {/* Hero */}
         <section className="bg-bone">
           <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
