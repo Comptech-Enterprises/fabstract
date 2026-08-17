@@ -26,9 +26,9 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bone/95 backdrop-blur-sm shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 md:h-24">
+        <div className="flex items-center justify-between h-16 md:h-24">
           <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo.png" alt="Fabstract Clothing India" className="h-10 md:h-20 w-auto" />
+            <img src="/logo.png" alt="Fabstract Clothing India" className="h-12 md:h-20 w-auto" />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -48,7 +48,7 @@ export function Navbar() {
             className="md:hidden text-smoky-black"
             aria-label="Toggle menu"
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {open ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (

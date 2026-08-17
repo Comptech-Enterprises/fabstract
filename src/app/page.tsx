@@ -23,8 +23,8 @@ function Hero() {
       <div className="absolute inset-0 bg-smoky-black/75" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-smoky-black/70 to-transparent" />
 
-      <div className="relative min-h-[70vh] sm:min-h-screen flex items-center">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 w-full">
+      <div className="relative min-h-[70vh] sm:min-h-screen flex items-start sm:items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 sm:py-32 w-full">
           <div className="max-w-3xl">
             <motion.p
               className="text-floral-white text-sm tracking-[0.3em] uppercase mb-6"

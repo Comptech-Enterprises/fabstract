@@ -54,7 +54,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-14 md:pt-24 min-h-screen bg-bone">
+      <main className="pt-16 md:pt-24 min-h-screen bg-bone">
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.p
