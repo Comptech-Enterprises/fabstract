@@ -27,7 +27,7 @@ function Hero() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 w-full">
           <div className="max-w-3xl">
             <motion.p
-              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-6"
+              className="text-floral-white text-sm tracking-[0.3em] uppercase mb-6"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -76,7 +76,7 @@ function Hero() {
 
           {/* Key Stats */}
           <motion.div
-            className="mt-16 sm:mt-24 grid grid-cols-4 gap-2 sm:gap-6"
+            className="mt-16 sm:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
