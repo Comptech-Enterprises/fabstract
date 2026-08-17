@@ -142,7 +142,7 @@ export default function GalleryPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-28 bg-bone min-h-screen">
+      <main className="pt-24 bg-bone min-h-screen">
         <header className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-10 text-center overflow-hidden">
           <motion.p
             className="text-olive-drab text-xs tracking-[0.4em] uppercase mb-4"
