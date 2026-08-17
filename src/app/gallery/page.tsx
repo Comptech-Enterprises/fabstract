@@ -1,117 +1,273 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const PAGE_SIZE = 12;
+const spring = { type: "spring" as const, stiffness: 260, damping: 24 };
 
-export default function GalleryPage() {
-  const [visible, setVisible] = useState(PAGE_SIZE);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const shown = GALLERY_FILES.slice(0, visible);
-  const hasMore = visible < GALLERY_FILES.length;
+function Pin({
+  file,
+  index,
+  onOpen,
+}: {
+  file: string;
+  index: number;
+  onOpen: () => void;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el || !hasMore) return;
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, []);
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const sx = useSpring(px, { stiffness: 180, damping: 16 });
+  const sy = useSpring(py, { stiffness: 180, damping: 16 });
+  const rotateY = useTransform(sx, [-0.5, 0.5], [-14, 14]);
+  const rotateX = useTransform(sy, [-0.5, 0.5], [12, -12]);
+  const glareX = useTransform(sx, [-0.5, 0.5], ["0%", "100%"]);
+  const glareY = useTransform(sy, [-0.5, 0.5], ["0%", "100%"]);
+  const glareBg = useTransform(
+    [glareX, glareY],
+    ([x, y]) =>
+      `radial-gradient(420px circle at ${x} ${y}, rgba(255,255,255,0.55), transparent 55%)`,
+  );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setVisible((n) => Math.min(n + PAGE_SIZE, GALLERY_FILES.length));
-        }
-      },
-      { rootMargin: "600px 0px" },
-    );
+  function onMove(e: React.MouseEvent) {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    px.set((e.clientX - r.left) / r.width - 0.5);
+    py.set((e.clientY - r.top) / r.height - 0.5);
+  }
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [hasMore, visible]);
+  function onLeave() {
+    px.set(0);
+    py.set(0);
+  }
+
+  return (
+    <div className="h-full min-w-0 [perspective:900px]">
+      <motion.button
+        ref={ref}
+        type="button"
+        onClick={onOpen}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        initial={{ opacity: 0, y: 40, rotateX: 8 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ ...spring, delay: 0.12 + index * 0.07 }}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        whileTap={{ scale: 0.97 }}
+        className="relative w-full aspect-[3/2] overflow-hidden rounded-2xl bg-bone text-left shadow-[0_10px_28px_rgba(26,26,26,0.1)] will-change-transform"
+      >
+        <span
+          aria-hidden
+          className={`absolute inset-0 bg-gradient-to-br from-bone via-olive-drab/25 to-bone bg-[length:200%_200%] animate-pulse transition-opacity duration-500 ${
+            loaded ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <img
+          ref={imgRef}
+          src={gallerySrc(file)}
+          alt=""
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-[filter,opacity,transform] duration-700 ease-out ${
+            loaded ? "opacity-100 blur-0 scale-100" : "opacity-70 blur-2xl scale-110"
+          }`}
+          draggable={false}
+        />
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+          style={{ background: glareBg }}
+        />
+      </motion.button>
+    </div>
+  );
+}
+
+function LightboxShot({
+  src,
+  dir,
+  onPrev,
+  onNext,
+}: {
+  src: string;
+  dir: number;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <motion.div
+      className="relative z-10 max-h-[86vh] max-w-full"
+      initial={{ opacity: 0, x: dir * 56, scale: 0.96 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, x: dir * -56, scale: 0.96 }}
+      transition={spring}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.18}
+      onDragEnd={(_, info) => {
+        if (info.offset.x > 70) onPrev();
+        else if (info.offset.x < -70) onNext();
+      }}
+    >
+      {!loaded && (
+        <div className="absolute inset-0 rounded-xl bg-bone/20 animate-pulse blur-md" />
+      )}
+      <img
+        src={src}
+        alt=""
+        onLoad={() => setLoaded(true)}
+        className={`max-h-[86vh] max-w-full object-contain rounded-xl shadow-[0_30px_80px_rgba(0,0,0,0.45)] cursor-grab active:cursor-grabbing transition-[filter,opacity] duration-500 ${
+          loaded ? "opacity-100 blur-0" : "opacity-60 blur-2xl"
+        }`}
+      />
+    </motion.div>
+  );
+}
+
+export default function GalleryPage() {
+  const [active, setActive] = useState<number | null>(null);
+  const [dir, setDir] = useState(0);
+
+  const close = useCallback(() => setActive(null), []);
+  const prev = useCallback(() => {
+    setDir(-1);
+    setActive((i) => (i === null ? i : (i + GALLERY_FILES.length - 1) % GALLERY_FILES.length));
+  }, []);
+  const next = useCallback(() => {
+    setDir(1);
+    setActive((i) => (i === null ? i : (i + 1) % GALLERY_FILES.length));
+  }, []);
+
+  useEffect(() => {
+    if (active === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active, close, prev, next]);
 
   return (
     <>
       <Navbar />
-      <main className="pt-16">
-        <section className="bg-bone">
-          <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease }}
-              className="text-olive-drab text-sm tracking-[0.3em] uppercase mb-4"
-            >
-              Our Gallery
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.2, ease }}
-              className="text-smoky-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 max-w-3xl"
-            >
-              Product Showcase
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease }}
-              className="text-smoky-black/70 text-lg max-w-3xl leading-relaxed"
-            >
-              Showing {shown.length} of {GALLERY_FILES.length} in shoot series order.
-            </motion.p>
-          </div>
-        </section>
+      <main className="pt-16 bg-bone min-h-screen">
+        <header className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-10 text-center overflow-hidden">
+          <motion.p
+            className="text-olive-drab text-xs tracking-[0.4em] uppercase mb-4"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease }}
+          >
+            Lookbook
+          </motion.p>
+          <motion.h1
+            className="text-smoky-black text-4xl sm:text-5xl font-bold"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.12, ease }}
+          >
+            Gallery
+          </motion.h1>
+        </header>
 
-        <section className="py-24 bg-floral-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {shown.map((file, i) => {
-                const label = file.replace(/\.jpg$/i, "").replaceAll("_", " ");
-                return (
-                  <motion.a
-                    key={file}
-                    href={gallerySrc(file)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: (i % PAGE_SIZE) * 0.03, ease }}
-                    className="group bg-bone/50 rounded-2xl overflow-hidden border border-smoky-black/5 hover:border-olive-drab/30 transition-all duration-300 shadow-sm"
-                  >
-                    <div className="aspect-[3/4] bg-bone relative overflow-hidden">
-                      <img
-                        src={gallerySrc(file)}
-                        alt={label}
-                        loading={i < 4 ? "eager" : "lazy"}
-                        decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-3 sm:p-4 bg-floral-white">
-                      <p className="text-smoky-black/70 text-xs font-medium tracking-wide">
-                        {label}
-                      </p>
-                    </div>
-                  </motion.a>
-                );
-              })}
-            </div>
-
-            {hasMore && (
-              <div
-                ref={sentinelRef}
-                className="mt-12 flex justify-center text-smoky-black/40 text-sm"
-              >
-                Loading more…
-              </div>
-            )}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
+            {GALLERY_FILES.map((file, i) => (
+              <Pin
+                key={file}
+                file={file}
+                index={i}
+                onOpen={() => {
+                  setDir(0);
+                  setActive(i);
+                }}
+              />
+            ))}
           </div>
         </section>
       </main>
       <Footer />
+
+      <AnimatePresence>
+        {active !== null && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-smoky-black/80 backdrop-blur-md"
+              onClick={close}
+            />
+            <button
+              type="button"
+              onClick={close}
+              className="absolute top-5 right-5 z-10 text-floral-white/70 hover:text-floral-white text-sm tracking-widest uppercase"
+              aria-label="Close"
+            >
+              Close
+            </button>
+            <motion.button
+              type="button"
+              whileHover={{ x: -4 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={prev}
+              className="absolute left-3 sm:left-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80 hover:bg-floral-white/10"
+              aria-label="Previous"
+            >
+              &#8592;
+            </motion.button>
+            <AnimatePresence mode="wait" custom={dir}>
+              <LightboxShot
+                key={GALLERY_FILES[active]}
+                src={gallerySrc(GALLERY_FILES[active])}
+                dir={dir}
+                onPrev={prev}
+                onNext={next}
+              />
+            </AnimatePresence>
+            <motion.button
+              type="button"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={next}
+              className="absolute right-3 sm:right-6 z-10 w-11 h-11 rounded-full border border-floral-white/25 text-floral-white/80 hover:bg-floral-white/10"
+              aria-label="Next"
+            >
+              &#8594;
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
