@@ -36,7 +36,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm tracking-wider transition-colors hover:text-olive-drab text-smoky-black/70"
+                className="text-lg tracking-wider transition-colors hover:text-olive-drab text-smoky-black/70"
               >
                 {link.label}
               </Link>
@@ -66,7 +66,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block mx-3 my-1 px-4 py-2.5 rounded-xl text-smoky-black/70 hover:text-olive-drab hover:bg-smoky-black/5 text-sm tracking-wider transition-colors"
+              className="block mx-3 my-1 px-4 py-2.5 rounded-xl text-smoky-black/70 hover:text-olive-drab hover:bg-smoky-black/5 text-lg tracking-wider transition-colors"
             >
               {link.label}
             </Link>
