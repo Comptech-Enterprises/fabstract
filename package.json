@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "r2:upload": "bash scripts/upload-gallery-r2.sh"
   },
   "dependencies": {
     "@types/three": "^0.185.4",
