@@ -8,13 +8,13 @@ export function gallerySrc(file: string) {
 }
 
 export const GALLERY_FILES = [
-  "ASN_8150.jpg",
-  "ASN_8156.jpg",
-  "ASN_8157.jpg",
-  "ASN_8161.jpg",
-  "ASN_8199.jpg",
-  "ASN_8208.jpg",
-  "ASN_8209.jpg",
-  "ASN_8210.jpg",
-  "ASN_8212.jpg",
+  "ASN_8150.webp",
+  "ASN_8156.webp",
+  "ASN_8157.webp",
+  "ASN_8161.webp",
+  "ASN_8199.webp",
+  "ASN_8208.webp",
+  "ASN_8209.webp",
+  "ASN_8210.webp",
+  "ASN_8212.webp",
 ] as const;
