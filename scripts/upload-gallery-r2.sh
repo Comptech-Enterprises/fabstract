@@ -32,11 +32,11 @@ ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
 echo "Uploading $SRC → s3://$R2_BUCKET/$PREFIX/ (series filenames kept)"
 aws s3 sync "$SRC" "s3://$R2_BUCKET/$PREFIX" \
   --endpoint-url "$ENDPOINT" \
-  --content-type "image/jpeg" \
+  --content-type "image/webp" \
   --cache-control "public, max-age=31536000, immutable" \
   --exclude "*" \
-  --include "*.jpg" \
-  --include "*.JPG"
+  --include "*.webp" \
+  --include "*.WEBP"
 
 echo "Done. Public example:"
-echo "${NEXT_PUBLIC_R2_BASE:-https://pub-3551751dc58044cb88a118691e50d580.r2.dev}/$PREFIX/ASN_8045.jpg"
+echo "${NEXT_PUBLIC_R2_BASE:-https://pub-3551751dc58044cb88a118691e50d580.r2.dev}/$PREFIX/ASN_8150.webp"
