@@ -52,9 +52,7 @@ export default function Globe() {
         .backgroundColor("rgba(0,0,0,0)")
         .showAtmosphere(true)
         .atmosphereColor("#C8D9E6")
-        .atmosphereAltitude(0.08)
-        .width(mount.clientWidth)
-        .height(mount.clientHeight);
+        .atmosphereAltitude(0.08);
 
       globe.renderer().setClearColor(0x000000, 0);
       globe.scene().background = null;
@@ -95,7 +93,17 @@ export default function Globe() {
         if (!destroyed) ringFrame = requestAnimationFrame(tick);
       });
 
-      globe.pointOfView({ lat: 20, lng: 0, altitude: 1.8 }, 0);
+      const fit = () => {
+        const el = mountRef.current;
+        if (!el || destroyed) return;
+        const w = el.clientWidth;
+        const h = el.clientHeight;
+        if (w < 8 || h < 8) return;
+        globe.width(w);
+        globe.height(h);
+        globe.pointOfView({ lat: 20, lng: 0, altitude: w < 480 ? 2.15 : 1.8 }, 0);
+      };
+      fit();
 
       const controls = globe.controls();
       controls.autoRotate = true;
@@ -105,16 +113,26 @@ export default function Globe() {
 
     const onResize = () => {
       if (!mountRef.current || !globeRef.current) return;
-      const g = globeRef.current as { width: (w: number) => unknown; height: (h: number) => unknown };
-      g.width(mountRef.current.clientWidth);
-      g.height(mountRef.current.clientHeight);
+      const el = mountRef.current;
+      const w = el.clientWidth;
+      const h = el.clientHeight;
+      if (w < 8 || h < 8) return;
+      const g = globeRef.current as {
+        width: (w: number) => unknown;
+        height: (h: number) => unknown;
+      };
+      g.width(w);
+      g.height(h);
     };
     window.addEventListener("resize", onResize);
+    const ro = new ResizeObserver(onResize);
+    ro.observe(mount);
 
     return () => {
       destroyed = true;
       cancelAnimationFrame(ringFrame);
       window.removeEventListener("resize", onResize);
+      ro.disconnect();
       if (globeRef.current) {
         const g = globeRef.current as { _destructor?: () => void };
         g._destructor?.();
@@ -126,7 +144,7 @@ export default function Globe() {
   return (
     <div
       ref={mountRef}
-      className="w-full h-full bg-transparent"
+      className="w-full h-full min-h-0 overflow-hidden bg-transparent"
       style={{ touchAction: "none", background: "transparent" }}
     />
   );

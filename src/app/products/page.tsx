@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageHero } from "@/components/PageHero";
+import { PageIntro } from "@/components/PageIntro";
 
 export default function ProductsPage() {
   const productLines = [
@@ -37,15 +37,17 @@ export default function ProductsPage() {
     <>
       <Navbar />
       <main>
-        <PageHero
+        <PageIntro
           eyebrow="Products"
           title="High fashion knitwear & woven garments"
           subtitle="From delicate beadwork to bold prints — women's (60%), men's (20%), and children's (20%) collections across woven, knitted, and home textile categories."
-          fileIndex={0}
         />
 
-        {productLines.map((line) => (
-          <section key={line.title} className="border-t border-ink/10">
+        {productLines.map((line, i) => (
+          <section
+            key={line.title}
+            className={`border-t border-ink/10 ${i === 1 ? "bg-sky/50" : "bg-white"}`}
+          >
             <div className="px-6 sm:px-10 lg:px-14 py-14 max-w-3xl">
               <p className="text-teal text-[11px] tracking-[0.25em] uppercase mb-3">{line.share}</p>
               <h2 className="font-display text-4xl text-navy font-medium mb-6">{line.title}</h2>
@@ -62,7 +64,7 @@ export default function ProductsPage() {
           </section>
         ))}
 
-        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-white">
+        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-beige">
           <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">Materials</p>
           <h2 className="font-display text-4xl text-ink font-medium mb-12">Fabrics we believe in</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-crimson/15">

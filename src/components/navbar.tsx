@@ -36,19 +36,23 @@ export function Navbar() {
         scrolled || open ? "backdrop-blur-md" : ""
       }`}
     >
-      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-16 md:h-[4.5rem] pt-[2px]">
-        <Link href="/" className="shrink-0">
-          <img src="/logo.png" alt="Fabstract Clothing India" className="h-9 md:h-12 w-auto" />
+      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-20 md:h-24">
+        <Link href="/" className="shrink-0 flex items-center">
+          <img
+            src="/logo-mark.png"
+            alt="Fabstract Clothing India"
+            className="h-14 md:h-[4.75rem] w-auto object-contain"
+          />
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8 lg:gap-10">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-[10px] tracking-[0.28em] uppercase transition-colors ${
+                className={`relative text-xs lg:text-sm tracking-[0.2em] uppercase transition-colors ${
                   active ? "text-teal" : "text-navy/70 hover:text-navy"
                 }`}
               >
@@ -63,7 +67,7 @@ export function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-navy text-[10px] tracking-[0.28em] uppercase"
+          className="md:hidden text-navy text-sm tracking-[0.2em] uppercase"
           aria-label="Toggle menu"
         >
           {open ? "Close" : "Index"}
@@ -83,7 +87,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block px-6 py-4 text-[12px] tracking-[0.22em] uppercase ${
+                className={`block px-6 py-4 text-base tracking-[0.18em] uppercase ${
                   pathname === link.href ? "text-teal" : "text-navy"
                 }`}
               >

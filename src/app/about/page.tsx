@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageHero } from "@/components/PageHero";
+import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
 
 const TEAM = [
@@ -33,14 +33,13 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main>
-        <PageHero
+        <PageIntro
           eyebrow="About"
           title="House, floor, and the people who run both"
           subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
-          fileIndex={7}
         />
 
-        <section className="border-t border-ink/10 bg-white">
+        <section className="border-t border-ink/10 bg-beige">
           <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-24 max-w-3xl">
             <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">The house</p>
             <h2 className="font-display text-4xl text-ink font-medium mb-6">From knitting to carton</h2>
@@ -50,7 +49,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-white">
+        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-sky/50">
           <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">People</p>
           <h2 className="font-display text-4xl text-ink font-medium mb-12">Management</h2>
           <div className="divide-y divide-ink/10 border-t border-ink/10">

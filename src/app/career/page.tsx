@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageHero } from "@/components/PageHero";
+import { PageIntro } from "@/components/PageIntro";
 import { GlassPanel } from "@/components/GlassPanel";
 import { SectionReveal } from "@/components/SectionReveal";
 
@@ -64,11 +64,10 @@ export default function CareerPage() {
     <>
       <Navbar />
       <main>
-        <PageHero
+        <PageIntro
           eyebrow="Join Our Team"
           title="Build Your Career at Fabstract"
           subtitle="Join a team of 500+ skilled professionals crafting world-class garments for global brands. We invest in people — with fair wages, continuous training, and real career growth."
-          fileIndex={7}
         />
 
         <section id="apply" className="py-24 bg-white">
@@ -184,7 +183,7 @@ export default function CareerPage() {
           </div>
         </section>
 
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-sky/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionReveal>
               <p className="text-teal text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
@@ -216,7 +215,7 @@ export default function CareerPage() {
           </div>
         </section>
 
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-beige">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionReveal>
               <p className="text-mute text-sm tracking-[0.3em] uppercase mb-4">Why Fabstract</p>

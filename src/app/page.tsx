@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroVideos } from "@/components/HeroVideos";
 import { SectionReveal } from "@/components/SectionReveal";
+import { StatGrid } from "@/components/StatGrid";
 import { EASE } from "@/lib/motion";
 
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
@@ -20,7 +21,7 @@ function Hero() {
       <HeroVideos />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-navy via-navy/70 to-navy/15" />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-navy/90 via-transparent to-navy/40" />
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 pb-10 pt-28">
+      <div className="relative z-10 px-6 sm:px-10 lg:px-14 pb-10 pt-32 md:pt-36">
         <motion.p
           className="text-[11px] tracking-[0.4em] uppercase text-sky mb-6"
           initial={{ opacity: 0, y: 10 }}
@@ -86,71 +87,24 @@ function Hero() {
 }
 
 function Capabilities() {
-  const strengths = [
-    { n: "01", title: "Design", desc: "Dedicated sourcing & development team turning buyer concepts into production-ready samples." },
-    { n: "02", title: "Manufacturing", desc: "Full vertical integration — knitting to packing, 1L+ units/month capacity." },
-    { n: "03", title: "Sustainability", desc: "BSCI certified, ETI & ILO aligned. Ethical practices across entire supply chain." },
-    { n: "04", title: "Operational Excellence", desc: "60–90 day lead times, five-stage QA, professional management team." },
-  ];
-
   return (
     <section id="capabilities" className="bg-white">
-      <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-24 max-w-4xl">
-        <p className="text-teal text-[11px] tracking-[0.32em] uppercase mb-4">Chapter 01</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-navy font-medium leading-tight mb-10">
+      <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-28 max-w-6xl">
+        <p className="text-teal text-[11px] tracking-[0.32em] uppercase mb-4">Capabilities</p>
+        <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium leading-[1.05] max-w-3xl">
           End-to-end garment capabilities
         </h2>
-        <div>
-          {strengths.map((s) => (
-            <div key={s.title} className="grid grid-cols-[4.5rem_1fr] gap-4 py-6 border-t border-navy/10">
-              <span className="font-display text-2xl text-teal">{s.n}</span>
-              <span>
-                <span className="block text-lg tracking-wide text-navy">{s.title}</span>
-                <span className="block text-navy/70 text-sm mt-2 leading-relaxed">{s.desc}</span>
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Clients() {
-  const allClients = [
-    { name: "Billabong", country: "USA" },
-    { name: "Quicksilver (Roxy)", country: "USA" },
-    { name: "Volcom", country: "USA" },
-    { name: "Foxhead Inc.", country: "USA" },
-    { name: "Rip Curl", country: "USA" },
-    { name: "O'Neill", country: "USA" },
-    { name: "Delia's", country: "USA" },
-    { name: "Ella Moss", country: "USA" },
-    { name: "Urban Outfitters", country: "USA" },
-    { name: "Anthropologie", country: "USA" },
-    { name: "NAF NAF", country: "France" },
-    { name: "Sud Express", country: "France" },
-    { name: "Kookai", country: "France" },
-    { name: "O'Neill", country: "Canada" },
-    { name: "JC Brothers & Sisters", country: "Sweden" },
-    { name: "Replay", country: "Italy" },
-  ];
-
-  return (
-    <section id="clients" className="bg-white px-6 sm:px-10 lg:px-14 py-24">
-      <SectionReveal className="mb-14 lg:grid lg:grid-cols-12 lg:gap-8">
-        <p className="text-crimson text-[11px] tracking-[0.32em] uppercase mb-4 lg:col-span-3">Chapter 03</p>
-        <h2 className="font-display text-4xl sm:text-6xl text-ink font-medium max-w-2xl lg:col-span-9 leading-[1.05]">
-          Trusted by leading global brands
-        </h2>
-      </SectionReveal>
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-x-12">
-        {allClients.map((client) => (
-          <div key={`${client.name}-${client.country}`} className="break-inside-avoid py-4 border-t border-ink/10">
-            <p className="text-ink">{client.name}</p>
-            <p className="text-mute text-[10px] tracking-[0.18em] uppercase mt-1">{client.country}</p>
-          </div>
-        ))}
+        <p className="mt-6 text-navy/70 text-lg leading-relaxed max-w-2xl">
+          Design through packing under one roof — samples, bulk, and ethical compliance for USA, Canada, and Europe.
+        </p>
+        <StatGrid
+          items={[
+            { value: "100K+", label: "Units per month — knitting to carton, vertically integrated." },
+            { value: "60–90", label: "Day lead times with five-stage garment QA." },
+            { value: "BSCI", label: "Certified. ETI and ILO aligned across the chain." },
+            { value: "30+", label: "Years as a government-recognised export house." },
+          ]}
+        />
       </div>
     </section>
   );
@@ -233,9 +187,11 @@ function GlobalPresence() {
           <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Global presence</h2>
         </SectionReveal>
 
-        <div className="grid lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7 bg-transparent aspect-square">
-            <Globe />
+        <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7 w-full min-w-0 overflow-hidden">
+            <div className="relative mx-auto aspect-square w-full max-w-[22.5rem] sm:max-w-lg lg:max-w-none">
+              <Globe />
+            </div>
           </div>
           <div className="lg:col-span-5">
             <div className="flex flex-col gap-2 mb-8">
@@ -309,7 +265,7 @@ function FAQ() {
   ];
 
   return (
-    <section className="bg-white px-6 sm:px-10 lg:px-14 py-24 border-t border-ink/10">
+    <section className="bg-sky/50 px-6 sm:px-10 lg:px-14 py-24 border-t border-ink/10">
       <p className="text-crimson text-[11px] tracking-[0.32em] uppercase mb-4">Chapter 05</p>
       <h2 className="font-display text-4xl sm:text-6xl text-ink font-medium mb-12">Questions</h2>
       {faqs.map((faq, i) => (
@@ -436,7 +392,6 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Capabilities />
-      <Clients />
       <GlobalPresence />
       <FAQ />
       <Contact />

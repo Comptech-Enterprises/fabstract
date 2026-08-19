@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageHero } from "@/components/PageHero";
+import { PageIntro } from "@/components/PageIntro";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 24 };
@@ -150,11 +150,10 @@ export default function GalleryPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-white">
-        <PageHero
+        <PageIntro
           eyebrow="Lookbook"
           title="Gallery"
           subtitle="Stills from the floor and the line — click a frame to open."
-          fileIndex={2}
         />
 
         <section className="p-0 bg-white">
