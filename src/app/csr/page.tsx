@@ -32,7 +32,7 @@ function ReadMore({ more }: { more: string }) {
 
 function SideNav({ active }: { active: string }) {
   return (
-    <nav className="sticky top-28 border-l border-navy/15 py-2">
+    <nav className="border-l border-navy/15 py-2">
       {TABS.map((tab) => {
         const on = active === tab.id;
         return (
@@ -111,7 +111,7 @@ export default function CSRPage() {
         </section>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-0">
-          <aside className="hidden lg:block lg:col-span-2 px-6 pt-10">
+          <aside className="hidden lg:block lg:col-span-2 px-6 pt-10 self-start sticky top-24 z-30">
             <SideNav active={active} />
           </aside>
 
@@ -236,7 +236,7 @@ export default function CSRPage() {
               </div>
             </section>
 
-            <section id="marks" className="scroll-mt-32 bg-beige px-5 sm:px-10 lg:px-14 py-16 lg:py-24">
+            <section id="marks" className="scroll-mt-32 bg-white px-5 sm:px-10 lg:px-14 py-16 lg:py-24">
               <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Our Marks</h2>
               <h3 className="mt-8 text-navy font-medium text-lg">Partners in progress</h3>
               <p className="mt-4 text-navy/70 leading-relaxed max-w-xl">

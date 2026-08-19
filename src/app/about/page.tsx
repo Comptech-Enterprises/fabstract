@@ -39,7 +39,7 @@ export default function AboutPage() {
           subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
         />
 
-        <section className="border-t border-ink/10 bg-beige">
+        <section className="border-t border-ink/10 bg-white">
           <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-24 max-w-3xl">
             <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">The house</p>
             <h2 className="font-display text-4xl text-ink font-medium mb-6">From knitting to carton</h2>
