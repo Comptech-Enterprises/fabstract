@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
@@ -131,52 +131,6 @@ function GlobalPresence() {
     },
   ];
 
-  const testimonials = [
-    {
-      quote: "Fabstract has been our most trusted apparel supplier for over a decade. Their commitment to ethical production, Fairtrade standards, and consistent garment finishing is unmatched.",
-      author: "Director of Global Sourcing",
-      company: "Leading US Surf & Outdoor Brand",
-    },
-    {
-      quote: "Working with Nitin and the Fabstract team gives us total peace of mind. From intricate embroidery to sustainable fabric sourcing, they execute complex orders flawlessly.",
-      author: "Head of Product Development",
-      company: "European High Fashion House",
-    },
-    {
-      quote: "The quality consistency across bulk orders is remarkable. Fabstract's attention to detail — from fabric weight to stitch density — has made them our go-to partner for five seasons running.",
-      author: "VP of Merchandise",
-      company: "Australian Active & Swimwear Label",
-    },
-    {
-      quote: "Fairtrade certification was non-negotiable for our brand. Fabstract not only met the standard — they exceeded it. Their transparency reports are the most thorough we've seen.",
-      author: "Ethical Sourcing Manager",
-      company: "UK Sustainable Fashion Retailer",
-    },
-    {
-      quote: "Tight timelines, complex embroidery specs, and demanding wash tests — Fabstract handled it all without a single delay. A truly professional export partner.",
-      author: "Head of Supply Chain",
-      company: "North American Outdoor Apparel Group",
-    },
-  ];
-
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [fading, setFading] = useState(false);
-
-  const goTo = (idx: number) => {
-    setFading(true);
-    setTimeout(() => {
-      setActiveTestimonial(idx);
-      setFading(false);
-    }, 300);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      goTo((activeTestimonial + 1) % testimonials.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [activeTestimonial]);
-
   const currentRegion = regions.find((r) => r.name === activeRegion) || regions[0];
 
   return (
@@ -218,26 +172,6 @@ function GlobalPresence() {
               ))}
             </ul>
           </div>
-        </div>
-      </div>
-
-      <div className="bg-navy px-6 sm:px-10 lg:px-14 py-20">
-        <p className="text-sky text-[11px] tracking-[0.32em] uppercase mb-8">On record</p>
-        <div style={{ opacity: fading ? 0 : 1, transition: "opacity 300ms" }} className="max-w-4xl">
-          <p className="font-display text-3xl sm:text-5xl text-white leading-[1.15]">
-            &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
-          </p>
-          <p className="mt-8 text-sm text-white/70">{testimonials[activeTestimonial].author}</p>
-          <p className="text-sky text-xs mt-1 tracking-wide">{testimonials[activeTestimonial].company}</p>
-        </div>
-        <div className="flex gap-2 mt-10">
-          {testimonials.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goTo(idx)}
-              className={`h-px w-10 ${idx === activeTestimonial ? "bg-sky" : "bg-white/20"}`}
-            />
-          ))}
         </div>
       </div>
     </section>
