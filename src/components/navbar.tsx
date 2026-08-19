@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import { EASE } from "@/lib/motion";
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -15,6 +18,7 @@ export const NAV_LINKS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -24,55 +28,71 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-bone/95 backdrop-blur-sm shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-24">
-          <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo.png" alt="Fabstract Clothing India" className="h-12 md:h-20 w-auto" />
-          </Link>
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: EASE }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 bg-white/95 border-b border-navy/10 ${
+        scrolled || open ? "backdrop-blur-md" : ""
+      }`}
+    >
+      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-16 md:h-[4.5rem] pt-[2px]">
+        <Link href="/" className="shrink-0">
+          <img src="/logo.png" alt="Fabstract Clothing India" className="h-9 md:h-12 w-auto" />
+        </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8">
+          {NAV_LINKS.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative text-[10px] tracking-[0.28em] uppercase transition-colors ${
+                  active ? "text-teal" : "text-navy/70 hover:text-navy"
+                }`}
+              >
+                {link.label}
+                {active ? (
+                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-teal" />
+                ) : null}
+              </Link>
+            );
+          })}
+        </div>
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-navy text-[10px] tracking-[0.28em] uppercase"
+          aria-label="Toggle menu"
+        >
+          {open ? "Close" : "Index"}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden bg-white border-t border-navy/10 overflow-hidden"
+          >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-lg tracking-wider transition-colors hover:text-olive-drab text-smoky-black/70"
+                onClick={() => setOpen(false)}
+                className={`block px-6 py-4 text-[12px] tracking-[0.22em] uppercase ${
+                  pathname === link.href ? "text-teal" : "text-navy"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
-          </div>
-
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-smoky-black"
-            aria-label="Toggle menu"
-          >
-            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="md:hidden bg-bone border-t border-smoky-black/10 pb-2">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block mx-3 my-1 px-4 py-2.5 rounded-xl text-smoky-black/70 hover:text-olive-drab hover:bg-smoky-black/5 text-lg tracking-wider transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      )}
-    </nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.nav>
   );
 }

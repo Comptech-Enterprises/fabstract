@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Cormorant_Garamond, Geist } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const display = Cormorant_Garamond({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -15,10 +23,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" className={`${geist.variable} ${display.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans bg-white text-navy">
+        <ScrollProgress />
         {children}
-</body>
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }

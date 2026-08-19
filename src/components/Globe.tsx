@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { GlobeInstance } from "globe.gl";
+import type { WebGLRendererParameters } from "three";
 
 const LOCATIONS = [
   { name: "USA",       lat: 39.5,   lng: -98.35  },
@@ -37,41 +38,45 @@ export default function Globe() {
     import("globe.gl").then(({ default: GlobeGL }) => {
       if (destroyed || !mountRef.current) return;
 
-      const GlobeFactory = GlobeGL as unknown as () => (el: HTMLElement) => GlobeInstance;
-      const globe = GlobeFactory()(mountRef.current as HTMLElement);
+      const GlobeFactory = GlobeGL as unknown as (
+        opts?: { rendererConfig?: WebGLRendererParameters }
+      ) => (el: HTMLElement) => GlobeInstance;
+      const globe = GlobeFactory({
+        rendererConfig: { alpha: true, antialias: true },
+      })(mountRef.current as HTMLElement);
       globeRef.current = globe;
 
       globe
-        .globeImageUrl("//unpkg.com/three-globe/example/img/earth-day.jpg")
+        .globeImageUrl("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
         .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
         .backgroundColor("rgba(0,0,0,0)")
         .showAtmosphere(true)
-        .atmosphereColor("#c8ddf0")
-        .atmosphereAltitude(0.12)
+        .atmosphereColor("#C8D9E6")
+        .atmosphereAltitude(0.08)
         .width(mount.clientWidth)
         .height(mount.clientHeight);
 
-      // Pins
+      globe.renderer().setClearColor(0x000000, 0);
+      globe.scene().background = null;
+
       globe
         .pointsData(LOCATIONS)
         .pointLat((d: unknown) => (d as Loc).lat)
         .pointLng((d: unknown) => (d as Loc).lng)
-        .pointColor(() => "#6b7c3f")
+        .pointColor(() => "#2F4156")
         .pointAltitude(0.04)
         .pointRadius(0.6)
         .pointLabel((d: unknown) => (d as Loc).name);
 
-      // Ripple rings
       globe
         .ringsData(LOCATIONS)
         .ringLat((d: unknown) => (d as Loc).lat)
         .ringLng((d: unknown) => (d as Loc).lng)
-        .ringColor(() => (t: number) => `rgba(107,124,63,${1 - t})`)
+        .ringColor(() => (t: number) => `rgba(86,124,141,${1 - t})`)
         .ringMaxRadius(5)
         .ringPropagationSpeed(2)
         .ringRepeatPeriod(900);
 
-      // Dotted arcs
       const byName = Object.fromEntries(LOCATIONS.map(l => [l.name, l]));
       globe
         .arcsData(ARCS)
@@ -79,7 +84,7 @@ export default function Globe() {
         .arcStartLng((d: unknown) => byName[(d as Arc).src].lng)
         .arcEndLat((d: unknown) => byName[(d as Arc).dst].lat)
         .arcEndLng((d: unknown) => byName[(d as Arc).dst].lng)
-        .arcColor(() => "#6b7c3f")
+        .arcColor(() => "#567C8D")
         .arcAltitude(0.3)
         .arcStroke(0.5)
         .arcDashLength(0.4)
@@ -92,7 +97,7 @@ export default function Globe() {
 
       globe.pointOfView({ lat: 20, lng: 0, altitude: 1.8 }, 0);
 
-      const controls = (globe as unknown as { controls: () => { autoRotate: boolean; autoRotateSpeed: number; enableZoom: boolean } }).controls();
+      const controls = globe.controls();
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2;
       controls.enableZoom = false;
@@ -121,8 +126,8 @@ export default function Globe() {
   return (
     <div
       ref={mountRef}
-      className="w-full h-full"
-      style={{ touchAction: "none" }}
+      className="w-full h-full bg-transparent"
+      style={{ touchAction: "none", background: "transparent" }}
     />
   );
 }

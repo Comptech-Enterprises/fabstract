@@ -4,9 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { PageHero } from "@/components/PageHero";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
-const ease = [0.22, 1, 0.36, 1] as const;
 const spring = { type: "spring" as const, stiffness: 260, damping: 24 };
 
 const PIN_ASPECT = [
@@ -31,6 +31,7 @@ function Pin({
   onOpen: () => void;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -43,26 +44,32 @@ function Pin({
     <button
       type="button"
       onClick={onOpen}
-      className={`relative w-full overflow-hidden rounded-2xl bg-bone text-left ${PIN_ASPECT[index % PIN_ASPECT.length]}`}
+      className={`group relative w-full overflow-hidden bg-white text-left ${PIN_ASPECT[index % PIN_ASPECT.length]}`}
     >
       <span
         aria-hidden
-        className={`absolute inset-0 bg-gradient-to-br from-bone via-olive-drab/25 to-bone animate-pulse transition-opacity duration-500 ${
+        className={`absolute inset-0 bg-gradient-to-br from-white via-sky to-white animate-pulse transition-opacity duration-500 ${
           loaded ? "opacity-0" : "opacity-100"
         }`}
       />
-      <img
-        ref={imgRef}
-        src={gallerySrc(file)}
-        alt=""
-        loading={index < 2 ? "eager" : "lazy"}
-        decoding="async"
-        onLoad={() => setLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-[filter,opacity] duration-700 ${
-          loaded ? "opacity-100 blur-0" : "opacity-70 blur-2xl"
-        }`}
-        draggable={false}
-      />
+      {failed ? (
+        <span className="absolute inset-0 bg-white" aria-hidden />
+      ) : (
+        <img
+          ref={imgRef}
+          src={gallerySrc(file)}
+          alt=""
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-[filter,opacity,transform] duration-700 group-hover:scale-[1.08] ${
+            loaded ? "opacity-100 blur-0" : "opacity-70 blur-2xl"
+          }`}
+          draggable={false}
+        />
+      )}
+      <span className="pointer-events-none absolute inset-0 bg-paper/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </button>
   );
 }
@@ -96,7 +103,7 @@ function LightboxShot({
       }}
     >
       {!loaded && (
-        <div className="absolute inset-0 rounded-xl bg-bone/20 animate-pulse blur-md" />
+        <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse blur-md" />
       )}
       <img
         src={src}
@@ -142,30 +149,18 @@ export default function GalleryPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-16 md:pt-24 bg-bone min-h-screen">
-        <header className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-10 text-center overflow-hidden">
-          <motion.p
-            className="text-olive-drab text-xs tracking-[0.4em] uppercase mb-4"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
-          >
-            Lookbook
-          </motion.p>
-          <motion.h1
-            className="text-smoky-black text-4xl sm:text-5xl font-bold"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.12, ease }}
-          >
-            Gallery
-          </motion.h1>
-        </header>
+      <main className="min-h-screen bg-white">
+        <PageHero
+          eyebrow="Lookbook"
+          title="Gallery"
+          subtitle="Stills from the floor and the line — click a frame to open."
+          fileIndex={2}
+        />
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
-          <div className="columns-2 md:columns-3 gap-3 sm:gap-4">
+        <section className="p-0 bg-white">
+          <div className="columns-2 md:columns-3 gap-px">
             {GALLERY_FILES.map((file, i) => (
-              <div key={file} className="mb-3 sm:mb-4 break-inside-avoid">
+              <div key={file} className="mb-px break-inside-avoid">
                 <Pin
                   file={file}
                   index={i}

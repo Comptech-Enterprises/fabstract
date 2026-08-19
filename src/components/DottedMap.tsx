@@ -124,7 +124,7 @@ export default function DottedMap({ activeRegion, onRegionClick }: Props) {
         // Pin dot
         ctx.beginPath();
         ctx.arc(x, y, isActive ? 7 : 5, 0, Math.PI * 2);
-        ctx.fillStyle = isActive ? "#6B7C3C" : "#8B9A5C";
+        ctx.fillStyle = isActive ? "#2F4156" : "#567C8D";
         ctx.fill();
 
         // Label

@@ -1,10 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { PageHero } from "@/components/PageHero";
+import { SectionReveal } from "@/components/SectionReveal";
 
 const TEAM = [
   {
@@ -29,76 +28,43 @@ const TEAM = [
   },
 ];
 
-function PhotoPlaceholder() {
-  return (
-    <div className="aspect-[4/5] rounded-xl bg-bone flex items-center justify-center">
-      <svg
-        className="w-16 h-16 text-olive-drab/35"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        aria-hidden
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.25}
-          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-        />
-      </svg>
-    </div>
-  );
-}
-
 export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-16 md:pt-24 min-h-screen bg-bone">
-        <section className="py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.p
-              className="text-olive-drab text-xs tracking-[0.35em] uppercase mb-3 text-center"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease }}
-            >
-              About
-            </motion.p>
-            <motion.h1
-              className="text-smoky-black text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease }}
-            >
-              Management Team
-            </motion.h1>
+      <main>
+        <PageHero
+          eyebrow="About"
+          title="House, floor, and the people who run both"
+          subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
+          fileIndex={7}
+        />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {TEAM.map((person, i) => (
-                <motion.article
-                  key={person.name}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease }}
-                  whileHover={{ y: -8 }}
-                  className="rounded-2xl bg-floral-white border border-smoky-black/10 p-4 flex flex-col shadow-sm max-w-sm mx-auto w-full sm:max-w-none"
-                >
-                  <PhotoPlaceholder />
-                  <div className="px-1 sm:px-2 pt-4 pb-2 text-center">
-                    <p className="text-olive-drab text-xs sm:text-[10px] font-bold tracking-[0.16em] uppercase mb-1.5">
-                      {person.role}
-                    </p>
-                    <h2 className="text-smoky-black text-xl sm:text-lg font-bold mb-2">
-                      {person.name}
-                    </h2>
-                    <p className="text-smoky-black/60 text-sm sm:text-xs leading-relaxed">
-                      {person.bio}
-                    </p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
+        <section className="border-t border-ink/10 bg-white">
+          <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-24 max-w-3xl">
+            <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">The house</p>
+            <h2 className="font-display text-4xl text-ink font-medium mb-6">From knitting to carton</h2>
+            <p className="text-mute leading-relaxed">
+              We are Fairtrade certified, ETI and ILO compliant, and run active CSR programmes focused on education, environment, and worker well-being. A government-recognised export house — design through packing under one roof.
+            </p>
+          </div>
+        </section>
+
+        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-white">
+          <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">People</p>
+          <h2 className="font-display text-4xl text-ink font-medium mb-12">Management</h2>
+          <div className="divide-y divide-ink/10 border-t border-ink/10">
+            {TEAM.map((person, i) => (
+              <SectionReveal key={person.name} delay={i * 0.05}>
+                <article className="grid md:grid-cols-12 gap-4 py-8">
+                  <p className="md:col-span-3 text-crimson text-[11px] tracking-[0.18em] uppercase pt-1">
+                    {person.role}
+                  </p>
+                  <h3 className="md:col-span-3 font-display text-2xl text-ink">{person.name}</h3>
+                  <p className="md:col-span-6 text-mute text-sm leading-relaxed">{person.bio}</p>
+                </article>
+              </SectionReveal>
+            ))}
           </div>
         </section>
       </main>

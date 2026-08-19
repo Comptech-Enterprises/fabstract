@@ -1,56 +1,55 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { NAV_LINKS } from "./navbar";
+import { EASE } from "@/lib/motion";
 
 export function Footer() {
   return (
-    <footer className="bg-smoky-black py-12 border-t border-bone/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-2">
-            <p className="text-floral-white font-bold text-lg tracking-wide mb-4">
-              FABSTRACT
-            </p>
-            <p className="text-bone/50 text-sm leading-relaxed max-w-sm">
-              Government recognized garment export house, manufacturing &amp;
-              exporting high fashion knitwear &amp; woven garments since 1991.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-bone/80 font-semibold text-sm mb-4">Quick Links</p>
-            <ul className="space-y-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-bone/40 text-sm hover:text-olive-drab transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-bone/80 font-semibold text-sm mb-4">Certifications</p>
-            <ul className="space-y-2 text-bone/40 text-sm">
-              <li>CSCC Approved</li>
-              <li>BSCI Certified</li>
-              <li>ETI Aligned</li>
-              <li>ILO Compliant</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-8 border-t border-bone/10 text-center">
-          <p className="text-bone/30 text-sm">
-            &copy; {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd. All rights reserved.
+    <motion.footer
+      className="bg-navy text-white"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: EASE }}
+    >
+      <div className="px-5 sm:px-8 lg:px-12 py-20 grid sm:grid-cols-2 lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-6">
+          <p className="font-display text-5xl text-white mb-5">Fabstract</p>
+          <p className="text-white/70 text-sm leading-relaxed max-w-md">
+            Government recognized garment export house, manufacturing &amp;
+            exporting high fashion knitwear &amp; woven garments since 1991.
           </p>
         </div>
+        <div className="lg:col-span-3">
+          <p className="text-[10px] tracking-[0.28em] uppercase text-sky mb-5">Index</p>
+          <ul className="space-y-2.5">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-white/85 text-sm hover:text-sky transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="lg:col-span-3">
+          <p className="text-[10px] tracking-[0.28em] uppercase text-sky mb-5">Marks</p>
+          <ul className="space-y-2.5 text-white/85 text-sm">
+            <li>CSCC Approved</li>
+            <li>BSCI Certified</li>
+            <li>ETI Aligned</li>
+            <li>ILO Compliant</li>
+          </ul>
+        </div>
       </div>
-    </footer>
+      <div className="px-5 sm:px-8 lg:px-12 py-6 border-t border-white/10 flex flex-wrap justify-between gap-3">
+        <p className="text-white/45 text-xs tracking-wide">
+          &copy; {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd.
+        </p>
+        <p className="text-sky text-[10px] tracking-[0.28em] uppercase">Vol. 1991</p>
+      </div>
+    </motion.footer>
   );
 }
