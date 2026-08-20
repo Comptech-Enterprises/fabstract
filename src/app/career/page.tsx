@@ -5,12 +5,13 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
+import { TextReveal } from "@/components/TextReveal";
 
 const field =
-  "w-full bg-transparent border-0 border-b border-cream/25 pb-2.5 pt-1 text-base text-cream placeholder-cream/30 focus:outline-none focus:border-cream transition-colors";
+  "w-full bg-transparent border-0 border-b border-sand pb-2.5 pt-1 text-base text-ink placeholder-taupe focus:outline-none focus:border-champagne transition-colors";
 
 const selectField =
-  "w-full bg-transparent border-0 border-b border-cream/25 pb-2.5 pt-1 text-base text-cream focus:outline-none focus:border-cream transition-colors [&>option]:bg-ink";
+  "w-full bg-transparent border-0 border-b border-sand pb-2.5 pt-1 text-base text-ink focus:outline-none focus:border-champagne transition-colors";
 
 const PILLARS = [
   {
@@ -94,101 +95,110 @@ export default function CareerPage() {
           </SectionReveal>
 
           <SectionReveal delay={0.1}>
-            <form onSubmit={handleSubmit} className="bg-ink p-6 sm:p-10 space-y-7">
-              <div>
-                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
-                  <span className="text-cream/30">01</span> Full name *
-                </label>
-                <input type="text" name="name" required value={formData.name} onChange={handleChange} className={field} />
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 bg-white border-l-4 p-6 sm:p-10"
+              style={{ borderColor: "var(--champagne)" }}
+            >
+              <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+                <div>
+                  <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                    <span style={{ color: "var(--champagne)" }}>01</span> Full name *
+                  </label>
+                  <input type="text" name="name" required value={formData.name} onChange={handleChange} className={field} />
+                </div>
+                <div>
+                  <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                    <span style={{ color: "var(--champagne)" }}>02</span> Phone *
+                  </label>
+                  <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={field} />
+                </div>
+                <div>
+                  <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                    <span style={{ color: "var(--champagne)" }}>03</span> Position *
+                  </label>
+                  <select name="position" required value={formData.position} onChange={handleChange} className={selectField}>
+                    <option value="">Select position</option>
+                    <option>Pattern Making Specialist</option>
+                    <option>Quality Control Manager</option>
+                    <option>Merchandiser</option>
+                    <option>Sewing Line Supervisor</option>
+                    <option>Fabric Sourcing Executive</option>
+                    <option>Sustainability Coordinator</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                    <span style={{ color: "var(--champagne)" }}>04</span> Experience
+                  </label>
+                  <select name="experience" value={formData.experience} onChange={handleChange} className={selectField}>
+                    <option value="">Select experience</option>
+                    <option>Fresher</option>
+                    <option>1-2 Years</option>
+                    <option>3-5 Years</option>
+                    <option>5-10 Years</option>
+                    <option>10+ Years</option>
+                  </select>
+                </div>
               </div>
               <div>
-                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
-                  <span className="text-cream/30">02</span> Phone *
-                </label>
-                <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={field} />
-              </div>
-              <div>
-                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
-                  <span className="text-cream/30">03</span> Position *
-                </label>
-                <select name="position" required value={formData.position} onChange={handleChange} className={selectField}>
-                  <option value="">Select position</option>
-                  <option>Pattern Making Specialist</option>
-                  <option>Quality Control Manager</option>
-                  <option>Merchandiser</option>
-                  <option>Sewing Line Supervisor</option>
-                  <option>Fabric Sourcing Executive</option>
-                  <option>Sustainability Coordinator</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div>
-                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
-                  <span className="text-cream/30">04</span> Experience
-                </label>
-                <select name="experience" value={formData.experience} onChange={handleChange} className={selectField}>
-                  <option value="">Select experience</option>
-                  <option>Fresher</option>
-                  <option>1-2 Years</option>
-                  <option>3-5 Years</option>
-                  <option>5-10 Years</option>
-                  <option>10+ Years</option>
-                </select>
-              </div>
-              <div>
-                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
-                  <span className="text-cream/30">05</span> Cover note
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                  <span style={{ color: "var(--champagne)" }}>05</span> Cover note
                 </label>
                 <textarea name="message" rows={3} value={formData.message} onChange={handleChange} className={`${field} resize-none`} />
               </div>
-              <button
-                type="submit"
-                className="w-full bg-cream text-ink text-xs uppercase tracking-[0.2em] font-semibold py-4 hover:bg-cream/90 transition-colors"
-              >
+              <button type="submit" className="btn-crimson">
                 Submit application →
               </button>
             </form>
           </SectionReveal>
         </section>
 
-        <section className="border-b border-sand bg-white">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-8 flex flex-wrap gap-x-10 gap-y-2 text-xs sm:text-sm text-taupe">
+        <section className="bg-white border-t border-sand">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-5 flex flex-wrap gap-x-10 gap-y-2 text-xs sm:text-sm text-taupe">
             <span>Equal opportunity employer</span>
             <span>Walk-ins Mon–Sat, 10am–4pm, Noida factory</span>
             <span>Freshers welcome</span>
           </div>
         </section>
 
-        <section id="pillars" className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
-          <SectionReveal>
-            <p className="font-script text-lg text-taupe">Life at Fabstract</p>
-          </SectionReveal>
-          <div className="mt-8 grid sm:grid-cols-2 gap-x-10 gap-y-10">
-            {PILLARS.map((pillar, i) => (
-              <SectionReveal key={pillar.title} delay={i * 0.06}>
-                <div className="border-t border-sand pt-5">
-                  <p className="font-script text-base text-taupe">{pillar.number}</p>
-                  <h3 className="mt-2 font-display font-semibold text-xl text-ink">{pillar.title}</h3>
-                  <p className="mt-3 text-sm text-stone leading-relaxed">{pillar.desc}</p>
-                  <p className="mt-4 text-xs uppercase tracking-wider text-taupe">{pillar.stat}</p>
-                </div>
-              </SectionReveal>
-            ))}
+        <section id="pillars" className="bg-cream border-t border-sand">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
+            <SectionReveal>
+              <p className="font-script text-lg text-taupe">Life at Fabstract</p>
+            </SectionReveal>
+            <div className="mt-8 grid sm:grid-cols-2 gap-4">
+              {PILLARS.map((pillar, i) => (
+                <SectionReveal key={pillar.title} delay={i * 0.06}>
+                  <div className="border-t border-sand pt-5">
+                    <p className="font-script text-base" style={{ color: "var(--champagne)" }}>{pillar.number}</p>
+                    <h3 className="mt-2 font-display font-semibold text-xl text-ink">{pillar.title}</h3>
+                    <p className="mt-3 text-sm text-stone leading-relaxed">{pillar.desc}</p>
+                    <p className="mt-4 text-xs uppercase tracking-wider text-taupe">{pillar.stat}</p>
+                  </div>
+                </SectionReveal>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="border-y border-sand bg-white">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+        <section className="bg-white border-t border-sand">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
             <SectionReveal>
-              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
-                Benefits
-              </h2>
+              <TextReveal
+                as="h2"
+                text="Benefits"
+                className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight"
+              />
             </SectionReveal>
-            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {BENEFITS.map((b, i) => (
                 <SectionReveal key={b.title} delay={i * 0.05}>
-                  <h4 className="font-display font-semibold text-lg text-ink">{b.title}</h4>
-                  <p className="mt-2 text-sm text-stone leading-relaxed">{b.desc}</p>
+                  <div className="border-t border-sand pt-5">
+                    <h4 className="font-display font-semibold text-lg text-ink">{b.title}</h4>
+                    <p className="mt-2 text-sm text-stone leading-relaxed">{b.desc}</p>
+                  </div>
                 </SectionReveal>
               ))}
             </div>

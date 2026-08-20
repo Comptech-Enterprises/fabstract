@@ -97,7 +97,7 @@ export default function GalleryPage() {
                   draggable={false}
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
-                <span className="absolute bottom-4 left-4 bg-cream px-2 py-1 text-[10px] tracking-[0.14em] text-taupe">
+                <span className="absolute bottom-4 left-4 glass px-2 py-1 text-[10px] tracking-[0.14em] text-stone">
                   {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                 </span>
               </button>
@@ -134,7 +134,7 @@ export default function GalleryPage() {
             transition={{ duration: 0.3, ease: EASE }}
           >
             <motion.div
-              className="absolute inset-0 bg-ink/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
               onClick={close}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -144,7 +144,7 @@ export default function GalleryPage() {
             <button
               type="button"
               onClick={close}
-              className="absolute top-5 right-5 z-20 text-[11px] uppercase tracking-[0.2em] text-cream/80 hover:text-cream"
+              className="absolute top-5 right-5 z-20 text-[11px] uppercase tracking-[0.2em] text-white/80 hover:text-white"
             >
               Close
             </button>
@@ -153,7 +153,7 @@ export default function GalleryPage() {
               type="button"
               onClick={prev}
               aria-label="Previous"
-              className="absolute left-3 sm:left-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 text-cream transition-colors hover:bg-cream hover:text-ink"
+              className="absolute left-3 sm:left-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white hover:text-ink"
             >
               ←
             </button>
@@ -180,11 +180,11 @@ export default function GalleryPage() {
                 />
               </AnimatePresence>
 
-              <div className="flex items-center gap-3 text-cream/70">
-                <span className="text-base text-cream">
+              <div className="flex items-center gap-3 text-white/70">
+                <span className="text-base text-white">
                   {String(active + 1).padStart(2, "0")}
                 </span>
-                <span className="h-px w-10 bg-cream/40" />
+                <span className="h-px w-10 bg-white/40" />
                 <span className="text-[11px] uppercase tracking-[0.2em]">
                   {String(total).padStart(2, "0")}
                 </span>
@@ -195,7 +195,7 @@ export default function GalleryPage() {
               type="button"
               onClick={next}
               aria-label="Next"
-              className="absolute right-3 sm:right-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 text-cream transition-colors hover:bg-cream hover:text-ink"
+              className="absolute right-3 sm:right-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white hover:text-ink"
             >
               →
             </button>

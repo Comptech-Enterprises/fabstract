@@ -3,6 +3,7 @@ import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { EnquireTab } from "@/components/EnquireTab";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col font-sans bg-cream text-stone">
         <ScrollProgress />
         {children}
+        <EnquireTab />
         <WhatsAppButton />
       </body>
     </html>

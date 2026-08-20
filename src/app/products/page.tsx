@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
+import { TextReveal } from "@/components/TextReveal";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
@@ -66,12 +67,14 @@ export default function ProductsPage() {
         />
 
 
-        <section className="mx-auto max-w-6xl px-5 sm:px-8">
+        <section>
           {LINES.map((line, i) => (
             <SectionReveal key={line.id}>
               <article
                 id={line.id}
-                className="scroll-mt-24 grid lg:grid-cols-12 gap-8 lg:gap-14 items-center border-b border-sand py-12 sm:py-16"
+                className={`scroll-mt-24 mx-auto max-w-6xl grid lg:grid-cols-12 gap-8 lg:gap-14 items-center px-5 sm:px-8 py-14 sm:py-16 border-t border-sand ${
+                  i % 2 === 1 ? "bg-white" : ""
+                }`}
               >
                 <div
                   className={`lg:col-span-6 ${i % 2 === 1 ? "lg:order-2" : ""}`}
@@ -84,9 +87,11 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="lg:col-span-6">
-                  <h2 className="font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight">
-                    {line.title}
-                  </h2>
+                  <TextReveal
+                    as="h2"
+                    text={line.title}
+                    className="font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight"
+                  />
                   <p className="mt-4 max-w-md text-sm sm:text-base text-stone leading-relaxed">
                     {line.blurb}
                   </p>
@@ -121,32 +126,34 @@ export default function ProductsPage() {
           ))}
         </section>
 
-        <section id="materials" className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
-          <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
-              Fabrics we believe in
-            </h2>
-            <p className="max-w-sm text-sm text-stone leading-relaxed">
-              Sustainable inputs offered on every programme, subject to buyer specification.
-            </p>
-          </SectionReveal>
+        <section id="materials" className="bg-white border-t border-sand">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
+            <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
+                Fabrics we believe in
+              </h2>
+              <p className="max-w-sm text-sm text-stone leading-relaxed">
+                Sustainable inputs offered on every programme, subject to buyer specification.
+              </p>
+            </SectionReveal>
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
-            {MATERIALS.map((mat, i) => (
-              <SectionReveal key={mat.label} delay={i * 0.06}>
-                <div className="border-t border-sand py-6">
-                  <p className="font-script text-base text-taupe">0{i + 1}</p>
-                  <h3 className="mt-2 font-display font-semibold text-lg text-ink">
-                    {mat.label}
-                  </h3>
-                  <p className="mt-2 text-sm text-stone leading-relaxed">{mat.desc}</p>
-                </div>
-              </SectionReveal>
-            ))}
+            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {MATERIALS.map((mat, i) => (
+                <SectionReveal key={mat.label} delay={i * 0.06}>
+                  <div className="border-t border-sand pt-5">
+                    <p className="font-script text-base" style={{ color: "var(--champagne)" }}>0{i + 1}</p>
+                    <h3 className="mt-2 font-display font-semibold text-lg text-ink">
+                      {mat.label}
+                    </h3>
+                    <p className="mt-2 text-sm text-stone leading-relaxed">{mat.desc}</p>
+                  </div>
+                </SectionReveal>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="border-t border-sand bg-white">
+        <section className="bg-cream border-t border-sand">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 flex flex-wrap items-center justify-between gap-6">
             <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight max-w-lg">
               Send a tech pack — we’ll come back with a sample plan.

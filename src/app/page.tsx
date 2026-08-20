@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
+import { TextReveal } from "@/components/TextReveal";
 import { Footer } from "@/components/footer";
 import { HeroVideos } from "@/components/HeroVideos";
 import { SectionReveal } from "@/components/SectionReveal";
@@ -12,7 +13,7 @@ import { EASE } from "@/lib/motion";
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const field =
-  "w-full rounded-none border border-sand bg-white px-3 py-2.5 text-sm text-stone placeholder:text-taupe focus:outline-none focus:border-ink";
+  "w-full bg-transparent border-0 border-b border-sand pb-2.5 pt-1 text-base text-ink placeholder-taupe focus:outline-none focus:border-champagne transition-colors";
 
 function Hero() {
   const stats = [
@@ -22,8 +23,19 @@ function Hero() {
     { n: "500+", l: "People" },
   ];
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+
   return (
-    <section id="home" className="relative bg-cream grid lg:grid-cols-[1.05fr_1fr] min-h-[100svh] lg:min-h-[100svh]">
+    <section
+      ref={sectionRef}
+      id="home"
+      className="relative bg-cream grid lg:grid-cols-[1.05fr_1fr] min-h-[100svh] lg:min-h-[100svh]"
+    >
       <div className="relative z-10 flex flex-col justify-center px-5 sm:px-8 lg:pl-8 lg:pr-14 pt-28 sm:pt-32 lg:pt-0 pb-10 lg:pb-0 order-2 lg:order-1">
         <motion.p
           className="text-taupe text-xs sm:text-sm uppercase tracking-[0.28em]"
@@ -59,7 +71,7 @@ function Hero() {
           View gallery →
         </motion.a>
         <motion.div
-          className="mt-10 lg:mt-14 grid grid-cols-4 gap-x-6 gap-y-6 border-t border-sand pt-6"
+          className="mt-10 lg:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 border-t border-sand pt-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6, ease: EASE }}
@@ -74,7 +86,9 @@ function Hero() {
       </div>
 
       <div className="relative h-[52vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
-        <HeroVideos />
+        <motion.div className="absolute inset-0" style={{ y: imageY, scale: 1.2 }}>
+          <HeroVideos />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-cream/0" />
         <span className="hidden lg:block absolute left-0 top-0 bottom-0 w-px bg-champagne/60" aria-hidden />
       </div>
@@ -91,15 +105,17 @@ function Capabilities() {
   ];
 
   return (
-    <section id="capabilities" className="bg-white border-y border-sand">
+    <section id="capabilities" className="bg-white border-t border-sand">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-12 gap-8 lg:gap-14">
         <div className="lg:col-span-4">
           <p className="font-script text-lg text-taupe">Capabilities</p>
-          <h2 className="mt-2 font-display font-semibold text-3xl sm:text-4xl text-ink tracking-tight">
-            From knitting to carton.
-          </h2>
+          <TextReveal
+            as="h2"
+            text="From knitting to carton."
+            className="mt-2 font-display font-semibold text-3xl sm:text-4xl text-ink tracking-tight"
+          />
         </div>
-        <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 lg:border-l lg:border-sand lg:pl-14">
+        <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10">
           {cells.map((item, i) => (
             <SectionReveal key={item.value} delay={i * 0.05}>
               <div className="border-t border-sand pt-5">
@@ -136,19 +152,26 @@ function GlobalPresence() {
   const current = regions.find((r) => r.name === activeRegion) || regions[0];
 
   return (
-    <section id="global-presence" className="bg-cream">
+    <section id="global-presence" className="bg-cream border-t border-sand">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <div>
           <p className="font-script text-lg text-taupe">Network</p>
-          <h2 className="font-display font-semibold text-4xl sm:text-5xl text-ink mt-3 tracking-tight">Where we ship</h2>
+          <TextReveal as="h2" text="Where we ship" className="font-display font-semibold text-4xl sm:text-5xl text-ink mt-3 tracking-tight" />
           <div className="mt-8 flex flex-wrap gap-3">
             {regions.map((reg) => (
               <button
                 key={reg.name}
                 onClick={() => setActiveRegion(reg.name)}
-                className={`rounded-none px-4 py-2 text-base ${
-                  activeRegion === reg.name ? "bg-ink text-cream" : "bg-cream text-taupe"
+                className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                  activeRegion === reg.name
+                    ? "text-white"
+                    : "border border-sand text-taupe hover:text-ink"
                 }`}
+                style={
+                  activeRegion === reg.name
+                    ? { background: "linear-gradient(135deg, var(--champagne), var(--accent2))" }
+                    : undefined
+                }
               >
                 {reg.name}
               </button>
@@ -157,7 +180,7 @@ function GlobalPresence() {
           <p className="mt-8 text-base sm:text-lg text-stone leading-relaxed">{current.desc}</p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {current.shipments.map((s) => (
-              <li key={s.product} className="rounded-none bg-cream px-3 py-1.5 text-sm text-stone">
+              <li key={s.product} className="rounded-full border border-sand px-3.5 py-1.5 text-sm text-stone">
                 {s.product}
               </li>
             ))}
@@ -193,14 +216,16 @@ function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-cream text-ink border-y border-sand">
+    <section className="text-ink bg-white border-t border-sand">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20">
         <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-script text-lg text-taupe">FAQ</p>
-            <h2 className="mt-3 font-display font-semibold text-4xl sm:text-5xl leading-tight text-ink">
-              Questions, answered.
-            </h2>
+            <TextReveal
+              as="h2"
+              text="Questions, answered."
+              className="mt-3 font-display font-semibold text-4xl sm:text-5xl leading-tight text-ink"
+            />
           </div>
           <p className="max-w-sm text-sm text-stone leading-relaxed">
             Tap a question to expand it. Still unsure — send us an enquiry.
@@ -264,7 +289,7 @@ function FAQ() {
 }
 function Contact() {
   return (
-    <section id="contact" className="bg-cream border-t border-sand">
+    <section id="contact" className="border-t border-sand">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         <div>
           <p className="text-sm uppercase tracking-[0.25em] text-taupe">Enquire</p>
@@ -295,29 +320,65 @@ function Contact() {
         </div>
         <motion.form
           onSubmit={(e) => e.preventDefault()}
-          className="rounded-none bg-white border border-sand p-6 sm:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(31,29,32,0.25)]"
+          className="space-y-6 bg-white border-l-4 p-6 sm:p-10"
+          style={{ borderColor: "var(--champagne)" }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          <div className="grid grid-cols-2 gap-3">
-            <input required placeholder="First name *" className={field} />
-            <input placeholder="Last name" className={field} />
-            <input type="email" required placeholder="Email *" className={field} />
-            <input type="tel" required placeholder="Phone *" className={field} />
+          <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>01</span> First name *
+              </label>
+              <input required className={field} />
+            </div>
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>02</span> Last name
+              </label>
+              <input className={field} />
+            </div>
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>03</span> Email *
+              </label>
+              <input type="email" required className={field} />
+            </div>
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>04</span> Phone *
+              </label>
+              <input type="tel" required className={field} />
+            </div>
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>05</span> Company
+              </label>
+              <input className={field} />
+            </div>
+            <div>
+              <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+                <span style={{ color: "var(--champagne)" }}>06</span> Category *
+              </label>
+              <select required className={field}>
+                <option value="">Select category</option>
+                <option value="woven">Woven Apparel</option>
+                <option value="knitted">Knitted Apparel</option>
+                <option value="home-textiles">Home Textiles &amp; Accessories</option>
+                <option value="multiple">Multiple Categories</option>
+              </select>
+            </div>
           </div>
-          <input placeholder="Company" className={field} />
-          <select required className={field}>
-            <option value="">Category *</option>
-            <option value="woven">Woven Apparel</option>
-            <option value="knitted">Knitted Apparel</option>
-            <option value="home-textiles">Home Textiles &amp; Accessories</option>
-            <option value="multiple">Multiple Categories</option>
-          </select>
-          <textarea rows={4} placeholder="Message" className={field} />
+          <div>
+            <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-taupe mb-1">
+              <span style={{ color: "var(--champagne)" }}>07</span> Message
+            </label>
+            <textarea rows={3} className={`${field} resize-none`} />
+          </div>
           <button type="submit" className="btn-crimson">
-            Send enquiry
+            Send enquiry →
           </button>
         </motion.form>
       </div>

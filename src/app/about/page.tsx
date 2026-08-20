@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
+import { TextReveal } from "@/components/TextReveal";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
 type Person = {
@@ -74,12 +75,14 @@ export default function AboutPage() {
           subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
         />
 
-        <section className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
-          <SectionReveal className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <section className="bg-white border-t border-sand">
+          <SectionReveal className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="lg:col-span-5">
-              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
-                A garment house, not a middleman.
-              </h2>
+              <TextReveal
+                as="h2"
+                text="A garment house, not a middleman."
+                className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight"
+              />
             </div>
             <div className="lg:col-span-7 space-y-4 text-stone text-sm sm:text-base leading-relaxed">
               <p>
@@ -97,29 +100,34 @@ export default function AboutPage() {
           </SectionReveal>
         </section>
 
-        <section className="border-y border-sand bg-white">
+        <section className="border-t border-sand">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-12 sm:py-16">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
               {FACTS.map((fact, i) => (
                 <SectionReveal key={fact.value} delay={i * 0.06}>
-                  <p className="font-display text-4xl sm:text-5xl font-medium leading-none tracking-tight text-ink">
-                    {fact.value}
-                  </p>
-                  <p className="mt-3 text-xs sm:text-sm text-taupe leading-relaxed">
-                    {fact.label}
-                  </p>
+                  <div className="border-t border-sand pt-5">
+                    <p className="font-display text-3xl sm:text-4xl font-medium leading-none tracking-tight text-ink">
+                      {fact.value}
+                    </p>
+                    <p className="mt-3 text-xs sm:text-sm text-taupe leading-relaxed">
+                      {fact.label}
+                    </p>
+                  </div>
                 </SectionReveal>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="team" className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+        <section id="team" className="bg-white border-t border-sand">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
           <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
-                Management team
-              </h2>
+              <TextReveal
+                as="h2"
+                text="Management team"
+                className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight"
+              />
             </div>
             <p className="max-w-sm text-sm text-stone leading-relaxed">
               Four managers own the order end to end — brand, floor, calendar, and quality.
@@ -133,7 +141,7 @@ export default function AboutPage() {
                   <div
                     className={`lg:col-span-4 ${i % 2 === 1 ? "lg:order-2" : ""}`}
                   >
-                    <div className="aspect-[4/5] w-full max-w-[16rem] overflow-hidden bg-sand">
+                    <div className="aspect-[4/5] w-full max-w-[16rem] overflow-hidden rounded-2xl bg-sand">
                       <img
                         src={person.image}
                         alt={person.name}
@@ -159,10 +167,11 @@ export default function AboutPage() {
               </SectionReveal>
             ))}
           </div>
+          </div>
         </section>
 
         <section className="border-t border-sand">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
             <SectionReveal>
               <p className="font-script text-lg text-taupe">How we work</p>
             </SectionReveal>
@@ -181,7 +190,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-t border-sand bg-white">
+        <section className="bg-white border-t border-sand">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 flex flex-wrap items-center justify-between gap-6">
             <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight max-w-lg">
               Want the capability deck or a sample programme?
