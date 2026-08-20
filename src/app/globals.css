@@ -52,7 +52,16 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-display), Arial, Helvetica, sans-serif;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+/* Cursive-leaning accent — Playfair italic, for eyebrows and pull quotes. */
+.font-script {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .btn-crimson {

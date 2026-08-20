@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Syne } from "next/font/google";
+import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -9,10 +9,11 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-const display = Syne({
+const display = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {

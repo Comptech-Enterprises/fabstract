@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
+import { SectionReveal } from "@/components/SectionReveal";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
@@ -12,8 +13,10 @@ const LINES = [
     title: "Woven Apparel",
     share: "55%",
     shareLabel: "of production",
+    blurb:
+      "Structured pieces cut on the Noida floor — from soft cambric tops to lined jackets, sampled and graded in-house.",
     items: ["Tops", "Dresses", "Skirts", "Jackets", "Trousers", "Jumpsuits", "Pyjama Sets"],
-    fabrics: "Cambric, Voile, Poplin, Yarn Dyed, Dobby",
+    fabrics: ["Cambric", "Voile", "Poplin", "Yarn Dyed", "Dobby"],
     file: GALLERY_FILES[3],
   },
   {
@@ -21,8 +24,20 @@ const LINES = [
     title: "Knitted Apparel",
     share: "45%",
     shareLabel: "of production",
+    blurb:
+      "Jersey and loopknit programmes built for repeat buys — consistent handfeel, shrinkage tested before bulk.",
     items: ["Tees", "Sweatshirts", "Hoodies", "Joggers", "Vests", "Underwear"],
-    fabrics: "Velour, Sherpa, Single Jerseys, Pique, French Terry, Fleece, Interlock, Viscose Jersey, Modal/Cotton",
+    fabrics: [
+      "Velour",
+      "Sherpa",
+      "Single Jersey",
+      "Pique",
+      "French Terry",
+      "Fleece",
+      "Interlock",
+      "Viscose Jersey",
+      "Modal/Cotton",
+    ],
     file: GALLERY_FILES[5],
   },
   {
@@ -30,17 +45,25 @@ const LINES = [
     title: "Home Textiles & Accessories",
     share: "Growing",
     shareLabel: "segment",
+    blurb:
+      "Bed linen, soft furnishing, and carry pieces made on the same quality system as the apparel lines.",
     items: ["Bed Linens", "Cushion Covers", "Blankets", "Scarves", "Tote Bags", "Accessories"],
-    fabrics: "Premium cottons, blended fabrics, specialty weaves",
+    fabrics: ["Premium cottons", "Blended fabrics", "Specialty weaves"],
     file: GALLERY_FILES[8],
   },
 ] as const;
 
+const SPLIT = [
+  { value: "60%", label: "Women’s wear" },
+  { value: "20%", label: "Men’s wear" },
+  { value: "20%", label: "Children’s wear" },
+];
+
 const MATERIALS = [
-  { label: "Organic Cotton", desc: "GOTS-certified organic cotton sourcing" },
-  { label: "Recycled", desc: "Recycled polyester & upcycled fabrics" },
-  { label: "Cellulose", desc: "Modal, Tencel & viscose-based fibres" },
-  { label: "Spun Dyed", desc: "Reduced water usage dope-dyed yarns" },
+  { label: "Organic Cotton", desc: "GOTS-certified organic cotton sourcing." },
+  { label: "Recycled", desc: "Recycled polyester and upcycled fabrics." },
+  { label: "Cellulose", desc: "Modal, Tencel, and viscose-based fibres." },
+  { label: "Spun Dyed", desc: "Dope-dyed yarns that cut water usage." },
 ];
 
 export default function ProductsPage() {
@@ -51,38 +74,113 @@ export default function ProductsPage() {
         <PageIntro
           eyebrow="Products"
           title="Knit. Woven. Home."
-          subtitle="From delicate beadwork to bold prints — women's (60%), men's (20%), and children's (20%) collections across woven, knitted, and home textile categories."
+          subtitle="From delicate beadwork to bold prints — women’s, men’s, and children’s collections across woven, knitted, and home textile categories."
         />
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-3 flex gap-6 text-sm text-taupe">
-          <span>60% women</span>
-          <span>20% men</span>
-          <span>20% children</span>
-        </div>
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-8 grid md:grid-cols-3 gap-4">
-          {LINES.map((line) => (
-            <article key={line.id} id={line.id} className="rounded-lg border border-sand bg-white overflow-hidden">
-              <Still src={gallerySrc(line.file)} alt={line.title} className="aspect-[4/3] w-full" />
-              <div className="p-5">
-                <p className="text-xs text-taupe">
-                  {line.share} {line.shareLabel}
+
+        <section className="border-b border-sand bg-white">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12 grid grid-cols-3 gap-6">
+            {SPLIT.map((s, i) => (
+              <SectionReveal key={s.label} delay={i * 0.06}>
+                <p className="font-display text-3xl sm:text-5xl font-medium leading-none tracking-tight text-ink">
+                  {s.value}
                 </p>
-                <h2 className="mt-1 font-display font-semibold text-xl text-ink">{line.title}</h2>
-                <p className="mt-3 text-sm text-stone">{line.items.join(", ")}</p>
-                <p className="mt-3 text-xs text-taupe">Key fabrics</p>
-                <p className="mt-1 text-sm text-stone">{line.fabrics}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <section id="materials" className="mx-auto max-w-6xl px-5 sm:px-8 pb-16">
-          <h2 className="font-display font-semibold text-2xl text-ink mb-4">Fabrics we believe in</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {MATERIALS.map((mat) => (
-              <div key={mat.label} className="rounded-lg border border-sand bg-white p-5">
-                <h3 className="font-medium text-ink">{mat.label}</h3>
-                <p className="mt-1 text-sm text-stone">{mat.desc}</p>
-              </div>
+                <p className="mt-3 text-xs sm:text-sm text-taupe">{s.label}</p>
+              </SectionReveal>
             ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 sm:px-8">
+          {LINES.map((line, i) => (
+            <SectionReveal key={line.id}>
+              <article
+                id={line.id}
+                className="scroll-mt-24 grid lg:grid-cols-12 gap-8 lg:gap-14 items-center border-b border-sand py-12 sm:py-16"
+              >
+                <div
+                  className={`lg:col-span-6 ${i % 2 === 1 ? "lg:order-2" : ""}`}
+                >
+                  <Still
+                    src={gallerySrc(line.file)}
+                    alt={line.title}
+                    className="aspect-[5/4] w-full rounded-lg"
+                  />
+                </div>
+
+                <div className="lg:col-span-6">
+                  <p className="font-script text-lg text-taupe">
+                    {line.share} {line.shareLabel}
+                  </p>
+                  <h2 className="mt-2 font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight">
+                    {line.title}
+                  </h2>
+                  <p className="mt-4 max-w-md text-sm sm:text-base text-stone leading-relaxed">
+                    {line.blurb}
+                  </p>
+
+                  <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
+                    Categories
+                  </p>
+                  <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 max-w-md text-sm text-stone">
+                    {line.items.map((item) => (
+                      <li key={item} className="border-b border-sand/60 py-1.5">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
+                    Key fabrics
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {line.fabrics.map((fabric) => (
+                      <span
+                        key={fabric}
+                        className="rounded-full border border-sand px-3 py-1 text-xs text-stone"
+                      >
+                        {fabric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </SectionReveal>
+          ))}
+        </section>
+
+        <section id="materials" className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+          <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
+              Fabrics we believe in
+            </h2>
+            <p className="max-w-sm text-sm text-stone leading-relaxed">
+              Sustainable inputs offered on every programme, subject to buyer specification.
+            </p>
+          </SectionReveal>
+
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
+            {MATERIALS.map((mat, i) => (
+              <SectionReveal key={mat.label} delay={i * 0.06}>
+                <div className="border-t border-sand py-6">
+                  <p className="font-script text-base text-taupe">0{i + 1}</p>
+                  <h3 className="mt-2 font-display font-semibold text-lg text-ink">
+                    {mat.label}
+                  </h3>
+                  <p className="mt-2 text-sm text-stone leading-relaxed">{mat.desc}</p>
+                </div>
+              </SectionReveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-sand bg-white">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 flex flex-wrap items-center justify-between gap-6">
+            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight max-w-lg">
+              Send a tech pack — we’ll come back with a sample plan.
+            </h2>
+            <a href="/#contact" className="btn-crimson">
+              Talk to us
+            </a>
           </div>
         </section>
       </main>
