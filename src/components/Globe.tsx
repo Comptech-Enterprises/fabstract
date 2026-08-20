@@ -47,7 +47,7 @@ export default function Globe() {
       globeRef.current = globe;
 
       globe
-        .globeImageUrl("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+        .globeImageUrl("//unpkg.com/three-globe/example/img/earth-day.jpg")
         .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
         .backgroundColor("rgba(0,0,0,0)")
         .showAtmosphere(true)

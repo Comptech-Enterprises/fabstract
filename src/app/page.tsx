@@ -184,92 +184,78 @@ function FAQ() {
       a: "Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients. We are Fairtrade certified, ETI and ILO compliant, and run active CSR programmes focused on education, environment, and worker well-being.",
     },
   ];
-  const [i, setI] = useState(0);
-  const current = faqs[i];
+  const [open, setOpen] = useState(0);
 
   return (
     <section className="bg-cream text-ink border-y border-sand">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-[minmax(0,0.9fr)_1.1fr] gap-10 lg:gap-16 items-stretch">
-        <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-taupe">FAQ</p>
-          <h2 className="mt-3 font-display font-semibold text-4xl sm:text-5xl leading-tight text-ink">
-            Pick a question.
-          </h2>
-          <p className="mt-4 text-stone text-sm">Answer swaps on the right. Use the list or arrows.</p>
-          <ul className="mt-8 space-y-1">
-            {faqs.map((faq, idx) => (
-              <li key={faq.q}>
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20">
+        <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-script text-lg text-taupe">FAQ</p>
+            <h2 className="mt-3 font-display font-semibold text-4xl sm:text-5xl leading-tight text-ink">
+              Questions, answered.
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm text-stone leading-relaxed">
+            Tap a question to expand it. Still unsure — send us an enquiry.
+          </p>
+        </SectionReveal>
+
+        <div className="mt-10 border-t border-sand">
+          {faqs.map((faq, idx) => {
+            const isOpen = open === idx;
+            return (
+              <div key={faq.q} className="border-b border-sand">
                 <button
                   type="button"
-                  onClick={() => setI(idx)}
-                  className={`w-full text-left rounded-lg px-3 py-3 transition-colors ${
-                    i === idx ? "bg-white text-ink border border-sand" : "text-taupe hover:text-ink hover:bg-white/70"
-                  }`}
+                  onClick={() => setOpen(isOpen ? -1 : idx)}
+                  className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                  aria-expanded={isOpen}
                 >
-                  {faq.q}
+                  <span className="flex items-baseline gap-4">
+                    <span className="font-script text-base text-taupe">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`font-display text-xl sm:text-2xl tracking-tight transition-colors ${
+                        isOpen ? "text-ink" : "text-taupe"
+                      }`}
+                    >
+                      {faq.q}
+                    </span>
+                  </span>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.3, ease: EASE }}
+                    className="shrink-0 text-2xl text-taupe"
+                    aria-hidden
+                  >
+                    +
+                  </motion.span>
                 </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="relative flex h-[26rem] sm:h-[28rem] flex-col rounded-2xl bg-white border border-sand text-ink p-7 sm:p-10">
-          <div className="relative min-h-0 flex-1">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.q}
-                className="absolute inset-0 overflow-y-auto pr-1"
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -16 }}
-                transition={{ duration: 0.35, ease: EASE }}
-              >
-                <p className="text-xs uppercase tracking-[0.22em] text-taupe">
-                  {String(i + 1).padStart(2, "0")} / {String(faqs.length).padStart(2, "0")}
-                </p>
-                <h3 className="mt-4 font-display font-semibold text-2xl sm:text-4xl leading-tight">{current.q}</h3>
-                <p className="mt-6 text-stone text-base sm:text-lg leading-relaxed">{current.a}</p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          <div className="mt-6 shrink-0 flex items-center justify-between">
-            <div className="flex gap-2">
-              {faqs.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  aria-label={`Question ${idx + 1}`}
-                  onClick={() => setI(idx)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    i === idx ? "w-8 bg-ink" : "w-3 bg-sand hover:bg-taupe"
-                  }`}
-                />
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                aria-label="Previous question"
-                onClick={() => setI((n) => (n + faqs.length - 1) % faqs.length)}
-                className="w-11 h-11 rounded-full border border-sand text-ink hover:bg-sand"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                aria-label="Next question"
-                onClick={() => setI((n) => (n + 1) % faqs.length)}
-                className="w-11 h-11 rounded-full border border-sand text-ink hover:bg-sand"
-              >
-                →
-              </button>
-            </div>
-          </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: EASE }}
+                      className="overflow-hidden"
+                    >
+                      <p className="max-w-2xl pb-6 text-sm sm:text-base text-stone leading-relaxed">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
-
 function Contact() {
   return (
     <section id="contact" className="bg-cream border-t border-sand">

@@ -11,8 +11,6 @@ const LINES = [
   {
     id: "woven",
     title: "Woven Apparel",
-    share: "55%",
-    shareLabel: "of production",
     blurb:
       "Structured pieces cut on the Noida floor — from soft cambric tops to lined jackets, sampled and graded in-house.",
     items: ["Tops", "Dresses", "Skirts", "Jackets", "Trousers", "Jumpsuits", "Pyjama Sets"],
@@ -22,8 +20,6 @@ const LINES = [
   {
     id: "knitted",
     title: "Knitted Apparel",
-    share: "45%",
-    shareLabel: "of production",
     blurb:
       "Jersey and loopknit programmes built for repeat buys — consistent handfeel, shrinkage tested before bulk.",
     items: ["Tees", "Sweatshirts", "Hoodies", "Joggers", "Vests", "Underwear"],
@@ -43,8 +39,6 @@ const LINES = [
   {
     id: "home",
     title: "Home Textiles & Accessories",
-    share: "Growing",
-    shareLabel: "segment",
     blurb:
       "Bed linen, soft furnishing, and carry pieces made on the same quality system as the apparel lines.",
     items: ["Bed Linens", "Cushion Covers", "Blankets", "Scarves", "Tote Bags", "Accessories"],
@@ -52,12 +46,6 @@ const LINES = [
     file: GALLERY_FILES[8],
   },
 ] as const;
-
-const SPLIT = [
-  { value: "60%", label: "Women’s wear" },
-  { value: "20%", label: "Men’s wear" },
-  { value: "20%", label: "Children’s wear" },
-];
 
 const MATERIALS = [
   { label: "Organic Cotton", desc: "GOTS-certified organic cotton sourcing." },
@@ -77,18 +65,6 @@ export default function ProductsPage() {
           subtitle="From delicate beadwork to bold prints — women’s, men’s, and children’s collections across woven, knitted, and home textile categories."
         />
 
-        <section className="border-b border-sand bg-white">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-10 sm:py-12 grid grid-cols-3 gap-6">
-            {SPLIT.map((s, i) => (
-              <SectionReveal key={s.label} delay={i * 0.06}>
-                <p className="font-display text-3xl sm:text-5xl font-medium leading-none tracking-tight text-ink">
-                  {s.value}
-                </p>
-                <p className="mt-3 text-xs sm:text-sm text-taupe">{s.label}</p>
-              </SectionReveal>
-            ))}
-          </div>
-        </section>
 
         <section className="mx-auto max-w-6xl px-5 sm:px-8">
           {LINES.map((line, i) => (
@@ -108,10 +84,7 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="lg:col-span-6">
-                  <p className="font-script text-lg text-taupe">
-                    {line.share} {line.shareLabel}
-                  </p>
-                  <h2 className="mt-2 font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight">
+                  <h2 className="font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight">
                     {line.title}
                   </h2>
                   <p className="mt-4 max-w-md text-sm sm:text-base text-stone leading-relaxed">
