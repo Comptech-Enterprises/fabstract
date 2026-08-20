@@ -114,7 +114,7 @@ export default function ProductsPage() {
                     {line.fabrics.map((fabric) => (
                       <span
                         key={fabric}
-                        className="rounded-full border border-sand px-3 py-1 text-xs text-stone"
+                        className="glass-min rounded-full px-3 py-1 text-xs text-stone"
                       >
                         {fabric}
                       </span>

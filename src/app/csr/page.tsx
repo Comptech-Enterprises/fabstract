@@ -138,7 +138,7 @@ export default function CSRPage() {
             <div className="mt-8 flex flex-wrap gap-2">
               {MARKS.map((mark, i) => (
                 <SectionReveal key={mark} delay={i * 0.04}>
-                  <span className="inline-block rounded-full border border-sand px-4 py-2 text-xs text-stone">
+                  <span className="glass-min inline-block rounded-full px-4 py-2 text-xs text-stone">
                     {mark}
                   </span>
                 </SectionReveal>

@@ -12,7 +12,7 @@ const LINKS = [
 
 export function Footer() {
   return (
-    <footer className="bg-cream text-stone border-t border-sand">
+    <footer className="glass-strong text-stone border-t border-sand rounded-none">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
           <img src="/logo-mark.png" alt="Fabstract" className="h-9 w-auto object-contain" />

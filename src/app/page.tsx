@@ -165,7 +165,7 @@ function GlobalPresence() {
                 className={`rounded-full px-4 py-2 text-sm transition-colors ${
                   activeRegion === reg.name
                     ? "text-white"
-                    : "border border-sand text-taupe hover:text-ink"
+                    : "glass-min text-taupe hover:text-ink"
                 }`}
                 style={
                   activeRegion === reg.name
@@ -180,7 +180,7 @@ function GlobalPresence() {
           <p className="mt-8 text-base sm:text-lg text-stone leading-relaxed">{current.desc}</p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {current.shipments.map((s) => (
-              <li key={s.product} className="rounded-full border border-sand px-3.5 py-1.5 text-sm text-stone">
+              <li key={s.product} className="glass-min rounded-full px-3.5 py-1.5 text-sm text-stone">
                 {s.product}
               </li>
             ))}
@@ -320,7 +320,7 @@ function Contact() {
         </div>
         <motion.form
           onSubmit={(e) => e.preventDefault()}
-          className="space-y-6 bg-white border-l-4 p-6 sm:p-10"
+          className="space-y-6 bg-white/55 backdrop-blur-xl border border-white/70 border-l-4 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.15)] p-6 sm:p-10"
           style={{ borderColor: "var(--champagne)" }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

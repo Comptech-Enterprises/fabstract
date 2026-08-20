@@ -97,7 +97,7 @@ export default function CareerPage() {
           <SectionReveal delay={0.1}>
             <form
               onSubmit={handleSubmit}
-              className="space-y-6 bg-white border-l-4 p-6 sm:p-10"
+              className="space-y-6 bg-white/55 backdrop-blur-xl border border-white/70 border-l-4 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.15)] p-6 sm:p-10"
               style={{ borderColor: "var(--champagne)" }}
             >
               <div className="grid grid-cols-2 gap-x-6 gap-y-6">
