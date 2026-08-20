@@ -1,49 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { EASE } from "@/lib/motion";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-white border-t border-sand">
-      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 pt-14 pb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <footer className="bg-white text-stone border-t border-sand">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-12 sm:py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
-          <p className="font-display font-semibold text-ink text-lg">Fabstract</p>
-          <p className="mt-3 text-sm text-stone leading-relaxed">
-            Government-recognised garment export house. Knit, woven, and home — Noida to the world since 1991.
-          </p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-taupe mb-3">Navigate</p>
+          <nav className="flex flex-col gap-2">
+            <Link href="/about" className="text-sm text-stone hover:text-ink w-fit">About</Link>
+            <Link href="/products" className="text-sm text-stone hover:text-ink w-fit">Products</Link>
+            <Link href="/gallery" className="text-sm text-stone hover:text-ink w-fit">Gallery</Link>
+            <Link href="/csr" className="text-sm text-stone hover:text-ink w-fit">CSR</Link>
+            <Link href="/career" className="text-sm text-stone hover:text-ink w-fit">Careers</Link>
+          </nav>
         </div>
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-taupe mb-3">Contact</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-taupe mb-3">Contact</p>
           <a href="tel:+911140524038" className="block text-sm text-stone hover:text-ink">
             +91-11-4052 4038
           </a>
           <Link href="/#contact" className="block mt-2 text-sm text-stone hover:text-ink">
-            Request a quote
+            Enquiry form
           </Link>
         </div>
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-taupe mb-3">Houses</p>
-          <p className="text-sm text-stone leading-relaxed">M-169, Greater Kailash-II, New Delhi</p>
-          <p className="mt-3 text-sm text-stone leading-relaxed">C-57, Hosiery Complex, Noida</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-taupe mb-3">New Delhi</p>
+          <p className="text-sm text-stone leading-relaxed">M-169, Greater Kailash-II</p>
+        </div>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-taupe mb-3">Noida</p>
+          <p className="text-sm text-stone leading-relaxed">C-57, Hosiery Complex</p>
         </div>
       </div>
-      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 py-6 border-t border-sand flex flex-wrap gap-3 justify-between text-xs text-taupe">
-        <p>© {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd.</p>
-        <p>Est. 1991 · Fairtrade · BSCI</p>
+
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-6 border-t border-sand flex flex-wrap items-center gap-4 justify-between">
+        <img src="/logo-mark.png" alt="Fabstract" className="h-8 w-auto object-contain opacity-80" />
+        <div className="flex flex-wrap gap-x-6 gap-y-1 text-[11px] uppercase tracking-wider text-taupe">
+          <p>© {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd.</p>
+          <p>Est. 1991 · Fairtrade · BSCI</p>
+        </div>
       </div>
-      <motion.p
-        aria-hidden
-        className="relative z-0 block w-full whitespace-nowrap text-center font-display font-extrabold leading-[0.68] tracking-[-0.06em] text-sand/80 select-none pointer-events-none px-2 -mb-[0.18em]"
-        style={{ fontSize: "calc((100vw - 1rem) / 9.4)" }}
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: EASE }}
-      >
-        FABSTRACT
-      </motion.p>
     </footer>
   );
 }

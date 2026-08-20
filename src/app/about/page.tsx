@@ -4,13 +4,13 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
-import { Still } from "@/components/Still";
+import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 
 type Person = {
   name: string;
   role: string;
   bio: string;
-  /** Drop a real portrait path here (e.g. "/team/kavya.jpg") to replace the placeholder. */
+  /** Drop a real portrait path here (e.g. "/team/kavya.jpg") to replace the stand-in floor shot. */
   image?: string;
 };
 
@@ -19,21 +19,25 @@ const TEAM: Person[] = [
     name: "Kavya Mehra",
     role: "Marketing Manager",
     bio: "Builds Fabstract’s brand story for global buyers — lookbooks, trade shows, and seasonal campaigns for knit and woven lines.",
+    image: gallerySrc(GALLERY_FILES[0]),
   },
   {
     name: "Arjun Malhotra",
     role: "Production Manager",
     bio: "Runs the Noida floor from cutting to packing, keeping bulk programmes on the 60–90 day lead time buyers expect.",
+    image: gallerySrc(GALLERY_FILES[3]),
   },
   {
     name: "Priya Sethi",
     role: "Merchandising Manager",
     bio: "Owns T&A calendars, tech packs, and buyer sampling so each order moves cleanly from proto to shipment.",
+    image: gallerySrc(GALLERY_FILES[5]),
   },
   {
     name: "Rohan Kapoor",
     role: "Quality Control Manager",
     bio: "Leads five-stage garment inspection, fabric tests, and AQL checks before cartons leave the factory.",
+    image: gallerySrc(GALLERY_FILES[7]),
   },
 ];
 
@@ -58,39 +62,6 @@ const VALUES = [
     body: "Five-stage inspection, fabric testing, and AQL checks documented on every programme before cartons ship.",
   },
 ];
-
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-}
-
-function Portrait({ person }: { person: Person }) {
-  if (person.image) {
-    return (
-      <Still
-        src={person.image}
-        alt={person.name}
-        className="h-24 w-24 sm:h-28 sm:w-28 shrink-0 rounded-full"
-      />
-    );
-  }
-
-  return (
-    <div
-      className="relative flex h-24 w-24 sm:h-28 sm:w-28 shrink-0 items-center justify-center rounded-full border border-sand bg-cream"
-      role="img"
-      aria-label={`${person.name} — portrait placeholder`}
-      title="Portrait placeholder"
-    >
-      <span className="font-display text-xl font-semibold tracking-wide text-taupe">
-        {initials(person.name)}
-      </span>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (
@@ -155,19 +126,34 @@ export default function AboutPage() {
             </p>
           </SectionReveal>
 
-          <div className="mt-10 grid sm:grid-cols-2 gap-x-12">
+          <div className="mt-10">
             {TEAM.map((person, i) => (
-              <SectionReveal key={person.name} delay={i * 0.06}>
-                <article className="flex gap-5 sm:gap-6 border-t border-sand py-7 sm:py-9">
-                  <Portrait person={person} />
-                  <div className="min-w-0">
-                    <h3 className="font-display font-semibold text-lg sm:text-xl text-ink">
+              <SectionReveal key={person.name}>
+                <article className="grid lg:grid-cols-12 gap-6 lg:gap-14 items-center border-t border-sand py-10 sm:py-14">
+                  <div
+                    className={`lg:col-span-4 ${i % 2 === 1 ? "lg:order-2" : ""}`}
+                  >
+                    <div className="aspect-[4/5] w-full max-w-[16rem] overflow-hidden bg-sand">
+                      <img
+                        src={person.image}
+                        alt={person.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="lg:col-span-8">
+                    <p className="font-script text-lg text-taupe">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
                       {person.name}
                     </h3>
-                    <p className="mt-1 text-[11px] uppercase tracking-wider text-taupe">
+                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-taupe">
                       {person.role}
                     </p>
-                    <p className="mt-3 text-sm text-stone leading-relaxed">{person.bio}</p>
+                    <p className="mt-4 max-w-xl text-sm sm:text-base text-stone leading-relaxed">
+                      {person.bio}
+                    </p>
                   </div>
                 </article>
               </SectionReveal>

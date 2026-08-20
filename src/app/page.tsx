@@ -12,7 +12,7 @@ import { EASE } from "@/lib/motion";
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const field =
-  "w-full rounded-lg border border-sand bg-white px-3 py-2.5 text-sm text-stone placeholder:text-taupe focus:outline-none focus:border-ink";
+  "w-full rounded-none border border-sand bg-white px-3 py-2.5 text-sm text-stone placeholder:text-taupe focus:outline-none focus:border-ink";
 
 function Hero() {
   const stats = [
@@ -23,14 +23,10 @@ function Hero() {
   ];
 
   return (
-    <section id="home" className="relative min-h-[100svh] overflow-hidden bg-ink flex flex-col justify-center">
-      <div className="absolute inset-0">
-        <HeroVideos />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink/80" />
-      <div className="relative z-10 w-full mx-auto max-w-6xl px-5 sm:px-8 flex flex-col justify-center pt-20 sm:pt-24 pb-8 sm:pb-12">
+    <section id="home" className="relative bg-cream grid lg:grid-cols-[1.05fr_1fr] min-h-[100svh] lg:min-h-[100svh]">
+      <div className="relative z-10 flex flex-col justify-center px-5 sm:px-8 lg:pl-8 lg:pr-14 pt-28 sm:pt-32 lg:pt-0 pb-10 lg:pb-0 order-2 lg:order-1">
         <motion.p
-          className="text-sand text-xs sm:text-sm uppercase tracking-[0.28em]"
+          className="text-taupe text-xs sm:text-sm uppercase tracking-[0.28em]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: EASE }}
@@ -38,7 +34,7 @@ function Hero() {
           Export house · Noida · Since 1991
         </motion.p>
         <motion.h1
-          className="mt-3 font-display font-semibold text-cream text-4xl sm:text-7xl lg:text-8xl tracking-tight max-w-3xl leading-[0.95]"
+          className="mt-4 font-display font-semibold text-ink text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.95]"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
@@ -46,7 +42,7 @@ function Hero() {
           Ethical knitwear and wovens for global brands.
         </motion.h1>
         <motion.p
-          className="mt-4 max-w-lg text-cream/80 text-sm sm:text-base leading-relaxed"
+          className="mt-5 max-w-md text-stone text-sm sm:text-base leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -55,26 +51,32 @@ function Hero() {
         </motion.p>
         <motion.a
           href="/gallery"
-          className="mt-6 text-cream text-sm border-b border-cream/50 pb-0.5 hover:border-cream w-fit"
+          className="mt-7 text-ink text-xs uppercase tracking-[0.2em] border-b border-champagne pb-1 hover:opacity-70 w-fit"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          View gallery
+          View gallery →
         </motion.a>
         <motion.div
-          className="mt-8 sm:mt-10 lg:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3"
+          className="mt-10 lg:mt-14 grid grid-cols-4 gap-x-6 gap-y-6 border-t border-sand pt-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6, ease: EASE }}
         >
           {stats.map((s) => (
-            <div key={s.l} className="rounded-lg bg-ink/50 backdrop-blur-sm px-4 py-4 sm:py-5">
-              <p className="font-display text-2xl sm:text-3xl font-semibold text-cream">{s.n}</p>
-              <p className="text-xs sm:text-sm text-cream/65 mt-1">{s.l}</p>
+            <div key={s.l}>
+              <p className="font-display text-xl sm:text-2xl font-semibold text-ink">{s.n}</p>
+              <p className="text-[11px] sm:text-xs text-taupe mt-1">{s.l}</p>
             </div>
           ))}
         </motion.div>
+      </div>
+
+      <div className="relative h-[52vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
+        <HeroVideos />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-cream/0" />
+        <span className="hidden lg:block absolute left-0 top-0 bottom-0 w-px bg-champagne/60" aria-hidden />
       </div>
     </section>
   );
@@ -89,17 +91,21 @@ function Capabilities() {
   ];
 
   return (
-    <section id="capabilities" className="bg-cream">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16">
-        <p className="text-xs uppercase tracking-wider text-taupe">Capabilities</p>
-        <h2 className="mt-2 font-display font-semibold text-3xl text-ink">From knitting to carton.</h2>
-        <div className="mt-10 grid sm:grid-cols-2 gap-4">
+    <section id="capabilities" className="bg-white border-y border-sand">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-12 gap-8 lg:gap-14">
+        <div className="lg:col-span-4">
+          <p className="font-script text-lg text-taupe">Capabilities</p>
+          <h2 className="mt-2 font-display font-semibold text-3xl sm:text-4xl text-ink tracking-tight">
+            From knitting to carton.
+          </h2>
+        </div>
+        <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 lg:border-l lg:border-sand lg:pl-14">
           {cells.map((item, i) => (
             <SectionReveal key={item.value} delay={i * 0.05}>
-              <article className="rounded-lg border border-sand bg-white p-6 h-full">
-                <p className="font-display text-3xl font-semibold text-ink">{item.value}</p>
-                <p className="mt-3 text-sm text-stone leading-relaxed">{item.label}</p>
-              </article>
+              <div className="border-t border-sand pt-5">
+                <p className="font-display text-2xl sm:text-3xl font-semibold text-ink">{item.value}</p>
+                <p className="mt-3 text-xs sm:text-sm text-stone leading-relaxed">{item.label}</p>
+              </div>
             </SectionReveal>
           ))}
         </div>
@@ -130,17 +136,17 @@ function GlobalPresence() {
   const current = regions.find((r) => r.name === activeRegion) || regions[0];
 
   return (
-    <section id="global-presence" className="bg-white border-y border-sand">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+    <section id="global-presence" className="bg-cream">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <div>
-          <p className="text-sm uppercase tracking-wider text-taupe">Network</p>
-          <h2 className="font-display font-semibold text-4xl sm:text-5xl text-ink mt-3">Where we ship</h2>
+          <p className="font-script text-lg text-taupe">Network</p>
+          <h2 className="font-display font-semibold text-4xl sm:text-5xl text-ink mt-3 tracking-tight">Where we ship</h2>
           <div className="mt-8 flex flex-wrap gap-3">
             {regions.map((reg) => (
               <button
                 key={reg.name}
                 onClick={() => setActiveRegion(reg.name)}
-                className={`rounded-lg px-4 py-2 text-base ${
+                className={`rounded-none px-4 py-2 text-base ${
                   activeRegion === reg.name ? "bg-ink text-cream" : "bg-cream text-taupe"
                 }`}
               >
@@ -151,7 +157,7 @@ function GlobalPresence() {
           <p className="mt-8 text-base sm:text-lg text-stone leading-relaxed">{current.desc}</p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {current.shipments.map((s) => (
-              <li key={s.product} className="rounded-lg bg-cream px-3 py-1.5 text-sm text-stone">
+              <li key={s.product} className="rounded-none bg-cream px-3 py-1.5 text-sm text-stone">
                 {s.product}
               </li>
             ))}
@@ -289,7 +295,7 @@ function Contact() {
         </div>
         <motion.form
           onSubmit={(e) => e.preventDefault()}
-          className="rounded-2xl bg-white border border-sand p-6 sm:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(31,29,32,0.25)]"
+          className="rounded-none bg-white border border-sand p-6 sm:p-8 space-y-4 shadow-[0_20px_50px_-24px_rgba(31,29,32,0.25)]"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

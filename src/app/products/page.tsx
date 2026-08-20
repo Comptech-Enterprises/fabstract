@@ -79,7 +79,7 @@ export default function ProductsPage() {
                   <Still
                     src={gallerySrc(line.file)}
                     alt={line.title}
-                    className="aspect-[5/4] w-full rounded-lg"
+                    className="aspect-[5/4] w-full rounded-none"
                   />
                 </div>
 

@@ -1,83 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 import { EASE } from "@/lib/motion";
 
-/** Mosaic rhythm — repeats over the file list so any count lays out cleanly. */
-const SPANS = [
-  "sm:col-span-6 lg:col-span-5 aspect-[4/3]",
-  "sm:col-span-6 lg:col-span-4 aspect-[4/5] lg:mt-10",
-  "sm:col-span-6 lg:col-span-3 aspect-[3/4]",
-  "sm:col-span-6 lg:col-span-4 aspect-square lg:mt-10",
-  "sm:col-span-6 lg:col-span-3 aspect-[3/4] lg:mt-20",
-  "sm:col-span-6 lg:col-span-5 aspect-[4/3]",
-];
-
-function Tile({
-  file,
-  index,
-  onOpen,
-}: {
-  file: string;
-  index: number;
-  onOpen: (index: number) => void;
-}) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-
-  return (
-    <motion.button
-      ref={ref}
-      type="button"
-      onClick={() => onOpen(index)}
-      className={`group relative col-span-12 overflow-hidden rounded-lg bg-sand ${SPANS[index % SPANS.length]}`}
-      initial={reduce ? undefined : { opacity: 0, y: 40, clipPath: "inset(12% 12% 12% 12%)" }}
-      whileInView={{ opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)" }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 1, ease: EASE }}
-      aria-label={`Open frame ${index + 1}`}
-    >
-      <motion.div
-        className="absolute inset-0"
-        style={reduce ? undefined : { y, scale: 1.16 }}
-      >
-        <img
-          src={gallerySrc(file)}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          draggable={false}
-          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-        />
-      </motion.div>
-      <div className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors duration-500 group-hover:bg-ink/25" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-5 opacity-0 translate-y-3 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-        <span className="font-script text-lg text-cream">Frame {String(index + 1).padStart(2, "0")}</span>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-cream/80">View</span>
-      </div>
-    </motion.button>
-  );
-}
-
 export default function GalleryPage() {
   const [active, setActive] = useState<number | null>(null);
+  const [current, setCurrent] = useState(0);
   const total = GALLERY_FILES.length;
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setActive(null), []);
   const prev = useCallback(
@@ -104,6 +39,34 @@ export default function GalleryPage() {
     };
   }, [active, close, prev, next]);
 
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const onScroll = () => {
+      const children = Array.from(track.children) as HTMLElement[];
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let closest = 0;
+      let closestDist = Infinity;
+      children.forEach((child, i) => {
+        const dist = Math.abs(child.offsetLeft + child.clientWidth / 2 - mid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      setCurrent(closest);
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => track.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (i: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const child = track.children[i] as HTMLElement | undefined;
+    if (child) track.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
+  };
+
   return (
     <>
       <Navbar />
@@ -111,14 +74,51 @@ export default function GalleryPage() {
         <PageIntro
           eyebrow="Lookbook"
           title="Gallery"
-          subtitle="Stills from the floor and the line — click a frame to open."
+          subtitle="Stills from the floor and the line — scroll or drag through, click a frame to open."
         />
 
-        <section className="w-full px-3 sm:px-5 lg:px-8 py-10 sm:py-14">
-          <div className="grid grid-cols-12 gap-3 sm:gap-5">
+        <section className="py-10 sm:py-14">
+          <div
+            ref={trackRef}
+            className="film-scroll flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory px-5 sm:px-8 pb-4"
+          >
             {GALLERY_FILES.map((file, i) => (
-              <Tile key={file} file={file} index={i} onOpen={setActive} />
+              <button
+                key={file}
+                type="button"
+                onClick={() => setActive(i)}
+                className="group relative shrink-0 snap-center h-[34vh] sm:h-[72vh] w-[72vw] sm:w-[62vw] lg:w-[48vw] overflow-hidden bg-sand"
+              >
+                <img
+                  src={gallerySrc(file)}
+                  alt=""
+                  loading={i < 2 ? "eager" : "lazy"}
+                  decoding="async"
+                  draggable={false}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+                <span className="absolute bottom-4 left-4 bg-cream px-2 py-1 text-[10px] tracking-[0.14em] text-taupe">
+                  {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+                </span>
+              </button>
             ))}
+          </div>
+
+          <div className="mx-auto max-w-6xl px-5 sm:px-8 mt-6 flex items-center justify-between">
+            <div className="flex gap-2">
+              {GALLERY_FILES.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to frame ${i + 1}`}
+                  onClick={() => scrollTo(i)}
+                  className={`h-[3px] transition-all ${
+                    current === i ? "w-8 bg-ink" : "w-3 bg-sand hover:bg-taupe"
+                  }`}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-taupe hidden sm:block">Drag or scroll to browse</p>
           </div>
         </section>
       </main>
@@ -171,7 +171,7 @@ export default function GalleryPage() {
                     if (info.offset.x < -80) next();
                     if (info.offset.x > 80) prev();
                   }}
-                  className="max-h-[78vh] max-w-full cursor-grab rounded-lg object-contain active:cursor-grabbing"
+                  className="max-h-[78vh] max-w-full cursor-grab rounded-none object-contain active:cursor-grabbing"
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
@@ -181,7 +181,7 @@ export default function GalleryPage() {
               </AnimatePresence>
 
               <div className="flex items-center gap-3 text-cream/70">
-                <span className="font-script text-base text-cream">
+                <span className="text-base text-cream">
                   {String(active + 1).padStart(2, "0")}
                 </span>
                 <span className="h-px w-10 bg-cream/40" />

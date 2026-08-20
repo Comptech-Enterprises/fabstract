@@ -7,7 +7,10 @@ import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
 
 const field =
-  "w-full rounded-lg border border-sand bg-white px-3 py-2.5 text-sm text-stone placeholder:text-taupe focus:outline-none focus:border-ink";
+  "w-full bg-transparent border-0 border-b border-cream/25 pb-2.5 pt-1 text-base text-cream placeholder-cream/30 focus:outline-none focus:border-cream transition-colors";
+
+const selectField =
+  "w-full bg-transparent border-0 border-b border-cream/25 pb-2.5 pt-1 text-base text-cream focus:outline-none focus:border-cream transition-colors [&>option]:bg-ink";
 
 const PILLARS = [
   {
@@ -91,18 +94,24 @@ export default function CareerPage() {
           </SectionReveal>
 
           <SectionReveal delay={0.1}>
-            <form onSubmit={handleSubmit} className="rounded-lg border border-sand bg-white p-6 sm:p-8 space-y-4">
+            <form onSubmit={handleSubmit} className="bg-ink p-6 sm:p-10 space-y-7">
               <div>
-                <label className="block text-xs text-taupe mb-1">Full name *</label>
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
+                  <span className="text-cream/30">01</span> Full name *
+                </label>
                 <input type="text" name="name" required value={formData.name} onChange={handleChange} className={field} />
               </div>
               <div>
-                <label className="block text-xs text-taupe mb-1">Phone *</label>
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
+                  <span className="text-cream/30">02</span> Phone *
+                </label>
                 <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={field} />
               </div>
               <div>
-                <label className="block text-xs text-taupe mb-1">Position *</label>
-                <select name="position" required value={formData.position} onChange={handleChange} className={field}>
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
+                  <span className="text-cream/30">03</span> Position *
+                </label>
+                <select name="position" required value={formData.position} onChange={handleChange} className={selectField}>
                   <option value="">Select position</option>
                   <option>Pattern Making Specialist</option>
                   <option>Quality Control Manager</option>
@@ -114,8 +123,10 @@ export default function CareerPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-taupe mb-1">Experience</label>
-                <select name="experience" value={formData.experience} onChange={handleChange} className={field}>
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
+                  <span className="text-cream/30">04</span> Experience
+                </label>
+                <select name="experience" value={formData.experience} onChange={handleChange} className={selectField}>
                   <option value="">Select experience</option>
                   <option>Fresher</option>
                   <option>1-2 Years</option>
@@ -125,11 +136,16 @@ export default function CareerPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-taupe mb-1">Cover note</label>
-                <textarea name="message" rows={4} value={formData.message} onChange={handleChange} className={field} />
+                <label className="flex items-baseline gap-2 text-[11px] uppercase tracking-[0.16em] text-cream/50 mb-1">
+                  <span className="text-cream/30">05</span> Cover note
+                </label>
+                <textarea name="message" rows={3} value={formData.message} onChange={handleChange} className={`${field} resize-none`} />
               </div>
-              <button type="submit" className="btn-crimson">
-                Submit application
+              <button
+                type="submit"
+                className="w-full bg-cream text-ink text-xs uppercase tracking-[0.2em] font-semibold py-4 hover:bg-cream/90 transition-colors"
+              >
+                Submit application →
               </button>
             </form>
           </SectionReveal>

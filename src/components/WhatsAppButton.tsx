@@ -85,7 +85,7 @@ export default function WhatsAppButton() {
       {open && (
         <div
           className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm overflow-hidden flex flex-col border border-sand shadow-2xl"
-          style={{ height: 480, background: "#F5ECDC" }}
+          style={{ height: 480, background: "#F4F3F0" }}
         >
           {/* Header */}
           <div className="px-4 py-3 flex items-center gap-3 bg-sand">

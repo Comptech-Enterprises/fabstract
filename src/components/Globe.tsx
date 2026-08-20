@@ -51,7 +51,7 @@ export default function Globe() {
         .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
         .backgroundColor("rgba(0,0,0,0)")
         .showAtmosphere(true)
-        .atmosphereColor("#d7c9b2")
+        .atmosphereColor("#e5e4e1")
         .atmosphereAltitude(0.08);
 
       globe.renderer().setClearColor(0x000000, 0);
@@ -61,7 +61,7 @@ export default function Globe() {
         .pointsData(LOCATIONS)
         .pointLat((d: unknown) => (d as Loc).lat)
         .pointLng((d: unknown) => (d as Loc).lng)
-        .pointColor(() => "#4d4845")
+        .pointColor(() => "#171717")
         .pointAltitude(0.04)
         .pointRadius(0.6)
         .pointLabel((d: unknown) => (d as Loc).name);
@@ -70,7 +70,7 @@ export default function Globe() {
         .ringsData(LOCATIONS)
         .ringLat((d: unknown) => (d as Loc).lat)
         .ringLng((d: unknown) => (d as Loc).lng)
-        .ringColor(() => (t: number) => `rgba(123,115,105,${1 - t})`)
+        .ringColor(() => (t: number) => `rgba(23,23,23,${1 - t})`)
         .ringMaxRadius(5)
         .ringPropagationSpeed(2)
         .ringRepeatPeriod(900);
@@ -82,7 +82,7 @@ export default function Globe() {
         .arcStartLng((d: unknown) => byName[(d as Arc).src].lng)
         .arcEndLat((d: unknown) => byName[(d as Arc).dst].lat)
         .arcEndLng((d: unknown) => byName[(d as Arc).dst].lng)
-        .arcColor(() => "#7b7369")
+        .arcColor(() => "#6b6b6b")
         .arcAltitude(0.3)
         .arcStroke(0.5)
         .arcDashLength(0.4)

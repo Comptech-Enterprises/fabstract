@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   title: "Fabstract Clothing India Pvt. Ltd. | Ethical Garment Export House",
   description:
     "Government recognized garment export house manufacturing & exporting high fashion knitwear & woven garments to USA, Canada and Europe since 1991.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -90,7 +90,7 @@ export default function CSRPage() {
                   <Still
                     src={gallerySrc(chapter.file)}
                     alt={chapter.title}
-                    className="aspect-[5/4] w-full rounded-lg"
+                    className="aspect-[5/4] w-full rounded-none"
                   />
                 </div>
                 <div className="lg:col-span-6">
