@@ -16,7 +16,7 @@ export function GlassPanel({
 
   return (
     <motion.div
-      className={`border border-navy/10 bg-white ${className}`}
+      className={`border border-sand bg-cream ${className}`}
       whileHover={hover && !reduce ? { x: 6 } : undefined}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
     >

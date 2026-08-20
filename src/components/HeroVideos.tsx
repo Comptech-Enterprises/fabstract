@@ -18,7 +18,7 @@ export function HeroVideos() {
   }, []);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-navy">
+    <div className="relative h-full w-full overflow-hidden bg-sand">
       <video
         ref={ref}
         src={HERO_VIDEO}
@@ -27,7 +27,7 @@ export function HeroVideos() {
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover hero-zoom"
       />
     </div>
   );

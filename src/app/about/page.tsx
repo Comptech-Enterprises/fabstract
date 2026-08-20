@@ -3,7 +3,6 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
-import { SectionReveal } from "@/components/SectionReveal";
 
 const TEAM = [
   {
@@ -32,37 +31,23 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="bg-cream">
         <PageIntro
           eyebrow="About"
-          title="House, floor, and the people who run both"
+          title="House, floor, people."
           subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
         />
-
-        <section className="border-t border-ink/10 bg-white">
-          <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-24 max-w-3xl">
-            <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">The house</p>
-            <h2 className="font-display text-4xl text-ink font-medium mb-6">From knitting to carton</h2>
-            <p className="text-mute leading-relaxed">
-              We are Fairtrade certified, ETI and ILO compliant, and run active CSR programmes focused on education, environment, and worker well-being. A government-recognised export house — design through packing under one roof.
-            </p>
-          </div>
-        </section>
-
-        <section className="px-6 sm:px-10 lg:px-14 py-20 border-t border-ink/10 bg-sky/50">
-          <p className="text-mute text-[11px] tracking-[0.3em] uppercase mb-4">People</p>
-          <h2 className="font-display text-4xl text-ink font-medium mb-12">Management</h2>
-          <div className="divide-y divide-ink/10 border-t border-ink/10">
-            {TEAM.map((person, i) => (
-              <SectionReveal key={person.name} delay={i * 0.05}>
-                <article className="grid md:grid-cols-12 gap-4 py-8">
-                  <p className="md:col-span-3 text-crimson text-[11px] tracking-[0.18em] uppercase pt-1">
-                    {person.role}
-                  </p>
-                  <h3 className="md:col-span-3 font-display text-2xl text-ink">{person.name}</h3>
-                  <p className="md:col-span-6 text-mute text-sm leading-relaxed">{person.bio}</p>
-                </article>
-              </SectionReveal>
+        <section className="mx-auto max-w-6xl px-5 sm:px-8 py-12">
+          <p className="max-w-2xl text-stone text-sm leading-relaxed mb-10">
+            Fairtrade certified, ETI and ILO compliant, CSR on education, environment, and worker well-being. Government-recognised export house — design through packing under one roof.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {TEAM.map((person) => (
+              <article key={person.name} className="rounded-lg border border-sand bg-white p-6">
+                <p className="text-xs uppercase tracking-wider text-taupe">{person.role}</p>
+                <h3 className="mt-2 font-display font-semibold text-xl text-ink">{person.name}</h3>
+                <p className="mt-3 text-sm text-stone leading-relaxed">{person.bio}</p>
+              </article>
             ))}
           </div>
         </section>

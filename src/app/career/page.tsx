@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
-import { GlassPanel } from "@/components/GlassPanel";
-import { SectionReveal } from "@/components/SectionReveal";
+
+const field =
+  "w-full rounded-lg border border-sand bg-white px-3 py-2.5 text-sm text-stone placeholder:text-taupe focus:outline-none focus:border-ink";
 
 export default function CareerPage() {
   const [formData, setFormData] = useState({
@@ -63,176 +64,90 @@ export default function CareerPage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="bg-cream">
         <PageIntro
           eyebrow="Join Our Team"
           title="Build Your Career at Fabstract"
           subtitle="Join a team of 500+ skilled professionals crafting world-class garments for global brands. We invest in people — with fair wages, continuous training, and real career growth."
         />
 
-        <section id="apply" className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16">
-              <SectionReveal>
-                <p className="text-mute text-sm tracking-[0.3em] uppercase mb-4">Apply Now</p>
-                <h2 className="font-display text-4xl text-ink font-medium mb-6">
-                  Submit Your Application
-                </h2>
-                <p className="text-mute leading-relaxed mb-8">
-                  Interested in joining Fabstract? Fill out the form and our HR team will get back to you within 3 business days.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <span className="text-mute mt-0.5">✓</span>
-                    <p className="text-mute text-sm">Equal opportunity employer — no discrimination based on gender, religion, or background</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-mute mt-0.5">✓</span>
-                    <p className="text-mute text-sm">Walk-in interviews available at our Noida factory (Mon–Sat, 10am–4pm)</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-mute mt-0.5">✓</span>
-                    <p className="text-mute text-sm">Freshers welcome — training provided for entry-level production roles</p>
-                  </div>
-                </div>
-              </SectionReveal>
-
-              <SectionReveal delay={0.1}>
-                <form onSubmit={handleSubmit} className="bg-navy p-8 space-y-5">
-                  <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Phone *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      placeholder="+91 XXXXX XXXXX"
-                    />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Position *</label>
-                      <select
-                        name="position"
-                        required
-                        value={formData.position}
-                        onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      >
-                        <option value="">Select position</option>
-                        <option>Pattern Making Specialist</option>
-                        <option>Quality Control Manager</option>
-                        <option>Merchandiser</option>
-                        <option>Sewing Line Supervisor</option>
-                        <option>Fabric Sourcing Executive</option>
-                        <option>Sustainability Coordinator</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Experience</label>
-                      <select
-                        name="experience"
-                        value={formData.experience}
-                        onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      >
-                        <option value="">Select experience</option>
-                        <option>Fresher</option>
-                        <option>1-2 Years</option>
-                        <option>3-5 Years</option>
-                        <option>5-10 Years</option>
-                        <option>10+ Years</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Cover Note</label>
-                    <textarea
-                      name="message"
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full bg-navy border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky resize-none"
-                      placeholder="Tell us about yourself and why you'd like to join Fabstract..."
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn-crimson w-full text-center mt-4"
-                  >
-                    SUBMIT APPLICATION
-                  </button>
-                </form>
-              </SectionReveal>
+        <section id="apply" className="mx-auto max-w-6xl px-5 sm:px-8 py-12 grid lg:grid-cols-2 gap-10">
+          <div>
+            <h2 className="font-display font-semibold text-2xl text-ink">Apply now</h2>
+            <p className="mt-3 text-sm text-stone leading-relaxed">
+              Fill out the form and our HR team will get back to you within 3 business days.
+            </p>
+            <ul className="mt-6 space-y-2 text-sm text-stone">
+              <li>Equal opportunity employer — no discrimination based on gender, religion, or background</li>
+              <li>Walk-in interviews at our Noida factory (Mon–Sat, 10am–4pm)</li>
+              <li>Freshers welcome — training for entry-level production roles</li>
+            </ul>
+          </div>
+          <form onSubmit={handleSubmit} className="rounded-lg border border-sand bg-white p-6 space-y-4">
+            <div>
+              <label className="block text-xs text-taupe mb-1">Full Name *</label>
+              <input type="text" name="name" required value={formData.name} onChange={handleChange} className={field} />
             </div>
+            <div>
+              <label className="block text-xs text-taupe mb-1">Phone *</label>
+              <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={field} />
+            </div>
+            <div>
+              <label className="block text-xs text-taupe mb-1">Position *</label>
+              <select name="position" required value={formData.position} onChange={handleChange} className={field}>
+                <option value="">Select position</option>
+                <option>Pattern Making Specialist</option>
+                <option>Quality Control Manager</option>
+                <option>Merchandiser</option>
+                <option>Sewing Line Supervisor</option>
+                <option>Fabric Sourcing Executive</option>
+                <option>Sustainability Coordinator</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-taupe mb-1">Experience</label>
+              <select name="experience" value={formData.experience} onChange={handleChange} className={field}>
+                <option value="">Select experience</option>
+                <option>Fresher</option>
+                <option>1-2 Years</option>
+                <option>3-5 Years</option>
+                <option>5-10 Years</option>
+                <option>10+ Years</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-taupe mb-1">Cover Note</label>
+              <textarea name="message" rows={4} value={formData.message} onChange={handleChange} className={field} />
+            </div>
+            <button type="submit" className="btn-crimson">
+              Submit application
+            </button>
+          </form>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-10">
+          <h2 className="font-display font-semibold text-2xl text-ink mb-4">Life at Fabstract</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {pillars.map((pillar) => (
+              <article key={pillar.title} className="rounded-lg border border-sand bg-white p-5">
+                <h3 className="font-medium text-ink">{pillar.title}</h3>
+                <p className="text-sm text-stone mt-2">{pillar.desc}</p>
+                <p className="mt-3 text-xs text-taupe">{pillar.stats}</p>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="py-24 bg-sky/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionReveal>
-              <p className="text-teal text-sm tracking-[0.3em] uppercase mb-4">Work Culture</p>
-              <h2 className="font-display text-4xl text-navy font-medium mb-6 max-w-2xl">
-                Life at Fabstract
-              </h2>
-              <p className="text-navy/70 max-w-2xl mb-16">
-                A modern, safe, and supportive workplace designed for career advancement, worker health, and collective pride in world-class manufacturing.
-              </p>
-            </SectionReveal>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {pillars.map((pillar, i) => (
-                <SectionReveal key={pillar.title} delay={i * 0.08}>
-                  <GlassPanel hover className="p-8 h-full flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-navy font-medium text-lg mb-3">{pillar.title}</h3>
-                      <p className="text-navy/70 text-sm leading-relaxed mb-6">{pillar.desc}</p>
-                    </div>
-                    <div className="pt-4 border-t border-navy/10">
-                      <span className="text-xs font-bold text-teal uppercase tracking-wider">
-                        {pillar.stats}
-                      </span>
-                    </div>
-                  </GlassPanel>
-                </SectionReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-24 bg-beige">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionReveal>
-              <p className="text-mute text-sm tracking-[0.3em] uppercase mb-4">Why Fabstract</p>
-              <h2 className="font-display text-4xl text-ink font-medium mb-12">
-                Benefits &amp; Perks
-              </h2>
-            </SectionReveal>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {benefits.map((b, i) => (
-                <SectionReveal key={b.title} delay={i * 0.06}>
-                  <GlassPanel hover className="p-6 h-full">
-                    <h4 className="text-ink font-medium mb-2">{b.title}</h4>
-                    <p className="text-mute text-sm leading-relaxed">{b.desc}</p>
-                  </GlassPanel>
-                </SectionReveal>
-              ))}
-            </div>
+        <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-16">
+          <h2 className="font-display font-semibold text-2xl text-ink mb-4">Benefits</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {benefits.map((b) => (
+              <div key={b.title} className="rounded-lg border border-sand bg-white p-5">
+                <h4 className="font-medium text-ink">{b.title}</h4>
+                <p className="text-sm text-stone mt-1">{b.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>

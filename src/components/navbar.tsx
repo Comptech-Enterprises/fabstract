@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { EASE } from "@/lib/motion";
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -17,34 +15,14 @@ export const NAV_LINKS = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: EASE }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 bg-white/95 border-b border-navy/10 ${
-        scrolled || open ? "backdrop-blur-md" : ""
-      }`}
-    >
-      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-20 md:h-24">
-        <Link href="/" className="shrink-0 flex items-center">
-          <img
-            src="/logo-mark.png"
-            alt="Fabstract Clothing India"
-            className="h-14 md:h-[4.75rem] w-auto object-contain"
-          />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white">
+      <nav className="mx-auto max-w-6xl px-4 sm:px-8 h-[4.25rem] sm:h-[4.75rem] flex items-center justify-between gap-6">
+        <Link href="/" className="shrink-0">
+          <img src="/logo-mark.png" alt="Fabstract" className="h-11 sm:h-12 w-auto object-contain" />
         </Link>
-
         <div className="hidden md:flex items-center gap-8 lg:gap-10">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
@@ -52,51 +30,45 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-xs lg:text-sm tracking-[0.2em] uppercase transition-colors ${
-                  active ? "text-teal" : "text-navy/70 hover:text-navy"
-                }`}
+                className={`text-base lg:text-lg ${active ? "text-ink font-medium" : "text-taupe hover:text-ink"}`}
               >
                 {link.label}
-                {active ? (
-                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-teal" />
-                ) : null}
               </Link>
             );
           })}
         </div>
-
         <button
+          type="button"
           onClick={() => setOpen(!open)}
-          className="md:hidden text-navy text-sm tracking-[0.2em] uppercase"
-          aria-label="Toggle menu"
+          className="md:hidden p-2 -mr-2 text-ink"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          {open ? "Close" : "Index"}
+          {open ? (
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          ) : (
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
         </button>
-      </div>
-
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-white border-t border-navy/10 overflow-hidden"
-          >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`block px-6 py-4 text-base tracking-[0.18em] uppercase ${
-                  pathname === link.href ? "text-teal" : "text-navy"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </motion.nav>
+      </nav>
+      {open ? (
+        <div className="md:hidden border-t border-sand px-5 py-5 bg-white space-y-1">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block py-2 text-lg text-ink"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      ) : null}
+    </header>
   );
 }

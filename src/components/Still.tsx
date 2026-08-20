@@ -20,12 +20,12 @@ export function Still({
   const [failed, setFailed] = useState(false);
 
   if (failed) {
-    return <div className={`bg-white ${className}`} aria-hidden />;
+    return <div className={`bg-sand ${className}`} aria-hidden />;
   }
 
   return (
     <div
-      className={`overflow-hidden bg-white ${zoom ? "still-zoom" : ""} ${ken ? "still-ken" : ""} ${className}`}
+      className={`overflow-hidden bg-sand ${zoom ? "still-zoom" : ""} ${ken ? "still-ken" : ""} ${className}`}
     >
       <img
         src={src}

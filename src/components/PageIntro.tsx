@@ -1,4 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { EASE } from "@/lib/motion";
 
 export function PageIntro({
   eyebrow,
@@ -10,14 +14,35 @@ export function PageIntro({
   subtitle?: string;
 }) {
   return (
-    <header className="bg-white pt-32 md:pt-40 pb-12 px-6 sm:px-10 lg:px-14">
-      <p className="text-teal text-xs tracking-[0.28em] uppercase mb-4">{eyebrow}</p>
-      <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-navy font-medium leading-[1.05] max-w-4xl">
-        {title}
-      </h1>
-      {subtitle ? (
-        <p className="mt-6 text-navy/70 text-lg leading-relaxed max-w-2xl">{subtitle}</p>
-      ) : null}
+    <header className="bg-cream pt-24 sm:pt-28 pb-8 px-5 sm:px-8 border-b border-sand">
+      <div className="mx-auto max-w-6xl">
+        <motion.p
+          className="text-xs font-medium uppercase tracking-wider text-taupe"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, ease: EASE }}
+        >
+          {eyebrow}
+        </motion.p>
+        <motion.h1
+          className="mt-3 font-display font-semibold text-ink text-3xl sm:text-5xl tracking-tight max-w-3xl"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          {title}
+        </motion.h1>
+        {subtitle ? (
+          <motion.p
+            className="mt-4 max-w-2xl text-stone text-sm sm:text-base leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+          >
+            {subtitle}
+          </motion.p>
+        ) : null}
+      </div>
     </header>
   );
 }
