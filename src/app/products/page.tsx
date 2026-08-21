@@ -1,12 +1,12 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
-import { TextReveal } from "@/components/TextReveal";
-import { Still } from "@/components/Still";
-import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+import { GALLERY_FILES } from "@/data/gallery";
+import { EASE } from "@/lib/motion";
 
 const LINES = [
   {
@@ -53,113 +53,223 @@ const MATERIALS = [
   { label: "Recycled", desc: "Recycled polyester and upcycled fabrics." },
   { label: "Cellulose", desc: "Modal, Tencel, and viscose-based fibres." },
   { label: "Spun Dyed", desc: "Dope-dyed yarns that cut water usage." },
+  { label: "BCI Cotton", desc: "Better Cotton Initiative sourced fibres." },
 ];
+
+function ProductHero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
+
+  return (
+    <section ref={ref} className="relative bg-white border-b border-sand overflow-hidden">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-28 sm:pt-32 pb-14 sm:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-champagne">Products</p>
+          <h1 className="mt-4 font-display font-bold text-ink text-4xl sm:text-6xl tracking-tight leading-[0.98]">
+            Knit. Woven. Home.
+          </h1>
+          <p className="mt-6 max-w-lg text-stone text-base sm:text-lg leading-relaxed">
+            From delicate beadwork to bold prints — women's, men's, and children's collections
+            across woven, knitted, and home textile categories.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {LINES.map((line) => (
+              <a
+                key={line.id}
+                href={`#${line.id}`}
+                className="rounded-lg border border-sand px-4 py-2 text-sm text-taupe hover:text-ink hover:border-taupe transition-colors"
+              >
+                {line.title}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+        <div className="aspect-[4/3] rounded-2xl overflow-hidden card p-0 bg-sand grid place-items-center">
+          <motion.div className="h-full w-full grid place-items-center" style={{ y: imageY }}>
+            <span className="font-display text-sm uppercase tracking-[0.2em] text-taupe">Image placeholder</span>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StickyProductLines() {
+  const [active, setActive] = useState(0);
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    let ticking = false;
+
+    function updateActive() {
+      ticking = false;
+      const center = window.innerHeight / 2;
+      let closest = 0;
+      let closestDist = Infinity;
+      refs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height / 2 - center);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      setActive(closest);
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateActive);
+      }
+    }
+
+    updateActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const line = LINES[active];
+
+  return (
+    <section className="border-t border-sand">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 grid lg:grid-cols-12 gap-8 lg:gap-14">
+        <div className="lg:col-span-5 lg:sticky lg:top-24 lg:h-fit lg:py-24">
+          <div className="flex gap-2 mb-8">
+            {LINES.map((l, i) => (
+              <span
+                key={l.id}
+                className={`h-1 flex-1 rounded-full transition-colors ${
+                  i === active ? "bg-champagne" : "bg-sand"
+                }`}
+              />
+            ))}
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={line.id}
+              id={line.id}
+              className="scroll-mt-24"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              <p className="text-[11px] uppercase tracking-wider text-champagne">
+                {String(active + 1).padStart(2, "0")} / {String(LINES.length).padStart(2, "0")}
+              </p>
+              <h2 className="mt-2 font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight">
+                {line.title}
+              </h2>
+              <p className="mt-4 max-w-md text-sm sm:text-base text-stone leading-relaxed">
+                {line.blurb}
+              </p>
+
+              <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
+                Categories
+              </p>
+              <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 max-w-md text-sm text-stone">
+                {line.items.map((item) => (
+                  <li key={item} className="border-b border-sand/60 py-1.5">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
+                Key fabrics
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {line.fabrics.map((fabric) => (
+                  <span
+                    key={fabric}
+                    className="border border-sand rounded-lg px-3 py-1 text-xs text-stone"
+                  >
+                    {fabric}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="lg:col-span-7 py-14 sm:py-16 space-y-6">
+          {LINES.map((l, i) => (
+            <div
+              key={l.id}
+              ref={(el) => {
+                refs.current[i] = el;
+              }}
+              className="aspect-[5/4] lg:aspect-auto lg:h-[80vh] w-full overflow-hidden rounded-2xl bg-sand grid place-items-center"
+            >
+              <span className="font-display text-sm uppercase tracking-[0.2em] text-taupe">{l.title}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function ProductsPage() {
   return (
     <>
       <Navbar />
       <main className="bg-cream">
-        <PageIntro
-          eyebrow="Products"
-          title="Knit. Woven. Home."
-          subtitle="From delicate beadwork to bold prints — women’s, men’s, and children’s collections across woven, knitted, and home textile categories."
-        />
+        <ProductHero />
 
+        <StickyProductLines />
 
-        <section>
-          {LINES.map((line, i) => (
-            <SectionReveal key={line.id}>
-              <article
-                id={line.id}
-                className={`scroll-mt-24 mx-auto max-w-6xl grid lg:grid-cols-12 gap-8 lg:gap-14 items-center px-5 sm:px-8 py-14 sm:py-16 border-t border-sand ${
-                  i % 2 === 1 ? "bg-white" : ""
-                }`}
-              >
-                <div
-                  className={`lg:col-span-6 ${i % 2 === 1 ? "lg:order-2" : ""}`}
-                >
-                  <Still
-                    src={gallerySrc(line.file)}
-                    alt={line.title}
-                    className="aspect-[5/4] w-full rounded-none"
-                  />
-                </div>
-
-                <div className="lg:col-span-6">
-                  <TextReveal
-                    as="h2"
-                    text={line.title}
-                    className="font-display font-semibold text-2xl sm:text-4xl text-ink tracking-tight"
-                  />
-                  <p className="mt-4 max-w-md text-sm sm:text-base text-stone leading-relaxed">
-                    {line.blurb}
-                  </p>
-
-                  <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
-                    Categories
-                  </p>
-                  <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 max-w-md text-sm text-stone">
-                    {line.items.map((item) => (
-                      <li key={item} className="border-b border-sand/60 py-1.5">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <p className="mt-8 text-[11px] uppercase tracking-wider text-taupe">
-                    Key fabrics
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {line.fabrics.map((fabric) => (
-                      <span
-                        key={fabric}
-                        className="glass-min rounded-full px-3 py-1 text-xs text-stone"
-                      >
-                        {fabric}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            </SectionReveal>
-          ))}
-        </section>
-
-        <section id="materials" className="bg-white border-t border-sand">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
+        <section id="materials" className="bg-white border-t border-sand overflow-hidden">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 sm:pt-16">
             <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
               <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
                 Fabrics we believe in
               </h2>
               <p className="max-w-sm text-sm text-stone leading-relaxed">
-                Sustainable inputs offered on every programme, subject to buyer specification.
+                Sustainable inputs offered on every programme, subject to buyer specification. Drag to browse.
               </p>
             </SectionReveal>
+          </div>
 
-            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {MATERIALS.map((mat, i) => (
-                <SectionReveal key={mat.label} delay={i * 0.06}>
-                  <div className="border-t border-sand pt-5">
-                    <p className="font-script text-base" style={{ color: "var(--champagne)" }}>0{i + 1}</p>
-                    <h3 className="mt-2 font-display font-semibold text-lg text-ink">
-                      {mat.label}
-                    </h3>
-                    <p className="mt-2 text-sm text-stone leading-relaxed">{mat.desc}</p>
-                  </div>
-                </SectionReveal>
-              ))}
-            </div>
+          <div className="mt-10 pb-14 sm:pb-16 pl-5 sm:pl-8 flex gap-4 overflow-x-auto snap-x snap-mandatory film-scroll">
+            {MATERIALS.map((mat, i) => (
+              <motion.div
+                key={mat.label}
+                className="card p-6 snap-start shrink-0 w-[70vw] sm:w-[280px]"
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
+              >
+                <p className="font-script text-base" style={{ color: "var(--champagne)" }}>0{i + 1}</p>
+                <h3 className="mt-2 font-display font-semibold text-lg text-ink">
+                  {mat.label}
+                </h3>
+                <p className="mt-2 text-sm text-stone leading-relaxed">{mat.desc}</p>
+              </motion.div>
+            ))}
+            <div className="shrink-0 w-px sm:w-8" aria-hidden />
           </div>
         </section>
 
-        <section className="bg-cream border-t border-sand">
+        <section className="bg-champagne">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 flex flex-wrap items-center justify-between gap-6">
-            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight max-w-lg">
-              Send a tech pack — we’ll come back with a sample plan.
+            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-white tracking-tight max-w-lg">
+              Send a tech pack — we'll come back with a sample plan.
             </h2>
-            <a href="/#contact" className="btn-crimson">
-              Talk to us
+            <a href="/#contact" className="inline-flex items-center gap-2 rounded-lg bg-white text-champagne px-6 py-3 text-sm font-medium hover:bg-ink hover:text-white transition-colors">
+              Talk to us →
             </a>
           </div>
         </section>

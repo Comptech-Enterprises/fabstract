@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f7ede2;
-  --sand: #f5cac3;
-  --taupe: #9c8a80;
-  --champagne: #f28482;
-  --accent2: #84a59d;
-  --blush: #f6bd60;
-  --stone: #2b2420;
-  --ink: #1a1512;
+  --cream: #ffffff;
+  --sand: #e4e7ec;
+  --taupe: #64748b;
+  --champagne: #2563eb;
+  --accent2: #1d4ed8;
+  --blush: #2563eb;
+  --stone: #0f172a;
+  --ink: #0f172a;
+  --offwhite: #f7f8fa;
 
   --background: var(--cream);
   --foreground: var(--stone);
@@ -17,24 +18,24 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-cream: #f7ede2;
-  --color-sand: #f5cac3;
-  --color-taupe: #9c8a80;
-  --color-champagne: #f28482;
-  --color-accent2: #84a59d;
-  --color-blush: #f6bd60;
-  --color-stone: #2b2420;
-  --color-ink: #1a1512;
-  --color-navy: #2b2420;
-  --color-teal: #84a59d;
-  --color-sky: #9c8a80;
-  --color-beige: #f5cac3;
+  --color-cream: #ffffff;
+  --color-sand: #e4e7ec;
+  --color-taupe: #64748b;
+  --color-champagne: #2563eb;
+  --color-accent2: #1d4ed8;
+  --color-blush: #2563eb;
+  --color-stone: #0f172a;
+  --color-ink: #0f172a;
+  --color-navy: #0f172a;
+  --color-teal: #2563eb;
+  --color-sky: #64748b;
+  --color-beige: #e4e7ec;
   --color-white: #ffffff;
   --color-ivory: #ffffff;
-  --color-mute: #9c8a80;
-  --color-crimson: #f28482;
-  --color-paper: #f7ede2;
-  --color-smoky-black: #1a1512;
+  --color-mute: #64748b;
+  --color-crimson: #2563eb;
+  --color-paper: #f7f8fa;
+  --color-smoky-black: #0f172a;
   --color-floral-white: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-display);
@@ -45,12 +46,12 @@ body {
   overflow-x: clip;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background:
-    radial-gradient(46vmax 46vmax at 4% -6%, rgba(242, 132, 130, 0.14), transparent 60%),
-    radial-gradient(50vmax 50vmax at 100% 100%, rgba(132, 165, 157, 0.12), transparent 60%),
-    var(--background);
-  background-attachment: fixed;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
@@ -60,35 +61,18 @@ body {
   color: #ffffff;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 12px 32px -16px rgba(20, 15, 15, 0.18);
+.card {
+  background: #ffffff;
+  border: 1px solid var(--sand);
   border-radius: 0.5rem;
+  box-shadow: none;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
-.glass-strong {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.glass-min {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 0.4rem;
-}
-
-.glass-dark {
-  background: rgba(242, 132, 130, 0.85);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border-radius: 0.5rem;
+.card:hover {
+  box-shadow: 0 8px 24px -10px rgba(15, 23, 42, 0.12);
+  border-color: var(--taupe);
+  transform: translateY(-3px);
 }
 
 .font-display {
@@ -101,8 +85,8 @@ body {
 .font-script {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-style: normal;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--champagne);
 }
 
@@ -110,15 +94,15 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: transparent;
-  color: var(--ink);
+  background: var(--champagne);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: none;
   font-weight: 500;
-  border-radius: 0.4rem;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  border: 1px solid var(--champagne);
   box-shadow: none;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -126,9 +110,9 @@ body {
 .btn-crimson:hover {
   transform: none;
   filter: none;
-  background: var(--champagne);
+  background: var(--accent2);
   color: #ffffff;
-  border-color: var(--champagne);
+  border-color: var(--accent2);
   opacity: 1;
 }
 

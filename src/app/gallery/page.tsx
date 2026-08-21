@@ -1,18 +1,59 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageIntro } from "@/components/PageIntro";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 import { EASE } from "@/lib/motion";
 
+const COLUMNS = 3;
+const COLUMN_SPEED = [-60, 40, -30] as const;
+
+function ParallaxColumn({
+  files,
+  speed,
+  onOpen,
+}: {
+  files: { file: string; index: number }[];
+  speed: number;
+  onOpen: (i: number) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, speed]);
+
+  return (
+    <div ref={ref} className="flex-1">
+      <motion.div style={{ y }} className="flex flex-col gap-4 sm:gap-6">
+        {files.map(({ file, index }) => (
+          <button
+            key={file}
+            type="button"
+            onClick={() => onOpen(index)}
+            className="group relative w-full overflow-hidden rounded-2xl bg-sand aspect-[4/5]"
+          >
+            <img
+              src={gallerySrc(file)}
+              alt=""
+              loading={index < 4 ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
+              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+            />
+            <span className="absolute bottom-3 left-3 bg-white/90 border border-sand rounded px-2 py-1 text-[10px] tracking-[0.14em] text-stone opacity-0 group-hover:opacity-100 transition-opacity">
+              {String(index + 1).padStart(2, "0")} / {String(GALLERY_FILES.length).padStart(2, "0")}
+            </span>
+          </button>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function GalleryPage() {
   const [active, setActive] = useState<number | null>(null);
-  const [current, setCurrent] = useState(0);
   const total = GALLERY_FILES.length;
-  const trackRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setActive(null), []);
   const prev = useCallback(
@@ -39,86 +80,30 @@ export default function GalleryPage() {
     };
   }, [active, close, prev, next]);
 
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const onScroll = () => {
-      const children = Array.from(track.children) as HTMLElement[];
-      const mid = track.scrollLeft + track.clientWidth / 2;
-      let closest = 0;
-      let closestDist = Infinity;
-      children.forEach((child, i) => {
-        const dist = Math.abs(child.offsetLeft + child.clientWidth / 2 - mid);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closest = i;
-        }
-      });
-      setCurrent(closest);
-    };
-    track.addEventListener("scroll", onScroll, { passive: true });
-    return () => track.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const scrollTo = (i: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const child = track.children[i] as HTMLElement | undefined;
-    if (child) track.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
-  };
+  const columns: { file: string; index: number }[][] = Array.from({ length: COLUMNS }, () => []);
+  GALLERY_FILES.forEach((file, i) => {
+    columns[i % COLUMNS].push({ file, index: i });
+  });
 
   return (
     <>
       <Navbar />
-      <main className="bg-cream">
-        <PageIntro
-          eyebrow="Lookbook"
-          title="Gallery"
-          subtitle="Stills from the floor and the line — scroll or drag through, click a frame to open."
-        />
+      <main className="bg-cream overflow-hidden">
+        <section className="pt-28 sm:pt-32 pb-14 sm:pb-16 px-5 sm:px-8 text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-champagne">Lookbook</p>
+          <h1 className="mt-4 font-display font-bold text-ink text-4xl sm:text-6xl tracking-tight">
+            Gallery
+          </h1>
+          <p className="mt-4 max-w-lg mx-auto text-stone text-base sm:text-lg leading-relaxed">
+            Stills from the floor and the line. Scroll to browse, click a frame to open.
+          </p>
+        </section>
 
-        <section className="py-10 sm:py-14">
-          <div
-            ref={trackRef}
-            className="film-scroll flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory px-5 sm:px-8 pb-4"
-          >
-            {GALLERY_FILES.map((file, i) => (
-              <button
-                key={file}
-                type="button"
-                onClick={() => setActive(i)}
-                className="group relative shrink-0 snap-center h-[34vh] sm:h-[72vh] w-[72vw] sm:w-[62vw] lg:w-[48vw] overflow-hidden bg-sand"
-              >
-                <img
-                  src={gallerySrc(file)}
-                  alt=""
-                  loading={i < 2 ? "eager" : "lazy"}
-                  decoding="async"
-                  draggable={false}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                />
-                <span className="absolute bottom-4 left-4 glass px-2 py-1 text-[10px] tracking-[0.14em] text-stone">
-                  {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-                </span>
-              </button>
+        <section className="px-5 sm:px-8 pb-20 sm:pb-28">
+          <div className="mx-auto max-w-6xl flex gap-4 sm:gap-6">
+            {columns.map((col, i) => (
+              <ParallaxColumn key={i} files={col} speed={COLUMN_SPEED[i % COLUMN_SPEED.length]} onOpen={setActive} />
             ))}
-          </div>
-
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 mt-6 flex items-center justify-between">
-            <div className="flex gap-2">
-              {GALLERY_FILES.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Go to frame ${i + 1}`}
-                  onClick={() => scrollTo(i)}
-                  className={`h-[3px] transition-all ${
-                    current === i ? "w-8 bg-ink" : "w-3 bg-sand hover:bg-taupe"
-                  }`}
-                />
-              ))}
-            </div>
-            <p className="text-xs text-taupe hidden sm:block">Drag or scroll to browse</p>
           </div>
         </section>
       </main>
@@ -134,7 +119,7 @@ export default function GalleryPage() {
             transition={{ duration: 0.3, ease: EASE }}
           >
             <motion.div
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/80"
               onClick={close}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

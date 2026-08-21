@@ -36,7 +36,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-strong rounded-none border-x-0 border-t-0">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-sand">
       <nav className="mx-auto max-w-6xl px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between gap-4">
         <div className="flex-1 hidden md:flex items-center gap-7 lg:gap-10">
           {LEFT.map((link) => (
@@ -54,6 +54,13 @@ export function Navbar() {
               <NavLink key={link.href} {...link} active={pathname === link.href} />
             ))}
           </div>
+
+          <Link
+            href="/#contact"
+            className="hidden md:inline-flex items-center rounded-lg bg-champagne px-4 py-2 text-xs font-medium tracking-wide text-white hover:bg-accent2 transition-colors"
+          >
+            Enquire
+          </Link>
 
           <button
             type="button"
@@ -75,7 +82,7 @@ export function Navbar() {
         </div>
       </nav>
       {open ? (
-        <div className="md:hidden mx-4 mb-4 glass-strong px-5 py-5 space-y-1">
+        <div className="md:hidden mx-4 mb-4 bg-white border border-sand rounded-lg px-5 py-5 space-y-1">
           {NAV_LINKS.map((link, i) => (
             <Link
               key={link.href}

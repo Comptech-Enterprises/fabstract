@@ -1,18 +1,16 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageIntro } from "@/components/PageIntro";
 import { SectionReveal } from "@/components/SectionReveal";
 import { TextReveal } from "@/components/TextReveal";
-import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+import { EASE } from "@/lib/motion";
 
 type Person = {
   name: string;
   role: string;
   bio: string;
-  /** Drop a real portrait path here (e.g. "/team/kavya.jpg") to replace the stand-in floor shot. */
-  image?: string;
 };
 
 const TEAM: Person[] = [
@@ -20,27 +18,27 @@ const TEAM: Person[] = [
     name: "Kavya Mehra",
     role: "Marketing Manager",
     bio: "Builds Fabstract’s brand story for global buyers — lookbooks, trade shows, and seasonal campaigns for knit and woven lines.",
-    image: gallerySrc(GALLERY_FILES[0]),
   },
   {
     name: "Arjun Malhotra",
     role: "Production Manager",
     bio: "Runs the Noida floor from cutting to packing, keeping bulk programmes on the 60–90 day lead time buyers expect.",
-    image: gallerySrc(GALLERY_FILES[3]),
   },
   {
     name: "Priya Sethi",
     role: "Merchandising Manager",
     bio: "Owns T&A calendars, tech packs, and buyer sampling so each order moves cleanly from proto to shipment.",
-    image: gallerySrc(GALLERY_FILES[5]),
   },
   {
     name: "Rohan Kapoor",
     role: "Quality Control Manager",
     bio: "Leads five-stage garment inspection, fabric tests, and AQL checks before cartons leave the factory.",
-    image: gallerySrc(GALLERY_FILES[7]),
   },
 ];
+
+function initials(name: string) {
+  return name.split(" ").map((w) => w[0]).join("");
+}
 
 const FACTS = [
   { value: "1991", label: "Founded — a government-recognised export house since." },
@@ -69,47 +67,49 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="bg-cream">
-        <PageIntro
-          eyebrow="About"
-          title="House, floor, people."
-          subtitle="Founded in 1991 and based in New Delhi & Noida, India, Fabstract has 30+ years of export experience, a team of 500+ skilled professionals, and serves 45+ global clients."
-        />
-
-        <section className="bg-white border-t border-sand">
-          <SectionReveal className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
-              <TextReveal
-                as="h2"
-                text="A garment house, not a middleman."
-                className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight"
-              />
-            </div>
-            <div className="lg:col-span-7 space-y-4 text-stone text-sm sm:text-base leading-relaxed">
-              <p>
-                Fabstract is a Delhi/NCR export house making knit and woven garments for
-                buyers across Europe, North America, and Asia. Every stage — design through
-                packing — happens under one roof, so a change on the tech pack reaches the
-                cutting table the same day.
+        <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-5 sm:px-8 bg-white border-b border-sand">
+          <div className="mx-auto max-w-6xl grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
+            >
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-champagne">About</p>
+              <h1 className="mt-4 font-display font-bold text-ink text-4xl sm:text-6xl tracking-tight leading-[0.98]">
+                House, floor, people.
+              </h1>
+              <p className="mt-6 max-w-lg text-stone text-base sm:text-lg leading-relaxed">
+                Founded in 1991 and based in New Delhi &amp; Noida, India, Fabstract has 30+
+                years of export experience, a team of 500+ skilled professionals, and serves
+                45+ global clients.
               </p>
-              <p>
-                Fairtrade certified, ETI and ILO compliant, with CSR programmes covering
-                education, environment, and worker well-being. Bulk programmes ship on the
-                60–90 day lead time buyers plan around.
+              <p className="mt-4 max-w-lg text-stone text-sm sm:text-base leading-relaxed">
+                Design, sampling, cutting, stitching, finishing, and packing sit under one
+                roof — fewer handoffs, tighter control, and a tech pack change that reaches
+                the cutting table the same day.
               </p>
-            </div>
-          </SectionReveal>
+            </motion.div>
+            <motion.div
+              className="aspect-[4/3] rounded-2xl overflow-hidden card p-0 bg-sand grid place-items-center"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              <span className="font-display text-sm uppercase tracking-[0.2em] text-taupe">Image placeholder</span>
+            </motion.div>
+          </div>
         </section>
 
-        <section className="border-t border-sand">
+        <section className="bg-ink border-b border-sand">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-12 sm:py-16">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
               {FACTS.map((fact, i) => (
                 <SectionReveal key={fact.value} delay={i * 0.06}>
-                  <div className="border-t border-sand pt-5">
-                    <p className="font-display text-3xl sm:text-4xl font-medium leading-none tracking-tight text-ink">
+                  <div className="border-t border-white/15 pt-5">
+                    <p className="font-display text-3xl sm:text-4xl font-bold leading-none tracking-tight text-champagne">
                       {fact.value}
                     </p>
-                    <p className="mt-3 text-xs sm:text-sm text-taupe leading-relaxed">
+                    <p className="mt-3 text-xs sm:text-sm text-white/60 leading-relaxed">
                       {fact.label}
                     </p>
                   </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section id="team" className="bg-white border-t border-sand">
+        <section id="team" className="bg-white border-b border-sand">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
           <SectionReveal className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -134,35 +134,25 @@ export default function AboutPage() {
             </p>
           </SectionReveal>
 
-          <div className="mt-10">
+          <div className="mt-10 grid sm:grid-cols-2 gap-6">
             {TEAM.map((person, i) => (
-              <SectionReveal key={person.name}>
-                <article className="grid lg:grid-cols-12 gap-6 lg:gap-14 items-center border-t border-sand py-10 sm:py-14">
-                  <div
-                    className={`lg:col-span-4 ${i % 2 === 1 ? "lg:order-2" : ""}`}
-                  >
-                    <div className="aspect-[4/5] w-full max-w-[16rem] overflow-hidden rounded-2xl bg-sand">
-                      <img
-                        src={person.image}
-                        alt={person.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
+              <SectionReveal key={person.name} delay={i * 0.06}>
+                <article className="card p-6 h-full">
+                  <div className="aspect-[16/10] w-full overflow-hidden rounded-lg bg-sand grid place-items-center">
+                    <span className="font-display text-2xl font-bold text-taupe">{initials(person.name)}</span>
                   </div>
-                  <div className="lg:col-span-8">
-                    <p className="font-script text-lg text-taupe">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight">
-                      {person.name}
-                    </h3>
-                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-taupe">
-                      {person.role}
-                    </p>
-                    <p className="mt-4 max-w-xl text-sm sm:text-base text-stone leading-relaxed">
-                      {person.bio}
-                    </p>
-                  </div>
+                  <p className="mt-5 font-display text-sm font-bold text-champagne">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-1 font-display font-semibold text-xl sm:text-2xl text-ink tracking-tight">
+                    {person.name}
+                  </h3>
+                  <p className="mt-1 text-xs uppercase tracking-[0.16em] text-taupe">
+                    {person.role}
+                  </p>
+                  <p className="mt-3 text-sm text-stone leading-relaxed">
+                    {person.bio}
+                  </p>
                 </article>
               </SectionReveal>
             ))}
@@ -170,16 +160,19 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-t border-sand">
+        <section className="bg-[var(--offwhite)]">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16">
             <SectionReveal>
-              <p className="font-script text-lg text-taupe">How we work</p>
+              <p className="font-script text-sm text-taupe uppercase tracking-[0.14em]">How we work</p>
             </SectionReveal>
-            <div className="mt-8 grid sm:grid-cols-3 gap-x-10 gap-y-10">
+            <div className="mt-8 grid sm:grid-cols-3 gap-6">
               {VALUES.map((value, i) => (
                 <SectionReveal key={value.title} delay={i * 0.06}>
-                  <div className="border-t border-sand pt-5">
-                    <h3 className="font-display font-semibold text-xl text-ink">
+                  <div className="card p-6 h-full">
+                    <span className="font-display text-sm font-bold text-champagne">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-3 font-display font-semibold text-xl text-ink">
                       {value.title}
                     </h3>
                     <p className="mt-3 text-sm text-stone leading-relaxed">{value.body}</p>
@@ -190,13 +183,13 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-white border-t border-sand">
+        <section className="bg-champagne">
           <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-16 flex flex-wrap items-center justify-between gap-6">
-            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink tracking-tight max-w-lg">
+            <h2 className="font-display font-semibold text-2xl sm:text-3xl text-white tracking-tight max-w-lg">
               Want the capability deck or a sample programme?
             </h2>
-            <a href="/#contact" className="btn-crimson">
-              Talk to us
+            <a href="/#contact" className="inline-flex items-center gap-2 rounded-lg bg-white text-champagne px-6 py-3 text-sm font-medium hover:bg-ink hover:text-white transition-colors">
+              Talk to us →
             </a>
           </div>
         </section>
