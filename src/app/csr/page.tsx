@@ -23,8 +23,23 @@ const CHAPTERS = [
     ],
   },
   {
-    id: "impact",
+    id: "purpose",
     number: "02",
+    title: "Purpose",
+    lead:
+      "Compliance is the floor, not the ceiling. Fabstract runs to BSCI, ETI, and ILO standards, sources organic and recycled inputs where programmes allow, and documents every audit — not just the ones buyers ask for.",
+    theme: "light" as const,
+    files: [GALLERY_FILES[4], GALLERY_FILES[6]],
+    stats: [
+      { value: "BSCI", label: "Certified ethical manufacturing across the supply chain." },
+      { value: "ETI", label: "Aligned with the Ethical Trading Initiative base code." },
+      { value: "ILO", label: "Compliant with International Labour Organization conventions." },
+      { value: "GOTS", label: "Organic cotton sourcing where programmes call for it." },
+    ],
+  },
+  {
+    id: "impact",
+    number: "03",
     title: "Impact",
     lead:
       "Five active programmes covering education, environment, and worker well-being — run continuously since the house was founded, not switched on for audits.",
