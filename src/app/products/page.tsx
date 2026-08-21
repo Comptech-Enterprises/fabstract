@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/SectionReveal";
@@ -57,14 +57,11 @@ const MATERIALS = [
 ];
 
 function ProductHero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
-
   return (
-    <section ref={ref} className="relative bg-white border-b border-sand overflow-hidden">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-28 sm:pt-32 pb-14 sm:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+    <section className="relative bg-white border-b border-sand">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-28 sm:pt-32 pb-14 sm:pb-20">
         <motion.div
+          className="max-w-2xl"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
@@ -77,22 +74,28 @@ function ProductHero() {
             From delicate beadwork to bold prints — women's, men's, and children's collections
             across woven, knitted, and home textile categories.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {LINES.map((line) => (
-              <a
-                key={line.id}
-                href={`#${line.id}`}
-                className="rounded-lg border border-sand px-4 py-2 text-sm text-taupe hover:text-ink hover:border-taupe transition-colors"
-              >
-                {line.title}
-              </a>
-            ))}
-          </div>
         </motion.div>
-        <div className="aspect-[4/3] rounded-2xl overflow-hidden card p-0 bg-sand grid place-items-center">
-          <motion.div className="h-full w-full grid place-items-center" style={{ y: imageY }}>
-            <span className="font-display text-sm uppercase tracking-[0.2em] text-taupe">Image placeholder</span>
-          </motion.div>
+
+        <div className="mt-12 grid sm:grid-cols-3 gap-4">
+          {LINES.map((line, i) => (
+            <motion.a
+              key={line.id}
+              href={`#${line.id}`}
+              className="card p-6 sm:p-8 h-full block"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
+            >
+              <p className="font-display text-sm font-bold text-champagne">{String(i + 1).padStart(2, "0")}</p>
+              <h3 className="mt-3 font-display font-semibold text-xl sm:text-2xl text-ink tracking-tight">
+                {line.title}
+              </h3>
+              <p className="mt-3 text-sm text-stone leading-relaxed">{line.blurb}</p>
+              <span className="mt-5 inline-block text-xs uppercase tracking-[0.14em] text-champagne">
+                Explore →
+              </span>
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>

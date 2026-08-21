@@ -13,9 +13,6 @@ export const NAV_LINKS = [
   { label: "Careers", href: "/career" },
 ];
 
-const LEFT = NAV_LINKS.slice(0, 3);
-const RIGHT = NAV_LINKS.slice(3);
-
 function NavLink({ label, href, active }: { label: string; href: string; active: boolean }) {
   return (
     <Link
@@ -38,48 +35,39 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-sand">
       <nav className="mx-auto max-w-6xl px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between gap-4">
-        <div className="flex-1 hidden md:flex items-center gap-7 lg:gap-10">
-          {LEFT.map((link) => (
-            <NavLink key={link.href} {...link} active={pathname === link.href} />
-          ))}
-        </div>
-
         <Link href="/" className="shrink-0">
-          <img src="/logo-mark.png" alt="Fabstract" className="h-12 sm:h-14 w-auto object-contain" />
+          <img src="/logo-mark.png" alt="Fabstract" className="h-11 sm:h-12 w-auto object-contain" />
         </Link>
 
-        <div className="flex-1 flex items-center justify-end gap-7 lg:gap-10">
-          <div className="hidden md:flex items-center gap-7 lg:gap-10">
-            {RIGHT.map((link) => (
-              <NavLink key={link.href} {...link} active={pathname === link.href} />
-            ))}
-          </div>
-
+        <div className="hidden md:flex items-center gap-8 lg:gap-12">
+          {NAV_LINKS.map((link) => (
+            <NavLink key={link.href} {...link} active={pathname === link.href} />
+          ))}
           <Link
             href="/#contact"
-            className="hidden md:inline-flex items-center rounded-lg bg-champagne px-4 py-2 text-xs font-medium tracking-wide text-white hover:bg-accent2 transition-colors"
+            className="text-xs lg:text-sm tracking-[0.12em] uppercase text-champagne hover:opacity-70 transition-opacity"
           >
             Enquire
           </Link>
-
-          <button
-            type="button"
-            onClick={() => setOpen(!open)}
-            className="md:hidden p-2 -mr-2 text-ink"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            {open ? (
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            )}
-          </button>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          className="md:hidden p-2 -mr-2 text-ink"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+        >
+          {open ? (
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
+        </button>
       </nav>
       {open ? (
         <div className="md:hidden mx-4 mb-4 bg-white border border-sand rounded-lg px-5 py-5 space-y-1">
