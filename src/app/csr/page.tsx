@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
+import { SectionReveal } from "@/components/SectionReveal";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
-
-const TABS = [
-  { id: "people", label: "For People" },
-  { id: "planet", label: "For Planet" },
-  { id: "csr", label: "CSR" },
-  { id: "marks", label: "Our Marks" },
-] as const;
+import { BANNER_VIDEO } from "@/data/hero";
+import { Parallax, ParallaxLayer } from "@/components/Parallax";
+import { TypeReveal } from "@/components/TypeReveal";
 
 function ReadMore({ more }: { more: string }) {
   const [open, setOpen] = useState(false);
@@ -30,48 +28,21 @@ function ReadMore({ more }: { more: string }) {
   );
 }
 
-function SideNav({ active }: { active: string }) {
+function Marginalia({ n, title }: { n: string; title: string }) {
   return (
-    <nav className="border-l border-navy/15 py-2">
-      {TABS.map((tab) => {
-        const on = active === tab.id;
-        return (
-          <a
-            key={tab.id}
-            href={`#${tab.id}`}
-            className={`flex items-center gap-3 py-2.5 -ml-px border-l-2 transition-colors ${
-              on ? "border-navy text-navy" : "border-transparent text-navy/40 hover:text-navy"
-            }`}
-          >
-            <span className={`h-px ${on ? "w-8 bg-navy" : "w-4 bg-navy/25"}`} />
-            <span className={`text-[13px] ${on ? "font-medium" : ""}`}>{tab.label}</span>
-          </a>
-        );
-      })}
-    </nav>
+    <div className="flex items-baseline gap-4">
+      <span className="font-display text-sm text-teal">{n}</span>
+      <span className="h-px flex-1 bg-navy/15" />
+      <span className="text-[11px] tracking-[0.24em] uppercase text-navy/50">{title}</span>
+    </div>
   );
 }
 
 export default function CSRPage() {
-  const [active, setActive] = useState("people");
-
-  useEffect(() => {
-    const nodes = TABS.map((t) => document.getElementById(t.id)).filter(Boolean) as HTMLElement[];
-    const io = new IntersectionObserver(
-      (entries) => {
-        const vis = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (vis?.target.id) setActive(vis.target.id);
-      },
-      { rootMargin: "-30% 0px -50% 0px", threshold: [0.15, 0.4, 0.7] }
-    );
-    nodes.forEach((n) => io.observe(n));
-    return () => io.disconnect();
-  }, []);
-
   const peopleStats = [
     { value: "500+", label: "Skilled professionals across design, production, and quality." },
+    { value: "60%+", label: "Female workforce with equal pay and maternity support." },
+    { value: "85%+", label: "Retention — people stay because the floor is fair." },
     { value: "100+", label: "Hours of annual training in modern garment manufacturing." },
   ];
 
@@ -82,193 +53,229 @@ export default function CSRPage() {
     { value: "GOTS", label: "Organic cotton sourcing where programmes call for it." },
   ];
 
-  const csrStats = [
-    { value: "5", label: "Active CSR programmes — education, environment, and worker well-being." },
-    { value: "60%+", label: "Female workforce with equal pay and maternity support." },
-    { value: "85%+", label: "Retention — people stay because the floor is fair." },
-    { value: "1991", label: "Fairtrade-aligned house, government-recognised exporter since founding." },
-  ];
+  const marks = ["CSCC Approved", "BSCI Certified", "ETI Aligned", "ILO Compliant", "Fairtrade"];
+
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const navyOrbY = useTransform(heroProgress, [0, 1], [0, 120]);
+  const navyOrbY2 = useTransform(heroProgress, [0, 1], [0, -80]);
+  const quoteY = useTransform(heroProgress, [0, 1], [0, 90]);
+  const quoteOpacity = useTransform(heroProgress, [0, 0.8], [1, 0.3]);
 
   return (
     <>
       <Navbar />
-      <main className="bg-white pt-20 md:pt-24">
-        <section className="relative h-[52vh] min-h-[340px] sm:h-[62vh] md:h-[72vh] overflow-hidden">
-          <Still
-            src={gallerySrc(GALLERY_FILES[0])}
-            alt="Fabstract floor"
-            ken
-            zoom={false}
-            className="absolute inset-0"
+      <main className="bg-white">
+        {/* Banner — dimmed video background, quote overlaid, 80% of viewport */}
+        <section
+          ref={heroRef}
+          className="relative h-[80vh] min-h-[560px] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
+        >
+          <ParallaxLayer speed={0.25} className="absolute inset-0">
+            <video
+              src={BANNER_VIDEO}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="h-full w-full object-cover"
+            />
+          </ParallaxLayer>
+          <div className="pointer-events-none absolute inset-0 bg-navy/70" />
+          <motion.div
+            style={{ y: navyOrbY }}
+            className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-white/10"
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/25 to-navy/20" />
-          <div className="absolute inset-x-0 bottom-0 px-5 sm:px-10 lg:px-14 pb-10 lg:pb-14">
-            <p className="text-white/90 text-base sm:text-lg font-medium mb-2">Sustainability</p>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium leading-[1.08] max-w-3xl [text-shadow:0_2px_24px_rgba(12,18,28,0.4)]">
-              Operating responsibly, for people and the planet
+          <motion.div
+            style={{ y: navyOrbY2 }}
+            className="pointer-events-none absolute bottom-0 left-10 h-40 w-40 rounded-full border border-white/10"
+          />
+          <SectionReveal className="relative max-w-4xl mx-auto text-center">
+            <motion.div style={{ y: quoteY, opacity: quoteOpacity }}>
+              <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
+              <blockquote className="font-display text-2xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.3] -mt-6">
+                <TypeReveal className="block w-full" duration={1.6}>
+                  The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
+                </TypeReveal>
+              </blockquote>
+              <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
+                — Mahatma Gandhi
+              </p>
+            </motion.div>
+          </SectionReveal>
+        </section>
+
+        {/* Statement */}
+        <section className="mt-[10vh] px-5 sm:px-10 lg:px-14 pt-16 pb-14 md:pt-24 md:pb-20 max-w-5xl mx-auto">
+          <SectionReveal>
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
+              <TypeReveal className="block w-full" duration={1.2}>
+                We carry that idea onto our production floor — nothing borrowed is ours to waste.
+              </TypeReveal>
             </h1>
+            <p className="mt-8 text-navy/70 leading-relaxed max-w-2xl text-lg">
+              Sustainability, for us, is an exercise in both social and environmental well-being. It goes beyond
+              simply doing good — it is a commitment to people, the planet, and responsible manufacturing under
+              our CSR policy per Section 135 of the Companies Act 2013, held to ETI and ILO practice, and Fairtrade
+              certified.
+            </p>
+          </SectionReveal>
+        </section>
+
+        {/* 01 — People */}
+        <section className="border-t border-navy/10 bg-white px-5 sm:px-10 lg:px-14 py-16 md:py-24">
+          <div className="max-w-6xl mx-auto">
+            <SectionReveal>
+              <Marginalia n="01" title="For People" />
+            </SectionReveal>
+            <div className="mt-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              <SectionReveal className="lg:col-span-7">
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.15]">
+                  <TypeReveal className="block w-full" duration={1}>
+                    An open, ethical floor where people are seen, heard, and paid fairly.
+                  </TypeReveal>
+                </h2>
+                <p className="mt-6 text-navy/70 leading-relaxed max-w-xl">
+                  Living wages, real training, and career paths that go somewhere — not just compliance on paper.
+                </p>
+                <ReadMore more="Every worker on the floor is entitled to living wages, structured training, and a documented path to advance. We measure ourselves by whether people stay, not just whether they're hired." />
+              </SectionReveal>
+              <SectionReveal delay={0.1} className="lg:col-span-5">
+                <Parallax offset={36} className="aspect-[4/5]">
+                  <Still
+                    src={gallerySrc(GALLERY_FILES[1])}
+                    alt="People on the Fabstract floor"
+                    className="h-[calc(100%+72px)] -mt-9"
+                  />
+                </Parallax>
+              </SectionReveal>
+            </div>
+            <SectionReveal delay={0.15} className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+              {peopleStats.map((s) => (
+                <div key={s.value}>
+                  <p className="font-display text-4xl sm:text-5xl text-navy font-medium leading-none">{s.value}</p>
+                  <p className="mt-3 text-navy/55 text-xs leading-relaxed uppercase tracking-wide max-w-[16ch]">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </SectionReveal>
           </div>
         </section>
 
-        <div className="lg:grid lg:grid-cols-12 lg:gap-0">
-          <aside className="hidden lg:block lg:col-span-2 px-6 pt-10 self-start sticky top-24 z-30">
-            <SideNav active={active} />
-          </aside>
-
-          <div className="lg:col-span-10 min-w-0">
-            <div className="lg:hidden sticky top-20 md:top-24 z-40 bg-white/95 border-b border-navy/10 backdrop-blur-md">
-              <nav className="px-5 flex gap-6 overflow-x-auto">
-                {TABS.map((tab) => (
-                  <a
-                    key={tab.id}
-                    href={`#${tab.id}`}
-                    className={`shrink-0 py-4 text-[11px] tracking-[0.22em] uppercase ${
-                      active === tab.id ? "text-navy" : "text-navy/45"
-                    }`}
-                  >
-                    {tab.label}
-                  </a>
-                ))}
-              </nav>
+        {/* 02 — Planet */}
+        <section className="border-t border-navy/10 bg-navy text-white px-5 sm:px-10 lg:px-14 py-16 md:py-24">
+          <div className="max-w-6xl mx-auto">
+            <SectionReveal>
+              <div className="flex items-baseline gap-4">
+                <span className="font-display text-sm text-sky">02</span>
+                <span className="h-px flex-1 bg-white/15" />
+                <span className="text-[11px] tracking-[0.24em] uppercase text-white/50">For Planet</span>
+              </div>
+            </SectionReveal>
+            <div className="mt-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              <SectionReveal delay={0.1} className="lg:col-span-5 lg:order-2">
+                <Parallax offset={36} className="aspect-[4/5]">
+                  <Still
+                    src="/van.png"
+                    alt="Fabstract delivery van"
+                    className="h-[calc(100%+72px)] -mt-9"
+                  />
+                </Parallax>
+              </SectionReveal>
+              <SectionReveal className="lg:col-span-7 lg:order-1">
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.15]">
+                  <TypeReveal className="block w-full" duration={1}>
+                    <span className="text-teal">वन से हम</span> — we exist because of forests.
+                  </TypeReveal>
+                </h2>
+                <p className="mt-6 text-white/70 leading-relaxed max-w-xl">
+                  Miyawaki forests across Delhi/NCR, sponsored by Fabstract and led by our Sustainability Head,
+                  Mrs. Abha Batra — native species planted dense, growing into a self-sustaining forest within two years.
+                </p>
+                <div className="mt-6">
+                  <p className="text-white/65 leading-relaxed max-w-xl text-sm">
+                    New plantations added each month to push back against heat and pollution in the region we build in.
+                  </p>
+                </div>
+              </SectionReveal>
             </div>
+            <SectionReveal delay={0.15} className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {planetStats.map((s) => (
+                <div key={s.value} className="border border-white/15 px-6 py-7">
+                  <p className="font-display text-2xl sm:text-3xl text-white font-medium">{s.value}</p>
+                  <p className="mt-2 text-white/55 text-xs leading-relaxed">{s.label}</p>
+                </div>
+              ))}
+            </SectionReveal>
+          </div>
+        </section>
 
-            <header className="bg-beige px-5 sm:px-10 lg:px-14 py-16 lg:py-24">
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.2] max-w-3xl">
-                Sustainability is an exercise in both social and environmental well-being.
+        {/* 03 — CSR */}
+        <section className="border-t border-navy/10 bg-white px-5 sm:px-10 lg:px-14 py-16 md:py-24">
+          <div className="max-w-6xl mx-auto">
+            <SectionReveal>
+              <Marginalia n="03" title="CSR" />
+            </SectionReveal>
+            <div className="mt-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              <SectionReveal className="lg:col-span-7">
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.15]">
+                  <TypeReveal className="block w-full" duration={0.8}>
+                    Impact beyond the carton.
+                  </TypeReveal>
+                </h2>
+                <p className="mt-6 text-navy/70 leading-relaxed max-w-xl">
+                  Education and skilling, health and sanitation, gender equality, and environmental sustainability —
+                  including Swachh Bharat contributions and support for children, women, the elderly, and the
+                  differently abled.
+                </p>
+                <ReadMore more="Five active programmes span the communities we share with global buyers — from classroom sponsorships to worker health camps. Our CSR policy sits under Section 135 of the Companies Act 2013 and reports the same way our production does: transparently, every year." />
+              </SectionReveal>
+              <SectionReveal delay={0.1} className="lg:col-span-5">
+                <Parallax offset={36} className="aspect-[4/5]">
+                  <Still
+                    src={gallerySrc(GALLERY_FILES[2])}
+                    alt="Hands at work, Fabstract floor"
+                    className="h-[calc(100%+72px)] -mt-9"
+                  />
+                </Parallax>
+              </SectionReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* 04 — Marks */}
+        <section className="border-t border-navy/10 bg-white px-5 sm:px-10 lg:px-14 py-16 md:py-24">
+          <div className="max-w-6xl mx-auto">
+            <SectionReveal>
+              <Marginalia n="04" title="Our Marks" />
+            </SectionReveal>
+            <SectionReveal delay={0.1}>
+              <h2 className="mt-10 font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.15] max-w-2xl">
+                <TypeReveal className="block w-full" duration={0.8}>
+                  Partners in progress.
+                </TypeReveal>
               </h2>
-              <p className="mt-8 text-navy/70 leading-relaxed max-w-2xl">
-                It goes beyond simply doing good — it is a commitment to people, the planet, and responsible manufacturing. Our CSR policy under Section 135 of the Companies Act 2013 holds the floor to ETI and ILO practice. Fairtrade certified.
-              </p>
-            </header>
-
-            <section id="people" className="scroll-mt-32 bg-white px-5 sm:px-10 lg:px-14 py-16 lg:py-24">
-              <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Responsible for People</h2>
-              <div className="mt-8 lg:grid lg:grid-cols-12 lg:gap-10 items-start">
-                <div className="lg:col-span-8">
-                  <h3 className="text-navy font-medium text-lg">Empowering employees and communities</h3>
-                  <p className="mt-4 text-navy/70 leading-relaxed max-w-xl">
-                    An open, ethical floor where workers feel safe, seen, heard, respected, and valued — living wages, training, and real career paths.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:text-right mt-4 lg:mt-0">
-                  <ReadMore more="500+ skilled professionals. 60%+ female workforce with equal pay and maternity support. 85%+ retention because the floor is fair." />
-                </div>
-              </div>
-              <div className="mt-12 grid lg:grid-cols-12 gap-8 items-stretch">
-                <Still
-                  src={gallerySrc(GALLERY_FILES[1])}
-                  alt="People on the Fabstract floor"
-                  className="lg:col-span-7 aspect-[16/10] min-h-[220px]"
-                />
-                <div className="lg:col-span-5 flex flex-col justify-center gap-10">
-                  {peopleStats.map((s) => (
-                    <div key={s.value} className="border-b border-navy/15 pb-8">
-                      <p className="font-display text-5xl sm:text-6xl text-navy font-medium leading-none">{s.value}</p>
-                      <p className="mt-3 text-navy/60 text-sm leading-relaxed uppercase tracking-wide">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section id="planet" className="scroll-mt-32 bg-white px-5 sm:px-10 lg:px-14 py-16 lg:py-24 border-t border-navy/10">
-              <div className="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
-                <div className="lg:col-span-8">
-                  <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Responsible for Planet</h2>
-                  <h3 className="mt-8 text-navy font-medium text-lg">Championing environmental stewardship</h3>
-                  <p className="mt-4 text-navy/70 leading-relaxed max-w-xl">
-                    Sustainability — <span className="text-teal">वन से हम</span> — &quot;We exist because of forests.&quot; Miyawaki forests in Delhi/NCR, sponsored by Fabstract, led by Sustainability Head Mrs. Abha Batra.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:text-right">
-                  <ReadMore more="Native trees planted close together, competing for light, growing into a dense, self-sustaining forest within two years. More such programmes each month to fight heat and pollution." />
-                </div>
-              </div>
-              <div className="mt-12 grid lg:grid-cols-12 gap-6 items-stretch">
-                <div className="lg:col-span-5 flex flex-col gap-3">
-                  {planetStats.map((s, i) => (
-                    <div
-                      key={s.value}
-                      className={`flex items-center gap-6 px-6 py-7 ${
-                        i === 2 ? "bg-navy text-white" : "bg-beige text-navy"
-                      }`}
-                    >
-                      <p className="font-display text-3xl sm:text-4xl font-medium w-24 shrink-0">{s.value}</p>
-                      <p className={`text-sm leading-relaxed ${i === 2 ? "text-sky" : "text-navy/60"}`}>{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-                <Still
-                  src={gallerySrc(GALLERY_FILES[7])}
-                  alt="Fabstract production"
-                  className="lg:col-span-7 min-h-[280px] lg:min-h-full aspect-[4/3] lg:aspect-auto"
-                />
-              </div>
-            </section>
-
-            <section id="csr" className="scroll-mt-32 bg-white px-5 sm:px-10 lg:px-14 py-16 lg:py-24 border-t border-navy/10">
-              <div className="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
-                <div className="lg:col-span-8">
-                  <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Corporate Social Responsibility</h2>
-                  <h3 className="mt-8 text-navy font-medium text-lg">Building futures, one step beyond</h3>
-                  <p className="mt-4 text-navy/70 leading-relaxed max-w-xl">
-                    Impact beyond the carton — communities, education, health, and the supply chain we share with global buyers.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:text-right">
-                  <ReadMore more="Education and skilling, health and sanitation, gender equality, and environmental sustainability — including Swachh Bharat contributions and support for children, women, elderly, and differently abled." />
-                </div>
-              </div>
-              <div className="mt-12 grid lg:grid-cols-12 gap-8 items-stretch">
-                <Still
-                  src={gallerySrc(GALLERY_FILES[2])}
-                  alt="Hands at work, Fabstract floor"
-                  className="lg:col-span-5 aspect-[3/4] min-h-[280px]"
-                />
-                <div className="lg:col-span-7 grid sm:grid-cols-2 gap-x-10">
-                  {csrStats.map((s) => (
-                    <div key={s.value} className="border-t border-navy/15 py-8">
-                      <p className="font-display text-4xl sm:text-5xl text-navy font-medium leading-none">{s.value}</p>
-                      <p className="mt-3 text-navy/60 text-sm leading-relaxed">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section id="marks" className="scroll-mt-32 bg-white px-5 sm:px-10 lg:px-14 py-16 lg:py-24">
-              <h2 className="font-display text-4xl sm:text-6xl text-navy font-medium">Our Marks</h2>
-              <h3 className="mt-8 text-navy font-medium text-lg">Partners in progress</h3>
-              <p className="mt-4 text-navy/70 leading-relaxed max-w-xl">
+              <p className="mt-6 text-navy/70 leading-relaxed max-w-xl">
                 Government-recognised export house. Fairtrade certified. CSCC approved.
               </p>
-              <div className="mt-12 grid grid-cols-2 lg:grid-cols-3 gap-3">
-                {[GALLERY_FILES[0], GALLERY_FILES[4], GALLERY_FILES[8]].map((file) => (
-                  <Still key={file} src={gallerySrc(file)} alt="" className="aspect-[4/3]" />
-                ))}
-              </div>
-              <div className="mt-12 flex flex-wrap gap-3">
-                {["CSCC Approved", "BSCI Certified", "ETI Aligned", "ILO Compliant", "Fairtrade"].map((m) => (
-                  <span
-                    key={m}
-                    className="border border-navy/15 bg-white px-5 py-3 text-[11px] tracking-[0.18em] uppercase text-navy"
-                  >
-                    {m}
-                  </span>
-                ))}
-              </div>
-            </section>
+            </SectionReveal>
+            <SectionReveal delay={0.15} className="mt-12 flex flex-wrap gap-3">
+              {marks.map((m) => (
+                <span
+                  key={m}
+                  className="border border-navy/15 bg-white px-5 py-3 text-[11px] tracking-[0.18em] uppercase text-navy"
+                >
+                  {m}
+                </span>
+              ))}
+            </SectionReveal>
           </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="hidden lg:flex fixed bottom-8 left-6 z-40 items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-navy/50 hover:text-navy"
-        >
-          <span>↑</span>
-          Back to top
-        </button>
+        </section>
       </main>
       <Footer />
     </>
