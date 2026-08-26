@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
 import { SectionReveal } from "@/components/SectionReveal";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
-import { BANNER_VIDEO } from "@/data/hero";
-import { Parallax, ParallaxLayer } from "@/components/Parallax";
+import { Parallax } from "@/components/Parallax";
 import { TypeReveal } from "@/components/TypeReveal";
 
 function ReadMore({ more }: { more: string }) {
@@ -55,60 +53,10 @@ export default function CSRPage() {
 
   const marks = ["CSCC Approved", "BSCI Certified", "ETI Aligned", "ILO Compliant", "Fairtrade"];
 
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const navyOrbY = useTransform(heroProgress, [0, 1], [0, 120]);
-  const navyOrbY2 = useTransform(heroProgress, [0, 1], [0, -80]);
-  const quoteY = useTransform(heroProgress, [0, 1], [0, 90]);
-  const quoteOpacity = useTransform(heroProgress, [0, 0.8], [1, 0.3]);
-
   return (
     <>
       <Navbar />
       <main className="bg-white">
-        {/* Banner — dimmed video background, quote overlaid, 80% of viewport */}
-        <section
-          ref={heroRef}
-          className="relative h-[80vh] min-h-[560px] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
-        >
-          <ParallaxLayer speed={0.25} className="absolute inset-0">
-            <video
-              src={BANNER_VIDEO}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              className="h-full w-full object-cover"
-            />
-          </ParallaxLayer>
-          <div className="pointer-events-none absolute inset-0 bg-navy/70" />
-          <motion.div
-            style={{ y: navyOrbY }}
-            className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-white/10"
-          />
-          <motion.div
-            style={{ y: navyOrbY2 }}
-            className="pointer-events-none absolute bottom-0 left-10 h-40 w-40 rounded-full border border-white/10"
-          />
-          <SectionReveal className="relative max-w-4xl mx-auto text-center">
-            <motion.div style={{ y: quoteY, opacity: quoteOpacity }}>
-              <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
-              <blockquote className="font-display text-2xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.3] -mt-6">
-                <TypeReveal className="block w-full" duration={1.6}>
-                  The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-                </TypeReveal>
-              </blockquote>
-              <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
-                — Mahatma Gandhi
-              </p>
-            </motion.div>
-          </SectionReveal>
-        </section>
-
         {/* Statement */}
         <section className="mt-[10vh] px-5 sm:px-10 lg:px-14 pt-16 pb-14 md:pt-24 md:pb-20 max-w-5xl mx-auto">
           <SectionReveal>

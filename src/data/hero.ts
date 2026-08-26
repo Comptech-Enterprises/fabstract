@@ -3,4 +3,4 @@ export const R2_PUBLIC_BASE =
 
 
 export const HERO_VIDEO = `${R2_PUBLIC_BASE}/hero/13380596_3840_2160_25fps.mp4`;
-export const BANNER_VIDEO = `${R2_PUBLIC_BASE}/videos/banner-video.mp4`;
+export const BANNER_VIDEO = `${R2_PUBLIC_BASE}/hero/banner-video.mp4`;

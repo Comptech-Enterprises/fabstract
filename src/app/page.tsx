@@ -1,87 +1,71 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { HeroVideos } from "@/components/HeroVideos";
 import { SectionReveal } from "@/components/SectionReveal";
 import { StatGrid } from "@/components/StatGrid";
-import { EASE } from "@/lib/motion";
+import { BANNER_VIDEO } from "@/data/hero";
+import { ParallaxLayer } from "@/components/Parallax";
+import { TypeReveal } from "@/components/TypeReveal";
 
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
 const field =
   "w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-sky";
 
-function Hero() {
+
+function VideoBanner() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const navyOrbY = useTransform(heroProgress, [0, 1], [0, 120]);
+  const navyOrbY2 = useTransform(heroProgress, [0, 1], [0, -80]);
+  const quoteY = useTransform(heroProgress, [0, 1], [0, 90]);
+  const quoteOpacity = useTransform(heroProgress, [0, 0.8], [1, 0.3]);
+
   return (
-    <section id="home" className="relative min-h-svh flex flex-col justify-end">
-      <HeroVideos />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-navy via-navy/70 to-navy/15" />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-navy/90 via-transparent to-navy/40" />
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 pb-10 pt-32 md:pt-36">
-        <motion.p
-          className="text-[11px] tracking-[0.4em] uppercase text-sky mb-6"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          Vol. 01 — Since 1991
-        </motion.p>
-        <motion.h1
-          className="font-display text-6xl sm:text-8xl lg:text-[7.5rem] leading-[0.88] text-white font-medium max-w-5xl [text-shadow:0_2px_24px_rgba(12,18,28,0.55)]"
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.08, ease: EASE }}
-        >
-          Crafting fashion
-          <br />
-          for the <span className="italic text-sky">world</span>
-        </motion.h1>
-        <motion.p
-          className="mt-8 text-white text-base max-w-md leading-relaxed [text-shadow:0_1px_12px_rgba(12,18,28,0.6)]"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.28, ease: EASE }}
-        >
-          Ethical and sustainable apparel manufacturing — high fashion knitwear
-          &amp; woven garments exported to USA, Canada, and Europe.
-        </motion.p>
-        <motion.div
-          className="mt-10 flex flex-wrap items-center gap-8"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.42, ease: EASE }}
-        >
-          <a href="#contact" className="btn-crimson">
-            Request a quote
-          </a>
-          <a href="#capabilities" className="text-[10px] tracking-[0.28em] uppercase text-white/75 hover:text-sky">
-            Read the issue ↓
-          </a>
+    <section
+      ref={heroRef}
+      className="relative h-[80vh] min-h-[560px] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
+    >
+      <ParallaxLayer speed={0.25} className="absolute inset-0">
+        <video
+          src={BANNER_VIDEO}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover"
+        />
+      </ParallaxLayer>
+      <div className="pointer-events-none absolute inset-0 bg-navy/70" />
+      <motion.div
+        style={{ y: navyOrbY }}
+        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-white/10"
+      />
+      <motion.div
+        style={{ y: navyOrbY2 }}
+        className="pointer-events-none absolute bottom-0 left-10 h-40 w-40 rounded-full border border-white/10"
+      />
+      <SectionReveal className="relative max-w-4xl mx-auto text-center">
+        <motion.div style={{ y: quoteY, opacity: quoteOpacity }}>
+          <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
+          <blockquote className="font-display text-2xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.3] -mt-6">
+            <TypeReveal className="block w-full" duration={1.6}>
+              The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
+            </TypeReveal>
+          </blockquote>
+          <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
+            — Mahatma Gandhi
+          </p>
         </motion.div>
-      </div>
-      <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 bg-white border-t border-navy/10">
-        {[
-          { value: "30+", label: "Years" },
-          { value: "100K+", label: "Units / mo" },
-          { value: "45+", label: "Clients" },
-          { value: "5", label: "CSR projects" },
-        ].map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            className="px-6 sm:px-8 py-6 border-navy/10 border-r last:border-r-0 even:max-lg:border-r-0"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 + i * 0.08, ease: EASE }}
-          >
-            <p className="font-display text-3xl text-navy">{stat.value}</p>
-            <p className="text-[10px] tracking-[0.22em] uppercase text-teal mt-1">{stat.label}</p>
-          </motion.div>
-        ))}
-      </div>
+      </SectionReveal>
     </section>
   );
 }
@@ -324,7 +308,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <VideoBanner />
       <Capabilities />
       <GlobalPresence />
       <FAQ />
