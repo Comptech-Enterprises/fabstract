@@ -68,9 +68,11 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
               </span>
             )}
           </blockquote>
-          <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
-            — Mahatma Gandhi
-          </p>
+          {introComplete && (
+            <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
+              — Mahatma Gandhi
+            </p>
+          )}
         </motion.div>
       </SectionReveal>
     </section>
