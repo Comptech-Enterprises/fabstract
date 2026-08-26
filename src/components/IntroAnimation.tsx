@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { BANNER_VIDEO } from "@/data/hero";
+import { motion } from "framer-motion";
 
 function GlobeSVG({ className }: { className?: string }) {
   return (
@@ -68,73 +67,61 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const showCursor = phase === "typing";
   const isZooming = phase === "zoom";
 
+  if (phase === "done") return null;
+
   return (
-    <AnimatePresence>
-      {phase !== "done" && (
-        <motion.div
-          className="fixed inset-0 z-[100]"
-          style={{ pointerEvents: isZooming ? "none" : "auto" }}
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+      style={{
+        pointerEvents: isZooming ? "none" : "auto",
+        mixBlendMode: "screen",
+      }}
+    >
+      <div className="relative text-center select-none">
+        <div
+          className="font-display font-black text-black text-center leading-[0.9] tracking-tight"
+          style={{ fontSize: "clamp(4rem, 15vw, 14rem)" }}
         >
-          <video
-            src={BANNER_VIDEO}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <span>{topText.slice(0, topVisible)}</span>
+          {showCursor && charIndex <= topText.length && (
+            <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
+          )}
+        </div>
+
+        {charIndex > topText.length && (
           <div
-            className="absolute inset-0 flex items-center justify-center bg-white"
-            style={{ mixBlendMode: "screen" }}
+            className="mt-1 sm:mt-2 flex items-center justify-center font-display font-black text-black tracking-[0.25em]"
+            style={{ fontSize: "clamp(1.8rem, 5.5vw, 5rem)" }}
           >
-            <div className="relative text-center select-none">
-              <div
-                className="font-display font-black text-black text-center leading-[0.9] tracking-tight"
-                style={{ fontSize: "clamp(4rem, 15vw, 14rem)" }}
+            <span>{bottomLeft.slice(0, bottomLeftVisible)}</span>
+
+            {globeVisible && (
+              <motion.span
+                className="inline-flex items-center justify-center origin-center"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={
+                  isZooming
+                    ? { scale: 120, opacity: 1 }
+                    : { scale: 1, opacity: 1 }
+                }
+                transition={
+                  isZooming
+                    ? { duration: 2.5, ease: [0.76, 0, 0.24, 1] }
+                    : { duration: 0.3, ease: "easeOut" }
+                }
               >
-                <span>{topText.slice(0, topVisible)}</span>
-                {showCursor && charIndex <= topText.length && (
-                  <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
-                )}
-              </div>
+                <GlobeSVG className="w-[1em] h-[1em] -mx-[0.05em]" />
+              </motion.span>
+            )}
 
-              {charIndex > topText.length && (
-                <div
-                  className="mt-1 sm:mt-2 flex items-center justify-center font-display font-black text-black tracking-[0.25em]"
-                  style={{ fontSize: "clamp(1.8rem, 5.5vw, 5rem)" }}
-                >
-                  <span>{bottomLeft.slice(0, bottomLeftVisible)}</span>
+            <span>{bottomRight.slice(0, bottomRightVisible)}</span>
 
-                  {globeVisible && (
-                    <motion.span
-                      className="inline-flex items-center justify-center origin-center"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={
-                        isZooming
-                          ? { scale: 120, opacity: 1 }
-                          : { scale: 1, opacity: 1 }
-                      }
-                      transition={
-                        isZooming
-                          ? { duration: 2.5, ease: [0.76, 0, 0.24, 1] }
-                          : { duration: 0.3, ease: "easeOut" }
-                      }
-                    >
-                      <GlobeSVG className="w-[1em] h-[1em] -mx-[0.05em]" />
-                    </motion.span>
-                  )}
-
-                  <span>{bottomRight.slice(0, bottomRightVisible)}</span>
-
-                  {showCursor && charIndex > topText.length && (
-                    <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
-                  )}
-                </div>
-              )}
-            </div>
+            {showCursor && charIndex > topText.length && (
+              <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
+            )}
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </div>
+    </div>
   );
 }

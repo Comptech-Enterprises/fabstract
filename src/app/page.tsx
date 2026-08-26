@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
@@ -10,6 +10,7 @@ import { StatGrid } from "@/components/StatGrid";
 import { BANNER_VIDEO } from "@/data/hero";
 import { ParallaxLayer } from "@/components/Parallax";
 import { TypeReveal } from "@/components/TypeReveal";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 const Globe = dynamic(() => import("@/components/Globe"), { ssr: false });
 
@@ -305,8 +306,12 @@ function Contact() {
 }
 
 export default function Home() {
+  const [introComplete, setIntroComplete] = useState(false);
+  const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
+
   return (
     <>
+      {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navbar />
       <VideoBanner />
       <Capabilities />
