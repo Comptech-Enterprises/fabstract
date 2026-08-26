@@ -111,6 +111,108 @@ body {
   background: #567c8d;
 }
 
+/* ── Scroll-triggered keyframe animations ── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes clip-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+
+@keyframes scale-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes counter-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.scroll-reveal {
+  opacity: 0;
+}
+
+.scroll-reveal.revealed {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-reveal.reveal-fade {
+  animation-name: fade-in;
+}
+
+.scroll-reveal.reveal-clip {
+  animation-name: clip-reveal;
+}
+
+.scroll-reveal.reveal-scale {
+  animation-name: scale-reveal;
+}
+
+.scroll-reveal.reveal-slide {
+  animation-name: slide-right;
+}
+
+.scroll-reveal.delay-1 { animation-delay: 0.1s; }
+.scroll-reveal.delay-2 { animation-delay: 0.2s; }
+.scroll-reveal.delay-3 { animation-delay: 0.3s; }
+.scroll-reveal.delay-4 { animation-delay: 0.4s; }
+.scroll-reveal.delay-5 { animation-delay: 0.5s; }
+.scroll-reveal.delay-6 { animation-delay: 0.6s; }
+
+.scroll-reveal.duration-fast { animation-duration: 0.5s; }
+.scroll-reveal.duration-slow { animation-duration: 1.2s; }
+.scroll-reveal.duration-clip { animation-duration: 1.4s; }
+
+/* ── Sticky scroll tabs utilities ── */
+
+.sticky-tab-indicator {
+  transition:
+    width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    margin-right 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -122,5 +224,14 @@ body {
   .still-ken img {
     animation: none;
     transform: none;
+  }
+  .scroll-reveal {
+    opacity: 1;
+  }
+  .scroll-reveal.revealed {
+    animation: none;
+  }
+  .sticky-tab-indicator {
+    transition: none;
   }
 }
