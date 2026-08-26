@@ -234,23 +234,43 @@ export function StickyScrollTabs() {
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
 
-  /* ── Intersection Observer for scrollspy ── */
+  /* ── Robust Scrollspy for Active Tab ── */
   useEffect(() => {
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          setActiveTab(entry.target.id);
-        }
+    const updateActiveTab = () => {
+      const navOffset = window.innerWidth < 1024 ? 80 : 100;
+
+      const capEl = document.getElementById("s-capabilities");
+      const newsEl = document.getElementById("s-newsroom");
+      const contactEl = document.getElementById("s-contact");
+
+      if (!capEl || !newsEl || !contactEl) return;
+
+      const capRect = capEl.getBoundingClientRect();
+      const newsRect = newsEl.getBoundingClientRect();
+      const contactRect = contactEl.getBoundingClientRect();
+
+      // If contact section is in top viewport zone
+      if (contactRect.top <= navOffset + 140) {
+        setActiveTab("s-contact");
+      }
+      // If newsroom section is in top viewport zone AND capabilities track has finished
+      else if (newsRect.top <= navOffset + 140 && capRect.bottom <= navOffset + 180) {
+        setActiveTab("s-newsroom");
+      }
+      // Otherwise user is viewing Capabilities
+      else {
+        setActiveTab("s-capabilities");
       }
     };
 
-    const observer = new IntersectionObserver(handleIntersection, {
-      rootMargin: "-25% 0px -50% 0px",
-      threshold: 0.1,
-    });
+    window.addEventListener("scroll", updateActiveTab, { passive: true });
+    window.addEventListener("resize", updateActiveTab, { passive: true });
+    updateActiveTab();
 
-    sectionRefs.current.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("scroll", updateActiveTab);
+      window.removeEventListener("resize", updateActiveTab);
+    };
   }, []);
 
   /* ── Ref registration ── */
