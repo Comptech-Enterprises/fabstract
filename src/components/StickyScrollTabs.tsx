@@ -57,12 +57,11 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
         desc: "We foster trust through honesty, transparency, and responsible operations.",
       },
     ],
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Garment manufacturing and stitching floor",
+    image: "/ASN_8191.png",
+    imageAlt: "Fabstract garment craftsmanship and QA specialist at work",
     badge: {
-      title: "Sustainability Progress",
-      subtitle: "FY 2024-25",
+      title: "Five-Stage Garment QA",
+      subtitle: "Full Transparency",
     },
   },
   {
@@ -80,12 +79,11 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
         desc: "Supporting communities and driving positive impact with a predominantly female workforce leading the way.",
       },
     ],
-    image:
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Fashion designers measuring garment on mannequin",
+    image: "/ASN_8206.jpg",
+    imageAlt: "Fabstract female artisan inspecting woven and knitted garments",
     badge: {
-      title: "Sustainability Progress",
-      subtitle: "FY 2024-25",
+      title: "Women in Manufacturing",
+      subtitle: "70%+ Workforce",
     },
   },
   {
@@ -104,8 +102,8 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
       },
     ],
     image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Textile craftsman working with notebook and yarn",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Fabstract manufacturing floor and production line",
     badge: {
       title: "Sustainability Progress",
       subtitle: "FY 2024-25",
