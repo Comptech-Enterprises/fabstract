@@ -98,9 +98,24 @@ const field =
 
 export function StickyScrollTabs() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const containerRef = useRef<HTMLElement>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollingRef = useRef(false);
   const newsScrollRef = useRef<HTMLDivElement>(null);
+
+  /* ── Click-to-scroll ── */
+  const scrollToSection = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    isScrollingRef.current = true;
+    setActiveTab(id);
+    const offset = window.innerWidth < 1024 ? 80 : 96;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 850);
+  }, []);
 
   /* ── Intersection Observer for scrollspy ── */
   useEffect(() => {
@@ -114,27 +129,144 @@ export function StickyScrollTabs() {
     };
 
     const observer = new IntersectionObserver(handleIntersection, {
-      rootMargin: "-20% 0px -70% 0px",
-      threshold: 0,
+      rootMargin: "-25% 0px -60% 0px",
+      threshold: 0.1,
     });
 
     sectionRefs.current.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  /* ── Click-to-scroll ── */
-  const scrollToSection = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    isScrollingRef.current = true;
-    setActiveTab(id);
-    const offset = window.innerWidth < 1024 ? 136 : 100;
-    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 800);
-  }, []);
+  /* ── Wheel & Touch Smooth Direct Section Scroll ── */
+  useEffect(() => {
+    let touchStartY = 0;
+    let touchStartX = 0;
+
+    const handleWheel = (e: WheelEvent) => {
+      // If horizontal gesture is dominant (e.g. horizontal trackpad scroll on news cards), ignore vertical snap
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        return;
+      }
+
+      // Ignore small wheel jitter
+      if (Math.abs(e.deltaY) < 24) return;
+
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const navOffset = window.innerWidth < 1024 ? 80 : 96;
+      const windowHeight = window.innerHeight;
+
+      // Only handle if inside the StickyScrollTabs viewport area
+      const isInside = rect.top <= navOffset + 60 && rect.bottom >= windowHeight * 0.4;
+      if (!isInside) return;
+
+      if (isScrollingRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const scrollY = window.pageYOffset;
+      const tabPositions = TABS.map((tab) => {
+        const el = document.getElementById(tab.id);
+        if (!el) return { id: tab.id, top: 0 };
+        return {
+          id: tab.id,
+          top: el.getBoundingClientRect().top + scrollY - navOffset,
+        };
+      });
+
+      let currentIdx = 0;
+      for (let i = tabPositions.length - 1; i >= 0; i--) {
+        if (scrollY >= tabPositions[i].top - 90) {
+          currentIdx = i;
+          break;
+        }
+      }
+
+      const isDown = e.deltaY > 0;
+
+      if (isDown) {
+        if (currentIdx < TABS.length - 1) {
+          e.preventDefault();
+          scrollToSection(TABS[currentIdx + 1].id);
+        }
+      } else {
+        if (currentIdx > 0) {
+          e.preventDefault();
+          scrollToSection(TABS[currentIdx - 1].id);
+        } else if (currentIdx === 0 && scrollY > 80) {
+          // If at the first section and scrolling up, smoothly scroll up to hero banner
+          const heroEl = document.getElementById("hero-banner");
+          if (heroEl) {
+            e.preventDefault();
+            isScrollingRef.current = true;
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setTimeout(() => {
+              isScrollingRef.current = false;
+            }, 850);
+          }
+        }
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isScrollingRef.current) return;
+      const deltaY = touchStartY - e.changedTouches[0].clientY;
+      const deltaX = touchStartX - e.changedTouches[0].clientX;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY)) return;
+      if (Math.abs(deltaY) < 45) return;
+
+      const container = containerRef.current;
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const navOffset = window.innerWidth < 1024 ? 80 : 96;
+
+      const isInside = rect.top <= navOffset + 60 && rect.bottom >= window.innerHeight * 0.4;
+      if (!isInside) return;
+
+      const scrollY = window.pageYOffset;
+      const tabPositions = TABS.map((tab) => {
+        const el = document.getElementById(tab.id);
+        if (!el) return { id: tab.id, top: 0 };
+        return {
+          id: tab.id,
+          top: el.getBoundingClientRect().top + scrollY - navOffset,
+        };
+      });
+
+      let currentIdx = 0;
+      for (let i = tabPositions.length - 1; i >= 0; i--) {
+        if (scrollY >= tabPositions[i].top - 90) {
+          currentIdx = i;
+          break;
+        }
+      }
+
+      if (deltaY > 0 && currentIdx < TABS.length - 1) {
+        scrollToSection(TABS[currentIdx + 1].id);
+      } else if (deltaY < 0 && currentIdx > 0) {
+        scrollToSection(TABS[currentIdx - 1].id);
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [scrollToSection]);
 
   /* ── Ref registration ── */
   const registerRef = useCallback(
@@ -153,7 +285,7 @@ export function StickyScrollTabs() {
   }, []);
 
   return (
-    <section className="bg-white relative">
+    <section ref={containerRef} className="bg-white relative">
       {/* ─────────────────────────────────────────────── */}
       {/*  MOBILE HORIZONTAL TABS                         */}
       {/* ─────────────────────────────────────────────── */}
@@ -191,30 +323,29 @@ export function StickyScrollTabs() {
         {/* ─────────────────────────────────────────────── */}
         {/*  LEFT STICKY SIDEBAR (desktop)                  */}
         {/* ─────────────────────────────────────────────── */}
-        <aside className="hidden lg:flex flex-col sticky top-24 self-start w-[160px] shrink-0 pl-6 xl:pl-14 py-20 z-20">
-          <nav className="flex flex-col gap-2" aria-label="Section navigation">
+        <aside className="hidden lg:flex flex-col sticky top-24 self-start w-[180px] shrink-0 pl-6 xl:pl-12 py-20 z-20">
+          <nav className="flex flex-col gap-3" aria-label="Section navigation">
             {TABS.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => scrollToSection(tab.id)}
-                  className={`group flex items-center text-left py-1.5 transition-colors duration-300 ${
+                  className={`group flex items-center text-left py-2 transition-colors duration-300 ${
                     isActive
-                      ? "text-navy font-medium"
-                      : "text-navy/30 hover:text-navy/55"
+                      ? "text-navy font-semibold"
+                      : "text-navy/35 hover:text-navy/70"
                   }`}
                   aria-current={isActive ? "true" : undefined}
                 >
                   <span
-                    className="sticky-tab-indicator inline-block h-[1.5px] bg-navy rounded-full"
-                    style={{
-                      width: isActive ? 28 : 0,
-                      marginRight: isActive ? 12 : 0,
-                      opacity: isActive ? 1 : 0,
-                    }}
+                    className={`inline-block h-[2px] rounded-full transition-all duration-300 ${
+                      isActive
+                        ? "w-7 bg-navy mr-3"
+                        : "w-0 bg-navy/30 mr-0 opacity-0 group-hover:w-3 group-hover:opacity-40 group-hover:mr-2"
+                    }`}
                   />
-                  <span className="text-[13px] tracking-wide">
+                  <span className="text-[14px] tracking-wide">
                     {tab.label}
                   </span>
                 </button>
@@ -233,10 +364,10 @@ export function StickyScrollTabs() {
           <article
             id="s-capabilities"
             ref={registerRef("s-capabilities")}
-            className="scroll-mt-36 lg:scroll-mt-28 px-6 sm:px-10 lg:px-14 py-12 lg:py-28"
+            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-16 lg:py-20 min-h-[calc(100vh-6rem)] flex flex-col justify-center"
           >
             <motion.h2
-              className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05] mb-14"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05] mb-10 lg:mb-12"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -246,7 +377,7 @@ export function StickyScrollTabs() {
             </motion.h2>
 
             {/* Stats row */}
-            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10 mb-14">
+            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8 mb-10 lg:mb-12">
               {[
                 {
                   sub: "Growing Together",
@@ -263,7 +394,7 @@ export function StickyScrollTabs() {
               ].map((stat, i) => (
                 <motion.div
                   key={stat.sub}
-                  className="border-t border-navy/10 pt-6"
+                  className="border-t border-navy/10 pt-5"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -272,11 +403,11 @@ export function StickyScrollTabs() {
                   <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
                     {stat.sub}
                   </p>
-                  <p className="font-display text-5xl sm:text-6xl lg:text-7xl text-navy font-medium leading-none tracking-tight">
+                  <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-none tracking-tight">
                     {stat.value}
                   </p>
                   <p className="mt-1 text-navy/60 text-sm">{stat.label}</p>
-                  <p className="mt-4 text-teal text-sm leading-relaxed max-w-sm">
+                  <p className="mt-3 text-teal text-sm leading-relaxed max-w-sm">
                     {stat.desc}
                   </p>
                 </motion.div>
@@ -285,14 +416,14 @@ export function StickyScrollTabs() {
 
             {/* Capability image */}
             <motion.div
-              className="relative w-full aspect-[16/9] bg-navy/5 overflow-hidden"
-              initial={{ opacity: 0, scale: 0.97 }}
+              className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden"
+              initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: EASE }}
             >
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80"
                 alt="Garment manufacturing floor"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
@@ -306,10 +437,10 @@ export function StickyScrollTabs() {
           <article
             id="s-newsroom"
             ref={registerRef("s-newsroom")}
-            className="scroll-mt-36 lg:scroll-mt-28 px-6 sm:px-10 lg:px-14 py-20 lg:py-28 border-t border-navy/10"
+            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-16 lg:py-20 min-h-[calc(100vh-6rem)] flex flex-col justify-center border-t border-navy/10"
           >
             {/* Header + arrows */}
-            <div className="flex items-start justify-between mb-12">
+            <div className="flex items-start justify-between mb-10">
               <motion.h2
                 className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
                 initial={{ opacity: 0, y: 24 }}
@@ -322,7 +453,7 @@ export function StickyScrollTabs() {
               <div className="hidden sm:flex items-center gap-3 mt-3">
                 <button
                   onClick={() => scrollNews(-1)}
-                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors cursor-pointer"
                   aria-label="Previous news"
                 >
                   <svg
@@ -338,7 +469,7 @@ export function StickyScrollTabs() {
                 </button>
                 <button
                   onClick={() => scrollNews(1)}
-                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors cursor-pointer"
                   aria-label="Next news"
                 >
                   <svg
@@ -363,7 +494,7 @@ export function StickyScrollTabs() {
               {NEWS_CARDS.map((card, i) => (
                 <motion.div
                   key={i}
-                  className="shrink-0 w-[320px] sm:w-[350px] snap-start"
+                  className="shrink-0 w-[300px] sm:w-[340px] snap-start bg-white p-2"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -416,7 +547,7 @@ export function StickyScrollTabs() {
           <article
             id="s-contact"
             ref={registerRef("s-contact")}
-            className="scroll-mt-36 lg:scroll-mt-28 border-t border-navy/10"
+            className="scroll-mt-24 lg:scroll-mt-24 min-h-[calc(100vh-6rem)] flex flex-col justify-center border-t border-navy/10"
           >
             {/* Contact */}
             <div className="grid lg:grid-cols-2">

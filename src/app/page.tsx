@@ -23,6 +23,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
 
   return (
     <section
+      id="hero-banner"
       ref={heroRef}
       className="relative h-[80vh] min-h-[560px] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
     >
