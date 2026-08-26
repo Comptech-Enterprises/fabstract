@@ -81,6 +81,105 @@ const NEWS_CARDS: NewsCard[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Capabilities multi-slide data                                      */
+/* ------------------------------------------------------------------ */
+
+interface CapabilitySlide {
+  stats: [
+    {
+      sub: string;
+      value: string;
+      label: string;
+      desc: string;
+    },
+    {
+      sub: string;
+      value: string;
+      label: string;
+      desc: string;
+    }
+  ];
+  image: string;
+  imageAlt: string;
+  badge?: {
+    title: string;
+    subtitle: string;
+  };
+}
+
+const CAPABILITY_SLIDES: CapabilitySlide[] = [
+  {
+    stats: [
+      {
+        sub: "Growing Together",
+        value: "1,00,000+",
+        label: "Employees",
+        desc: "Empowering our people through continuous skill development and growth opportunities.",
+      },
+      {
+        sub: "Built On Trust",
+        value: "85%",
+        label: "Vertical Integration Across 50 Factories",
+        desc: "We foster trust through honesty, transparency, and responsible operations.",
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Garment manufacturing and stitching floor",
+    badge: {
+      title: "Sustainability Progress",
+      subtitle: "FY 2024-25",
+    },
+  },
+  {
+    stats: [
+      {
+        sub: "Crafting Excellence",
+        value: "150 Million+",
+        label: "Garments A Year",
+        desc: "Delivering excellence in every garment we produce, creating lasting value and experiences.",
+      },
+      {
+        sub: "Creating Change",
+        value: "70%+",
+        label: "Female Employees",
+        desc: "Supporting communities and driving positive impact with a predominantly female workforce leading the way.",
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Fashion designers measuring garment on mannequin",
+    badge: {
+      title: "Sustainability Progress",
+      subtitle: "FY 2024-25",
+    },
+  },
+  {
+    stats: [
+      {
+        sub: "Evolving Every Day",
+        value: "5",
+        label: "Textile Mills",
+        desc: "Remaining agile to meet evolving industry demands across our factories, offices, and textile mills.",
+      },
+      {
+        sub: "Leading With Purpose",
+        value: "8",
+        label: "States",
+        desc: "Reducing our footprint across India through innovative and sustainable practices.",
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=80",
+    imageAlt: "Textile craftsman working with notebook and yarn",
+    badge: {
+      title: "Sustainability Progress",
+      subtitle: "FY 2024-25",
+    },
+  },
+];
+
+/* ------------------------------------------------------------------ */
 /*  Contact form field style                                           */
 /* ------------------------------------------------------------------ */
 
@@ -88,27 +187,31 @@ const field =
   "w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-sky";
 
 /* ------------------------------------------------------------------ */
-/*  Sub-components                                                     */
-/* ------------------------------------------------------------------ */
-
-
-/* ------------------------------------------------------------------ */
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
 export function StickyScrollTabs() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [capabilitySlide, setCapabilitySlide] = useState(0);
+  const capabilitySlideRef = useRef(0);
+  capabilitySlideRef.current = capabilitySlide;
+
   const containerRef = useRef<HTMLElement>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const isScrollingRef = useRef(false);
   const newsScrollRef = useRef<HTMLDivElement>(null);
 
   /* ── Click-to-scroll ── */
-  const scrollToSection = useCallback((id: string) => {
+  const scrollToSection = useCallback((id: string, slideIndex?: number) => {
     const el = document.getElementById(id);
     if (!el) return;
     isScrollingRef.current = true;
     setActiveTab(id);
+    if (typeof slideIndex === "number") {
+      setCapabilitySlide(slideIndex);
+    } else if (id === "s-capabilities") {
+      setCapabilitySlide(0);
+    }
     const offset = window.innerWidth < 1024 ? 80 : 96;
     const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top, behavior: "smooth" });
@@ -137,7 +240,7 @@ export function StickyScrollTabs() {
     return () => observer.disconnect();
   }, []);
 
-  /* ── Wheel & Touch Smooth Direct Section Scroll ── */
+  /* ── Wheel & Touch Smooth Direct Section & Capability Slide Scroll ── */
   useEffect(() => {
     let touchStartY = 0;
     let touchStartX = 0;
@@ -186,27 +289,56 @@ export function StickyScrollTabs() {
       }
 
       const isDown = e.deltaY > 0;
+      const currentSlide = capabilitySlideRef.current;
 
       if (isDown) {
-        if (currentIdx < TABS.length - 1) {
+        if (currentIdx === 0) {
+          // Inside capabilities section
+          if (currentSlide < CAPABILITY_SLIDES.length - 1) {
+            e.preventDefault();
+            isScrollingRef.current = true;
+            setCapabilitySlide(currentSlide + 1);
+            setTimeout(() => {
+              isScrollingRef.current = false;
+            }, 650);
+          } else {
+            // Reached last capability slide -> scroll to newsroom
+            e.preventDefault();
+            scrollToSection("s-newsroom");
+          }
+        } else if (currentIdx < TABS.length - 1) {
           e.preventDefault();
           scrollToSection(TABS[currentIdx + 1].id);
         }
       } else {
-        if (currentIdx > 0) {
-          e.preventDefault();
-          scrollToSection(TABS[currentIdx - 1].id);
-        } else if (currentIdx === 0 && scrollY > 80) {
-          // If at the first section and scrolling up, smoothly scroll up to hero banner
-          const heroEl = document.getElementById("hero-banner");
-          if (heroEl) {
+        if (currentIdx === 0) {
+          // Inside capabilities section scrolling up
+          if (currentSlide > 0) {
             e.preventDefault();
             isScrollingRef.current = true;
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            setCapabilitySlide(currentSlide - 1);
             setTimeout(() => {
               isScrollingRef.current = false;
-            }, 850);
+            }, 650);
+          } else if (scrollY > 80) {
+            // At first slide & scrolling up -> smooth scroll to hero
+            const heroEl = document.getElementById("hero-banner");
+            if (heroEl) {
+              e.preventDefault();
+              isScrollingRef.current = true;
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setTimeout(() => {
+                isScrollingRef.current = false;
+              }, 850);
+            }
           }
+        } else if (currentIdx === 1) {
+          // From newsroom scrolling up -> go to capabilities at last slide
+          e.preventDefault();
+          scrollToSection("s-capabilities", CAPABILITY_SLIDES.length - 1);
+        } else if (currentIdx > 0) {
+          e.preventDefault();
+          scrollToSection(TABS[currentIdx - 1].id);
         }
       }
     };
@@ -250,10 +382,28 @@ export function StickyScrollTabs() {
         }
       }
 
-      if (deltaY > 0 && currentIdx < TABS.length - 1) {
-        scrollToSection(TABS[currentIdx + 1].id);
-      } else if (deltaY < 0 && currentIdx > 0) {
-        scrollToSection(TABS[currentIdx - 1].id);
+      const currentSlide = capabilitySlideRef.current;
+
+      if (deltaY > 0) {
+        if (currentIdx === 0) {
+          if (currentSlide < CAPABILITY_SLIDES.length - 1) {
+            setCapabilitySlide(currentSlide + 1);
+          } else {
+            scrollToSection("s-newsroom");
+          }
+        } else if (currentIdx < TABS.length - 1) {
+          scrollToSection(TABS[currentIdx + 1].id);
+        }
+      } else {
+        if (currentIdx === 0) {
+          if (currentSlide > 0) {
+            setCapabilitySlide(currentSlide - 1);
+          }
+        } else if (currentIdx === 1) {
+          scrollToSection("s-capabilities", CAPABILITY_SLIDES.length - 1);
+        } else if (currentIdx > 0) {
+          scrollToSection(TABS[currentIdx - 1].id);
+        }
       }
     };
 
@@ -283,6 +433,8 @@ export function StickyScrollTabs() {
     if (!el) return;
     el.scrollBy({ left: dir * 380, behavior: "smooth" });
   }, []);
+
+  const currentCapability = CAPABILITY_SLIDES[capabilitySlide];
 
   return (
     <section ref={containerRef} className="bg-white relative">
@@ -331,7 +483,7 @@ export function StickyScrollTabs() {
                 <button
                   key={tab.id}
                   onClick={() => scrollToSection(tab.id)}
-                  className={`group flex items-center text-left py-2 transition-colors duration-300 ${
+                  className={`group flex items-center text-left py-2 transition-colors duration-300 cursor-pointer ${
                     isActive
                       ? "text-navy font-semibold"
                       : "text-navy/35 hover:text-navy/70"
@@ -359,46 +511,55 @@ export function StickyScrollTabs() {
         {/* ─────────────────────────────────────────────── */}
         <div className="flex-1 min-w-0">
           {/* ═══════════════════════════════════════════ */}
-          {/*  SECTION 1 — CAPABILITIES                   */}
+          {/*  SECTION 1 — CAPABILITIES (MULTI-SLIDE)     */}
           {/* ═══════════════════════════════════════════ */}
           <article
             id="s-capabilities"
             ref={registerRef("s-capabilities")}
-            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-16 lg:py-20 min-h-[calc(100vh-6rem)] flex flex-col justify-center"
+            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-14 lg:py-16 min-h-[calc(100vh-6rem)] flex flex-col justify-center"
           >
-            <motion.h2
-              className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05] mb-10 lg:mb-12"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: EASE }}
-            >
-              Capabilities
-            </motion.h2>
+            {/* Header + slide counter indicator */}
+            <div className="flex items-center justify-between mb-8 lg:mb-10">
+              <motion.h2
+                className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE }}
+              >
+                Capabilities
+              </motion.h2>
 
-            {/* Stats row */}
-            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8 mb-10 lg:mb-12">
-              {[
-                {
-                  sub: "Growing Together",
-                  value: "100K+",
-                  label: "Units per month",
-                  desc: "Knitting to carton, vertically integrated production capacity across our state-of-the-art facilities.",
-                },
-                {
-                  sub: "Built On Trust",
-                  value: "60–90",
-                  label: "Day lead times",
-                  desc: "Five-stage garment QA with full production transparency and on-time delivery.",
-                },
-              ].map((stat, i) => (
-                <motion.div
+              {/* Slide indicators / pagination */}
+              <div className="flex items-center gap-2">
+                {CAPABILITY_SLIDES.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCapabilitySlide(idx)}
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${
+                      capabilitySlide === idx
+                        ? "w-8 h-1.5 bg-navy"
+                        : "w-2 h-1.5 bg-navy/20 hover:bg-navy/40"
+                    }`}
+                    aria-label={`Go to capability slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Dynamic Stats Row with Keyed Transition */}
+            <motion.div
+              key={`stats-${capabilitySlide}`}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="grid sm:grid-cols-2 gap-x-12 gap-y-8 mb-8 lg:mb-10"
+            >
+              {currentCapability.stats.map((stat, i) => (
+                <div
                   key={stat.sub}
                   className="border-t border-navy/10 pt-5"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.12, ease: EASE }}
                 >
                   <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
                     {stat.sub}
@@ -410,24 +571,43 @@ export function StickyScrollTabs() {
                   <p className="mt-3 text-teal text-sm leading-relaxed max-w-sm">
                     {stat.desc}
                   </p>
-                </motion.div>
+                </div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Capability image */}
+            {/* Dynamic Capability Image + Badge with Keyed Transition */}
             <motion.div
-              className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden"
+              key={`image-${capabilitySlide}`}
               initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: EASE }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.6, ease: EASE }}
+              className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden group"
             >
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80"
-                alt="Garment manufacturing floor"
-                className="absolute inset-0 w-full h-full object-cover"
+                src={currentCapability.image}
+                alt={currentCapability.imageAlt}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
+
+              {/* Floating sustainability/progress badge */}
+              {currentCapability.badge && (
+                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-navy/10 px-4 py-2.5 flex items-center gap-3 text-left shadow-sm">
+                  <div className="w-5 h-5 rounded-full bg-navy text-white flex items-center justify-center text-[10px]">
+                    ✦
+                  </div>
+                  <div>
+                    <p className="text-[12px] font-medium text-navy leading-tight">
+                      {currentCapability.badge.title}
+                    </p>
+                    <p className="text-[10px] text-navy/50 tracking-wider uppercase">
+                      {currentCapability.badge.subtitle}
+                    </p>
+                  </div>
+                  <span className="text-navy/40 text-sm ml-1">›</span>
+                </div>
+              )}
             </motion.div>
           </article>
 
