@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 
 function GlobeSVG({ className }: { className?: string }) {
@@ -47,13 +47,11 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
     return () => clearTimeout(timer);
   }, [phase]);
 
-  useEffect(() => {
-    if (phase !== "zoom") return;
-    const timer = setTimeout(() => {
+  const handleZoomComplete = useCallback(() => {
+    if (phase === "zoom") {
       setPhase("done");
       onComplete();
-    }, 2500);
-    return () => clearTimeout(timer);
+    }
   }, [phase, onComplete]);
 
   const topVisible = Math.min(charIndex, topText.length);
@@ -71,7 +69,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-white overflow-hidden"
       style={{
         pointerEvents: isZooming ? "none" : "auto",
         mixBlendMode: "screen",
@@ -80,7 +78,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
       <div className="relative text-center select-none">
         <div
           className="font-display font-black text-black text-center leading-[0.9] tracking-tight"
-          style={{ fontSize: "clamp(4rem, 15vw, 14rem)" }}
+          style={{ fontSize: "clamp(3rem, 14vw, 14rem)" }}
         >
           <span>{topText.slice(0, topVisible)}</span>
           {showCursor && charIndex <= topText.length && (
@@ -90,8 +88,8 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
 
         {charIndex > topText.length && (
           <div
-            className="mt-1 sm:mt-2 flex items-center justify-center font-display font-black text-black tracking-[0.25em]"
-            style={{ fontSize: "clamp(1.8rem, 5.5vw, 5rem)" }}
+            className="mt-1 sm:mt-2 flex items-center justify-center font-display font-black text-black tracking-[0.15em] sm:tracking-[0.25em]"
+            style={{ fontSize: "clamp(1.4rem, 5vw, 5rem)" }}
           >
             <span>{bottomLeft.slice(0, bottomLeftVisible)}</span>
 
@@ -101,7 +99,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={
                   isZooming
-                    ? { scale: 120, opacity: 1 }
+                    ? { scale: 150, opacity: 1 }
                     : { scale: 1, opacity: 1 }
                 }
                 transition={
@@ -109,6 +107,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                     ? { duration: 2.5, ease: [0.76, 0, 0.24, 1] }
                     : { duration: 0.3, ease: "easeOut" }
                 }
+                onAnimationComplete={isZooming ? handleZoomComplete : undefined}
               >
                 <GlobeSVG className="w-[1em] h-[1em] -mx-[0.05em]" />
               </motion.span>

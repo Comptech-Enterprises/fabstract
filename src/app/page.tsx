@@ -18,7 +18,7 @@ const field =
   "w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-sky";
 
 
-function VideoBanner() {
+function VideoBanner({ introComplete }: { introComplete: boolean }) {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
@@ -58,9 +58,15 @@ function VideoBanner() {
         <motion.div style={{ y: quoteY, opacity: quoteOpacity }}>
           <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
           <blockquote className="font-display text-2xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.3] -mt-6">
-            <TypeReveal className="block w-full" duration={1.6}>
-              The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-            </TypeReveal>
+            {introComplete ? (
+              <TypeReveal className="block w-full" duration={1.6}>
+                The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
+              </TypeReveal>
+            ) : (
+              <span className="block w-full opacity-0">
+                The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
+              </span>
+            )}
           </blockquote>
           <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
             — Mahatma Gandhi
@@ -313,7 +319,7 @@ export default function Home() {
     <>
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navbar />
-      <VideoBanner />
+      <VideoBanner introComplete={introComplete} />
       <Capabilities />
       <GlobalPresence />
       <FAQ />
