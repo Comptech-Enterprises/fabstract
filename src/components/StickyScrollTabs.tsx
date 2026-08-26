@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { EASE } from "@/lib/motion";
 
 /* ------------------------------------------------------------------ */
@@ -12,72 +12,6 @@ const TABS = [
   { id: "s-capabilities", label: "Capabilities" },
   { id: "s-newsroom", label: "Newsroom" },
   { id: "s-contact", label: "Contact" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Newsroom data                                                      */
-/* ------------------------------------------------------------------ */
-
-interface NewsCard {
-  category: string;
-  date: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  href: string;
-}
-
-const NEWS_CARDS: NewsCard[] = [
-  {
-    category: "People",
-    date: "June 30, 2026",
-    title: "Ethical Manufacturing and Shared Accountability",
-    excerpt:
-      "How garment manufacturers can prioritise interventions that fit their workforce & operational needs with accountability.",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=600&q=80",
-    href: "#",
-  },
-  {
-    category: "Media & Research",
-    date: "May 12, 2026",
-    title: "Worker Welfare Programmes Boost Productivity by 6%",
-    excerpt:
-      "Low-cost vision correction intervention delivers over 3x return; Fabstract to expand programme to all workers.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
-    href: "#",
-  },
-  {
-    category: "Media & Research",
-    date: "April 21, 2026",
-    title: "Fabstract and Innovo Fiber Scale Fibre52® Technology",
-    excerpt:
-      "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
-    image:
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80",
-    href: "#",
-  },
-  {
-    category: "Sustainability",
-    date: "March 15, 2026",
-    title: "Fabstract Releases Annual Sustainability Progress Report",
-    excerpt:
-      "Fabstract releases its sustainability report, highlighting a 30% reduction in water usage and 1.3M+ hours of employee training.",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80",
-    href: "#",
-  },
-  {
-    category: "Industry",
-    date: "February 8, 2026",
-    title: "Government Recognises Fabstract for Export Excellence",
-    excerpt:
-      "Fabstract Clothing India receives the prestigious Star Export House recognition for consistent growth and ethical trade practices.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
-    href: "#",
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -180,6 +114,72 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Newsroom data                                                      */
+/* ------------------------------------------------------------------ */
+
+interface NewsCard {
+  category: string;
+  date: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  href: string;
+}
+
+const NEWS_CARDS: NewsCard[] = [
+  {
+    category: "People",
+    date: "June 30, 2026",
+    title: "Ethical Manufacturing and Shared Accountability",
+    excerpt:
+      "How garment manufacturers can prioritise interventions that fit their workforce & operational needs with accountability.",
+    image:
+      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=600&q=80",
+    href: "#",
+  },
+  {
+    category: "Media & Research",
+    date: "May 12, 2026",
+    title: "Worker Welfare Programmes Boost Productivity by 6%",
+    excerpt:
+      "Low-cost vision correction intervention delivers over 3x return; Fabstract to expand programme to all workers.",
+    image:
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+    href: "#",
+  },
+  {
+    category: "Media & Research",
+    date: "April 21, 2026",
+    title: "Fabstract and Innovo Fiber Scale Fibre52® Technology",
+    excerpt:
+      "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
+    image:
+      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80",
+    href: "#",
+  },
+  {
+    category: "Sustainability",
+    date: "March 15, 2026",
+    title: "Fabstract Releases Annual Sustainability Progress Report",
+    excerpt:
+      "Fabstract releases its sustainability report, highlighting a 30% reduction in water usage and 1.3M+ hours of employee training.",
+    image:
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80",
+    href: "#",
+  },
+  {
+    category: "Industry",
+    date: "February 8, 2026",
+    title: "Government Recognises Fabstract for Export Excellence",
+    excerpt:
+      "Fabstract Clothing India receives the prestigious Star Export House recognition for consistent growth and ethical trade practices.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+    href: "#",
+  },
+];
+
+/* ------------------------------------------------------------------ */
 /*  Contact form field style                                           */
 /* ------------------------------------------------------------------ */
 
@@ -193,37 +193,50 @@ const field =
 export function StickyScrollTabs() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [capabilitySlide, setCapabilitySlide] = useState(0);
-  const capabilitySlideRef = useRef(0);
-  capabilitySlideRef.current = capabilitySlide;
 
   const containerRef = useRef<HTMLElement>(null);
+  const capabilitiesTrackRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const isScrollingRef = useRef(false);
   const newsScrollRef = useRef<HTMLDivElement>(null);
+
+  /* ── Track Scroll Progress for Capabilities Pinned Slider ── */
+  const { scrollYProgress: capabilityProgress } = useScroll({
+    target: capabilitiesTrackRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(capabilityProgress, "change", (progress) => {
+    if (progress < 0.33) {
+      setCapabilitySlide(0);
+    } else if (progress < 0.68) {
+      setCapabilitySlide(1);
+    } else {
+      setCapabilitySlide(2);
+    }
+  });
 
   /* ── Click-to-scroll ── */
   const scrollToSection = useCallback((id: string, slideIndex?: number) => {
     const el = document.getElementById(id);
     if (!el) return;
-    isScrollingRef.current = true;
     setActiveTab(id);
-    if (typeof slideIndex === "number") {
+    const navOffset = window.innerWidth < 1024 ? 80 : 96;
+    let top = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
+
+    if (id === "s-capabilities" && typeof slideIndex === "number") {
+      const trackHeight = el.offsetHeight;
+      top += (trackHeight / 3) * slideIndex;
       setCapabilitySlide(slideIndex);
     } else if (id === "s-capabilities") {
       setCapabilitySlide(0);
     }
-    const offset = window.innerWidth < 1024 ? 80 : 96;
-    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+
     window.scrollTo({ top, behavior: "smooth" });
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 850);
   }, []);
 
   /* ── Intersection Observer for scrollspy ── */
   useEffect(() => {
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      if (isScrollingRef.current) return;
       for (const entry of entries) {
         if (entry.isIntersecting) {
           setActiveTab(entry.target.id);
@@ -232,191 +245,13 @@ export function StickyScrollTabs() {
     };
 
     const observer = new IntersectionObserver(handleIntersection, {
-      rootMargin: "-25% 0px -60% 0px",
+      rootMargin: "-25% 0px -50% 0px",
       threshold: 0.1,
     });
 
     sectionRefs.current.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
-  /* ── Wheel & Touch Smooth Direct Section & Capability Slide Scroll ── */
-  useEffect(() => {
-    let touchStartY = 0;
-    let touchStartX = 0;
-
-    const handleWheel = (e: WheelEvent) => {
-      // If horizontal gesture is dominant (e.g. horizontal trackpad scroll on news cards), ignore vertical snap
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        return;
-      }
-
-      // Ignore small wheel jitter
-      if (Math.abs(e.deltaY) < 24) return;
-
-      const container = containerRef.current;
-      if (!container) return;
-
-      const rect = container.getBoundingClientRect();
-      const navOffset = window.innerWidth < 1024 ? 80 : 96;
-      const windowHeight = window.innerHeight;
-
-      // Only handle if inside the StickyScrollTabs viewport area
-      const isInside = rect.top <= navOffset + 60 && rect.bottom >= windowHeight * 0.4;
-      if (!isInside) return;
-
-      if (isScrollingRef.current) {
-        e.preventDefault();
-        return;
-      }
-
-      const scrollY = window.pageYOffset;
-      const tabPositions = TABS.map((tab) => {
-        const el = document.getElementById(tab.id);
-        if (!el) return { id: tab.id, top: 0 };
-        return {
-          id: tab.id,
-          top: el.getBoundingClientRect().top + scrollY - navOffset,
-        };
-      });
-
-      let currentIdx = 0;
-      for (let i = tabPositions.length - 1; i >= 0; i--) {
-        if (scrollY >= tabPositions[i].top - 90) {
-          currentIdx = i;
-          break;
-        }
-      }
-
-      const isDown = e.deltaY > 0;
-      const currentSlide = capabilitySlideRef.current;
-
-      if (isDown) {
-        if (currentIdx === 0) {
-          // Inside capabilities section
-          if (currentSlide < CAPABILITY_SLIDES.length - 1) {
-            e.preventDefault();
-            isScrollingRef.current = true;
-            setCapabilitySlide(currentSlide + 1);
-            setTimeout(() => {
-              isScrollingRef.current = false;
-            }, 650);
-          } else {
-            // Reached last capability slide -> scroll to newsroom
-            e.preventDefault();
-            scrollToSection("s-newsroom");
-          }
-        } else if (currentIdx < TABS.length - 1) {
-          e.preventDefault();
-          scrollToSection(TABS[currentIdx + 1].id);
-        }
-      } else {
-        if (currentIdx === 0) {
-          // Inside capabilities section scrolling up
-          if (currentSlide > 0) {
-            e.preventDefault();
-            isScrollingRef.current = true;
-            setCapabilitySlide(currentSlide - 1);
-            setTimeout(() => {
-              isScrollingRef.current = false;
-            }, 650);
-          } else if (scrollY > 80) {
-            // At first slide & scrolling up -> smooth scroll to hero
-            const heroEl = document.getElementById("hero-banner");
-            if (heroEl) {
-              e.preventDefault();
-              isScrollingRef.current = true;
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setTimeout(() => {
-                isScrollingRef.current = false;
-              }, 850);
-            }
-          }
-        } else if (currentIdx === 1) {
-          // From newsroom scrolling up -> go to capabilities at last slide
-          e.preventDefault();
-          scrollToSection("s-capabilities", CAPABILITY_SLIDES.length - 1);
-        } else if (currentIdx > 0) {
-          e.preventDefault();
-          scrollToSection(TABS[currentIdx - 1].id);
-        }
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (isScrollingRef.current) return;
-      const deltaY = touchStartY - e.changedTouches[0].clientY;
-      const deltaX = touchStartX - e.changedTouches[0].clientX;
-
-      if (Math.abs(deltaX) > Math.abs(deltaY)) return;
-      if (Math.abs(deltaY) < 45) return;
-
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const navOffset = window.innerWidth < 1024 ? 80 : 96;
-
-      const isInside = rect.top <= navOffset + 60 && rect.bottom >= window.innerHeight * 0.4;
-      if (!isInside) return;
-
-      const scrollY = window.pageYOffset;
-      const tabPositions = TABS.map((tab) => {
-        const el = document.getElementById(tab.id);
-        if (!el) return { id: tab.id, top: 0 };
-        return {
-          id: tab.id,
-          top: el.getBoundingClientRect().top + scrollY - navOffset,
-        };
-      });
-
-      let currentIdx = 0;
-      for (let i = tabPositions.length - 1; i >= 0; i--) {
-        if (scrollY >= tabPositions[i].top - 90) {
-          currentIdx = i;
-          break;
-        }
-      }
-
-      const currentSlide = capabilitySlideRef.current;
-
-      if (deltaY > 0) {
-        if (currentIdx === 0) {
-          if (currentSlide < CAPABILITY_SLIDES.length - 1) {
-            setCapabilitySlide(currentSlide + 1);
-          } else {
-            scrollToSection("s-newsroom");
-          }
-        } else if (currentIdx < TABS.length - 1) {
-          scrollToSection(TABS[currentIdx + 1].id);
-        }
-      } else {
-        if (currentIdx === 0) {
-          if (currentSlide > 0) {
-            setCapabilitySlide(currentSlide - 1);
-          }
-        } else if (currentIdx === 1) {
-          scrollToSection("s-capabilities", CAPABILITY_SLIDES.length - 1);
-        } else if (currentIdx > 0) {
-          scrollToSection(TABS[currentIdx - 1].id);
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [scrollToSection]);
 
   /* ── Ref registration ── */
   const registerRef = useCallback(
@@ -511,105 +346,110 @@ export function StickyScrollTabs() {
         {/* ─────────────────────────────────────────────── */}
         <div className="flex-1 min-w-0">
           {/* ═══════════════════════════════════════════ */}
-          {/*  SECTION 1 — CAPABILITIES (MULTI-SLIDE)     */}
+          {/*  SECTION 1 — CAPABILITIES (STICKY 300VH)    */}
           {/* ═══════════════════════════════════════════ */}
-          <article
+          <div
             id="s-capabilities"
-            ref={registerRef("s-capabilities")}
-            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-14 lg:py-16 min-h-[calc(100vh-6rem)] flex flex-col justify-center"
+            ref={(el) => {
+              capabilitiesTrackRef.current = el;
+              registerRef("s-capabilities")(el);
+            }}
+            className="relative h-[250vh] lg:h-[300vh]"
           >
-            {/* Header + slide counter indicator */}
-            <div className="flex items-center justify-between mb-8 lg:mb-10">
-              <motion.h2
-                className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: EASE }}
-              >
-                Capabilities
-              </motion.h2>
-
-              {/* Slide indicators / pagination */}
-              <div className="flex items-center gap-2">
-                {CAPABILITY_SLIDES.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCapabilitySlide(idx)}
-                    className={`transition-all duration-300 rounded-full cursor-pointer ${
-                      capabilitySlide === idx
-                        ? "w-8 h-1.5 bg-navy"
-                        : "w-2 h-1.5 bg-navy/20 hover:bg-navy/40"
-                    }`}
-                    aria-label={`Go to capability slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Dynamic Stats Row with Keyed Transition */}
-            <motion.div
-              key={`stats-${capabilitySlide}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="grid sm:grid-cols-2 gap-x-12 gap-y-8 mb-8 lg:mb-10"
-            >
-              {currentCapability.stats.map((stat, i) => (
-                <div
-                  key={stat.sub}
-                  className="border-t border-navy/10 pt-5"
+            <div className="sticky top-20 md:top-24 h-[calc(100vh-5rem)] md:h-[calc(100vh-6rem)] px-6 sm:px-10 lg:px-14 py-8 lg:py-12 flex flex-col justify-center overflow-hidden">
+              {/* Header + slide counter indicator */}
+              <div className="flex items-center justify-between mb-8 lg:mb-10">
+                <motion.h2
+                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: EASE }}
                 >
-                  <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
-                    {stat.sub}
-                  </p>
-                  <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-none tracking-tight">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-navy/60 text-sm">{stat.label}</p>
-                  <p className="mt-3 text-teal text-sm leading-relaxed max-w-sm">
-                    {stat.desc}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
+                  Capabilities
+                </motion.h2>
 
-            {/* Dynamic Capability Image + Badge with Keyed Transition */}
-            <motion.div
-              key={`image-${capabilitySlide}`}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.6, ease: EASE }}
-              className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden group"
-            >
-              <img
-                src={currentCapability.image}
-                alt={currentCapability.imageAlt}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
-
-              {/* Floating sustainability/progress badge */}
-              {currentCapability.badge && (
-                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-navy/10 px-4 py-2.5 flex items-center gap-3 text-left shadow-sm">
-                  <div className="w-5 h-5 rounded-full bg-navy text-white flex items-center justify-center text-[10px]">
-                    ✦
-                  </div>
-                  <div>
-                    <p className="text-[12px] font-medium text-navy leading-tight">
-                      {currentCapability.badge.title}
-                    </p>
-                    <p className="text-[10px] text-navy/50 tracking-wider uppercase">
-                      {currentCapability.badge.subtitle}
-                    </p>
-                  </div>
-                  <span className="text-navy/40 text-sm ml-1">›</span>
+                {/* Slide indicators / clickable pills */}
+                <div className="flex items-center gap-2">
+                  {CAPABILITY_SLIDES.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => scrollToSection("s-capabilities", idx)}
+                      className={`transition-all duration-300 rounded-full cursor-pointer ${
+                        capabilitySlide === idx
+                          ? "w-8 h-1.5 bg-navy"
+                          : "w-2 h-1.5 bg-navy/20 hover:bg-navy/40"
+                      }`}
+                      aria-label={`Go to capability slide ${idx + 1}`}
+                    />
+                  ))}
                 </div>
-              )}
-            </motion.div>
-          </article>
+              </div>
+
+              {/* Dynamic Stats Row with Keyed Transition */}
+              <motion.div
+                key={`stats-${capabilitySlide}`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className="grid sm:grid-cols-2 gap-x-12 gap-y-6 lg:gap-y-8 mb-8 lg:mb-10"
+              >
+                {currentCapability.stats.map((stat) => (
+                  <div
+                    key={stat.sub}
+                    className="border-t border-navy/10 pt-4 lg:pt-5"
+                  >
+                    <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
+                      {stat.sub}
+                    </p>
+                    <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-none tracking-tight">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-navy/60 text-sm">{stat.label}</p>
+                    <p className="mt-2.5 text-teal text-sm leading-relaxed max-w-sm">
+                      {stat.desc}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* Dynamic Capability Image + Badge with Keyed Transition */}
+              <motion.div
+                key={`image-${capabilitySlide}`}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.6, ease: EASE }}
+                className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden group"
+              >
+                <img
+                  src={currentCapability.image}
+                  alt={currentCapability.imageAlt}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+
+                {/* Floating sustainability/progress badge */}
+                {currentCapability.badge && (
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-navy/10 px-4 py-2.5 flex items-center gap-3 text-left shadow-sm">
+                    <div className="w-5 h-5 rounded-full bg-navy text-white flex items-center justify-center text-[10px]">
+                      ✦
+                    </div>
+                    <div>
+                      <p className="text-[12px] font-medium text-navy leading-tight">
+                        {currentCapability.badge.title}
+                      </p>
+                      <p className="text-[10px] text-navy/50 tracking-wider uppercase">
+                        {currentCapability.badge.subtitle}
+                      </p>
+                    </div>
+                    <span className="text-navy/40 text-sm ml-1">›</span>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          </div>
 
           {/* ═══════════════════════════════════════════ */}
           {/*  SECTION 2 — NEWSROOM                       */}
