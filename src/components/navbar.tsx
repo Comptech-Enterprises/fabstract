@@ -67,10 +67,25 @@ export function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-navy text-sm tracking-[0.2em] uppercase"
-          aria-label="Toggle menu"
+          className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 text-navy focus:outline-none"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          {open ? "Close" : "Index"}
+          <span
+            className={`block w-6 h-[2px] bg-navy rounded-full transition-all duration-300 ease-out origin-center ${
+              open ? "rotate-45 translate-y-[8px]" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-[2px] bg-navy rounded-full transition-all duration-300 ease-out ${
+              open ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+            }`}
+          />
+          <span
+            className={`block w-6 h-[2px] bg-navy rounded-full transition-all duration-300 ease-out origin-center ${
+              open ? "-rotate-45 -translate-y-[8px]" : ""
+            }`}
+          />
         </button>
       </div>
 
@@ -80,20 +95,23 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-white border-t border-navy/10 overflow-hidden"
+            transition={{ duration: 0.3, ease: EASE }}
+            className="md:hidden bg-white/98 backdrop-blur-lg border-t border-navy/10 overflow-hidden shadow-lg"
           >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`block px-6 py-4 text-base tracking-[0.18em] uppercase ${
-                  pathname === link.href ? "text-teal" : "text-navy"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            <div className="py-2 divide-y divide-navy/5">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`block px-6 py-4 text-sm font-medium tracking-[0.2em] uppercase transition-colors ${
+                    pathname === link.href ? "text-teal bg-navy/[0.02]" : "text-navy hover:text-teal"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
