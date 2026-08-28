@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+import { R2_MEDIA } from "@/data/hero";
 
 function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: string; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -144,31 +145,31 @@ export default function SustainabilityPage() {
                     label: "Zero-Coal Energy",
                     sub: "100% clean biomass & rooftop solar daylighting powering facility boilers and mills.",
                     highlight: "Zero Fossil Coal",
-                    img: "/coal.jpg",
-                    video: "/solar.mp4",
+                    img: `${R2_MEDIA}/coal.jpg`,
+                    video: `${R2_MEDIA}/solar.mp4`,
                   },
                   {
                     num: "95%+",
                     label: "Water Recycled",
                     sub: "Biological Effluent Treatment Plants (ETP) ensuring zero toxic process discharge.",
                     highlight: "Closed Loop Water",
-                    img: "/water.jpg",
+                    img: `${R2_MEDIA}/water.jpg`,
                   },
                   {
                     num: "50,000+",
                     label: "Trees Planted",
                     sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
                     highlight: "वन से हम Initiative",
-                    img: "/trees.jpg",
-                    video: "/trees.mp4",
+                    img: `${R2_MEDIA}/trees.jpg`,
+                    video: `${R2_MEDIA}/trees.mp4`,
                   },
                   {
                     num: "100%",
                     label: "Sustainable Yarns",
                     sub: "Every knit garment crafted from BCI cotton, recycled polyester, or OEKO-TEX certified yarn — zero conventional fiber.",
                     highlight: "Clean Knitting",
-                    img: "/yarn.jpg",
-                    video: "/working.mp4",
+                    img: `${R2_MEDIA}/yarn.jpg`,
+                    video: `${R2_MEDIA}/working.mp4`,
                   },
                 ].map((stat, idx) => {
                   const imageFirst = idx % 2 === 0;
@@ -280,7 +281,7 @@ export default function SustainabilityPage() {
                   className="md:col-span-2 md:row-span-2 relative rounded-2xl overflow-hidden group cursor-default"
                 >
                   <img
-                    src="/worker.jpg"
+                    src={`${R2_MEDIA}/worker.jpg`}
                     alt="People First Always"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -309,7 +310,7 @@ export default function SustainabilityPage() {
                   className="relative rounded-2xl overflow-hidden group cursor-default"
                 >
                   <img
-                    src="/salary.jpg"
+                    src={`${R2_MEDIA}/salary.jpg`}
                     alt="Fair Wages"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -333,7 +334,7 @@ export default function SustainabilityPage() {
                   className="relative rounded-2xl overflow-hidden group cursor-default"
                 >
                   <img
-                    src="/health.jpg"
+                    src={`${R2_MEDIA}/health.jpg`}
                     alt="Healthcare Camps"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -357,7 +358,7 @@ export default function SustainabilityPage() {
                   className="relative rounded-2xl overflow-hidden group cursor-default"
                 >
                   <img
-                    src="/training.jpg"
+                    src={`${R2_MEDIA}/training.jpg`}
                     alt="Vocational Training"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -381,7 +382,7 @@ export default function SustainabilityPage() {
                   className="rounded-2xl flex flex-col justify-end p-7 relative overflow-hidden group cursor-default"
                 >
                   <img
-                    src="/happy.jpg"
+                    src={`${R2_MEDIA}/happy.jpg`}
                     alt="Women in Workforce"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />

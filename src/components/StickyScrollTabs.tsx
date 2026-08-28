@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { EASE } from "@/lib/motion";
+import { R2_MEDIA } from "@/data/hero";
 
 /* ------------------------------------------------------------------ */
 /*  Tabs config                                                        */
@@ -57,7 +58,7 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
         desc: "We foster trust through honesty, transparency, and responsible operations.",
       },
     ],
-    image: "/ASN_8191.png",
+    image: `${R2_MEDIA}/worker.jpg`,
     imageAlt: "Fabstract garment craftsmanship and QA specialist at work",
     badge: {
       title: "Five-Stage Garment QA",
@@ -79,7 +80,7 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
         desc: "Supporting communities and driving positive impact with a predominantly female workforce leading the way.",
       },
     ],
-    image: "/ASN_8206.jpg",
+    image: `${R2_MEDIA}/happy.jpg`,
     imageAlt: "Fabstract female artisan inspecting woven and knitted garments",
     badge: {
       title: "Women in Manufacturing",
@@ -101,8 +102,7 @@ const CAPABILITY_SLIDES: CapabilitySlide[] = [
         desc: "Reducing our footprint across India through innovative and sustainable practices.",
       },
     ],
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1400&q=80",
+    image: `${R2_MEDIA}/worker.jpg`,
     imageAlt: "Fabstract manufacturing floor and production line",
     badge: {
       title: "Sustainability Progress",
@@ -131,8 +131,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Ethical Manufacturing and Shared Accountability",
     excerpt:
       "How garment manufacturers can prioritise interventions that fit their workforce & operational needs with accountability.",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=600&q=80",
+    image: `${R2_MEDIA}/worker.jpg`,
     href: "#",
   },
   {
@@ -141,8 +140,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Worker Welfare Programmes Boost Productivity by 6%",
     excerpt:
       "Low-cost vision correction intervention delivers over 3x return; Fabstract to expand programme to all workers.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+    image: `${R2_MEDIA}/health.jpg`,
     href: "#",
   },
   {
@@ -151,8 +149,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Fabstract and Innovo Fiber Scale Fibre52® Technology",
     excerpt:
       "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
-    image:
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80",
+    image: `${R2_MEDIA}/yarn.jpg`,
     href: "#",
   },
   {
@@ -161,8 +158,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Fabstract Releases Annual Sustainability Progress Report",
     excerpt:
       "Fabstract releases its sustainability report, highlighting a 30% reduction in water usage and 1.3M+ hours of employee training.",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80",
+    image: `${R2_MEDIA}/trees.jpg`,
     href: "#",
   },
   {
@@ -171,8 +167,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Government Recognises Fabstract for Export Excellence",
     excerpt:
       "Fabstract Clothing India receives the prestigious Star Export House recognition for consistent growth and ethical trade practices.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+    image: `${R2_MEDIA}/training.jpg`,
     href: "#",
   },
 ];
@@ -378,7 +373,7 @@ export function StickyScrollTabs() {
               {/* Header + slide counter indicator */}
               <div className="flex items-center justify-between mb-8 lg:mb-10">
                 <motion.h2
-                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
+                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -421,7 +416,7 @@ export function StickyScrollTabs() {
                     <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
                       {stat.sub}
                     </p>
-                    <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-none tracking-tight">
+                    <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light leading-none tracking-tight">
                       {stat.value}
                     </p>
                     <p className="mt-1 text-navy/60 text-sm">{stat.label}</p>
@@ -462,7 +457,7 @@ export function StickyScrollTabs() {
             {/* Header + arrows */}
             <div className="flex items-start justify-between mb-10">
               <motion.h2
-                className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium leading-[1.05]"
+                className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -537,7 +532,7 @@ export function StickyScrollTabs() {
                   </p>
 
                   {/* Title */}
-                  <h3 className="text-navy text-base font-medium leading-snug mb-3">
+                  <h3 className="font-display text-navy text-lg font-medium leading-snug mb-3">
                     {card.title}
                   </h3>
 
@@ -575,7 +570,7 @@ export function StickyScrollTabs() {
                 <p className="text-navy text-[11px] tracking-[0.32em] uppercase mb-4">
                   Contact
                 </p>
-                <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink font-medium">
+                <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink font-light tracking-tight">
                   Let&apos;s work together
                 </h3>
               </div>
