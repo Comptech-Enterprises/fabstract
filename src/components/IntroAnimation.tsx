@@ -63,8 +63,8 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (phase !== "typing") return;
     if (charIndex >= fullLength) {
-      setPhase("pause");
-      return;
+      const timer = setTimeout(() => setPhase("pause"), 50);
+      return () => clearTimeout(timer);
     }
     const delay = charIndex === 0 ? 350 : charIndex === topText.length ? 250 : 65;
     const timer = setTimeout(() => setCharIndex((i) => i + 1), delay);
