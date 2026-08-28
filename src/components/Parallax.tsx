@@ -46,7 +46,7 @@ export function ParallaxLayer({
 
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ y }} className="absolute inset-0 h-[130%] -top-[15%]">
+      <motion.div style={{ y }} className="absolute inset-0 h-[110%] -top-[5%]">
         {children}
       </motion.div>
     </div>

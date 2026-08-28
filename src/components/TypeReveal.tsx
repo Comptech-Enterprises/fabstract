@@ -20,7 +20,7 @@ export function TypeReveal({
       className={`inline-block overflow-hidden ${className}`}
       initial={{ clipPath: "inset(0 100% 0 0)" }}
       whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0 }}
       transition={{ duration, delay, ease: EASE }}
     >
       {children}

@@ -16,8 +16,6 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const navyOrbY = useTransform(heroProgress, [0, 1], [0, 120]);
-  const navyOrbY2 = useTransform(heroProgress, [0, 1], [0, -80]);
   const quoteY = useTransform(heroProgress, [0, 1], [0, 90]);
   const quoteOpacity = useTransform(heroProgress, [0, 0.8], [1, 0.3]);
 
@@ -25,7 +23,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
     <section
       id="hero-banner"
       ref={heroRef}
-      className="relative h-[80vh] min-h-[560px] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
+      className="relative h-[65vh] sm:h-[56.25vw] min-h-[520px] sm:min-h-[400px] max-h-[85vh] bg-navy overflow-hidden flex items-center px-5 sm:px-10 lg:px-14"
     >
       <ParallaxLayer speed={0.25} className="absolute inset-0">
         <video
@@ -39,14 +37,6 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
         />
       </ParallaxLayer>
       <div className="pointer-events-none absolute inset-0 bg-navy/70" />
-      <motion.div
-        style={{ y: navyOrbY }}
-        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-white/10"
-      />
-      <motion.div
-        style={{ y: navyOrbY2 }}
-        className="pointer-events-none absolute bottom-0 left-10 h-40 w-40 rounded-full border border-white/10"
-      />
       <div className="relative max-w-4xl mx-auto text-center">
         <motion.div style={{ y: quoteY, opacity: quoteOpacity }}>
           <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
@@ -62,9 +52,14 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
             )}
           </blockquote>
           {introComplete && (
-            <p className="mt-8 text-[12px] tracking-[0.28em] uppercase text-sky">
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-6 sm:mt-8 text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-sky"
+            >
               — Mahatma Gandhi
-            </p>
+            </motion.p>
           )}
         </motion.div>
       </div>

@@ -447,24 +447,6 @@ export function StickyScrollTabs() {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-
-                {/* Floating sustainability/progress badge */}
-                {currentCapability.badge && (
-                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-navy/10 px-4 py-2.5 flex items-center gap-3 text-left shadow-sm">
-                    <div className="w-5 h-5 rounded-full bg-navy text-white flex items-center justify-center text-[10px]">
-                      ✦
-                    </div>
-                    <div>
-                      <p className="text-[12px] font-medium text-navy leading-tight">
-                        {currentCapability.badge.title}
-                      </p>
-                      <p className="text-[10px] text-navy/50 tracking-wider uppercase">
-                        {currentCapability.badge.subtitle}
-                      </p>
-                    </div>
-                    <span className="text-navy/40 text-sm ml-1">›</span>
-                  </div>
-                )}
               </motion.div>
             </div>
           </div>
