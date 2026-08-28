@@ -8,26 +8,36 @@ import { EASE } from "@/lib/motion";
 export function Footer() {
   return (
     <motion.footer
-      className="bg-white text-navy border-t border-navy/10"
+      className="bg-navy text-white border-t border-white/10 relative overflow-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: EASE }}
     >
-      <div className="px-5 sm:px-8 lg:px-12 py-20 grid sm:grid-cols-2 lg:grid-cols-12 gap-12">
+      {/* Subtle glowing ambient lighting */}
+      <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 bg-sky/10 rounded-full blur-3xl" />
+
+      <div className="relative z-10 px-5 sm:px-8 lg:px-12 py-20 grid sm:grid-cols-2 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-6">
-          <p className="font-display text-5xl text-navy mb-5">Fabstract</p>
-          <p className="text-navy/70 text-sm leading-relaxed max-w-md">
+          <Link href="/" className="inline-block mb-6 group">
+            <img
+              src="/logo-mark.png"
+              alt="Fabstract Clothing India"
+              className="h-14 md:h-18 w-auto object-contain brightness-0 invert opacity-95 group-hover:opacity-100 transition-opacity"
+            />
+          </Link>
+          <p className="text-white/75 text-sm sm:text-base leading-relaxed max-w-md font-light">
             Government recognized garment export house, manufacturing &amp;
             exporting high fashion knitwear &amp; woven garments since 1991.
           </p>
         </div>
         <div className="lg:col-span-3">
-          <p className="text-[10px] tracking-[0.28em] uppercase text-teal mb-5">Index</p>
-          <ul className="space-y-2.5">
+          <p className="text-[11px] tracking-[0.28em] uppercase text-sky font-semibold mb-5">Index</p>
+          <ul className="space-y-3">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-navy/85 text-sm hover:text-teal transition-colors">
+                <Link href={link.href} className="text-white/80 text-sm hover:text-sky transition-colors font-light">
                   {link.label}
                 </Link>
               </li>
@@ -35,20 +45,32 @@ export function Footer() {
           </ul>
         </div>
         <div className="lg:col-span-3">
-          <p className="text-[10px] tracking-[0.28em] uppercase text-teal mb-5">Marks</p>
-          <ul className="space-y-2.5 text-navy/85 text-sm">
-            <li>CSCC Approved</li>
-            <li>BSCI Certified</li>
-            <li>ETI Aligned</li>
-            <li>ILO Compliant</li>
+          <p className="text-[11px] tracking-[0.28em] uppercase text-sky font-semibold mb-5">Compliance & Marks</p>
+          <ul className="space-y-3 text-white/80 text-sm font-light">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal" />
+              CSCC Security Approved
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal" />
+              BSCI Social Certified
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal" />
+              ETI Base Code Aligned
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal" />
+              ILO Standards Compliant
+            </li>
           </ul>
         </div>
       </div>
-      <div className="px-5 sm:px-8 lg:px-12 py-6 border-t border-navy/10 flex flex-wrap justify-between gap-3">
-        <p className="text-navy/45 text-xs tracking-wide">
-          &copy; {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd.
+      <div className="relative z-10 px-5 sm:px-8 lg:px-12 py-6 border-t border-white/10 flex flex-wrap justify-between items-center gap-3">
+        <p className="text-white/50 text-xs tracking-wide font-light">
+          &copy; {new Date().getFullYear()} Fabstract Clothing India Pvt. Ltd. All rights reserved.
         </p>
-        <p className="text-teal text-[10px] tracking-[0.28em] uppercase">Vol. 1991</p>
+        <p className="text-sky text-[11px] tracking-[0.28em] uppercase font-semibold">Vol. 1991</p>
       </div>
     </motion.footer>
   );
