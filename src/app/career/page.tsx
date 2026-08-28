@@ -98,40 +98,43 @@ export default function CareerPage() {
               </SectionReveal>
 
               <SectionReveal delay={0.1}>
-                <form onSubmit={handleSubmit} className="bg-navy p-8 space-y-5">
-                  <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Phone *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
-                      placeholder="+91 XXXXX XXXXX"
-                    />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit} className="bg-navy px-6 sm:px-10 lg:px-14 py-16 space-y-6">
+                  <h3 className="font-display text-4xl text-white mb-8">
+                    Submit your application
+                  </h3>
+                  <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Position *</label>
+                      <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">Full Name *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">Phone *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">Position *</label>
                       <select
                         name="position"
                         required
                         value={formData.position}
                         onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
+                        className="w-full bg-navy border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
                       >
                         <option value="">Select position</option>
                         <option>Pattern Making Specialist</option>
@@ -144,12 +147,12 @@ export default function CareerPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Experience</label>
+                      <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">Experience</label>
                       <select
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
-                        className="w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
+                        className="w-full bg-navy border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky"
                       >
                         <option value="">Select experience</option>
                         <option>Fresher</option>
@@ -161,21 +164,20 @@ export default function CareerPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-sky mb-1.5">Cover Note</label>
+                    <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">Cover Note</label>
                     <textarea
                       name="message"
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full bg-navy border-0 border-b border-white/25 rounded-none px-0 py-3 text-white text-sm focus:outline-none focus:border-sky resize-none"
-                      placeholder="Tell us about yourself and why you'd like to join Fabstract..."
                     />
                   </div>
                   <button
                     type="submit"
-                    className="btn-crimson w-full text-center mt-4"
+                    className="btn-crimson w-full text-center"
                   >
-                    SUBMIT APPLICATION
+                    Submit application
                   </button>
                 </form>
               </SectionReveal>
@@ -215,7 +217,7 @@ export default function CareerPage() {
           </div>
         </section>
 
-        <section className="py-24 bg-beige">
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionReveal>
               <p className="text-mute text-sm tracking-[0.3em] uppercase mb-4">Why Fabstract</p>

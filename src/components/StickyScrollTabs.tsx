@@ -588,132 +588,72 @@ export function StickyScrollTabs() {
             className="scroll-mt-24 lg:scroll-mt-24 min-h-[calc(100vh-6rem)] flex flex-col justify-center border-t border-navy/10"
           >
             {/* Contact */}
-            <div className="grid lg:grid-cols-2">
-              <div className="bg-white px-6 sm:px-10 lg:px-14 py-16 space-y-10">
+            <div className="bg-white px-6 sm:px-10 lg:px-14 py-16 space-y-10">
+              <div>
+                <p className="text-navy text-[11px] tracking-[0.32em] uppercase mb-4">
+                  Contact
+                </p>
+                <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink font-medium">
+                  Let&apos;s work together
+                </h3>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div>
-                  <p className="text-navy text-[11px] tracking-[0.32em] uppercase mb-4">
-                    Contact
+                  <h4 className="text-[10px] tracking-[0.22em] uppercase text-navy mb-3">
+                    Registered office
+                  </h4>
+                  <p className="text-mute text-sm leading-relaxed">
+                    M-169, Greater Kailash - II,
+                    <br />
+                    New Delhi - 110048, India
                   </p>
-                  <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl text-ink font-medium">
-                    Let&apos;s work together
-                  </h3>
+                  <a
+                    href="tel:+911140524038"
+                    className="text-ink text-sm mt-3 inline-block hover:text-teal"
+                  >
+                    +91-11-4052 4038
+                  </a>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-[10px] tracking-[0.22em] uppercase text-navy mb-3">
-                      Registered office
-                    </h4>
-                    <p className="text-mute text-sm leading-relaxed">
-                      M-169, Greater Kailash - II,
-                      <br />
-                      New Delhi - 110048, India
-                    </p>
-                    <a
-                      href="tel:+911140524038"
-                      className="text-ink text-sm mt-3 inline-block hover:text-teal"
-                    >
-                      +91-11-4052 4038
-                    </a>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] tracking-[0.22em] uppercase text-navy mb-3">
-                      Manufacturing
-                    </h4>
-                    <p className="text-mute text-sm leading-relaxed">
-                      C-57, Hosiery Complex, Phase II,
-                      <br />
-                      Noida - 201305, India
-                    </p>
-                    <a
-                      href="tel:+911204668800"
-                      className="text-ink text-sm mt-3 inline-block hover:text-teal"
-                    >
-                      +91-120-4668800
-                    </a>
-                  </div>
+                <div>
+                  <h4 className="text-[10px] tracking-[0.22em] uppercase text-navy mb-3">
+                    Manufacturing
+                  </h4>
+                  <p className="text-mute text-sm leading-relaxed">
+                    C-57, Hosiery Complex, Phase II,
+                    <br />
+                    Noida - 201305, India
+                  </p>
+                  <a
+                    href="tel:+911204668800"
+                    className="text-ink text-sm mt-3 inline-block hover:text-teal"
+                  >
+                    +91-120-4668800
+                  </a>
                 </div>
-                <div className="h-56 border border-navy/10 overflow-hidden">
-                  <iframe
-                    src="https://maps.google.com/maps?q=M-169%2C%20Greater%20Kailash%20II%2C%20New%20Delhi%20110048&z=16&output=embed"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Fabstract registered office, Greater Kailash II"
-                  />
+                <div>
+                  <h4 className="text-[10px] tracking-[0.22em] uppercase text-navy mb-3">
+                    Email
+                  </h4>
+                  <a
+                    href="mailto:info@fabstract.in"
+                    className="text-ink text-sm inline-block hover:text-teal"
+                  >
+                    info@fabstract.in
+                  </a>
                 </div>
               </div>
-
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                className="bg-navy px-6 sm:px-10 lg:px-14 py-16 space-y-6"
-              >
-                <h3 className="font-display text-4xl text-white mb-8">
-                  Send an enquiry
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                      First name *
-                    </label>
-                    <input type="text" required className={field} />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                      Last name
-                    </label>
-                    <input type="text" className={field} />
-                  </div>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                      Email *
-                    </label>
-                    <input type="email" required className={field} />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                      Phone *
-                    </label>
-                    <input type="tel" required className={field} />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                    Company
-                  </label>
-                  <input type="text" className={field} />
-                </div>
-                <div>
-                  <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                    Product category *
-                  </label>
-                  <select required className={`${field} bg-navy`}>
-                    <option value="">Select a category</option>
-                    <option value="woven">Woven Apparel</option>
-                    <option value="knitted">Knitted Apparel</option>
-                    <option value="home-textiles">
-                      Home Textiles &amp; Accessories
-                    </option>
-                    <option value="multiple">Multiple Categories</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[10px] tracking-[0.22em] uppercase text-sky mb-2">
-                    Message
-                  </label>
-                  <textarea rows={3} className={field} />
-                </div>
-                <button
-                  type="submit"
-                  className="btn-crimson w-full text-center"
-                >
-                  Send enquiry
-                </button>
-              </form>
+              <div className="h-64 border border-navy/10 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4373.328171050494!2d77.42009967629299!3d28.510651575731526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce964e1798c21%3A0x377f35899acea227!2sFabstract%20Clothing%20India%20Pvt%20Ltd!5e1!3m2!1sen!2sin!4v1787899092345!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Fabstract Clothing India Pvt Ltd"
+                />
+              </div>
             </div>
           </article>
         </div>
