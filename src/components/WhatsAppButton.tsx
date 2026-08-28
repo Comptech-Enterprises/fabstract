@@ -30,18 +30,14 @@ function buildWhatsAppUrl(answers: Answers) {
 
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    { from: "bot", text: QUESTIONS[0].text },
+  ]);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [input, setInput] = useState("");
   const [done, setDone] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (open && messages.length === 0) {
-      setMessages([{ from: "bot", text: QUESTIONS[0].text }]);
-    }
-  }, [open, messages.length]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
