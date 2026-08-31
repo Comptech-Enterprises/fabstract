@@ -42,7 +42,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
           <span className="text-teal text-6xl sm:text-7xl font-display leading-none">&ldquo;</span>
           <blockquote className="font-display text-2xl sm:text-4xl lg:text-5xl text-white font-medium leading-[1.3] -mt-6">
             {introComplete ? (
-              <TypeReveal className="block w-full" duration={1.6}>
+              <TypeReveal className="block w-full" delay={0.3} wordDelay={0.18}>
                 The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
               </TypeReveal>
             ) : (
@@ -55,7 +55,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 4.8 }}
               className="mt-6 sm:mt-8 text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-sky"
             >
               — Mahatma Gandhi
