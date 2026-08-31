@@ -6,17 +6,17 @@ export function TypeReveal({
   children,
   className = "",
   delay = 0,
-  wordDelay = 0.12,
+  charDelay = 0.04,
   attribution,
 }: {
   children: string;
   className?: string;
   delay?: number;
-  wordDelay?: number;
+  charDelay?: number;
   attribution?: string;
 }) {
-  const words = children.split(" ");
-  const totalDuration = delay + words.length * wordDelay;
+  const chars = children.split("");
+  const totalDuration = delay + chars.length * charDelay;
 
   return (
     <motion.span
@@ -31,19 +31,19 @@ export function TypeReveal({
       animate={{ backgroundColor: "rgba(0,0,0,0.3)" }}
       transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
     >
-      {words.map((word, i) => (
+      {chars.map((char, i) => (
         <motion.span
           key={i}
           className="inline"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{
-            duration: 0.35,
-            delay: delay + i * wordDelay,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 0.05,
+            delay: delay + i * charDelay,
+            ease: "linear",
           }}
         >
-          {word}{i < words.length - 1 ? " " : ""}
+          {char}
         </motion.span>
       ))}
       {attribution && (
