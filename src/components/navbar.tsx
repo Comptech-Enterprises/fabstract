@@ -9,6 +9,7 @@ import { EASE } from "@/lib/motion";
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "What We Do", href: "/what-we-do" },
   { label: "Products", href: "/products" },
   { label: "Gallery", href: "/gallery" },
   { label: "Sustainability", href: "/sustainability" },

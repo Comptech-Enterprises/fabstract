@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 import { EASE } from "@/lib/motion";
 import { R2_MEDIA } from "@/data/hero";
 
@@ -10,105 +10,8 @@ import { R2_MEDIA } from "@/data/hero";
 /* ------------------------------------------------------------------ */
 
 const TABS = [
-  { id: "s-capabilities", label: "Capabilities" },
   { id: "s-newsroom", label: "Newsroom" },
   { id: "s-contact", label: "Contact" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Capabilities multi-slide data                                      */
-/* ------------------------------------------------------------------ */
-
-interface CapabilitySlide {
-  stats: [
-    {
-      sub: string;
-      value: string;
-      label: string;
-      desc: string;
-    },
-    {
-      sub: string;
-      value: string;
-      label: string;
-      desc: string;
-    }
-  ];
-  image: string;
-  imageAlt: string;
-  badge?: {
-    title: string;
-    subtitle: string;
-  };
-}
-
-const CAPABILITY_SLIDES: CapabilitySlide[] = [
-  {
-    stats: [
-      {
-        sub: "Growing Together",
-        value: "1,00,000+",
-        label: "Employees",
-        desc: "Empowering our people through continuous skill development and growth opportunities.",
-      },
-      {
-        sub: "Built On Trust",
-        value: "85%",
-        label: "Vertical Integration Across 50 Factories",
-        desc: "We foster trust through honesty, transparency, and responsible operations.",
-      },
-    ],
-    image: `${R2_MEDIA}/worker.jpg`,
-    imageAlt: "Fabstract garment craftsmanship and QA specialist at work",
-    badge: {
-      title: "Five-Stage Garment QA",
-      subtitle: "Full Transparency",
-    },
-  },
-  {
-    stats: [
-      {
-        sub: "Crafting Excellence",
-        value: "150 Million+",
-        label: "Garments A Year",
-        desc: "Delivering excellence in every garment we produce, creating lasting value and experiences.",
-      },
-      {
-        sub: "Creating Change",
-        value: "70%+",
-        label: "Female Employees",
-        desc: "Supporting communities and driving positive impact with a predominantly female workforce leading the way.",
-      },
-    ],
-    image: `${R2_MEDIA}/happy.jpg`,
-    imageAlt: "Fabstract female artisan inspecting woven and knitted garments",
-    badge: {
-      title: "Women in Manufacturing",
-      subtitle: "70%+ Workforce",
-    },
-  },
-  {
-    stats: [
-      {
-        sub: "Evolving Every Day",
-        value: "5",
-        label: "Textile Mills",
-        desc: "Remaining agile to meet evolving industry demands across our factories, offices, and textile mills.",
-      },
-      {
-        sub: "Leading With Purpose",
-        value: "8",
-        label: "States",
-        desc: "Reducing our footprint across India through innovative and sustainable practices.",
-      },
-    ],
-    image: `${R2_MEDIA}/worker.jpg`,
-    imageAlt: "Fabstract manufacturing floor and production line",
-    badge: {
-      title: "Sustainability Progress",
-      subtitle: "FY 2024-25",
-    },
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -185,45 +88,18 @@ const field =
 
 export function StickyScrollTabs() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
-  const [capabilitySlide, setCapabilitySlide] = useState(0);
 
   const containerRef = useRef<HTMLElement>(null);
-  const capabilitiesTrackRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const newsScrollRef = useRef<HTMLDivElement>(null);
 
-  /* ── Track Scroll Progress for Capabilities Pinned Slider ── */
-  const { scrollYProgress: capabilityProgress } = useScroll({
-    target: capabilitiesTrackRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(capabilityProgress, "change", (progress) => {
-    if (progress < 0.33) {
-      setCapabilitySlide(0);
-    } else if (progress < 0.68) {
-      setCapabilitySlide(1);
-    } else {
-      setCapabilitySlide(2);
-    }
-  });
-
   /* ── Click-to-scroll ── */
-  const scrollToSection = useCallback((id: string, slideIndex?: number) => {
+  const scrollToSection = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
     setActiveTab(id);
     const navOffset = window.innerWidth < 1024 ? 80 : 96;
-    let top = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
-
-    if (id === "s-capabilities" && typeof slideIndex === "number") {
-      const trackHeight = el.offsetHeight;
-      top += (trackHeight / 3) * slideIndex;
-      setCapabilitySlide(slideIndex);
-    } else if (id === "s-capabilities") {
-      setCapabilitySlide(0);
-    }
-
+    const top = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
 
@@ -232,27 +108,17 @@ export function StickyScrollTabs() {
     const updateActiveTab = () => {
       const navOffset = window.innerWidth < 1024 ? 80 : 100;
 
-      const capEl = document.getElementById("s-capabilities");
       const newsEl = document.getElementById("s-newsroom");
       const contactEl = document.getElementById("s-contact");
 
-      if (!capEl || !newsEl || !contactEl) return;
+      if (!newsEl || !contactEl) return;
 
-      const capRect = capEl.getBoundingClientRect();
-      const newsRect = newsEl.getBoundingClientRect();
       const contactRect = contactEl.getBoundingClientRect();
 
-      // If contact section is in top viewport zone
       if (contactRect.top <= navOffset + 140) {
         setActiveTab("s-contact");
-      }
-      // If newsroom section is in top viewport zone AND capabilities track has finished
-      else if (newsRect.top <= navOffset + 140 && capRect.bottom <= navOffset + 180) {
+      } else {
         setActiveTab("s-newsroom");
-      }
-      // Otherwise user is viewing Capabilities
-      else {
-        setActiveTab("s-capabilities");
       }
     };
 
@@ -281,8 +147,6 @@ export function StickyScrollTabs() {
     if (!el) return;
     el.scrollBy({ left: dir * 380, behavior: "smooth" });
   }, []);
-
-  const currentCapability = CAPABILITY_SLIDES[capabilitySlide];
 
   return (
     <section ref={containerRef} className="bg-white relative">
@@ -358,94 +222,6 @@ export function StickyScrollTabs() {
         {/*  MAIN SCROLLING CONTENT                         */}
         {/* ─────────────────────────────────────────────── */}
         <div className="flex-1 min-w-0">
-          {/* ═══════════════════════════════════════════ */}
-          {/*  SECTION 1 — CAPABILITIES (STICKY 300VH)    */}
-          {/* ═══════════════════════════════════════════ */}
-          <div
-            id="s-capabilities"
-            ref={(el) => {
-              capabilitiesTrackRef.current = el;
-              registerRef("s-capabilities")(el);
-            }}
-            className="relative h-[250vh] lg:h-[300vh]"
-          >
-            <div className="sticky top-20 md:top-24 h-[calc(100vh-5rem)] md:h-[calc(100vh-6rem)] px-6 sm:px-10 lg:px-14 py-8 lg:py-12 flex flex-col justify-center overflow-hidden">
-              {/* Header + slide counter indicator */}
-              <div className="flex items-center justify-between mb-8 lg:mb-10">
-                <motion.h2
-                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, ease: EASE }}
-                >
-                  Capabilities
-                </motion.h2>
-
-                {/* Slide indicators / clickable pills */}
-                <div className="flex items-center gap-2">
-                  {CAPABILITY_SLIDES.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => scrollToSection("s-capabilities", idx)}
-                      className={`transition-all duration-300 rounded-full cursor-pointer ${
-                        capabilitySlide === idx
-                          ? "w-8 h-1.5 bg-navy"
-                          : "w-2 h-1.5 bg-navy/20 hover:bg-navy/40"
-                      }`}
-                      aria-label={`Go to capability slide ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Dynamic Stats Row with Keyed Transition */}
-              <motion.div
-                key={`stats-${capabilitySlide}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.5, ease: EASE }}
-                className="grid sm:grid-cols-2 gap-x-12 gap-y-6 lg:gap-y-8 mb-8 lg:mb-10"
-              >
-                {currentCapability.stats.map((stat) => (
-                  <div
-                    key={stat.sub}
-                    className="border-t border-navy/10 pt-4 lg:pt-5"
-                  >
-                    <p className="text-navy/50 text-[11px] tracking-[0.22em] uppercase mb-2">
-                      {stat.sub}
-                    </p>
-                    <p className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light leading-none tracking-tight">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 text-navy/60 text-sm">{stat.label}</p>
-                    <p className="mt-2.5 text-teal text-sm leading-relaxed max-w-sm">
-                      {stat.desc}
-                    </p>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Dynamic Capability Image + Badge with Keyed Transition */}
-              <motion.div
-                key={`image-${capabilitySlide}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.6, ease: EASE }}
-                className="relative w-full aspect-[21/9] sm:aspect-[21/8] bg-navy/5 overflow-hidden group"
-              >
-                <img
-                  src={currentCapability.image}
-                  alt={currentCapability.imageAlt}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </motion.div>
-            </div>
-          </div>
-
           {/* ═══════════════════════════════════════════ */}
           {/*  SECTION 2 — NEWSROOM                       */}
           {/* ═══════════════════════════════════════════ */}

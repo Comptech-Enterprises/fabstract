@@ -8,12 +8,14 @@ export function TypeReveal({
   delay = 0,
   charDelay = 0.04,
   attribution,
+  noBg = false,
 }: {
   children: string;
   className?: string;
   delay?: number;
   charDelay?: number;
   attribution?: string;
+  noBg?: boolean;
 }) {
   const chars = children.split("");
   const totalDuration = delay + chars.length * charDelay;
@@ -21,15 +23,15 @@ export function TypeReveal({
   return (
     <motion.span
       className={className}
-      style={{
+      style={noBg ? {} : {
         backgroundColor: "rgba(0,0,0,0.3)",
         boxDecorationBreak: "clone",
         WebkitBoxDecorationBreak: "clone",
         padding: "0.1em 0.3em",
       }}
-      initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-      animate={{ backgroundColor: "rgba(0,0,0,0.3)" }}
-      transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={noBg ? {} : { backgroundColor: "rgba(0,0,0,0)" }}
+      animate={noBg ? {} : { backgroundColor: "rgba(0,0,0,0.3)" }}
+      transition={noBg ? {} : { duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {chars.map((char, i) => (
         <motion.span
