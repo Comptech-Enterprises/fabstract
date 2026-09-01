@@ -132,13 +132,13 @@ export default function Home() {
       <VideoBanner introComplete={introComplete} />
       <section className="bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
         <div className="max-w-5xl">
-          <p className="text-lg sm:text-xl lg:text-2xl text-navy font-bold leading-[1.6]">
+          <p className="text-lg sm:text-xl lg:text-2xl text-[#0d3b2e] font-bold leading-[1.6]">
             We are redefining apparel manufacturing by putting people, planet, and innovation at the core of our business.
           </p>
-          <p className="mt-6 text-lg sm:text-xl lg:text-2xl text-navy/70 leading-[1.8]">
-            We are committed to <strong className="text-navy">ethical manufacturing,</strong> investing in <strong className="text-navy">our people,</strong> and advancing <strong className="text-navy">sustainable solutions</strong> that help shape a more responsible and resilient global apparel and textile industry.
+          <p className="mt-6 text-lg sm:text-xl lg:text-2xl text-[#144d3d] leading-[1.8]">
+            We are committed to <strong className="text-[#082920] font-semibold">ethical manufacturing,</strong> investing in <strong className="text-[#082920] font-semibold">our people,</strong> and advancing <strong className="text-[#082920] font-semibold">sustainable solutions</strong> that help shape a more responsible and resilient global apparel and textile industry.
           </p>
-          <p className="mt-6 font-display text-2xl sm:text-3xl lg:text-4xl text-navy italic leading-[1.6]">
+          <p className="mt-6 font-display text-2xl sm:text-3xl lg:text-4xl text-[#0d3b2e] italic leading-[1.6]">
             Sustainably grown. Consciously made. Expertly crafted.
           </p>
         </div>
