@@ -9,6 +9,7 @@ export interface FactoryVideoItem {
   subtitle: string;
   tag: string;
   videoSrc?: string;
+  noFilter?: boolean;
 }
 
 const DEFAULT_VIDEOS: FactoryVideoItem[] = [
@@ -32,6 +33,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
     subtitle: "Skilled seamstresses with modular workstations crafting complex woven and knit garment constructions.",
     tag: "Unit 03 — Assembly",
     videoSrc: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2159.mp4",
+    noFilter: true,
   },
   {
     id: 4,
@@ -129,14 +131,17 @@ export function FactoryVideoShowcase({
         </AnimatePresence>
 
         {/* ── Overlays ── */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/95 via-navy/30 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-transparent to-transparent pointer-events-none z-10" />
+        {!currentVideo.noFilter ? (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/95 via-navy/30 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-transparent to-transparent pointer-events-none z-10" />
+          </>
+        ) : (
+          <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none z-10" />
+        )}
 
-        {/* ── Top Bar ── */}
-        <div className="absolute top-6 sm:top-8 left-6 sm:left-10 right-6 sm:right-10 flex items-center justify-between z-20 pointer-events-auto">
-          <span className="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-medium tracking-wider uppercase">
-            {currentVideo.tag}
-          </span>
+        {/* ── Top Bar (Counter) ── */}
+        <div className="absolute top-6 sm:top-8 right-6 sm:right-10 flex items-center justify-end z-20 pointer-events-auto">
           <div className="px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md text-white text-xs sm:text-sm font-mono tracking-widest">
             <span className="text-sky font-bold">0{currentIndex + 1}</span> / 0{videos.length}
           </div>

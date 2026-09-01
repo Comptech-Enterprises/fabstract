@@ -11,7 +11,6 @@ const TABS = [
   { id: "legacy", label: "Our Legacy" },
   { id: "journey", label: "Our Journey" },
   { id: "leadership", label: "Management" },
-  { id: "values", label: "Our Values" },
   { id: "certifications", label: "Certifications" },
 ] as const;
 
@@ -74,45 +73,6 @@ const JOURNEY_PAIRS = [
   ],
 ];
 
-const VALUES = [
-  {
-    num: "01",
-    title: "Environmental Stewardship",
-    desc: "Active ecological regeneration through urban Miyawaki micro-forests, 100% natural rooftop daylighting, and zero-coal clean energy operations.",
-    tag: "Miyawaki & Clean Energy",
-    icon: "leaf",
-    frames: [
-      { img: GALLERY_FILES[4], caption: "Urban Miyawaki Micro-Forest" },
-      { img: GALLERY_FILES[0], caption: "100% Rooftop Natural Daylighting" },
-      { img: GALLERY_FILES[3], caption: "Zero-Coal Clean Operations" },
-    ],
-  },
-  {
-    num: "02",
-    title: "Ethical & Fairtrade Labour",
-    desc: "Strict adherence to Fairtrade, ETI, and ILO codes with guaranteed living wages and an inclusive floor where women represent 60%+ of our skilled team.",
-    tag: "Fairtrade & 60%+ Women",
-    icon: "people",
-    frames: [
-      { img: GALLERY_FILES[1], caption: "60%+ Women Tailoring Leaders" },
-      { img: GALLERY_FILES[2], caption: "Safe, Well-Ventilated Floor" },
-      { img: GALLERY_FILES[6], caption: "Artisan Skill Apprenticeships" },
-    ],
-  },
-  {
-    num: "03",
-    title: "Circular & Organic Craft",
-    desc: "Sourcing GOTS-certified organic cotton, European linen, and eco-blends combined with precision zero-waste cutting and scrap fabric upcycling.",
-    tag: "GOTS Organic & Zero-Waste",
-    icon: "circular",
-    frames: [
-      { img: GALLERY_FILES[7], caption: "Zero-Waste Pattern Laying" },
-      { img: GALLERY_FILES[5], caption: "GOTS Organic Cotton Weave" },
-      { img: GALLERY_FILES[8], caption: "Fabric Scrap Upcycling Loop" },
-    ],
-  },
-];
-
 const TEAM = [
   {
     name: "Kavya Mehra",
@@ -147,68 +107,6 @@ const TEAM = [
     img: GALLERY_FILES[7],
   },
 ];
-
-function PillarHyperFrameCard({
-  val,
-  idx,
-}: {
-  val: (typeof VALUES)[number];
-  idx: number;
-}) {
-  const [activeFrame, setActiveFrame] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveFrame((prev) => (prev + 1) % val.frames.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [val.frames.length]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8 }}
-      className="group relative min-h-[480px] sm:min-h-[520px] rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between p-8 sm:p-10 bg-navy border border-navy/10"
-    >
-      {/* Background Animated Image Layer (Covers Whole Div) */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFrame}
-            initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <img
-              src={gallerySrc(val.frames[activeFrame].img)}
-              alt={val.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-75"
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Multi-layer Dark Gradient for high legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c141f]/95 via-[#0c141f]/60 to-[#0c141f]/35 pointer-events-none" />
-      </div>
-
-      {/* Foreground Bottom Typography */}
-      <div className="relative z-10 mt-auto">
-        <h3 className="font-display text-2xl sm:text-3xl text-white font-medium mb-3 group-hover:text-teal transition-colors duration-300 leading-snug">
-          {val.title}
-        </h3>
-
-        <p className="text-white/85 text-sm sm:text-base leading-relaxed font-light">
-          {val.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
 
 
 
@@ -596,32 +494,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section 4: Our Guiding Principles / Sustainability Pillars (Light Background) */}
-          <section id="values" className="scroll-mt-28 bg-[#faf7f5] text-navy px-6 sm:px-10 lg:px-14 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
-            {/* Subtle ambient lighting */}
-            <div className="pointer-events-none absolute -top-32 -right-32 w-[28rem] h-[28rem] bg-sky/25 rounded-full blur-[100px]" />
-            <div className="pointer-events-none absolute -bottom-32 -left-32 w-[28rem] h-[28rem] bg-teal/10 rounded-full blur-[100px]" />
-
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="max-w-3xl mb-14">
-                <p className="text-teal text-xs font-semibold tracking-[0.25em] uppercase mb-3">Guiding Principles</p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight">
-                  Our Sustainability Pillars
-                </h2>
-                <p className="text-navy/70 text-base sm:text-lg mt-4 max-w-2xl font-light leading-relaxed">
-                  Three core commitments driving our environmental regeneration, social responsibility, and circular craftsmanship.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-                {VALUES.map((val, idx) => (
-                  <PillarHyperFrameCard key={val.num} val={val} idx={idx} />
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Section 5: Certifications & Marks - 5 Big Visual Placeholders (Blue Background) */}
+          {/* Section 4: Certifications & Marks - 5 Big Visual Placeholders (Blue Background) */}
           <section id="certifications" className="scroll-mt-28 px-6 sm:px-10 lg:px-14 py-20 lg:py-28 bg-navy text-white relative overflow-hidden border-b border-navy/10">
             {/* Ambient glowing orbs */}
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />

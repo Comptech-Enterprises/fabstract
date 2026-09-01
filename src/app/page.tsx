@@ -24,7 +24,7 @@ const CAPABILITIES = [
   },
   {
     title: "Artisan Craft & Specialty Washes",
-    desc: "In-house capabilities for intricate embroidery, handcrafted details, complex garment dyeing, and specialized acid washes.",
+    desc: "In-house capabilities for intricate embroidery, handcrafted details, complex garment dyeing, and specialty washes.",
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5H18l-3.7 2.7 1.4 4.3L12 12l-3.7 2.5 1.4-4.3L6 7.5h4.5z"/><path d="M5 19a2 2 0 104 0 2 2 0 10-4 0"/><path d="M15 19a2 2 0 104 0 2 2 0 10-4 0"/></svg>',
   },
   {
@@ -39,7 +39,7 @@ const CAPABILITIES = [
   },
   {
     title: "Ethical & Certified Operations",
-    desc: "Fully compliant with global benchmarks—certified by GOTS, Fairtrade, FLOCERT, and Sedex—with a focus on fair labor and a motivated workforce.",
+    desc: "Fully compliant with global benchmarks—certified by <strong>GOTS</strong>, <strong>Fairtrade</strong>, <strong>FLOCERT</strong>, and <strong>Sedex</strong>—with a focus on fair labor and a motivated workforce.",
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>',
   },
 ];
@@ -145,15 +145,15 @@ export default function Home() {
       </section>
       <GlobalPartner />
 
-      {/* Our Core Strengths */}
+      {/* Capabilities */}
       <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium mb-12">Our Core Strengths</h2>
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium mb-12">Product Capabilities</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
           {CAPABILITIES.map((cap) => (
             <div key={cap.title}>
               <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
               <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
-              <p className="text-navy/65 text-sm sm:text-base leading-relaxed">{cap.desc}</p>
+              <p className="text-navy/65 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: cap.desc }} />
             </div>
           ))}
         </div>

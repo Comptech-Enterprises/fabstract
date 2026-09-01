@@ -27,6 +27,9 @@ interface NewsCard {
   href: string;
 }
 
+const ARTICLE_URL =
+  "https://betterfuturemedia.substack.com/p/eu-ban-destroying-unsold-clothes?r=8has2w&utm_medium=ios&utm_source=notes-share-action";
+
 const NEWS_CARDS: NewsCard[] = [
   {
     category: "People",
@@ -35,7 +38,7 @@ const NEWS_CARDS: NewsCard[] = [
     excerpt:
       "How garment manufacturers can prioritise interventions that fit their workforce & operational needs with accountability.",
     image: `${R2_MEDIA}/worker.jpg`,
-    href: "#",
+    href: ARTICLE_URL,
   },
   {
     category: "Media & Research",
@@ -44,7 +47,7 @@ const NEWS_CARDS: NewsCard[] = [
     excerpt:
       "Low-cost vision correction intervention delivers over 3x return; Fabstract to expand programme to all workers.",
     image: `${R2_MEDIA}/health.jpg`,
-    href: "#",
+    href: ARTICLE_URL,
   },
   {
     category: "Media & Research",
@@ -53,7 +56,7 @@ const NEWS_CARDS: NewsCard[] = [
     excerpt:
       "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
     image: `${R2_MEDIA}/yarn.jpg`,
-    href: "#",
+    href: ARTICLE_URL,
   },
   {
     category: "Sustainability",
@@ -62,7 +65,7 @@ const NEWS_CARDS: NewsCard[] = [
     excerpt:
       "Fabstract releases its sustainability report, highlighting a 30% reduction in water usage and 1.3M+ hours of employee training.",
     image: `${R2_MEDIA}/trees.jpg`,
-    href: "#",
+    href: ARTICLE_URL,
   },
   {
     category: "Industry",
@@ -71,7 +74,7 @@ const NEWS_CARDS: NewsCard[] = [
     excerpt:
       "Fabstract Clothing India receives the prestigious Star Export House recognition for consistent growth and ethical trade practices.",
     image: `${R2_MEDIA}/training.jpg`,
-    href: "#",
+    href: ARTICLE_URL,
   },
 ];
 
@@ -88,10 +91,17 @@ const field =
 
 export function StickyScrollTabs() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [selectedArticles, setSelectedArticles] = useState<NewsCard[]>(NEWS_CARDS.slice(0, 3));
 
   const containerRef = useRef<HTMLElement>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const newsScrollRef = useRef<HTMLDivElement>(null);
+
+  // Randomly select 3 articles on client mount
+  useEffect(() => {
+    const shuffled = [...NEWS_CARDS].sort(() => 0.5 - Math.random());
+    setSelectedArticles(shuffled.slice(0, 3));
+  }, []);
 
   /* ── Click-to-scroll ── */
   const scrollToSection = useCallback((id: string) => {
@@ -230,105 +240,96 @@ export function StickyScrollTabs() {
             ref={registerRef("s-newsroom")}
             className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-16 lg:py-20 min-h-[calc(100vh-6rem)] flex flex-col justify-center border-t border-navy/10"
           >
-            {/* Header + arrows */}
-            <div className="flex items-start justify-between mb-10">
-              <motion.h2
-                className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: EASE }}
-              >
-                Newsroom
-              </motion.h2>
-              <div className="hidden sm:flex items-center gap-3 mt-3">
-                <button
-                  onClick={() => scrollNews(-1)}
-                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors cursor-pointer"
-                  aria-label="Previous news"
+            {/* Header + View More */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+              <div>
+                <span className="text-teal text-xs tracking-[0.25em] uppercase font-medium">Stories & Updates</span>
+                <motion.h2
+                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight mt-2"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: EASE }}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M10 3L5 8l5 5" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => scrollNews(1)}
-                  className="w-10 h-10 rounded-full border border-navy/20 flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors cursor-pointer"
-                  aria-label="Next news"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M6 3l5 5-5 5" />
-                  </svg>
-                </button>
+                  Newsroom
+                </motion.h2>
               </div>
+
+              {/* View More Link in Header */}
+              <a
+                href={ARTICLE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-2 text-navy text-xs tracking-[0.2em] uppercase font-semibold hover:text-teal transition-colors pb-1 border-b border-navy/20 hover:border-teal"
+              >
+                View all articles
+                <span>→</span>
+              </a>
             </div>
 
-            {/* Horizontal scrolling news cards */}
-            <div
-              ref={newsScrollRef}
-              className="flex gap-6 overflow-x-auto pb-4 no-scrollbar snap-x snap-mandatory -mx-6 sm:-mx-10 lg:-mx-14 px-6 sm:px-10 lg:px-14"
-            >
-              {NEWS_CARDS.map((card, i) => (
+            {/* 3 Articles Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {selectedArticles.map((card, i) => (
                 <motion.div
-                  key={i}
-                  className="shrink-0 w-[300px] sm:w-[340px] snap-start bg-white p-2"
+                  key={`${card.title}-${i}`}
+                  className="bg-white group flex flex-col justify-between"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
                 >
-                  {/* Card image */}
-                  <div className="relative w-full aspect-[4/3] bg-navy/5 overflow-hidden mb-4">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                    />
+                  <div>
+                    {/* Card image */}
+                    <div className="relative w-full aspect-[4/3] bg-navy/5 overflow-hidden mb-4 rounded-lg">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Category + date */}
+                    <p className="text-navy/50 text-[13px] mb-2">
+                      {card.category}{" "}
+                      <span className="text-navy/30">|</span> {card.date}
+                    </p>
+
+                    {/* Title */}
+                    <h3 className="font-display text-navy text-xl font-medium leading-snug mb-3 group-hover:text-teal transition-colors">
+                      {card.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-navy/55 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {card.excerpt}
+                    </p>
                   </div>
-
-                  {/* Category + date */}
-                  <p className="text-navy/50 text-[13px] mb-2">
-                    {card.category}{" "}
-                    <span className="text-navy/30">|</span> {card.date}
-                  </p>
-
-                  {/* Title */}
-                  <h3 className="font-display text-navy text-lg font-medium leading-snug mb-3">
-                    {card.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-navy/55 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {card.excerpt}
-                  </p>
 
                   {/* Read more */}
                   <a
                     href={card.href}
-                    className="inline-flex items-center gap-2 text-navy text-[13px] tracking-wide uppercase hover:text-teal transition-colors group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-navy text-[13px] tracking-wide uppercase hover:text-teal transition-colors group-hover:underline"
                   >
                     Read more
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      ›
-                    </span>
+                    <span>›</span>
                   </a>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Mobile View More Button */}
+            <div className="mt-10 sm:hidden">
+              <a
+                href={ARTICLE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-navy text-navy text-xs tracking-[0.2em] uppercase font-semibold hover:bg-navy hover:text-white transition-all"
+              >
+                View all articles →
+              </a>
             </div>
           </article>
 
@@ -388,10 +389,10 @@ export function StickyScrollTabs() {
                     Email
                   </h4>
                   <a
-                    href="mailto:info@fabstract.in"
-                    className="text-ink text-sm inline-block hover:text-teal"
+                    href="mailto:marketing@fcipl.net"
+                    className="text-ink text-sm inline-block hover:text-teal font-medium"
                   >
-                    info@fabstract.in
+                    marketing@fcipl.net
                   </a>
                 </div>
               </div>
