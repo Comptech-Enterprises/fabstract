@@ -14,137 +14,227 @@ function GlobeSVG({ className }: { className?: string }) {
         <clipPath id="globe-clip">
           <circle cx="200" cy="200" r="176" />
         </clipPath>
-        <radialGradient id="globe-shading" cx="38%" cy="35%" r="65%">
+        <radialGradient id="globe-shading" cx="35%" cy="30%" r="65%">
           <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-          <stop offset="85%" stopColor="currentColor" stopOpacity="0.06" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.15" />
+          <stop offset="60%" stopColor="currentColor" stopOpacity="0.08" />
+          <stop offset="85%" stopColor="currentColor" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
         </radialGradient>
-        <radialGradient id="globe-highlight" cx="35%" cy="32%" r="50%">
-          <stop offset="0%" stopColor="white" stopOpacity="0.12" />
+        <radialGradient id="globe-highlight" cx="28%" cy="25%" r="35%">
+          <stop offset="0%" stopColor="white" stopOpacity="0.25" />
+          <stop offset="60%" stopColor="white" stopOpacity="0.08" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* Ocean background */}
-      <circle cx="200" cy="200" r="176" fill="currentColor" fillOpacity="0.04" />
+      {/* Ocean */}
+      <circle cx="200" cy="200" r="176" fill="currentColor" fillOpacity="0.15" />
 
       <g clipPath="url(#globe-clip)">
-        {/* Grid lines */}
-        <ellipse cx="200" cy="200" rx="60" ry="176" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="200" rx="120" ry="176" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="200" rx="176" ry="176" stroke="currentColor" strokeWidth="0" />
-        <ellipse cx="200" cy="108" rx="156" ry="22" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="156" rx="168" ry="24" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="200" rx="176" ry="26" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="244" rx="168" ry="24" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
-        <ellipse cx="200" cy="292" rx="156" ry="22" stroke="currentColor" strokeWidth="0.7" opacity="0.12" />
+        {/* Latitude grid */}
+        <ellipse cx="200" cy="80" rx="148" ry="16" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="128" rx="164" ry="20" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="168" rx="172" ry="22" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="200" rx="176" ry="24" stroke="currentColor" strokeWidth="0.5" opacity="0.1" />
+        <ellipse cx="200" cy="232" rx="172" ry="22" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="272" rx="164" ry="20" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="320" rx="148" ry="16" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        {/* Longitude grid */}
+        <ellipse cx="200" cy="200" rx="44" ry="176" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="200" rx="88" ry="176" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+        <ellipse cx="200" cy="200" rx="132" ry="176" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+
+        {/* ═══ NORTH AMERICA ═══ */}
+        {/* Alaska */}
+        <path
+          d="M28 82 C24 80, 20 82, 18 86 C16 90, 18 94, 22 98 C26 102, 30 104, 34 106 C38 108, 42 106, 44 102 C46 98, 44 94, 40 90 C36 86, 32 84, 28 82 Z"
+          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Canada + USA mainland */}
+        <path
+          d="M34 68 C38 66, 44 64, 50 62 C56 60, 62 58, 68 56 C74 54, 80 52, 86 54 C90 56, 92 58, 88 60 C84 62, 78 64, 74 66 C70 68, 66 70, 68 74 C70 78, 74 76, 80 74 C86 72, 92 70, 96 68 C100 66, 106 66, 110 68 C114 70, 116 74, 112 76 C108 78, 102 80, 98 82 C94 84, 88 86, 84 90 C80 94, 78 98, 76 102 C74 106, 72 110, 74 114 C76 118, 80 120, 84 122 C88 124, 92 126, 94 130 C96 134, 94 138, 90 140 C86 142, 82 142, 78 140 C74 138, 70 136, 66 134 C62 132, 58 130, 56 132 C54 134, 52 138, 54 142 C56 146, 60 148, 62 152 C64 156, 64 160, 60 162 C56 164, 52 162, 48 158 C44 154, 40 148, 36 142 C32 136, 30 128, 28 120 C26 112, 26 104, 28 96 C30 88, 32 80, 32 74 C32 70, 34 68, 34 68 Z"
+          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Florida */}
+        <path
+          d="M62 152 C64 156, 66 162, 68 168 C70 174, 70 180, 68 184 C66 186, 64 184, 62 180 C60 176, 58 170, 56 164 C54 160, 56 156, 60 154 Z"
+          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
 
         {/* Greenland */}
         <path
-          d="M128 58 C124 56, 118 58, 114 62 C110 66, 108 72, 110 78 C112 84, 118 88, 124 90 C130 92, 136 90, 140 86 C144 82, 146 76, 144 70 C142 64, 136 60, 128 58 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-        />
-
-        {/* North America — Canada + USA */}
-        <path
-          d="M38 90 C42 86, 50 82, 58 80 C64 78, 72 76, 78 74 C84 72, 90 68, 94 72 C98 76, 96 82, 92 86 C88 90, 82 92, 78 96 C74 100, 72 104, 76 108 C80 112, 86 114, 90 118 C94 122, 96 128, 92 132 C88 136, 82 138, 78 136 C74 134, 70 130, 66 126 C62 122, 58 118, 54 116 C50 114, 44 114, 40 118 C36 122, 34 128, 36 134 C38 138, 42 140, 44 136 L48 130 C50 128, 54 130, 52 134 C50 138, 46 142, 42 144 C38 146, 34 144, 32 140 C28 134, 26 126, 28 118 C30 110, 34 104, 36 98 C38 94, 38 92, 38 90 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M118 34 C112 32, 106 34, 102 38 C98 42, 96 48, 96 54 C96 60, 98 66, 102 70 C106 74, 112 76, 118 78 C124 80, 130 78, 136 74 C140 70, 144 66, 146 60 C148 54, 148 48, 146 42 C144 38, 140 34, 134 32 C128 30, 122 32, 118 34 Z"
+          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
         />
 
         {/* Central America */}
         <path
-          d="M52 148 C54 146, 58 144, 60 148 C62 152, 60 158, 58 162 C56 166, 54 170, 56 174 C58 178, 62 180, 64 184 C66 188, 64 192, 60 194 Z"
-          stroke="currentColor" strokeWidth="1.6" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M54 186 C56 184, 60 184, 62 188 C64 192, 62 196, 60 200 C58 204, 56 208, 58 212 C60 216, 64 218, 66 222 C68 226, 66 230, 62 232 C60 234, 58 232, 58 228 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Cuba */}
+        <path
+          d="M54 178 C58 176, 64 176, 70 178 C74 180, 76 182, 74 184 C72 186, 66 186, 60 184 C56 182, 54 180, 54 178 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* South America */}
+        {/* ═══ SOUTH AMERICA ═══ */}
         <path
-          d="M72 196 C68 194, 64 196, 62 200 C60 206, 62 212, 66 218 C70 224, 76 232, 80 240 C84 248, 88 258, 90 268 C92 278, 90 288, 86 298 C82 308, 76 316, 72 322 C68 326, 66 330, 68 334 C70 338, 74 340, 76 336 C80 330, 84 322, 86 314 C88 306, 90 298, 92 290 C94 282, 96 274, 98 266 C100 258, 100 248, 98 240 C96 232, 92 224, 88 218 C84 212, 80 206, 76 200 C74 198, 72 196, 72 196 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M72 236 C68 234, 64 236, 62 240 C60 244, 62 250, 66 256 C70 262, 76 266, 82 272 C88 278, 94 284, 98 290 C102 296, 104 302, 104 308 C104 314, 102 320, 98 326 C94 332, 90 336, 86 340 C82 344, 78 348, 76 352 C74 356, 72 360, 74 362 C76 364, 78 364, 80 362 C84 358, 88 352, 90 346 C92 340, 94 334, 96 328 C98 322, 100 316, 102 310 C104 304, 104 298, 104 292 C104 286, 106 280, 108 274 C110 268, 110 262, 108 256 C106 250, 102 244, 98 240 C94 236, 88 234, 84 234 C80 234, 76 236, 72 236 Z"
+          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
         />
 
-        {/* Europe — Iberia, France, British Isles, Scandinavia */}
+        {/* ═══ EUROPE ═══ */}
+        {/* Iceland */}
         <path
-          d="M178 72 C174 70, 170 72, 168 76 C166 80, 168 86, 172 90 C176 94, 182 96, 188 98 C194 100, 200 100, 204 96 C208 92, 210 86, 208 82 C206 78, 202 76, 198 78 C194 80, 190 78, 186 76 C182 74, 180 72, 178 72 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M154 50 C152 48, 148 48, 146 50 C144 52, 146 56, 150 58 C154 60, 158 58, 158 54 C158 52, 156 50, 154 50 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
-        {/* British Isles */}
+        {/* British Isles — Great Britain */}
         <path
-          d="M166 68 C164 66, 160 68, 160 72 C160 76, 164 78, 166 76 C168 74, 168 70, 166 68 Z"
-          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.1"
+          d="M162 74 C160 70, 158 68, 156 70 C154 72, 154 76, 156 80 C158 84, 160 86, 162 88 C164 90, 166 88, 166 84 C166 80, 164 76, 162 74 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
-        {/* Scandinavia */}
+        {/* Ireland */}
         <path
-          d="M196 52 C194 50, 190 48, 188 52 C186 56, 188 62, 192 66 C196 70, 200 72, 204 70 C206 68, 206 64, 204 60 C202 56, 198 54, 196 52 Z"
-          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.1"
+          d="M152 78 C150 76, 148 78, 148 80 C148 84, 150 86, 152 84 C154 82, 154 80, 152 78 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.75"
+        />
+        {/* Scandinavia — Norway/Sweden */}
+        <path
+          d="M190 42 C188 40, 184 38, 182 40 C180 42, 178 46, 180 52 C182 58, 186 64, 190 68 C194 72, 198 74, 202 72 C206 70, 208 66, 206 62 C204 58, 200 54, 198 50 C196 46, 192 44, 190 42 Z"
+          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Continental Europe — Iberia through Eastern Europe */}
+        <path
+          d="M164 92 C160 90, 156 92, 154 96 C152 100, 152 106, 156 110 C158 112, 162 114, 164 112 C166 110, 168 106, 170 104 C172 102, 176 100, 180 98 C184 96, 188 96, 192 98 C196 100, 200 102, 204 102 C208 102, 212 100, 216 98 C220 96, 224 94, 226 92 C228 90, 228 88, 224 86 C220 84, 214 84, 208 84 C202 84, 196 84, 192 86 C188 88, 184 90, 180 92 C176 94, 172 94, 168 92 C166 92, 164 92, 164 92 Z"
+          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Italy boot */}
+        <path
+          d="M196 102 C194 104, 194 108, 196 112 C198 116, 200 120, 198 124 C196 126, 194 124, 194 120 C194 118, 192 116, 192 118 C192 122, 196 126, 200 126 C202 126, 204 124, 204 120 C204 116, 202 112, 200 108 C198 104, 198 102, 196 102 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.75"
+        />
+        {/* Greece */}
+        <path
+          d="M212 108 C210 106, 208 108, 208 112 C208 116, 210 118, 212 116 C214 114, 214 110, 212 108 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* Africa */}
+        {/* ═══ AFRICA ═══ */}
         <path
-          d="M186 118 C180 116, 174 118, 170 124 C166 130, 164 138, 164 146 C164 154, 166 162, 170 170 C174 178, 178 186, 182 196 C186 206, 190 216, 194 228 C198 240, 200 252, 202 262 C204 270, 208 276, 212 278 C216 280, 220 278, 222 274 C224 268, 224 260, 222 252 C220 244, 218 236, 218 228 C218 220, 220 212, 222 204 C224 196, 226 188, 226 180 C226 172, 224 164, 220 156 C216 148, 212 140, 208 134 C204 128, 200 122, 194 120 C190 118, 188 118, 186 118 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M176 122 C172 120, 168 122, 164 126 C160 130, 158 136, 156 142 C154 148, 154 154, 156 160 C158 166, 162 172, 166 178 C170 184, 174 190, 178 198 C182 206, 186 214, 190 224 C194 234, 196 244, 198 254 C200 264, 202 272, 206 278 C210 284, 214 288, 218 290 C222 292, 226 290, 228 286 C230 282, 230 276, 228 270 C226 264, 224 258, 224 252 C224 246, 224 240, 226 234 C228 228, 230 222, 232 216 C234 210, 234 204, 234 198 C234 192, 232 186, 230 180 C228 174, 226 168, 224 162 C222 156, 220 150, 216 144 C212 138, 208 132, 202 128 C196 124, 190 122, 184 122 C180 122, 178 122, 176 122 Z"
+          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Horn of Africa */}
+        <path
+          d="M234 198 C238 196, 242 194, 246 196 C250 198, 252 202, 250 206 C248 210, 244 212, 240 210 C236 208, 234 204, 234 200 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
         {/* Madagascar */}
         <path
-          d="M234 240 C232 238, 230 240, 230 244 C230 250, 232 256, 234 260 C236 262, 238 260, 238 256 C238 250, 236 244, 234 240 Z"
-          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.1"
+          d="M244 254 C242 250, 240 252, 238 256 C236 262, 238 270, 240 276 C242 282, 244 284, 246 282 C248 278, 248 272, 248 266 C248 260, 246 256, 244 254 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* Middle East + Asia */}
+        {/* ═══ MIDDLE EAST ═══ */}
         <path
-          d="M224 100 C220 98, 216 96, 214 98 C212 100, 214 104, 218 108 C222 112, 228 114, 234 116 C240 118, 248 118, 256 116 C264 114, 272 110, 280 108 C288 106, 296 106, 304 108 C312 110, 318 114, 324 118 C330 122, 334 126, 336 130 C338 134, 338 140, 334 144 C330 148, 324 150, 318 148 C312 146, 306 142, 300 138 C294 134, 288 130, 282 128 C276 126, 270 126, 264 128 C258 130, 252 132, 248 130 C244 128, 242 124, 240 120 C238 116, 234 112, 230 108 C226 104, 224 102, 224 100 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M228 96 C226 94, 224 96, 224 100 C224 104, 226 108, 230 112 C234 116, 238 118, 242 120 C246 122, 250 122, 252 118 C254 114, 254 110, 252 106 C250 102, 246 100, 242 98 C238 96, 234 96, 230 96 Z"
+          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Arabian Peninsula */}
+        <path
+          d="M236 122 C234 120, 230 122, 228 126 C226 130, 228 136, 232 140 C236 144, 242 146, 248 144 C252 142, 254 138, 252 134 C250 130, 246 126, 242 124 C240 122, 238 122, 236 122 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
 
+        {/* ═══ ASIA ═══ */}
+        {/* Russia/Central Asia sprawl */}
+        <path
+          d="M226 86 C230 84, 236 82, 244 80 C252 78, 262 76, 272 74 C282 72, 292 72, 302 74 C312 76, 320 78, 328 82 C336 86, 342 90, 346 96 C350 102, 350 108, 346 112 C342 116, 336 118, 330 116 C324 114, 318 110, 312 108 C306 106, 300 106, 294 108 C288 110, 282 112, 276 112 C270 112, 264 110, 258 108 C252 106, 246 104, 240 100 C234 96, 230 92, 228 88 Z"
+          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* China/East Asia */}
+        <path
+          d="M294 112 C290 110, 286 112, 284 116 C282 120, 282 126, 284 132 C286 138, 290 142, 296 146 C302 150, 308 152, 314 150 C320 148, 324 144, 326 140 C328 136, 328 130, 326 124 C324 118, 320 114, 314 112 C308 110, 302 112, 298 112 Z"
+          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
         {/* India */}
         <path
-          d="M268 138 C264 136, 260 138, 258 142 C256 148, 258 156, 262 164 C266 172, 270 178, 272 182 C274 186, 274 188, 272 186 C270 184, 266 178, 264 174 C262 170, 260 168, 260 172 C260 178, 264 186, 270 190 C274 192, 278 190, 280 186 C282 182, 282 176, 280 170 C278 164, 276 158, 274 152 C272 146, 270 142, 268 138 Z"
-          stroke="currentColor" strokeWidth="1.6" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M272 128 C268 126, 264 128, 262 132 C260 136, 260 142, 262 148 C264 154, 268 162, 272 168 C276 174, 278 180, 278 184 C278 188, 276 190, 274 188 C272 186, 270 182, 268 178 C266 174, 264 172, 264 176 C264 182, 268 190, 274 194 C278 196, 282 194, 284 190 C286 186, 286 180, 284 174 C282 168, 280 162, 278 156 C276 150, 274 144, 274 138 C274 132, 274 130, 272 128 Z"
+          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Sri Lanka */}
+        <path
+          d="M280 196 C278 194, 276 196, 276 198 C276 202, 278 204, 280 202 C282 200, 282 198, 280 196 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* Southeast Asia / Indonesia */}
+        {/* Southeast Asia */}
         <path
-          d="M310 162 C308 160, 304 160, 302 164 C300 168, 302 174, 306 178 C310 182, 316 184, 320 182 C324 180, 326 176, 324 172 C322 168, 318 164, 314 162 Z"
-          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1"
+          d="M312 156 C310 154, 306 154, 304 158 C302 162, 304 168, 308 172 C312 176, 316 178, 320 176 C324 174, 326 170, 324 166 C322 162, 318 158, 314 156 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
+        />
+        {/* Indonesia islands */}
+        <path
+          d="M306 186 C304 184, 300 186, 300 190 C300 194, 304 196, 308 196 C312 196, 316 194, 318 192 C320 190, 318 186, 314 184 C312 184, 310 186, 308 186 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.6"
         />
         <path
-          d="M326 186 C324 184, 320 186, 322 190 C324 194, 328 196, 332 194 C336 192, 334 188, 330 186 Z"
-          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.1"
+          d="M322 190 C320 188, 318 190, 320 194 C322 198, 326 200, 330 198 C334 196, 334 192, 330 190 C328 188, 324 190, 322 190 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.6"
+        />
+        <path
+          d="M336 192 C334 190, 332 192, 334 196 C336 200, 340 202, 344 200 C346 198, 344 194, 340 192 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.6"
+        />
+
+        {/* Korea */}
+        <path
+          d="M326 120 C324 118, 322 120, 322 124 C322 128, 324 132, 326 134 C328 136, 330 134, 330 130 C330 126, 328 122, 326 120 Z"
+          stroke="currentColor" strokeWidth="0.9" fill="currentColor" fillOpacity="0.75"
         />
 
         {/* Japan */}
         <path
-          d="M342 90 C340 88, 338 90, 338 94 C338 100, 340 106, 342 110 C344 114, 346 112, 346 108 C346 102, 344 96, 342 90 Z"
-          stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.1"
+          d="M340 100 C338 98, 336 100, 336 104 C336 108, 338 114, 340 120 C342 126, 344 130, 346 128 C348 126, 348 120, 348 114 C348 108, 346 104, 344 100 C342 98, 340 100, 340 100 Z"
+          stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.75"
         />
-
-        {/* Australia */}
+        {/* Hokkaido */}
         <path
-          d="M310 230 C304 228, 296 230, 290 236 C284 242, 280 250, 280 260 C280 270, 284 278, 292 284 C300 290, 310 292, 320 290 C330 288, 338 282, 342 274 C346 266, 346 258, 342 250 C338 242, 330 236, 322 232 C316 230, 312 230, 310 230 Z"
-          stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1"
-          strokeLinecap="round" strokeLinejoin="round"
+          d="M344 94 C342 92, 340 94, 340 96 C340 100, 342 102, 344 100 C346 98, 346 96, 344 94 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* New Zealand */}
+        {/* ═══ AUSTRALIA ═══ */}
         <path
-          d="M356 296 C354 294, 352 296, 352 300 C352 306, 354 312, 356 316 C358 318, 360 316, 360 312 C360 306, 358 300, 356 296 Z"
-          stroke="currentColor" strokeWidth="1.3" fill="currentColor" fillOpacity="0.1"
+          d="M308 238 C302 236, 294 238, 288 244 C282 250, 278 258, 278 266 C278 274, 280 282, 286 288 C292 294, 300 298, 308 300 C316 302, 324 300, 332 296 C338 292, 344 286, 348 278 C352 270, 352 262, 348 254 C344 246, 338 240, 330 238 C324 236, 318 236, 312 238 Z"
+          stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.75" strokeLinejoin="round"
+        />
+        {/* Tasmania */}
+        <path
+          d="M326 306 C324 304, 322 306, 322 308 C322 312, 324 314, 326 312 C328 310, 328 308, 326 306 Z"
+          stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.75"
+        />
+        {/* New Zealand North */}
+        <path
+          d="M362 290 C360 288, 358 290, 358 294 C358 298, 360 302, 362 304 C364 306, 366 304, 366 300 C366 296, 364 292, 362 290 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.75"
+        />
+        {/* New Zealand South */}
+        <path
+          d="M360 308 C358 306, 356 308, 356 312 C356 318, 358 322, 360 324 C362 326, 364 324, 364 318 C364 314, 362 310, 360 308 Z"
+          stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.75"
         />
 
-        {/* Sphere shading overlay */}
+        {/* ═══ SPHERE SHADING ═══ */}
         <circle cx="200" cy="200" r="176" fill="url(#globe-shading)" stroke="none" />
         <circle cx="200" cy="200" r="176" fill="url(#globe-highlight)" stroke="none" />
       </g>
 
       {/* Outer ring */}
-      <circle cx="200" cy="200" r="176" stroke="currentColor" strokeWidth="3.5" fill="none" />
+      <circle cx="200" cy="200" r="176" stroke="currentColor" strokeWidth="3" fill="none" />
+      <circle cx="200" cy="200" r="179" stroke="currentColor" strokeWidth="0.6" fill="none" opacity="0.25" />
     </svg>
   );
 }
