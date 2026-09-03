@@ -143,7 +143,7 @@ function IntroRow({
           {globeVisible && (
             <motion.span
               className="inline-flex items-center justify-center origin-center"
-              initial={{ scale: 0, opacity: 0 }}
+              initial={{ scale: 0.2, opacity: 0 }}
               animate={
                 isZooming
                   ? { scale: [1, 4, 8], opacity: [1, 1, 0] }
@@ -152,7 +152,7 @@ function IntroRow({
               transition={
                 isZooming
                   ? { duration: 1.6, times: [0, 0.5, 1], ease: [0.22, 1, 0.36, 1] }
-                  : { duration: 0.3, ease: "easeOut" }
+                  : { duration: 1.5, ease: [0.05, 0.7, 0.1, 1] }
               }
             >
               {cutout ? (
