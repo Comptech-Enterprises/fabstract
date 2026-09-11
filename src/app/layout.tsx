@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist } from "next/font/google";
 import "./globals.css";
-import WhatsAppButton from "@/components/WhatsAppButton";
+
 import { ScrollProgress } from "@/components/ScrollProgress";
 
 const geist = Geist({
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col font-sans bg-white text-navy">
         <ScrollProgress />
         {children}
-        <WhatsAppButton />
+
       </body>
     </html>
   );

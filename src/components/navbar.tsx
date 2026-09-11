@@ -12,7 +12,6 @@ export const NAV_LINKS = [
   { label: "What We Do", href: "/what-we-do" },
   { label: "Gallery", href: "/gallery" },
   { label: "Sustainability", href: "/sustainability" },
-  { label: "Careers", href: "/career" },
 ];
 
 export function Navbar() {
