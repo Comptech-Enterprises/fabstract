@@ -8,12 +8,49 @@ import { BANNER_VIDEO } from "@/data/hero";
 import { ParallaxLayer } from "@/components/Parallax";
 
 const CARDS = [
-  { label: "Knitted", image: "/images/card-knitted.jpg", desc: "Crafted from premium cotton blends and organic fabrics, our knitted apparel seamlessly combines softness, durability, and contemporary design for effortless everyday wear." },
-  { label: "Woven", image: "/images/card-woven.jpg", desc: "Consciously crafted for women and kids, our versatile collection of tops, dresses, and separates is thoughtfully designed for effortless movement and everyday wear." },
-  { label: "Sweater", image: "/images/card-sweater.jpg", desc: "Expertly engineered knitwear crafted with fine-gauge wool, cashmere blends, and organic cotton for elevated warmth and timeless texture." },
-  { label: "Home Textile", image: "/images/card-home-textile.jpg", desc: "Sustainable bed linens, handcrafted throws, and living textiles designed with natural dyes and eco-certified fibers." },
-  { label: "Intimate Wear", image: "/images/card-knitted.jpg", desc: "Ultra-soft, breathable essentials and second-skin loungewear tailored with seamless precision and hypoallergenic organic cotton." },
+  { label: "Knitted", image: "/images/card-knitted.jpg", desc: "Crafted from premium cotton blends and organic fabrics, our knitted apparel seamlessly combines softness, durability, and contemporary design for effortless everyday wear.", catalogue: "/catalogues/knitwear-2026.pdf" },
+  { label: "Woven", image: "/images/card-woven.jpg", desc: "Consciously crafted for women and kids, our versatile collection of tops, dresses, and separates is thoughtfully designed for effortless movement and everyday wear.", catalogue: "/catalogues/wovens-2026.pdf" },
+  { label: "Sweater", image: "/images/card-sweater.jpg", desc: "Expertly engineered knitwear crafted with fine-gauge wool, cashmere blends, and organic cotton for elevated warmth and timeless texture.", catalogue: "/catalogues/knitwear-2026.pdf" },
+  { label: "Home Textile", image: "/images/card-home-textile.jpg", desc: "Sustainable bed linens, handcrafted throws, and living textiles designed with natural dyes and eco-certified fibers.", catalogue: "/catalogues/wovens-2026.pdf" },
+  { label: "Intimate Wear", image: "/images/card-knitted.jpg", desc: "Ultra-soft, breathable essentials and second-skin loungewear tailored with seamless precision and hypoallergenic organic cotton.", catalogue: "/catalogues/knitwear-2026.pdf" },
+  { label: "Kidswear", image: "/images/card-woven.jpg", desc: "Playful, durable, and skin-safe garments for children — crafted with certified organic fabrics, AZO-free dyes, and child-safe construction standards.", catalogue: "/catalogues/credential-deck-2026.pdf" },
 ];
+
+function ProductCard({ card }: { card: (typeof CARDS)[number] }) {
+  return (
+    <div className="group relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl bg-sky/20 overflow-hidden flex items-end p-6 sm:p-8 transition-all duration-500 shadow-md hover:shadow-2xl border-2 border-transparent hover:border-white/40 hover:-translate-y-1">
+      {card.image && (
+        <div
+          className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
+          style={{ backgroundImage: `url(${card.image})` }}
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent" />
+      <div className="relative z-10">
+        <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-white font-medium block">
+          {card.label}
+        </span>
+        {card.desc && (
+          <p className="text-white/85 text-sm sm:text-base mt-2 leading-relaxed font-normal max-w-md">
+            {card.desc}
+          </p>
+        )}
+        <a
+          href={card.catalogue}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative inline-flex items-center gap-2 mt-4 px-5 py-2 rounded-full border border-white/30 text-navy bg-white sm:text-white sm:bg-transparent text-xs tracking-[0.15em] uppercase font-semibold overflow-hidden transition-all duration-500 ease-out sm:hover:border-white sm:hover:shadow-lg sm:hover:shadow-white/10"
+        >
+          <span className="absolute inset-0 bg-white scale-x-0 sm:group-hover:scale-x-100 origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] hidden sm:block" />
+          <span className="relative z-10 sm:group-hover:text-navy transition-colors duration-300">Explore Catalogue</span>
+          <svg className="relative z-10 w-3.5 h-3.5 sm:group-hover:text-navy transition-all duration-300 sm:group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+}
 
 export default function WhatWeDo() {
   const heroRef = useRef<HTMLElement>(null);
@@ -68,87 +105,21 @@ export default function WhatWeDo() {
           {/* Row 1: 2 Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 mb-6 lg:mb-8">
             {CARDS.slice(0, 2).map((card) => (
-              <a
-                key={card.label}
-                href="/about"
-                className="group relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl bg-sky/20 overflow-hidden cursor-pointer flex items-end p-6 sm:p-8 transition-all duration-500 shadow-md hover:shadow-xl"
-              >
-                {card.image && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${card.image})` }}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent" />
-                <div className="relative z-10">
-                  <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-white font-medium block">
-                    {card.label}
-                  </span>
-                  {card.desc && (
-                    <p className="text-white/85 text-sm sm:text-base mt-2 leading-relaxed font-normal max-w-md">
-                      {card.desc}
-                    </p>
-                  )}
-                </div>
-              </a>
+              <ProductCard key={card.label} card={card} />
             ))}
           </div>
 
           {/* Row 2: 2 Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 mb-6 lg:mb-8">
             {CARDS.slice(2, 4).map((card) => (
-              <a
-                key={card.label}
-                href="/about"
-                className="group relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl bg-sky/20 overflow-hidden cursor-pointer flex items-end p-6 sm:p-8 transition-all duration-500 shadow-md hover:shadow-xl"
-              >
-                {card.image && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${card.image})` }}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent" />
-                <div className="relative z-10">
-                  <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-white font-medium block">
-                    {card.label}
-                  </span>
-                  {card.desc && (
-                    <p className="text-white/85 text-sm sm:text-base mt-2 leading-relaxed font-normal max-w-md">
-                      {card.desc}
-                    </p>
-                  )}
-                </div>
-              </a>
+              <ProductCard key={card.label} card={card} />
             ))}
           </div>
 
-          {/* Row 3: 1 Centered Card (Intimate Wear) */}
-          <div className="max-w-xl mx-auto">
-            {CARDS.slice(4, 5).map((card) => (
-              <a
-                key={card.label}
-                href="/about"
-                className="group relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl bg-sky/20 overflow-hidden cursor-pointer flex items-end p-6 sm:p-8 transition-all duration-500 shadow-md hover:shadow-xl"
-              >
-                {card.image && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${card.image})` }}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent" />
-                <div className="relative z-10">
-                  <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-white font-medium block">
-                    {card.label}
-                  </span>
-                  {card.desc && (
-                    <p className="text-white/85 text-sm sm:text-base mt-2 leading-relaxed font-normal max-w-md">
-                      {card.desc}
-                    </p>
-                  )}
-                </div>
-              </a>
+          {/* Row 3: 2 Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+            {CARDS.slice(4, 6).map((card) => (
+              <ProductCard key={card.label} card={card} />
             ))}
           </div>
         </div>

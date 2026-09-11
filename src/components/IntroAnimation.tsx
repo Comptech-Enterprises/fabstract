@@ -273,7 +273,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 }
                 onAnimationComplete={isZooming ? handleZoomComplete : undefined}
               >
-                <GlobeSVG className="w-[1em] h-[1em] mx-[0.05em] text-black" />
+                <GlobeSVG className="w-[1em] h-[1em] mx-[0.05em] text-[#1a6b3c]" />
               </motion.span>
             )}
 

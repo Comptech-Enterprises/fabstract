@@ -12,6 +12,7 @@ export const NAV_LINKS = [
   { label: "What We Do", href: "/what-we-do" },
   { label: "Gallery", href: "/gallery" },
   { label: "Sustainability", href: "/sustainability" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -25,6 +26,10 @@ export function Navbar() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <motion.nav

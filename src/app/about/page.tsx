@@ -10,7 +10,6 @@ import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 const TABS = [
   { id: "legacy", label: "Our Legacy" },
   { id: "journey", label: "Our Journey" },
-  { id: "leadership", label: "Management" },
   { id: "certifications", label: "Certifications" },
 ] as const;
 
@@ -73,40 +72,6 @@ const JOURNEY_PAIRS = [
   ],
 ];
 
-const TEAM = [
-  {
-    name: "Kavya Mehra",
-    role: "Head of Marketing",
-    dept: "Global Accounts",
-    experience: "12+ Years Industry Leadership",
-    bio: "Builds Fabstract’s brand story for global buyers — lookbooks, trade shows, and seasonal campaigns for knit and woven lines.",
-    img: GALLERY_FILES[1],
-  },
-  {
-    name: "Arjun Malhotra",
-    role: "Production Director",
-    dept: "Floor Operations",
-    experience: "18+ Years Manufacturing Mastery",
-    bio: "Runs the Noida floor from cutting to packing, keeping bulk programmes on the 60–90 day lead time buyers expect.",
-    img: GALLERY_FILES[6],
-  },
-  {
-    name: "Priya Sethi",
-    role: "Merchandising Head",
-    dept: "Sourcing & T&A",
-    experience: "14+ Years Global Sourcing",
-    bio: "Owns T&A calendars, tech packs, and buyer sampling so each order moves cleanly from proto to shipment.",
-    img: GALLERY_FILES[2],
-  },
-  {
-    name: "Rohan Kapoor",
-    role: "Quality Control Lead",
-    dept: "AQL & Compliance",
-    experience: "16+ Years Quality Assurance",
-    bio: "Leads five-stage garment inspection, fabric testing, and strict AQL benchmarks before cartons leave the factory.",
-    img: GALLERY_FILES[7],
-  },
-];
 
 
 
@@ -426,75 +391,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section 3: Management & Leadership - Blue Background & Editorial Executive Cards */}
-          <section id="leadership" className="scroll-mt-28 bg-navy text-white px-6 sm:px-10 lg:px-14 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
-            {/* Subtle ambient lighting */}
-            <div className="pointer-events-none absolute -top-32 -right-32 w-[28rem] h-[28rem] bg-teal/15 rounded-full blur-[100px]" />
-            <div className="pointer-events-none absolute -bottom-32 -left-32 w-[28rem] h-[28rem] bg-sky/10 rounded-full blur-[100px]" />
-
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="max-w-3xl mb-14">
-                <p className="text-sky text-xs font-semibold tracking-[0.25em] uppercase mb-3">The Team</p>
-                <h2 className="font-display text-4xl sm:text-5xl text-white font-light tracking-tight">
-                  Management & Leadership
-                </h2>
-                <p className="text-white/70 text-base sm:text-lg mt-3 leading-relaxed font-light">
-                  Seasoned industry leaders with decades of apparel manufacturing, merchandising, and global supply chain expertise.
-                </p>
-              </div>
-
-              {/* 4 Editorial Executive Portrait Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 items-stretch">
-                {TEAM.map((person, i) => (
-                  <motion.div
-                    key={person.name}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.55, delay: i * 0.1 }}
-                    whileHover={{ y: -8 }}
-                    className="relative min-h-[440px] sm:min-h-[480px] rounded-2xl overflow-hidden shadow-xl group flex flex-col justify-between p-6 sm:p-7 bg-[#1b2735] border border-white/15 hover:border-sky/50 transition-all duration-500"
-                  >
-                    {/* Background Executive Photo */}
-                    <div className="absolute inset-0 bg-navy">
-                      <img
-                        src={gallerySrc(person.img)}
-                        alt={person.name}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
-                      />
-                    </div>
-                    {/* Multi-layer Dark Gradient for high legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#162230] via-[#162230]/60 to-transparent" />
-
-                    {/* Top Department Badge */}
-                    <div className="relative z-10 flex items-center justify-between">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold tracking-[0.18em] uppercase">
-                        {person.dept}
-                      </span>
-                      <span className="text-white/40 font-display text-2xl font-light">
-                        0{i + 1}
-                      </span>
-                    </div>
-
-                    {/* Bottom Info & Bio */}
-                    <div className="relative z-10 mt-auto pt-6">
-                      <p className="text-sky text-xs font-semibold tracking-[0.2em] uppercase mb-1">
-                        {person.role}
-                      </p>
-                      <h3 className="font-display text-2xl text-white font-medium mb-3 group-hover:text-sky transition-colors">
-                        {person.name}
-                      </h3>
-                      <p className="text-white/80 text-xs sm:text-sm leading-relaxed font-light line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
-                        {person.bio}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Section 4: Certifications & Marks - 5 Big Visual Placeholders (Blue Background) */}
+          {/* Section 3: Certifications & Marks - 5 Big Visual Placeholders (Blue Background) */}
           <section id="certifications" className="scroll-mt-28 px-6 sm:px-10 lg:px-14 py-20 lg:py-28 bg-navy text-white relative overflow-hidden border-b border-navy/10">
             {/* Ambient glowing orbs */}
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
