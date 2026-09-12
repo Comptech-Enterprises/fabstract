@@ -8,12 +8,12 @@ import { BANNER_VIDEO } from "@/data/hero";
 import { ParallaxLayer } from "@/components/Parallax";
 
 const CARDS = [
-  { label: "Knitted", image: "/images/card-knitted.jpg", desc: "Crafted from premium cotton blends and organic fabrics, our knitted apparel seamlessly combines softness, durability, and contemporary design for effortless everyday wear.", catalogue: "/catalogues/knitwear-2026.pdf" },
-  { label: "Woven", image: "/images/card-woven.jpg", desc: "Consciously crafted for women and kids, our versatile collection of tops, dresses, and separates is thoughtfully designed for effortless movement and everyday wear.", catalogue: "/catalogues/wovens-2026.pdf" },
-  { label: "Sweater", image: "/images/card-sweater.jpg", desc: "Expertly engineered knitwear crafted with fine-gauge wool, cashmere blends, and organic cotton for elevated warmth and timeless texture.", catalogue: "/catalogues/knitwear-2026.pdf" },
-  { label: "Home Textile", image: "/images/card-home-textile.jpg", desc: "Sustainable bed linens, handcrafted throws, and living textiles designed with natural dyes and eco-certified fibers.", catalogue: "/catalogues/wovens-2026.pdf" },
-  { label: "Intimate Wear", image: "/images/card-knitted.jpg", desc: "Ultra-soft, breathable essentials and second-skin loungewear tailored with seamless precision and hypoallergenic organic cotton.", catalogue: "/catalogues/knitwear-2026.pdf" },
-  { label: "Kidswear", image: "/images/card-woven.jpg", desc: "Playful, durable, and skin-safe garments for children — crafted with certified organic fabrics, AZO-free dyes, and child-safe construction standards.", catalogue: "/catalogues/credential-deck-2026.pdf" },
+  { label: "Knitted", image: "/images/card-knitted.jpg", desc: "Crafted from premium cotton blends and organic fabrics, our knitted apparel seamlessly combines softness, durability, and contemporary design for effortless everyday wear.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf" },
+  { label: "Woven", image: "/images/card-woven.jpg", desc: "Consciously crafted for women and kids, our versatile collection of tops, dresses, and separates is thoughtfully designed for effortless movement and everyday wear.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf" },
+  { label: "Sweater", image: "/images/card-sweater.jpg", desc: "Expertly engineered knitwear crafted with fine-gauge wool, cashmere blends, and organic cotton for elevated warmth and timeless texture.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf" },
+  { label: "Home Textile", image: "/images/card-home-textile.jpg", desc: "Sustainable bed linens, handcrafted throws, and living textiles designed with natural dyes and eco-certified fibers.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf" },
+  { label: "Intimate Wear", image: "/images/card-knitted.jpg", desc: "Ultra-soft, breathable essentials and second-skin loungewear tailored with seamless precision and hypoallergenic organic cotton.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf" },
+  { label: "Kidswear", image: "/images/card-woven.jpg", desc: "Playful, durable, and skin-safe garments for children — crafted with certified organic fabrics, AZO-free dyes, and child-safe construction standards.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf" },
 ];
 
 function ProductCard({ card }: { card: (typeof CARDS)[number] }) {
