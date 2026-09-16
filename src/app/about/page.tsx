@@ -142,7 +142,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white pt-20 md:pt-24">
+      <main className="bg-white">
         {/* Shahi-style Hero Banner */}
         <section className="relative h-[52vh] min-h-[360px] sm:h-[62vh] md:h-[70vh] overflow-hidden">
           <Still
@@ -174,7 +174,7 @@ export default function AboutPage() {
         </section>
 
         {/* Sticky Sub-Navigation Bar (Unified Desktop & Mobile) */}
-        <div className="sticky top-20 md:top-24 z-40 bg-white/95 border-b border-navy/10 backdrop-blur-md">
+        <div className="sticky top-14 sm:top-16 md:top-18 z-40 bg-white/95 border-b border-navy/10 backdrop-blur-md">
           <nav className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex items-center justify-start md:justify-center gap-6 sm:gap-8 lg:gap-14 overflow-x-auto scrollbar-none">
             {TABS.map((tab) => {
               const on = active === tab.id;

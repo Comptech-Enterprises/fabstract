@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BANNER_VIDEO } from "@/data/hero";
-import { ParallaxLayer } from "@/components/Parallax";
 
 const CARDS = [
   { label: "Knitted", image: "/images/card-knitted.jpg", desc: "Crafted from premium cotton blends and organic fabrics, our knitted apparel seamlessly combines softness, durability, and contemporary design for effortless everyday wear.", catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf" },
@@ -67,9 +66,9 @@ export default function WhatWeDo() {
       {/* Hero Banner (Same Proportions as Home Hero) */}
       <section
         ref={heroRef}
-        className="relative h-[65vh] sm:h-[56.25vw] min-h-[520px] sm:min-h-[400px] max-h-[85vh] bg-navy overflow-hidden flex items-end"
+        className="relative w-full aspect-[16/9] max-h-[85vh] min-h-[380px] bg-navy overflow-hidden flex items-end"
       >
-        <ParallaxLayer speed={0.25} className="absolute inset-0">
+        <div className="absolute inset-0">
           <video
             src={BANNER_VIDEO}
             autoPlay
@@ -77,9 +76,9 @@ export default function WhatWeDo() {
             loop
             playsInline
             preload="auto"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-top"
           />
-        </ParallaxLayer>
+        </div>
 
         <div className="absolute inset-0 bg-navy/40 pointer-events-none" />
 

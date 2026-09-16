@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BANNER_VIDEO } from "@/data/hero";
-import { ParallaxLayer } from "@/components/Parallax";
 import { TypeReveal } from "@/components/TypeReveal";
 import { IntroAnimation } from "@/components/IntroAnimation";
 import { StickyScrollTabs } from "@/components/StickyScrollTabs";
@@ -61,7 +60,7 @@ function GlobalPartner() {
           <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.2]">
             A global manufacturing partner to 50+ leading brands.
           </h2>
-          <p className="mt-6 text-lg sm:text-xl text-navy/70 leading-[1.8]">
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-navy/70 leading-[1.8] text-justify">
             Since 1991, Fabstract has grown from a boutique workshop into a modern, four-facility operation. Today, backed by more than 30 years of expertise, we lead the sustainable garment export sector through low-impact, solar-driven, and green-certified manufacturing.
           </p>
         </div>
@@ -89,9 +88,9 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
     <section
       id="hero-banner"
       ref={heroRef}
-      className="relative h-[65vh] sm:h-[56.25vw] min-h-[520px] sm:min-h-[400px] max-h-[85vh] bg-navy overflow-hidden flex items-end"
+      className="relative w-full aspect-[16/9] max-h-[85vh] min-h-[380px] bg-navy overflow-hidden flex items-end"
     >
-      <ParallaxLayer speed={0.25} className="absolute inset-0">
+      <div className="absolute inset-0">
         <video
           src={BANNER_VIDEO}
           autoPlay
@@ -99,9 +98,9 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
           loop
           playsInline
           preload="auto"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-top"
         />
-      </ParallaxLayer>
+      </div>
       <div className="relative w-full text-center">
         <motion.div style={{ y: quoteY }} className="bg-black/30 w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
           <blockquote className="font-display text-[16px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-[1.3]">
@@ -130,15 +129,15 @@ export default function Home() {
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navbar />
       <VideoBanner introComplete={introComplete} />
-      <section className="bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
-        <div className="max-w-5xl">
-          <p className="text-lg sm:text-xl lg:text-2xl text-[#0d3b2e] font-bold leading-[1.6]">
+      <section className="bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-center text-lg sm:text-xl lg:text-2xl text-[#0d3b2e] font-bold leading-[1.6]">
             We are redefining apparel manufacturing by putting people, planet, and innovation at the core of our business.
           </p>
-          <p className="mt-6 text-lg sm:text-xl lg:text-2xl text-[#144d3d] leading-[1.8]">
+          <p className="mt-6 text-justify text-base sm:text-lg lg:text-xl text-[#144d3d] leading-[1.8]">
             We are committed to <strong className="text-[#082920] font-semibold">ethical manufacturing,</strong> investing in <strong className="text-[#082920] font-semibold">our people,</strong> and advancing <strong className="text-[#082920] font-semibold">sustainable solutions</strong> that help shape a more responsible and resilient global apparel and textile industry.
           </p>
-          <p className="mt-6 font-display text-2xl sm:text-3xl lg:text-4xl text-[#0d3b2e] italic leading-[1.6]">
+          <p className="mt-8 text-center font-display text-2xl sm:text-3xl lg:text-4xl text-[#0d3b2e] italic leading-[1.6]">
             Sustainably grown. Consciously made. Expertly crafted.
           </p>
         </div>
@@ -153,7 +152,7 @@ export default function Home() {
             <div key={cap.title}>
               <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
               <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
-              <p className="text-navy/65 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: cap.desc }} />
+              <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
             </div>
           ))}
         </div>

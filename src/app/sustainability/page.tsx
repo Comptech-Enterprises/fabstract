@@ -44,7 +44,7 @@ export default function SustainabilityPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white pt-20 md:pt-24">
+      <main className="bg-white">
         {/* Hero */}
         <section className="relative min-h-[520px] sm:min-h-[580px] md:min-h-[640px] lg:h-[78vh] overflow-hidden bg-navy flex items-center justify-center">
           <div className="absolute inset-0 z-0">

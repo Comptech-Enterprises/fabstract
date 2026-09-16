@@ -36,16 +36,16 @@ export function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: EASE }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 bg-white/95 border-b border-navy/10 ${
+      className={`sticky top-0 z-50 transition-colors duration-500 bg-white/95 border-b border-navy/10 ${
         scrolled || open ? "backdrop-blur-md" : ""
       }`}
     >
-      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-20 md:h-24">
+      <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-14 sm:h-16 md:h-18">
         <Link href="/" className="shrink-0 flex items-center">
           <img
             src="/logo-mark.png"
             alt="Fabstract Clothing India"
-            className="h-14 md:h-[4.75rem] w-auto object-contain"
+            className="h-9 sm:h-10 md:h-12 w-auto object-contain"
           />
         </Link>
 

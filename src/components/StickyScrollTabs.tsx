@@ -163,7 +163,7 @@ export function StickyScrollTabs() {
       {/* ─────────────────────────────────────────────── */}
       {/*  MOBILE HORIZONTAL TABS                         */}
       {/* ─────────────────────────────────────────────── */}
-      <div className="lg:hidden sticky top-20 z-30 bg-white/95 backdrop-blur-md border-b border-navy/10 w-full">
+      <div className="lg:hidden sticky top-14 sm:top-16 z-30 bg-white/95 backdrop-blur-md border-b border-navy/10 w-full">
         <div className="flex overflow-x-auto px-6 sm:px-10 gap-6 no-scrollbar">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -197,7 +197,7 @@ export function StickyScrollTabs() {
         {/* ─────────────────────────────────────────────── */}
         {/*  LEFT STICKY SIDEBAR (desktop)                  */}
         {/* ─────────────────────────────────────────────── */}
-        <aside className="hidden lg:flex flex-col sticky top-24 self-start w-[180px] shrink-0 pl-6 xl:pl-12 py-20 z-20">
+        <aside className="hidden lg:flex flex-col sticky top-20 self-start w-[180px] shrink-0 pl-6 xl:pl-12 py-20 z-20">
           <nav className="flex flex-col gap-3" aria-label="Section navigation">
             {TABS.map((tab) => {
               const isActive = activeTab === tab.id;

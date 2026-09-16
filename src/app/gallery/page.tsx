@@ -418,7 +418,7 @@ export default function GalleryPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#fafafa] pt-24 sm:pt-28 pb-20">
+      <main className="min-h-screen bg-[#fafafa] py-12 sm:py-16">
         {/* Intro header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-8 text-center sm:text-left">
           <p className="text-teal text-xs tracking-[0.25em] uppercase font-semibold mb-2">

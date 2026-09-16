@@ -40,13 +40,13 @@ export function ParallaxLayer({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", `${speed * 100}%`]);
 
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ y }} className="absolute inset-0 h-[110%] -top-[5%]">
+      <motion.div style={{ y }} className="absolute inset-0 h-[120%] -top-[10%]">
         {children}
       </motion.div>
     </div>
