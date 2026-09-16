@@ -53,22 +53,22 @@ function GlobalPartner() {
   const imgOpacity = useTransform(scrollYProgress, [0.15, 0.45], [0, 1]);
 
   return (
-    <section ref={sectionRef} className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-14 lg:pl-[236px] overflow-hidden">
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-        <div className="flex-1">
+    <section ref={sectionRef} className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
+      <div className="max-w-[1536px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 xl:gap-24 items-center">
+        <div className="flex-1 max-w-2xl lg:max-w-none">
           <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.2]">
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15]">
             A global manufacturing partner to 50+ leading brands.
           </h2>
           <p className="mt-6 text-base sm:text-lg lg:text-xl text-navy/70 leading-[1.8] text-justify">
             Since 1991, Fabstract has grown from a boutique workshop into a modern, four-facility operation. Today, backed by more than 30 years of expertise, we lead the sustainable garment export sector through low-impact, solar-driven, and green-certified manufacturing.
           </p>
         </div>
-        <motion.div className="flex-1" style={{ x: imgX, opacity: imgOpacity }}>
+        <motion.div className="flex-1 w-full" style={{ x: imgX, opacity: imgOpacity }}>
           <img
             src="/images/products-collage.jpg"
             alt="Fabstract product range"
-            className="w-full h-auto rounded-2xl object-cover"
+            className="w-full h-auto rounded-2xl object-cover shadow-sm"
           />
         </motion.div>
       </div>
@@ -88,7 +88,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
     <section
       id="hero-banner"
       ref={heroRef}
-      className="relative w-full aspect-[16/9] max-h-[85vh] min-h-[380px] bg-navy overflow-hidden flex items-end"
+      className="relative w-full aspect-[16/9] bg-navy overflow-hidden flex items-end"
     >
       <div className="absolute inset-0">
         <video
@@ -145,26 +145,30 @@ export default function Home() {
       <GlobalPartner />
 
       {/* Capabilities */}
-      <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium mb-12">Product Capabilities</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12">
-          {CAPABILITIES.map((cap) => (
-            <div key={cap.title}>
-              <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
-              <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
-              <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
-            </div>
-          ))}
+      <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium mb-12 lg:mb-16">Product Capabilities</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
+            {CAPABILITIES.map((cap) => (
+              <div key={cap.title}>
+                <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
+                <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
+                <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* 4 Factories & Cinematic Large Video Showcase */}
-      <section className="bg-sky/10 py-16 sm:py-24 px-6 sm:px-10 lg:px-14 lg:pl-[236px] border-t border-navy/10">
-        <p className="font-display text-2xl sm:text-3xl lg:text-4xl text-navy font-medium leading-[1.4] max-w-5xl mb-10 sm:mb-12">
-          4 factories fully equipped to handle 100% woven or 100% knitted garments — end to end, under one roof.
-        </p>
+      <section className="bg-sky/10 py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-navy/10">
+        <div className="max-w-[1536px] mx-auto">
+          <p className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-navy font-medium leading-[1.3] max-w-5xl mb-10 sm:mb-14">
+            4 factories fully equipped to handle 100% woven or 100% knitted garments — end to end, under one roof.
+          </p>
 
-        <FactoryVideoShowcase />
+          <FactoryVideoShowcase />
+        </div>
       </section>
 
       <StickyScrollTabs />

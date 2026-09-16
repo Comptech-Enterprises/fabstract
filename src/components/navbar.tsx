@@ -45,7 +45,7 @@ export function Navbar() {
           <img
             src="/logo-mark.png"
             alt="Fabstract Clothing India"
-            className="h-9 sm:h-10 md:h-12 w-auto object-contain"
+            className="h-11 sm:h-12 md:h-14 w-auto object-contain"
           />
         </Link>
 

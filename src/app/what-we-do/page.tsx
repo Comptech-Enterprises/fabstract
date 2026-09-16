@@ -66,7 +66,7 @@ export default function WhatWeDo() {
       {/* Hero Banner (Same Proportions as Home Hero) */}
       <section
         ref={heroRef}
-        className="relative w-full aspect-[16/9] max-h-[85vh] min-h-[380px] bg-navy overflow-hidden flex items-end"
+        className="relative w-full aspect-[16/9] bg-navy overflow-hidden flex items-end"
       >
         <div className="absolute inset-0">
           <video
