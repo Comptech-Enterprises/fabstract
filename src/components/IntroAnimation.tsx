@@ -166,7 +166,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 onAnimationComplete={isZooming ? handleZoomComplete : undefined}
               >
                 <img
-                  src="/images/globe.gif"
+                  src="/intro/globe.gif"
                   alt="O"
                   className="w-[1.05em] h-[1.05em] mx-[0.03em] object-contain inline-block align-middle select-none pointer-events-none rounded-full"
                 />

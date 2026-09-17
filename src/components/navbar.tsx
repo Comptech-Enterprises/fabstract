@@ -43,7 +43,7 @@ export function Navbar() {
       <div className="flex items-center justify-between px-5 sm:px-8 lg:px-12 h-14 sm:h-16 md:h-18">
         <Link href="/" className="shrink-0 flex items-center">
           <img
-            src="/logo-mark.png"
+            src="/branding/logo-mark.webp"
             alt="Fabstract Clothing India"
             className="h-11 sm:h-12 md:h-14 w-auto object-contain"
           />

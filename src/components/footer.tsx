@@ -22,7 +22,7 @@ export function Footer() {
         <div className="lg:col-span-6">
           <Link href="/" className="inline-block mb-6 group">
             <img
-              src="/logo-mark.png"
+              src="/branding/logo-mark.webp"
               alt="Fabstract Clothing India"
               className="h-14 md:h-18 w-auto object-contain brightness-0 invert opacity-95 group-hover:opacity-100 transition-opacity"
             />

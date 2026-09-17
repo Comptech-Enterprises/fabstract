@@ -190,7 +190,7 @@ function InstagramCard({ post }: { post: PostData }) {
             <div className="w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] shrink-0">
               <div className="w-full h-full rounded-full bg-white p-[1px] overflow-hidden">
                 <img
-                  src="/logo-mark.png"
+                  src="/branding/logo-mark.webp"
                   alt="Fabstract avatar"
                   className="w-full h-full object-cover rounded-full bg-navy"
                 />

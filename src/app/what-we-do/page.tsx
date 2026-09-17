@@ -30,13 +30,13 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Relaxed silhouettes, elevated oversized tees, rib dresses, loungewear sets, and modal cotton basics with second-skin softness.",
         items: ["Rib Crop Tops", "Jersey Midi Dresses", "Co-ord Lounge Sets", "Oversized Hoodies"],
-        image: "/images/knitted-women.png",
+        image: "/what-we-do/categories/knitted-women.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       men: {
         desc: "Heavyweight drop-shoulder tees, structured polo shirts, brushed back fleece crewnecks, and premium French Terry joggers.",
         items: ["240 GSM Heavy Tees", "Pique Cotton Polos", "Brushed Fleece Sweats", "Structured Joggers"],
-        image: "/images/knitted-men.jpg",
+        image: "/what-we-do/categories/knitted-men.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       kids: {
@@ -54,19 +54,19 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Flowing smocked dresses, tiered tiered midi skirts, handcrafted pintuck blouses, resort wear, and tailored summer shirts.",
         items: ["Smocked Maxi Dresses", "Embroidered Peasant Blouses", "Tiered Linen Skirts", "Relaxed Button-Downs"],
-        image: "/images/woven-women.png",
+        image: "/what-we-do/categories/woven-women.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       men: {
         desc: "Crisp organic cotton dress shirts, relaxed Cuban collar linen shirts, utility overshirts, and lightweight summer trousers.",
         items: ["Camp Collar Linen Shirts", "Oxford Button-Downs", "Utility Overshirts", "Tapered Chino Trousers"],
-        image: "/images/woven-men.png",
+        image: "/what-we-do/categories/woven-men.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       kids: {
         desc: "Charming cotton dresses, formal linen button-ups, and holiday partywear crafted with non-toxic AZO-free botanical dyes.",
         items: ["Floral Smocked Frocks", "Classic Linen Shirts", "Summer Dungarees", "Pleated Shorts"],
-        image: "/images/woven-kids.png",
+        image: "/what-we-do/categories/woven-kids.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
@@ -78,7 +78,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Open-front cropped cardigans, mock neck ribbed sweaters, oversized cable knits, and fine-gauge cashmere blend layering tops.",
         items: ["Cropped Knit Cardigans", "Ribbed Turtlenecks", "Cable Knit Sweaters", "Fine Cashmere Crew"],
-        image: "/images/card-sweater.jpg",
+        image: "/what-we-do/categories/card-sweater.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       men: {
@@ -126,7 +126,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Relaxed stonewashed bed sheets, fringed waffle cotton throws, decorative botanical cushion covers, and dining linens.",
         items: ["Stonewashed Linen Duvet", "Waffle Cotton Throws", "Botanical Cushion Covers", "Organic Napkin Sets"],
-        image: "/images/card-home-textile.jpg",
+        image: "/what-we-do/categories/card-home-textile.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       men: {
@@ -138,7 +138,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       kids: {
         desc: "Hypoallergenic crib bedding, whimsical printed cot quilts, playful storage bins, and organic muslin swaddles.",
         items: ["Muslin Swaddle Blankets", "Organic Cot Quilts", "Printed Pillow Covers", "Nursery Play Mats"],
-        image: "/images/card-woven.jpg",
+        image: "/what-we-do/categories/card-woven.webp",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
@@ -167,7 +167,7 @@ function CategoryCardSection({
           <div className="lg:col-span-5 w-full flex justify-center lg:order-1">
             <div className="group relative aspect-[9/16] w-full max-w-[380px] sm:max-w-[410px] rounded-2xl bg-[#f5efe9] overflow-hidden shadow-md flex items-center justify-center">
               <img
-                src="/images/card-home-textile.jpg"
+                src="/what-we-do/categories/card-home-textile.webp"
                 alt="Home Textile & Living"
                 className="w-full h-full object-contain object-center"
               />
@@ -350,7 +350,7 @@ export default function WhatWeDo() {
       >
         <div className="absolute inset-0">
           <video
-            src="/6459997-hd_1920_1080_25fps.mp4"
+            src="/what-we-do/videos/hero-banner.mp4"
             autoPlay
             muted
             loop

@@ -66,7 +66,7 @@ function GlobalPartner() {
         </div>
         <motion.div className="flex-1 w-full" style={{ x: imgX, opacity: imgOpacity }}>
           <img
-            src="/images/products-collage.jpg"
+            src="/home/products-collage.webp"
             alt="Fabstract product range"
             className="w-full h-auto rounded-2xl object-cover shadow-sm"
           />
