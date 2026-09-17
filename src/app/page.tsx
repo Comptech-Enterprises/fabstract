@@ -88,7 +88,7 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
     <section
       id="hero-banner"
       ref={heroRef}
-      className="relative w-full aspect-[16/9] bg-navy overflow-hidden flex items-end"
+      className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex items-end"
     >
       <div className="absolute inset-0">
         <video
