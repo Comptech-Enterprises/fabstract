@@ -54,7 +54,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Flowing smocked dresses, tiered tiered midi skirts, handcrafted pintuck blouses, resort wear, and tailored summer shirts.",
         items: ["Smocked Maxi Dresses", "Embroidered Peasant Blouses", "Tiered Linen Skirts", "Relaxed Button-Downs"],
-        image: "/images/card-woven.jpg",
+        image: "/images/woven-women.png",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       men: {
