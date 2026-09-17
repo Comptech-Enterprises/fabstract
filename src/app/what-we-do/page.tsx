@@ -176,13 +176,6 @@ function CategoryCardSection({
 
           {/* Content on Right */}
           <div className="lg:col-span-7 flex flex-col justify-center lg:order-2 space-y-5">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-teal" />
-              <span className="text-xs uppercase tracking-[0.22em] text-teal font-semibold">
-                Home Textile &amp; Living
-              </span>
-            </div>
-
             <h4 className="font-display text-2xl sm:text-3xl lg:text-4xl text-navy font-medium leading-tight">
               Artisanal Living &amp; Sustainable Home Collections
             </h4>
@@ -296,13 +289,6 @@ function CategoryCardSection({
               transition={{ duration: 0.3 }}
               className="space-y-4"
             >
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-teal" />
-                <span className="text-xs uppercase tracking-[0.22em] text-teal font-semibold">
-                  {category.label} &bull; {activeTab}
-                </span>
-              </div>
-
               <h4 className="font-display text-xl sm:text-2xl lg:text-3xl text-navy font-medium leading-tight">
                 {activeTab === "women"
                   ? "Women's Craft & Silhouettes"
