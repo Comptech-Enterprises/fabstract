@@ -60,7 +60,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       men: {
         desc: "Crisp organic cotton dress shirts, relaxed Cuban collar linen shirts, utility overshirts, and lightweight summer trousers.",
         items: ["Camp Collar Linen Shirts", "Oxford Button-Downs", "Utility Overshirts", "Tapered Chino Trousers"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8161.webp",
+        image: "/images/woven-men.png",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       kids: {
