@@ -215,21 +215,21 @@ function Reveal({ children }: { children: React.ReactNode }) {
 
 // DUMMY copy and placeholder images unless a tile has `img` (real gallery photo).
 const CAPABILITY_TILES: Tile[] = [
-  { label: "Fabric Development", desc: "Dummy: knits, wovens and textures developed with mills.", tint: "#d9d2c5" },
-  { label: "Product Development", desc: "Dummy: sketches and tech packs turned into garments.", tint: "#ece7df" },
-  { label: "Sampling", desc: "Dummy: prototypes and fit samples with quick turnaround.", tint: "#e4dccf" },
-  { label: "Technical Engineering", desc: "Dummy: patterns, grading and construction detail.", tint: "#d8cdbd" },
+  { label: "Fabric Development", desc: "Dummy: knits, wovens and textures developed with mills.", img: "/what-we-do/development/fabric-development.webp" },
+  { label: "Product Development", desc: "Dummy: sketches and tech packs turned into garments.", img: "/what-we-do/development/product-development.webp" },
+  { label: "Sampling", desc: "Dummy: prototypes and fit samples with quick turnaround.", img: "/what-we-do/development/sampling.webp" },
+  { label: "Technical Engineering", desc: "Dummy: patterns, grading and construction detail.", img: "/what-we-do/development/technical-engineering.webp" },
   { label: "Production", desc: "Dummy: scalable manufacturing under one roof.", img: gal("ASN_8161") },
   { label: "Quality", desc: "Dummy: checkpoints from fabric to finished garment.", img: gal("ASN_8208") },
 ];
 
 const FABRIC_TILES: Tile[] = [
-  { label: "Double Gauze", tint: "#efe6d8" },
-  { label: "Soft Slub", tint: "#dcb6a8" },
-  { label: "Slub Knit", tint: "#c9ccd0" },
-  { label: "Jersey", tint: "#7b8461" },
-  { label: "French Terry", tint: "#efe6d8" },
-  { label: "Ribs & Textures", tint: "#6d84a3" },
+  { label: "Double Gauze", img: "/what-we-do/fabrics/double-gauze.webp" },
+  { label: "Soft Slub", img: "/what-we-do/fabrics/soft-slub.webp" },
+  { label: "Slub Knit", img: "/what-we-do/fabrics/slub-knit.webp" },
+  { label: "Jersey", img: "/what-we-do/fabrics/jersey.webp" },
+  { label: "French Terry", img: "/what-we-do/fabrics/french-terry.webp" },
+  { label: "Ribs & Textures", img: "/what-we-do/fabrics/ribs-textures.webp" },
 ];
 
 const PROCESS_STEPS: Tile[] = [
@@ -253,7 +253,7 @@ const DETAIL_TILES: Tile[] = [
   { label: "Seam Construction", tint: "#e4dccf" },
   { label: "Stitch Quality", tint: "#8a8f6c" },
   { label: "Print & Embroidery", tint: "#3b3f47" },
-  { label: "Garment Washing", tint: "#9ea3ab" },
+  { label: "Garment Washing", img: "/what-we-do/fabrics/garment-wash.webp" },
   { label: "Measurement Checking", tint: "#b7c0cc" },
   { label: "Final Inspection", tint: "#ece7df" },
 ];
