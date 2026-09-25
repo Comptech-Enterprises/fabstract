@@ -236,8 +236,8 @@ export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
           {/* ═══════════════════════════════════════════ */}
           {/*  TAGLINE                                     */}
           {/* ═══════════════════════════════════════════ */}
-          <div className="px-6 sm:px-10 lg:px-14 py-10 sm:py-14 border-t border-navy/10">
-            <p className="text-center font-display text-xl sm:text-2xl lg:text-3xl text-navy/70 italic leading-[1.6]">
+          <div className="bg-[#06402B] px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+            <p className="text-center font-display text-xl sm:text-2xl lg:text-3xl text-white italic leading-[1.6]">
               Sustainably grown. Consciously made. Expertly crafted.
             </p>
           </div>
