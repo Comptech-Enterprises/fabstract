@@ -10,37 +10,36 @@ import { IntroAnimation } from "@/components/IntroAnimation";
 import { StickyScrollTabs } from "@/components/StickyScrollTabs";
 import { FactoryVideoShowcase } from "@/components/FactoryVideoShowcase";
 import { IntroVideo } from "@/components/IntroVideo";
+import { KeyPoints } from "@/components/KeyPoints";
 
 const CAPABILITIES = [
   {
     title: "Strategic Hub & Speed",
     desc: "Located in the heart of the NCR apparel cluster, giving us direct access to skilled artisans, specialized infrastructure, and rapid end-to-end turnarounds.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    image: "/images/strategic-hub.webp",
   },
   {
     title: "Knits & Wovens Mastery",
     desc: "Fully equipped manufacturing units engineered to handle diverse product categories across both woven and knitted garments with ease.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    image: "/images/knits-wovens.webp",
   },
   {
     title: "Artisan Craft & Specialty Washes",
     desc: "In-house capabilities for intricate embroidery, handcrafted details, complex garment dyeing, and specialty washes.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5H18l-3.7 2.7 1.4 4.3L12 12l-3.7 2.5 1.4-4.3L6 7.5h4.5z"/><path d="M5 19a2 2 0 104 0 2 2 0 10-4 0"/><path d="M15 19a2 2 0 104 0 2 2 0 10-4 0"/></svg>',
+    image: "/images/artisan-washes.webp",
   },
   {
     title: "Automation & Smart Manufacturing",
     desc: "Precision CAD systems and automated attachments streamline production, ensuring exact fits, minimal waste, and scalable consistency.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>',
+    image: "/images/smart-manufacturing.webp",
   },
   {
     title: "In-House Quality & Lab Testing",
     desc: "Real-time inline quality control backed by dedicated testing labs to verify colorfastness, shrinkage, and international durability standards.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
   },
   {
     title: "Ethical & Certified Operations",
     desc: "Fully compliant with global benchmarks—certified by <strong>GOTS</strong>, <strong>Fairtrade</strong>, <strong>FLOCERT</strong>, and <strong>Sedex</strong>—with a focus on fair labor and a motivated workforce.",
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>',
   },
 ];
 
@@ -56,6 +55,13 @@ const BRAND_LOGOS = [
   { name: "Nature Baby", src: "/brands/nature-baby.webp" },
   { name: "Nobody's Child", src: "/brands/nobodys-child.webp" },
   { name: "Yuki Threads", src: "/brands/yuki-threads.webp" },
+  { name: "Frugi", src: "/brands/frugi.webp" },
+  { name: "Guapoo", src: "/brands/guapoo.webp" },
+  { name: "L*Space", src: "/brands/l-space.webp" },
+  { name: "Story mfg.", src: "/brands/story-mfg.webp" },
+  { name: "Volcom", src: "/brands/volcom.webp" },
+  { name: "Renfold", src: "/brands/renfold.webp" },
+  { name: "Kowtow", src: "/brands/kowtow.webp" },
 ];
 
 function LogoRow({ logos, reverse = false }: { logos: typeof BRAND_LOGOS; reverse?: boolean }) {
@@ -169,18 +175,7 @@ export default function Home() {
 
       <IntroVideo />
 
-      {/* Key points */}
-      <section id="s-strengths" className="scroll-mt-24 bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
-          {CAPABILITIES.map((cap) => (
-            <div key={cap.title}>
-              <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
-              <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
-              <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
-            </div>
-          ))}
-        </div>
-      </section>
+      <KeyPoints items={CAPABILITIES} />
 
       {/* 4 Factories & Cinematic Large Video Showcase */}
       <section id="s-factories" className="scroll-mt-24 bg-sky/10 py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-navy/10">

@@ -391,7 +391,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section 3: Certifications & Marks - 5 Big Visual Placeholders (Blue Background) */}
+          {/* Section 3: Certifications & Marks - Certificates (Blue Background) */}
           <section id="certifications" className="scroll-mt-28 px-6 sm:px-10 lg:px-14 py-20 lg:py-28 bg-navy text-white relative overflow-hidden border-b border-navy/10">
             {/* Ambient glowing orbs */}
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
@@ -408,72 +408,60 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* 5 Big Placeholder Cards Grid */}
+              {/* Certificate cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-7">
                 {[
                   {
+                    name: "OEKO-TEX",
+                    code: "Product Safety",
+                    desc: "Textiles tested for harmful substances and certified safe for skin contact.",
+                    image: "/images/certs/oeko-tex.webp",
+                    pdf: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/certificates/oeko-tex.pdf",
+                  },
+                  {
                     name: "Fairtrade Certified",
-                    code: "FLO-CERT ID",
+                    code: "Fair Trade Certificate",
                     desc: "Ethical trade, fair price premiums, and community development funds.",
-                    icon: (
-                      <svg className="w-9 h-9 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
-                      </svg>
-                    ),
+                    image: "/images/certs/fairtrade.webp",
+                    pdf: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/certificates/fairtrade.pdf",
                   },
                   {
-                    name: "BSCI Audited",
-                    code: "Social Compliance",
-                    desc: "Audited social management systems ensuring worker welfare and safety.",
-                    icon: (
-                      <svg className="w-9 h-9 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                      </svg>
-                    ),
+                    name: "FLOCERT",
+                    code: "Fairtrade Certification",
+                    desc: "Independent certification confirming compliance with Fairtrade standards.",
+                    image: "/images/certs/flocert.webp",
+                    pdf: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/certificates/flocert.pdf",
                   },
                   {
-                    name: "ETI Base Code",
-                    code: "Ethical Trading",
-                    desc: "Living wages, safe working hours, and ethical employment practices.",
-                    icon: (
-                      <svg className="w-9 h-9 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                      </svg>
-                    ),
+                    name: "GOTS",
+                    code: "Organic Textiles",
+                    desc: "Global Organic Textile Standard scope certificate, 2026-2027.",
+                    image: "/images/certs/gots.webp",
+                    pdf: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/certificates/gots.pdf",
                   },
                   {
-                    name: "ILO Standards",
-                    code: "Labour Conventions",
-                    desc: "Compliance with International Labour Organization core conventions.",
-                    icon: (
-                      <svg className="w-9 h-9 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                      </svg>
-                    ),
+                    name: "OCS",
+                    code: "Organic Content",
+                    desc: "Organic Content Standard scope certificate, 2026-2027.",
+                    image: "/images/certs/ocs.webp",
+                    pdf: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/certificates/ocs.pdf",
                   },
-                  {
-                    name: "GOTS & CSCC",
-                    code: "Organic & Security",
-                    desc: "Certified organic textile sourcing alongside verified facility security.",
-                    icon: (
-                      <svg className="w-9 h-9 text-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                      </svg>
-                    ),
-                  },
-                ].map((cert, i) => (
-                  <div key={cert.name} className="group flex flex-col">
-                    {/* Big Visual Placeholder Box */}
-                    <div className="aspect-[4/3] rounded-xl bg-white/5 border-2 border-dashed border-white/20 group-hover:border-sky group-hover:bg-white/10 flex flex-col items-center justify-center p-6 transition-all duration-300 shadow-md group-hover:shadow-xl group-hover:-translate-y-1 relative overflow-hidden backdrop-blur-xs">
-                      <div className="w-16 h-16 rounded-full bg-white/10 border border-white/15 flex items-center justify-center mb-3 text-sky group-hover:scale-110 group-hover:bg-sky/25 group-hover:text-white transition-all duration-300 shadow-inner">
-                        {cert.icon}
-                      </div>
-                      <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-white/40 group-hover:text-sky transition-colors">
-                        Seal Placeholder 0{i + 1}
-                      </span>
+                ].map((cert) => (
+                  <a
+                    key={cert.name}
+                    href={cert.pdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col"
+                  >
+                    <div className="aspect-[3/4] rounded-xl overflow-hidden bg-white border-2 border-white/20 group-hover:border-sky shadow-md group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
+                      <img
+                        src={cert.image}
+                        alt={`${cert.name} certificate`}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top"
+                      />
                     </div>
-
-                    {/* Content & Name Below Placeholder */}
                     <div className="mt-4">
                       <h3 className="font-display text-lg sm:text-xl font-medium text-white group-hover:text-sky transition-colors leading-snug">
                         {cert.name}
@@ -484,8 +472,11 @@ export default function AboutPage() {
                       <p className="text-white/70 text-xs sm:text-sm leading-relaxed mt-2 font-light">
                         {cert.desc}
                       </p>
+                      <span className="inline-flex items-center gap-1.5 mt-3 text-[11px] tracking-[0.2em] uppercase font-semibold text-white/80 group-hover:text-sky transition-colors">
+                        View certificate <span aria-hidden>→</span>
+                      </span>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>

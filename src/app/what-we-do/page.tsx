@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -147,187 +148,193 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
 
 type TabKey = "women" | "men" | "kids";
 
-function CategoryCardSection({
-  category,
-  index,
-}: {
-  category: ProductCategory;
-  index: number;
-}) {
-  const isHomeTextile = category.label === "Home Textile & Living";
-  const [activeTab, setActiveTab] = useState<TabKey>("women");
-  const segment = category.segments[activeTab];
-  const isOdd = isHomeTextile ? false : index % 2 === 1;
+const R2 = "https://pub-3551751dc58044cb88a118691e50d580.r2.dev";
+const gal = (name: string) => `${R2}/gallery/${name}.webp`;
 
-  if (isHomeTextile) {
-    return (
-      <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm border border-navy/10 hover:shadow-lg transition-shadow duration-300">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Visual Card on Left */}
-          <div className="lg:col-span-5 w-full flex justify-center lg:order-1">
-            <div className="group relative aspect-[9/16] w-full max-w-[380px] sm:max-w-[410px] rounded-2xl bg-[#f5efe9] overflow-hidden shadow-md flex items-center justify-center">
-              <img
-                src="/what-we-do/categories/card-home-textile.webp"
-                alt="Home Textile & Living"
-                className="w-full h-full object-contain object-center"
-              />
-            </div>
-          </div>
+interface Tile {
+  label: string;
+  desc?: string;
+  img?: string;
+  tint?: string;
+}
 
-          {/* Content on Right */}
-          <div className="lg:col-span-7 flex flex-col justify-center lg:order-2 space-y-5">
-            <h4 className="font-display text-2xl sm:text-3xl lg:text-4xl text-navy font-medium leading-tight">
-              Artisanal Living &amp; Sustainable Home Collections
-            </h4>
+function Placeholder({ tint = "#e9e2d6" }: { tint?: string }) {
+  return (
+    <div className="relative w-full h-full flex items-center justify-center" style={{ backgroundColor: tint }}>
+      <div className="absolute inset-0 bg-gradient-to-br from-white/35 via-transparent to-black/10" />
+      <svg className="relative w-8 h-8 text-navy/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <circle cx="9" cy="10" r="1.6" />
+        <path d="M21 16l-5-5-8 8" />
+      </svg>
+      <span className="absolute bottom-2 left-2.5 text-[9px] tracking-[0.2em] uppercase text-navy/35">Placeholder</span>
+    </div>
+  );
+}
 
-            <p className="text-navy/80 text-base sm:text-lg lg:text-xl leading-relaxed font-light">
-              Elevating interior spaces with responsibly sourced natural textiles. From relaxed stonewashed linen bedsheets and plush waffle cotton throws to decorative botanical cushion covers and crafted dining linens, our collections marry tactile luxury with sustainable craftsmanship.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-navy/70">
-              <div className="flex items-center gap-2.5 text-sm sm:text-base">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
-                <span>Stonewashed Linen &amp; Bedding Sets</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-sm sm:text-base">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
-                <span>Textured Waffle &amp; Knitted Throws</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-sm sm:text-base">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
-                <span>Dining Linens &amp; Artisanal Runners</span>
-              </div>
-              <div className="flex items-center gap-2.5 text-sm sm:text-base">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" />
-                <span>AZO-Free Dyes &amp; Natural Fibers</span>
-              </div>
-            </div>
-
-            <div className="pt-3">
-              <a
-                href="https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-navy text-white text-xs tracking-[0.16em] uppercase font-semibold hover:bg-navy/90 hover:shadow-md transition-all duration-300 group cursor-pointer"
-              >
-                <span>Explore Home Living Catalogue</span>
-                <svg
-                  className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
+function TileCard({ tile, ratio = "aspect-[4/3]" }: { tile: Tile; ratio?: string }) {
+  return (
+    <div>
+      <div className={`${ratio} overflow-hidden bg-navy/5`}>
+        {tile.img ? (
+          <img src={tile.img} alt={tile.label} loading="lazy" className="w-full h-full object-cover" />
+        ) : (
+          <Placeholder tint={tile.tint} />
+        )}
       </div>
-    );
-  }
+      <p className="mt-3 text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{tile.label}</p>
+      {tile.desc && <p className="mt-1.5 text-xs text-navy/60 leading-relaxed">{tile.desc}</p>}
+    </div>
+  );
+}
+
+function SectionHead({ eyebrow, title, blurb }: { eyebrow: string; title: string; blurb?: string }) {
+  return (
+    <div className="grid lg:grid-cols-[1.2fr_1fr] gap-6 lg:gap-16 items-end mb-10 sm:mb-12">
+      <div>
+        <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">{eyebrow}</p>
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">{title}</h2>
+      </div>
+      {blurb && <p className="text-navy/65 text-sm sm:text-base leading-relaxed max-w-md lg:justify-self-end">{blurb}</p>}
+    </div>
+  );
+}
+
+function Reveal({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// DUMMY copy and placeholder images unless a tile has `img` (real gallery photo).
+const CAPABILITY_TILES: Tile[] = [
+  { label: "Fabric Development", desc: "Dummy: knits, wovens and textures developed with mills.", tint: "#d9d2c5" },
+  { label: "Product Development", desc: "Dummy: sketches and tech packs turned into garments.", tint: "#ece7df" },
+  { label: "Sampling", desc: "Dummy: prototypes and fit samples with quick turnaround.", tint: "#e4dccf" },
+  { label: "Technical Engineering", desc: "Dummy: patterns, grading and construction detail.", tint: "#d8cdbd" },
+  { label: "Production", desc: "Dummy: scalable manufacturing under one roof.", img: gal("ASN_8161") },
+  { label: "Quality", desc: "Dummy: checkpoints from fabric to finished garment.", img: gal("ASN_8208") },
+];
+
+const FABRIC_TILES: Tile[] = [
+  { label: "Double Gauze", tint: "#efe6d8" },
+  { label: "Soft Slub", tint: "#dcb6a8" },
+  { label: "Slub Knit", tint: "#c9ccd0" },
+  { label: "Jersey", tint: "#7b8461" },
+  { label: "French Terry", tint: "#efe6d8" },
+  { label: "Ribs & Textures", tint: "#6d84a3" },
+];
+
+const PROCESS_STEPS: Tile[] = [
+  { label: "Brief", desc: "Dummy: you share the concept, tech pack or reference.", tint: "#ece7df" },
+  { label: "Development", desc: "Dummy: our team develops the first sample.", tint: "#dcb6a8" },
+  { label: "Fit & Approval", desc: "Dummy: measurements and construction refined.", tint: "#e4dccf" },
+  { label: "Production", desc: "Dummy: approved styles move into bulk.", img: gal("ASN_8150") },
+  { label: "Quality", desc: "Dummy: inspection stages through production.", img: gal("ASN_8210") },
+  { label: "Ready to Ship", desc: "Dummy: packed and prepared for delivery.", tint: "#d8cdbd" },
+];
+
+const QUALITY_STATS = [
+  { value: "1991", label: "Years of experience" },
+  { value: "In-house", label: "Dummy: development to finishing" },
+  { value: "5-stage", label: "Dummy: garment checking" },
+  { value: "Knits + Wovens", label: "Multiple fabric platforms" },
+];
+
+const DETAIL_TILES: Tile[] = [
+  { label: "Neck Finishing", tint: "#c9ccd0" },
+  { label: "Seam Construction", tint: "#e4dccf" },
+  { label: "Stitch Quality", tint: "#8a8f6c" },
+  { label: "Print & Embroidery", tint: "#3b3f47" },
+  { label: "Garment Washing", tint: "#9ea3ab" },
+  { label: "Measurement Checking", tint: "#b7c0cc" },
+  { label: "Final Inspection", tint: "#ece7df" },
+];
+
+const FLEX_ITEMS: Tile[] = [
+  { label: "Development", desc: "Dummy: new fabrics, constructions and product ideas.", tint: "#d9d2c5" },
+  { label: "Sampling", desc: "Dummy: from first prototype to approved sample.", tint: "#e4dccf" },
+  { label: "Production", desc: "Dummy: controlled manufacturing across categories.", img: gal("ASN_8157") },
+];
+
+const TAB_LABELS: Record<TabKey, string> = { women: "Women's", men: "Men's", kids: "Kids" };
+
+function WhatWeMake() {
+  const [tab, setTab] = useState<TabKey>("women");
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm border border-navy/10 hover:shadow-lg transition-shadow duration-300">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Visual Card (Left on even, Right on odd) */}
-        <div className={`lg:col-span-5 w-full flex justify-center ${isOdd ? "lg:order-2" : "lg:order-1"}`}>
-          <div className="group relative aspect-[9/16] w-full max-w-[380px] sm:max-w-[410px] rounded-2xl bg-[#f5efe9] overflow-hidden shadow-md flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={segment.image}
-                src={segment.image}
-                alt={`${category.label} - ${activeTab}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="w-full h-full object-contain object-center"
-              />
-            </AnimatePresence>
-          </div>
+    <>
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
+        <div>
+          <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">What we make</p>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">
+            Built across categories. Specialized where it matters.
+          </h2>
         </div>
-
-        {/* Content & Tabs (Right on even, Left on odd) */}
-        <div className={`lg:col-span-7 flex flex-col justify-center ${isOdd ? "lg:order-1" : "lg:order-2"}`}>
-          {/* Segment Tabs Navigation */}
-          <div className="flex items-center gap-2 sm:gap-3 p-1.5 bg-[#f5efeb] rounded-2xl w-fit mb-6 border border-navy/5">
-            {(["women", "men", "kids"] as TabKey[]).map((tab) => {
-              const isActive = activeTab === tab;
-              return (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setActiveTab(tab)}
-                  className={`relative px-5 sm:px-6 py-2 rounded-xl text-xs sm:text-sm tracking-[0.18em] uppercase font-semibold transition-all duration-300 cursor-pointer ${
-                    isActive ? "text-white shadow-sm" : "text-navy/60 hover:text-navy"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId={`category-pill-${category.label}`}
-                      className="absolute inset-0 bg-navy rounded-xl"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{tab}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Tab Details */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <h4 className="font-display text-xl sm:text-2xl lg:text-3xl text-navy font-medium leading-tight">
-                {activeTab === "women"
-                  ? "Women's Craft & Silhouettes"
-                  : activeTab === "men"
-                  ? "Men's Precision Essentials"
-                  : "Kids Conscious Apparel"}
-              </h4>
-
-              <p className="text-navy/80 text-base sm:text-lg lg:text-xl leading-relaxed font-light">
-                {segment.desc}
-              </p>
-
-              {/* Explore Catalogue Button */}
-              <div className="pt-4">
-                <a
-                  href={segment.catalogue}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-navy text-white text-xs tracking-[0.16em] uppercase font-semibold hover:bg-navy/90 hover:shadow-md transition-all duration-300 group cursor-pointer"
-                >
-                  <span>Explore {activeTab} Catalogue</span>
-                  <svg
-                    className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+        <div className="flex gap-2 w-fit">
+          {(["women", "men", "kids"] as TabKey[]).map((k) => {
+            const active = tab === k;
+            return (
+              <button
+                key={k}
+                type="button"
+                onClick={() => setTab(k)}
+                className={`px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase font-semibold transition-colors cursor-pointer ${
+                  active ? "bg-[#06402B] text-white" : "bg-navy/5 text-navy/55 hover:text-navy"
+                }`}
+              >
+                {TAB_LABELS[k]}
+              </button>
+            );
+          })}
         </div>
       </div>
-    </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={tab}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5"
+        >
+          {PRODUCT_CATEGORIES.map((category) => {
+            const seg = category.segments[tab];
+            return (
+              <a
+                key={category.label}
+                href={seg.catalogue}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+              >
+                <div className="aspect-[3/4] overflow-hidden bg-[#f5efe9]">
+                  <img
+                    src={seg.image}
+                    alt={`${category.label} - ${TAB_LABELS[tab]}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <span className="text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{category.label}</span>
+                  <span aria-hidden className="text-navy/50 group-hover:text-navy group-hover:translate-x-1 transition-all">→</span>
+                </div>
+                <p className="mt-1.5 text-xs text-navy/55 leading-relaxed">{seg.items.slice(0, 2).join(" · ")}</p>
+              </a>
+            );
+          })}
+        </motion.div>
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -343,10 +350,10 @@ export default function WhatWeDo() {
     <>
       <Navbar />
 
-      {/* Hero Banner (Fits Screen Viewport so Text is fully visible at bottom) */}
+      {/* Hero (real video + real copy, mockup layout) */}
       <section
         ref={heroRef}
-        className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex items-end"
+        className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[760px] min-h-[500px] bg-navy overflow-hidden flex items-center"
       >
         <div className="absolute inset-0">
           <video
@@ -359,41 +366,188 @@ export default function WhatWeDo() {
             className="h-full w-full object-cover object-center"
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/55 to-transparent pointer-events-none" />
 
-        <div className="absolute inset-0 bg-navy/40 pointer-events-none" />
+        <motion.div style={{ y: textY }} className="relative z-10 px-6 sm:px-10 lg:px-16 xl:px-20 pt-20 max-w-3xl">
+          <p className="text-[11px] tracking-[0.3em] uppercase font-semibold text-white/70 mb-5">What we do</p>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light leading-[1.1]">
+            Crafting quality garments for the world&apos;s leading brands
+          </h1>
+          <p className="mt-6 text-white/80 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed font-light">
+            From premium knits to sustainable home textiles, we bring expertise across every category of apparel manufacturing.
+          </p>
+          <button
+            type="button"
+            onClick={() => document.getElementById("capabilities")?.scrollIntoView({ behavior: "smooth" })}
+            className="mt-8 inline-flex items-center gap-3 bg-white text-navy px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-sky transition-colors cursor-pointer"
+          >
+            Explore our capabilities
+            <span aria-hidden>↓</span>
+          </button>
+        </motion.div>
+      </section>
 
-        <div className="relative w-full text-center z-10">
-          <motion.div style={{ y: textY }} className="bg-black/40 backdrop-blur-xs w-full px-5 sm:px-10 lg:px-14 py-5 sm:py-8">
-            <h1 className="font-display text-xl sm:text-3xl lg:text-4xl xl:text-5xl text-white font-medium leading-[1.22] max-w-4xl mx-auto">
-              Crafting quality garments for the world&apos;s leading brands
-            </h1>
-            <p className="mt-2.5 sm:mt-3 text-white/85 text-xs sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed font-light">
-              From premium knits to sustainable home textiles, we bring expertise across every category of apparel manufacturing.
-            </p>
-          </motion.div>
+      {/* Capabilities (DUMMY copy; Production + Quality photos are real) */}
+      <section id="capabilities" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <Reveal>
+            <SectionHead
+              eyebrow="Our capabilities"
+              title="More than making the garment. We help build it."
+              blurb="Dummy: from an initial concept to a production-ready garment, our teams work closely with customers to solve the details."
+            />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
+              {CAPABILITY_TILES.map((t) => (
+                <TileCard key={t.label} tile={t} />
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Product Categories Section with Left Card + Right Tabs (Men, Women, Kids) */}
-      <section className="bg-sky/20 py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+      {/* What we make (real category data, images and catalogue links; heading is dummy) */}
+      <section id="what-we-make" className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="max-w-[1536px] mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-            <p className="text-teal text-xs tracking-[0.25em] uppercase font-semibold mb-2.5">
-              Portfolio &amp; Segments
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium">
-              Product Categories
+          <WhatWeMake />
+        </div>
+      </section>
+
+      {/* Fabric (all DUMMY) */}
+      <section className="bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <Reveal>
+            <SectionHead
+              eyebrow="Fabric is where it starts"
+              title="The right garment starts with the right fabric."
+              blurb="Dummy: our development teams work across a broad range of knitted and woven structures, helping brands develop handfeel, weight and drape."
+            />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
+              {FABRIC_TILES.map((t) => (
+                <TileCard key={t.label} tile={t} ratio="aspect-square" />
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Process (DUMMY copy; Production + Quality photos are real) */}
+      <section className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <Reveal>
+            <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">From sample to production</p>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15] mb-10">
+              A clear process. A stronger product.
             </h2>
-            <p className="mt-3.5 text-navy/70 text-sm sm:text-base lg:text-lg font-light leading-relaxed">
-              Explore specialized capabilities across women&apos;s, men&apos;s, and kids apparel categories engineered under one roof.
+            <div className="relative">
+              <div className="hidden lg:block absolute left-0 right-0 top-[13px] h-px bg-navy/15" />
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8 lg:gap-x-5">
+                {PROCESS_STEPS.map((t, i) => (
+                  <div key={t.label}>
+                    <span className="relative z-10 inline-flex w-7 h-7 rounded-full bg-navy text-white text-[10px] font-semibold items-center justify-center mb-4">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <TileCard tile={t} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Quality band (heading/stats DUMMY except 1991 and Knits + Wovens; photo is real) */}
+      <section className="bg-[#06402B] text-white grid lg:grid-cols-[1.35fr_1fr]">
+        <div className="px-6 sm:px-10 lg:px-16 xl:px-20 py-16 sm:py-20">
+          <div className="grid xl:grid-cols-[1.1fr_1fr] gap-8 xl:gap-12">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.15]">
+              Quality isn&apos;t a final inspection. It&apos;s built into the process.
+            </h2>
+            <p className="text-white/70 text-sm sm:text-base leading-relaxed">
+              Dummy: from fabric inspection to final packing, our quality checkpoints ensure consistency, reliability and long-term performance.
             </p>
           </div>
-
-          {/* Staggered Rows: Left Card + Right Tabs for each category */}
-          <div className="space-y-8 sm:space-y-12">
-            {PRODUCT_CATEGORIES.map((category, idx) => (
-              <CategoryCardSection key={category.label} category={category} index={idx} />
+          <div className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 xl:grid-cols-4 gap-6">
+            {QUALITY_STATS.map((st) => (
+              <div key={st.value}>
+                <p className="font-display text-2xl sm:text-3xl text-[#e6c98a]">{st.value}</p>
+                <p className="mt-1.5 text-xs text-white/65 leading-relaxed">{st.label}</p>
+              </div>
             ))}
+          </div>
+        </div>
+        <div className="relative min-h-[280px] lg:min-h-full">
+          <img src={gal("ASN_8209")} alt="Quality check" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+        </div>
+      </section>
+
+      {/* Details (all DUMMY) */}
+      <section className="bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <Reveal>
+            <SectionHead
+              eyebrow="The detail is in the difference"
+              title="Thousands of small decisions go into one finished garment."
+              blurb="Dummy: our teams focus on the details that don't always appear on a tech pack but are immediately visible in the finished product."
+            />
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {DETAIL_TILES.map((t) => (
+                <TileCard key={t.label} tile={t} ratio="aspect-square" />
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Flexibility (DUMMY copy; Production photo is real) */}
+      <section className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto">
+          <Reveal>
+            <SectionHead
+              eyebrow="Flexibility is a capability"
+              title="Big enough to manufacture. Flexible enough to develop."
+              blurb="Dummy: our integrated setup lets us respond to a wide range of customer needs, from new fabric developments to scalable production runs."
+            />
+            <div className="grid md:grid-cols-3 gap-8">
+              {FLEX_ITEMS.map((t) => (
+                <div key={t.label} className="flex gap-4 items-start">
+                  <div className="w-[46%] shrink-0 aspect-[4/3] overflow-hidden bg-navy/5">
+                    {t.img ? <img src={t.img} alt={t.label} loading="lazy" className="w-full h-full object-cover" /> : <Placeholder tint={t.tint} />}
+                  </div>
+                  <div>
+                    <p className="text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{t.label}</p>
+                    <p className="mt-2 text-xs text-navy/60 leading-relaxed">{t.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* CTA (heading/body DUMMY; button link is real) */}
+      <section className="bg-[#e9e4dd] grid md:grid-cols-[1.2fr_1fr]">
+        <div className="px-6 sm:px-10 lg:px-16 xl:px-20 py-16 sm:py-20 grid xl:grid-cols-2 gap-8 items-center">
+          <div>
+            <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">Made for brands, not just orders</p>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">
+              Your product is more than an order number.
+            </h2>
+          </div>
+          <div>
+            <p className="text-navy/65 text-sm leading-relaxed">
+              Dummy: we work alongside brands through development, production and delivery, building long-term partnerships based on consistency and communication.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-6 inline-flex items-center gap-3 bg-[#06402B] text-white px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-navy transition-colors"
+            >
+              Let&apos;s talk <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+        <div className="relative min-h-[220px]">
+          <div className="absolute inset-0">
+            <Placeholder tint="#cfc6b8" />
           </div>
         </div>
       </section>
