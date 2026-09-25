@@ -5,3 +5,4 @@ export const R2_MEDIA = `${R2_PUBLIC_BASE}/media`;
 
 export const HERO_VIDEO = `${R2_PUBLIC_BASE}/hero/13380596_3840_2160_25fps.mp4`;
 export const BANNER_VIDEO = `${R2_PUBLIC_BASE}/hero/banner-video.mp4`;
+export const INTRO_VIDEOS = [1, 2, 3].map((n) => `${R2_PUBLIC_BASE}/hero/intro-video-${n}.mp4`);

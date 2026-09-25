@@ -10,6 +10,11 @@ import { R2_MEDIA } from "@/data/hero";
 /* ------------------------------------------------------------------ */
 
 const TABS = [
+  { id: "s-about", label: "About Us" },
+  { id: "s-brands", label: "Brands" },
+  { id: "s-showcase", label: "Showcase" },
+  { id: "s-strengths", label: "Strengths" },
+  { id: "s-factories", label: "Factories" },
   { id: "s-newsroom", label: "Newsroom" },
   { id: "s-contact", label: "Contact" },
 ];
@@ -89,7 +94,7 @@ const field =
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
-export function StickyScrollTabs() {
+export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [selectedArticles, setSelectedArticles] = useState<NewsCard[]>(NEWS_CARDS.slice(0, 3));
 
@@ -118,18 +123,12 @@ export function StickyScrollTabs() {
     const updateActiveTab = () => {
       const navOffset = window.innerWidth < 1024 ? 80 : 100;
 
-      const newsEl = document.getElementById("s-newsroom");
-      const contactEl = document.getElementById("s-contact");
-
-      if (!newsEl || !contactEl) return;
-
-      const contactRect = contactEl.getBoundingClientRect();
-
-      if (contactRect.top <= navOffset + 140) {
-        setActiveTab("s-contact");
-      } else {
-        setActiveTab("s-newsroom");
+      let current = TABS[0].id;
+      for (const tab of TABS) {
+        const el = document.getElementById(tab.id);
+        if (el && el.getBoundingClientRect().top <= navOffset + 140) current = tab.id;
       }
+      setActiveTab(current);
     };
 
     window.addEventListener("scroll", updateActiveTab, { passive: true });
@@ -232,6 +231,17 @@ export function StickyScrollTabs() {
         {/*  MAIN SCROLLING CONTENT                         */}
         {/* ─────────────────────────────────────────────── */}
         <div className="flex-1 min-w-0">
+          {children}
+
+          {/* ═══════════════════════════════════════════ */}
+          {/*  TAGLINE                                     */}
+          {/* ═══════════════════════════════════════════ */}
+          <div className="px-6 sm:px-10 lg:px-14 py-10 sm:py-14 border-t border-navy/10">
+            <p className="text-center font-display text-xl sm:text-2xl lg:text-3xl text-navy/70 italic leading-[1.6]">
+              Sustainably grown. Consciously made. Expertly crafted.
+            </p>
+          </div>
+
           {/* ═══════════════════════════════════════════ */}
           {/*  SECTION 2 — NEWSROOM                       */}
           {/* ═══════════════════════════════════════════ */}

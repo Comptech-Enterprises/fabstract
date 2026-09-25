@@ -9,6 +9,7 @@ import { TypeReveal } from "@/components/TypeReveal";
 import { IntroAnimation } from "@/components/IntroAnimation";
 import { StickyScrollTabs } from "@/components/StickyScrollTabs";
 import { FactoryVideoShowcase } from "@/components/FactoryVideoShowcase";
+import { IntroVideo } from "@/components/IntroVideo";
 
 const CAPABILITIES = [
   {
@@ -43,34 +44,49 @@ const CAPABILITIES = [
   },
 ];
 
+const BRAND_LOGOS = [
+  { name: "Living Crafts", src: "/brands/living-crafts.webp" },
+  { name: "TBCo", src: "/brands/tbco.webp" },
+  { name: "Happy Earth", src: "/brands/happy-earth.webp" },
+  { name: "Yes Friends", src: "/brands/yes-friends.webp" },
+  { name: "Alp n Rock", src: "/brands/alp-and-rock.webp" },
+  { name: "Pact", src: "/brands/pact.webp" },
+  { name: "Mate the Label", src: "/brands/mate-the-label.webp" },
+  { name: "Chelsea Peers", src: "/brands/chelsea-peers.webp" },
+  { name: "Nature Baby", src: "/brands/nature-baby.webp" },
+  { name: "Nobody's Child", src: "/brands/nobodys-child.webp" },
+];
+
 function GlobalPartner() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const imgX = useTransform(scrollYProgress, [0.15, 0.6], [300, 0]);
-  const imgOpacity = useTransform(scrollYProgress, [0.15, 0.45], [0, 1]);
+  const loop = [...BRAND_LOGOS, ...BRAND_LOGOS];
 
   return (
-    <section ref={sectionRef} className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
-      <div className="max-w-[1536px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 xl:gap-24 items-center">
-        <div className="flex-1 max-w-2xl lg:max-w-none">
-          <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15]">
-            A global manufacturing partner to 50+ leading brands.
-          </h2>
-          <p className="mt-6 text-base sm:text-lg lg:text-xl text-navy/70 leading-[1.8] text-justify">
-            Since 1991, Fabstract has grown from a boutique workshop into a modern, four-facility operation. Today, backed by more than 30 years of expertise, we lead the sustainable garment export sector through low-impact, solar-driven, and green-certified manufacturing.
-          </p>
+    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden">
+      <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+        <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
+        <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
+          A global manufacturing partner to 50+ leading brands.
+        </h2>
+      </div>
+      <div className="mt-12 sm:mt-16 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <div
+          className="flex w-max gap-6 sm:gap-10 hover:[animation-play-state:paused]"
+          style={{ animation: "logo-marquee 30s linear infinite" }}
+        >
+          {loop.map((logo, i) => (
+            <div
+              key={i}
+              className="w-44 sm:w-56 h-24 sm:h-28 shrink-0 rounded-xl border border-navy/10 bg-sky/20 flex items-center justify-center px-6"
+            >
+              <img
+                src={logo.src}
+                alt={logo.name}
+                loading="lazy"
+                className="max-h-12 sm:max-h-14 max-w-full w-auto object-contain"
+              />
+            </div>
+          ))}
         </div>
-        <motion.div className="flex-1 w-full" style={{ x: imgX, opacity: imgOpacity }}>
-          <img
-            src="/home/products-collage.webp"
-            alt="Fabstract product range"
-            className="w-full h-auto rounded-2xl object-cover shadow-sm"
-          />
-        </motion.div>
       </div>
     </section>
   );
@@ -129,39 +145,33 @@ export default function Home() {
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navbar />
       <VideoBanner introComplete={introComplete} />
-      <section className="bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14">
+      <StickyScrollTabs>
+      <section id="s-about" className="scroll-mt-24 bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14">
         <div className="max-w-4xl mx-auto">
-          <p className="text-center text-lg sm:text-xl lg:text-2xl text-[#0d3b2e] font-bold leading-[1.6]">
+          <p className="text-center font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.3]">
             We are redefining apparel manufacturing by putting people, planet, and innovation at the core of our business.
-          </p>
-          <p className="mt-6 text-justify text-base sm:text-lg lg:text-xl text-[#144d3d] leading-[1.8]">
-            We are committed to <strong className="text-[#082920] font-semibold">ethical manufacturing,</strong> investing in <strong className="text-[#082920] font-semibold">our people,</strong> and advancing <strong className="text-[#082920] font-semibold">sustainable solutions</strong> that help shape a more responsible and resilient global apparel and textile industry.
-          </p>
-          <p className="mt-8 text-center font-display text-2xl sm:text-3xl lg:text-4xl text-[#0d3b2e] italic leading-[1.6]">
-            Sustainably grown. Consciously made. Expertly crafted.
           </p>
         </div>
       </section>
       <GlobalPartner />
 
-      {/* Capabilities */}
-      <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto">
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium mb-12 lg:mb-16">Product Capabilities</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
-            {CAPABILITIES.map((cap) => (
-              <div key={cap.title}>
-                <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
-                <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
-                <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
-              </div>
-            ))}
-          </div>
+      <IntroVideo />
+
+      {/* Key points */}
+      <section id="s-strengths" className="scroll-mt-24 bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[1536px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-16">
+          {CAPABILITIES.map((cap) => (
+            <div key={cap.title}>
+              <div className="w-10 h-10 text-teal mb-4" dangerouslySetInnerHTML={{ __html: cap.icon }} />
+              <h3 className="font-display text-xl sm:text-2xl text-navy font-medium mb-3">{cap.title}</h3>
+              <p className="text-navy/65 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: cap.desc }} />
+            </div>
+          ))}
         </div>
       </section>
 
       {/* 4 Factories & Cinematic Large Video Showcase */}
-      <section className="bg-sky/10 py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-navy/10">
+      <section id="s-factories" className="scroll-mt-24 bg-sky/10 py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-navy/10">
         <div className="max-w-[1536px] mx-auto">
           <p className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-navy font-medium leading-[1.3] max-w-5xl mb-10 sm:mb-14">
             4 factories fully equipped to handle 100% woven or 100% knitted garments — end to end, under one roof.
@@ -171,7 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      <StickyScrollTabs />
+      </StickyScrollTabs>
       <Footer />
     </>
   );
