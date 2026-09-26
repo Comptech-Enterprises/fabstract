@@ -96,16 +96,24 @@ export function KeyPoints({ items }: { items: KeyPoint[] }) {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4, ease: EASE }}
             >
-              <p
-                className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-[1.6] max-w-3xl"
-                dangerouslySetInnerHTML={{ __html: current.desc }}
-              />
-              {current.image && (
-                <img
-                  src={current.image}
-                  alt={current.title}
-                  loading="lazy"
-                  className="mt-8 w-full aspect-[16/9] object-cover rounded-2xl lg:rounded-l-none lg:[mask-image:linear-gradient(to_right,transparent,black_22%)]"
+              {current.image ? (
+                <div className="relative overflow-hidden rounded-2xl lg:rounded-l-none lg:[mask-image:linear-gradient(to_right,transparent,black_22%)]">
+                  <img
+                    src={current.image}
+                    alt={current.title}
+                    loading="lazy"
+                    className="w-full aspect-[16/10] sm:aspect-[16/9] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-transparent" />
+                  <p
+                    className="absolute top-0 left-0 right-0 p-5 sm:p-8 lg:p-10 lg:pl-24 text-white text-base sm:text-xl lg:text-2xl leading-[1.55] max-w-4xl [&_strong]:font-semibold"
+                    dangerouslySetInnerHTML={{ __html: current.desc }}
+                  />
+                </div>
+              ) : (
+                <p
+                  className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-[1.6] max-w-3xl"
+                  dangerouslySetInnerHTML={{ __html: current.desc }}
                 />
               )}
             </motion.div>

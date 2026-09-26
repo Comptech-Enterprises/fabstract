@@ -264,29 +264,36 @@ const FLEX_ITEMS: Tile[] = [
   { label: "Production", desc: "Dummy: controlled manufacturing across categories.", img: gal("ASN_8157") },
 ];
 
-const TAB_LABELS: Record<TabKey, string> = { women: "Women's", men: "Men's", kids: "Kids" };
+const HOME_LABEL = "Home Textile & Living";
+type TabId = TabKey | "home";
+const TAB_LABELS: Record<TabId, string> = { women: "Women's", men: "Men's", kids: "Kids", home: "Home Textiles" };
 
 function WhatWeMake() {
-  const [tab, setTab] = useState<TabKey>("women");
+  const [tab, setTab] = useState<TabId>("women");
+  const homeCategory = PRODUCT_CATEGORIES.find((c) => c.label === HOME_LABEL)!;
+  const tiles: { key: string; label: string; seg: CategorySegment }[] =
+    tab === "home"
+      ? (["women", "men", "kids"] as TabKey[]).map((k) => ({ key: k, label: TAB_LABELS[k], seg: homeCategory.segments[k] }))
+      : PRODUCT_CATEGORIES.filter((c) => c.label !== HOME_LABEL).map((c) => ({ key: c.label, label: c.label, seg: c.segments[tab] }));
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12">
+      <div className="flex flex-col items-start gap-6 mb-10 sm:mb-12">
         <div>
           <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">What we make</p>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">
             Built across categories. Specialized where it matters.
           </h2>
         </div>
-        <div className="flex gap-2 w-fit">
-          {(["women", "men", "kids"] as TabKey[]).map((k) => {
+        <div className="flex flex-nowrap gap-1.5 sm:gap-2 max-w-full overflow-x-auto shrink-0">
+          {(["women", "men", "kids", "home"] as TabId[]).map((k) => {
             const active = tab === k;
             return (
               <button
                 key={k}
                 type="button"
                 onClick={() => setTab(k)}
-                className={`px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase font-semibold transition-colors cursor-pointer ${
+                className={`px-3.5 sm:px-4 py-2.5 text-[10px] sm:text-[11px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
                   active ? "bg-[#06402B] text-white" : "bg-navy/5 text-navy/55 hover:text-navy"
                 }`}
               >
@@ -304,13 +311,12 @@ function WhatWeMake() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5"
         >
-          {PRODUCT_CATEGORIES.map((category) => {
-            const seg = category.segments[tab];
+          {tiles.map(({ key, label, seg }) => {
             return (
               <a
-                key={category.label}
+                key={key}
                 href={seg.catalogue}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -319,13 +325,13 @@ function WhatWeMake() {
                 <div className="aspect-[3/4] overflow-hidden bg-[#f5efe9]">
                   <img
                     src={seg.image}
-                    alt={`${category.label} - ${TAB_LABELS[tab]}`}
+                    alt={`${label} - ${TAB_LABELS[tab]}`}
                     loading="lazy"
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="mt-3 flex items-center justify-between gap-2">
-                  <span className="text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{category.label}</span>
+                  <span className="text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{label}</span>
                   <span aria-hidden className="text-navy/50 group-hover:text-navy group-hover:translate-x-1 transition-all">→</span>
                 </div>
                 <p className="mt-1.5 text-xs text-navy/55 leading-relaxed">{seg.items.slice(0, 2).join(" · ")}</p>

@@ -44,15 +44,15 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   },
   {
     id: 5,
-    title: "Garment Dyeing & Eco-Washes",
-    subtitle: "State-of-the-art closed-loop washing, pigment dyeing, and sustainable enzyme treatments with zero liquid discharge.",
-    tag: "Unit 05 — Dye & Wash",
+    title: "Company Snapshot",
+    subtitle: "35+ years of export experience and a capacity of 2,50,000 units per month.",
+    tag: "Unit 05 — Snapshot",
     videoSrc: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2046.mp4",
   },
   {
     id: 6,
     title: "Finishing, Steaming & Packing",
-    subtitle: "Automated tunnel finishers, barcode tag validation, and export packaging ready for global retail floors.",
+    subtitle: "4 factories in Noida, India, 40+ active clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
     tag: "Unit 06 — Logistics",
     videoSrc: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",
   },
@@ -149,7 +149,7 @@ export function FactoryVideoShowcase({
 
         {/* ── Bottom Content Overlay ── */}
         <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10 z-20 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <motion.h3
               key={`title-${currentIndex}`}
               initial={{ opacity: 0, y: 15 }}
@@ -164,7 +164,7 @@ export function FactoryVideoShowcase({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-3 text-white/75 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl"
+              className="mt-3 text-white/75 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl"
             >
               {currentVideo.subtitle}
             </motion.p>

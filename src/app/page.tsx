@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useCallback } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BANNER_VIDEO } from "@/data/hero";
-import { TypeReveal } from "@/components/TypeReveal";
 import { IntroAnimation } from "@/components/IntroAnimation";
 import { StickyScrollTabs } from "@/components/StickyScrollTabs";
 import { FactoryVideoShowcase } from "@/components/FactoryVideoShowcase";
@@ -110,18 +108,10 @@ function GlobalPartner() {
   );
 }
 
-function VideoBanner({ introComplete }: { introComplete: boolean }) {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const quoteY = useTransform(heroProgress, [0, 1], [0, 90]);
-
+function VideoBanner() {
   return (
     <section
       id="hero-banner"
-      ref={heroRef}
       className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex items-end"
     >
       <div className="absolute inset-0">
@@ -136,19 +126,12 @@ function VideoBanner({ introComplete }: { introComplete: boolean }) {
         />
       </div>
       <div className="relative w-full text-center">
-        <motion.div style={{ y: quoteY }} className="bg-black/30 w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
+        <div className="bg-black/30 w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
           <blockquote className="font-display text-[16px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-[1.3]">
-            {introComplete ? (
-              <TypeReveal className="block w-full" delay={0.3} charDelay={0.04} attribution="— Mahatma Gandhi" noBg>
-                The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-              </TypeReveal>
-            ) : (
-              <span className="block w-full opacity-0">
-                The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-              </span>
-            )}
+            The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
+            <span className="block mt-3 sm:mt-4 text-sm sm:text-base tracking-[0.28em] uppercase text-sky font-bold">— Mahatma Gandhi</span>
           </blockquote>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -162,7 +145,7 @@ export default function Home() {
     <>
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navbar />
-      <VideoBanner introComplete={introComplete} />
+      <VideoBanner />
       <StickyScrollTabs>
       <section id="s-about" className="scroll-mt-24 bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14">
         <div className="max-w-4xl mx-auto">
