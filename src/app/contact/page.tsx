@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { EASE } from "@/lib/motion";
+import { PageScrollLayout } from "@/components/PageScrollLayout";
+
+const CONTACT_TABS = [
+  { id: "offices", label: "Our Offices" },
+  { id: "enquiry", label: "Send a Message" },
+  { id: "location", label: "Location" },
+];
 
 const OFFICES = [
   {
@@ -53,7 +60,7 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
+      <section className="bg-navy pt-32 pb-16 sm:pt-40 sm:pb-20 px-6 sm:px-10 lg:px-14">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -69,18 +76,20 @@ export default function ContactPage() {
         </motion.div>
       </section>
 
-      {/* Offices + Form */}
-      <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-14 lg:pl-[236px]">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <PageScrollLayout tabs={CONTACT_TABS} activeIdPrefix="contact">
+        {/* Offices + Form */}
+        <section className="bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-14">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 
-          {/* Left: Office info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="flex flex-col justify-between"
-          >
+            {/* Left: Office info */}
+            <motion.div
+              id="offices"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: EASE }}
+              className="scroll-mt-24 flex flex-col justify-between"
+            >
             <div>
               <span className="text-teal text-xs tracking-[0.25em] uppercase font-medium">Reach us</span>
               <h2 className="mt-3 font-display text-3xl sm:text-4xl text-navy font-semibold mb-4">Our Offices</h2>
@@ -141,6 +150,8 @@ export default function ContactPage() {
 
           {/* Right: Contact form */}
           <motion.div
+            id="enquiry"
+            className="scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -245,7 +256,7 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      <section className="bg-beige/30 px-6 sm:px-10 lg:px-14 lg:pl-[236px] py-16 sm:py-20">
+      <section id="location" className="scroll-mt-24 bg-beige/30 px-6 sm:px-10 lg:px-14 py-16 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -268,6 +279,7 @@ export default function ContactPage() {
           </div>
         </motion.div>
       </section>
+      </PageScrollLayout>
 
       <Footer />
     </>

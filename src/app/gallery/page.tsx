@@ -5,7 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
+import { PageScrollLayout } from "@/components/PageScrollLayout";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+
+const GALLERY_TABS = [
+  { id: "production", label: "Knits & Production" },
+  { id: "craft", label: "Artisans & Assembly" },
+  { id: "quality", label: "Quality & Dispatch" },
+  { id: "ecology", label: "Green & Sourcing" },
+];
 
 interface PostData {
   id: number;
@@ -414,33 +422,86 @@ function InstagramCard({ post }: { post: PostData }) {
 }
 
 export default function GalleryPage() {
+  const productionPosts = POSTS.filter((p) => p.id === 1 || p.id === 8);
+  const craftPosts = POSTS.filter((p) => p.id === 2 || p.id === 7);
+  const qualityPosts = POSTS.filter((p) => p.id === 3 || p.id === 9);
+  const ecologyPosts = POSTS.filter((p) => p.id === 4 || p.id === 5 || p.id === 6);
+
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#fafafa] py-12 sm:py-16">
-        {/* Intro header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-8 text-center sm:text-left">
-          <p className="text-teal text-xs tracking-[0.25em] uppercase font-semibold mb-2">
-            Visual Journal
-          </p>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-medium">
-            Instagram Feed
-          </h1>
-          <p className="mt-3 text-navy/70 text-base max-w-2xl leading-relaxed">
-            Live glimpses from our production floors, sustainable processes, and artisanal craft in real time.
-          </p>
-        </div>
+      <PageIntro
+        eyebrow="Visual Journal"
+        title="Production, craft & everyday life at Fabstract."
+        subtitle="Live glimpses from our production floors, sustainable processes, and artisanal craft in real time."
+      />
 
-        {/* ── Multi-Column Grid of Complete Instagram Post Cards ── */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {POSTS.map((post) => (
+      <PageScrollLayout tabs={GALLERY_TABS} activeIdPrefix="gallery">
+        {/* Section 1: Knits & Production */}
+        <section id="production" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
+          <div className="mb-8">
+            <span className="text-teal text-xs tracking-[0.25em] uppercase font-semibold">Manufacturing</span>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl text-navy font-semibold">Knits & Production Floor</h2>
+            <p className="mt-2 text-navy/60 text-sm max-w-xl">
+              Precision circular knitting and automated CAD cutting tables delivering millimeter-accurate pattern cutting with minimal fabric waste.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {productionPosts.map((post) => (
               <InstagramCard key={post.id} post={post} />
             ))}
           </div>
-        </div>
-      </main>
+        </section>
+
+        {/* Section 2: Artisans & Assembly */}
+        <section id="craft" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
+          <div className="mb-8">
+            <span className="text-teal text-xs tracking-[0.25em] uppercase font-semibold">Artisans</span>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl text-navy font-semibold">Artisans & Assembly</h2>
+            <p className="mt-2 text-navy/60 text-sm max-w-xl">
+              Over 60% of our skilled floor artisans are women leading daily production lines, working alongside master tailors on intricate silhouettes.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {craftPosts.map((post) => (
+              <InstagramCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+
+        {/* Section 3: Quality & Dispatch */}
+        <section id="quality" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
+          <div className="mb-8">
+            <span className="text-teal text-xs tracking-[0.25em] uppercase font-semibold">Assurance</span>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl text-navy font-semibold">Quality & Global Dispatch</h2>
+            <p className="mt-2 text-navy/60 text-sm max-w-xl">
+              Five-stage QA with seam stress testing, shade consistency verification, and automated barcoding ready for global export across 45+ countries.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {qualityPosts.map((post) => (
+              <InstagramCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+
+        {/* Section 4: Green & Sourcing */}
+        <section id="ecology" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16">
+          <div className="mb-8">
+            <span className="text-teal text-xs tracking-[0.25em] uppercase font-semibold">Sustainability</span>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl text-navy font-semibold">Green & Sourcing</h2>
+            <p className="mt-2 text-navy/60 text-sm max-w-xl">
+              Natural rooftop daylighting, Miyawaki micro-forest biodiversity, and GOTS-certified organic cotton weaves supporting circular fashion.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+            {ecologyPosts.map((post) => (
+              <InstagramCard key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+      </PageScrollLayout>
 
       <Footer />
     </>

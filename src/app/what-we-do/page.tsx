@@ -5,6 +5,17 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { PageScrollLayout } from "@/components/PageScrollLayout";
+
+const WHAT_WE_DO_TABS = [
+  { id: "capabilities", label: "Capabilities" },
+  { id: "what-we-make", label: "What We Make" },
+  { id: "fabrics", label: "Fabrics" },
+  { id: "process", label: "Process" },
+  { id: "quality", label: "Quality" },
+  { id: "details", label: "Craft & Details" },
+  { id: "flexibility", label: "Flexibility" },
+];
 
 interface CategorySegment {
   desc: string;
@@ -393,51 +404,52 @@ export default function WhatWeDo() {
         </motion.div>
       </section>
 
-      {/* Capabilities (DUMMY copy; Production + Quality photos are real) */}
-      <section id="capabilities" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto">
-          <Reveal>
-            <SectionHead
-              eyebrow="Our capabilities"
-              title="More than making the garment. We help build it."
-              blurb="Dummy: from an initial concept to a production-ready garment, our teams work closely with customers to solve the details."
-            />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
-              {CAPABILITY_TILES.map((t) => (
-                <TileCard key={t.label} tile={t} />
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <PageScrollLayout tabs={WHAT_WE_DO_TABS} activeIdPrefix="what-we-do">
+        {/* Capabilities (DUMMY copy; Production + Quality photos are real) */}
+        <section id="capabilities" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+          <div className="max-w-[1536px] mx-auto">
+            <Reveal>
+              <SectionHead
+                eyebrow="Our capabilities"
+                title="More than making the garment. We help build it."
+                blurb="Dummy: from an initial concept to a production-ready garment, our teams work closely with customers to solve the details."
+              />
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
+                {CAPABILITY_TILES.map((t) => (
+                  <TileCard key={t.label} tile={t} />
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* What we make (real category data, images and catalogue links; heading is dummy) */}
-      <section id="what-we-make" className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto">
-          <WhatWeMake />
-        </div>
-      </section>
+        {/* What we make (real category data, images and catalogue links; heading is dummy) */}
+        <section id="what-we-make" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+          <div className="max-w-[1536px] mx-auto">
+            <WhatWeMake />
+          </div>
+        </section>
 
-      {/* Fabric (all DUMMY) */}
-      <section className="bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto">
-          <Reveal>
-            <SectionHead
-              eyebrow="Fabric is where it starts"
-              title="The right garment starts with the right fabric."
-              blurb="Dummy: our development teams work across a broad range of knitted and woven structures, helping brands develop handfeel, weight and drape."
-            />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
-              {FABRIC_TILES.map((t) => (
-                <TileCard key={t.label} tile={t} ratio="aspect-square" />
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+        {/* Fabric (all DUMMY) */}
+        <section id="fabrics" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+          <div className="max-w-[1536px] mx-auto">
+            <Reveal>
+              <SectionHead
+                eyebrow="Fabric is where it starts"
+                title="The right garment starts with the right fabric."
+                blurb="Dummy: our development teams work across a broad range of knitted and woven structures, helping brands develop handfeel, weight and drape."
+              />
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
+                {FABRIC_TILES.map((t) => (
+                  <TileCard key={t.label} tile={t} ratio="aspect-square" />
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* Process (DUMMY copy; Production + Quality photos are real) */}
-      <section className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        {/* Process (DUMMY copy; Production + Quality photos are real) */}
+        <section id="process" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="max-w-[1536px] mx-auto">
           <Reveal>
             <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">From sample to production</p>
@@ -462,7 +474,7 @@ export default function WhatWeDo() {
       </section>
 
       {/* Quality band (heading/stats DUMMY except 1991 and Knits + Wovens; photo is real) */}
-      <section className="bg-[#06402B] text-white grid lg:grid-cols-[1.35fr_1fr]">
+      <section id="quality" className="scroll-mt-24 bg-[#06402B] text-white grid lg:grid-cols-[1.35fr_1fr]">
         <div className="px-6 sm:px-10 lg:px-16 xl:px-20 py-16 sm:py-20">
           <div className="grid xl:grid-cols-[1.1fr_1fr] gap-8 xl:gap-12">
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.15]">
@@ -487,7 +499,7 @@ export default function WhatWeDo() {
       </section>
 
       {/* Details (all DUMMY) */}
-      <section className="bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+      <section id="details" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="max-w-[1536px] mx-auto">
           <Reveal>
             <SectionHead
@@ -505,7 +517,7 @@ export default function WhatWeDo() {
       </section>
 
       {/* Flexibility (DUMMY copy; Production photo is real) */}
-      <section className="bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+      <section id="flexibility" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="max-w-[1536px] mx-auto">
           <Reveal>
             <SectionHead
@@ -557,6 +569,7 @@ export default function WhatWeDo() {
           </div>
         </div>
       </section>
+      </PageScrollLayout>
 
       <Footer />
     </>

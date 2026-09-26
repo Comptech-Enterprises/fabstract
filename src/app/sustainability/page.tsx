@@ -7,6 +7,14 @@ import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 import { R2_MEDIA } from "@/data/hero";
+import { PageScrollLayout } from "@/components/PageScrollLayout";
+
+const SUSTAINABILITY_TABS = [
+  { id: "commitment", label: "Commitment" },
+  { id: "scorecard", label: "Impact Scorecard" },
+  { id: "people-bento", label: "People First" },
+  { id: "reports", label: "Governance & ESG" },
+];
 
 function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: string; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -78,23 +86,22 @@ export default function SustainabilityPage() {
         </section>
 
 
-        {/* Intro Statement Section */}
-        <section className="bg-white px-6 sm:px-10 lg:px-16 py-16 lg:py-24 border-b border-navy/10 text-center">
-          <div className="max-w-4xl lg:max-w-5xl mx-auto">
-            <p className="text-teal text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">The Fabstract Commitment</p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tight">
-              Sustainability is not an afterthought. It is engineered into every stitch, fiber, and factory floor.
-            </h2>
-            <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-              We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our zero-liquid discharge, renewable energy, and ethical worker charter exceed national standards and comply with premier international sustainability codes.
-            </p>
-          </div>
-        </section>
+        <PageScrollLayout tabs={SUSTAINABILITY_TABS} activeIdPrefix="sustainability">
+          {/* Intro Statement Section */}
+          <section id="commitment" className="scroll-mt-24 bg-white px-6 sm:px-10 lg:px-16 py-16 lg:py-24 border-b border-navy/10 text-center">
+            <div className="max-w-4xl lg:max-w-5xl mx-auto">
+              <p className="text-teal text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">The Fabstract Commitment</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tight">
+                Sustainability is not an afterthought. It is engineered into every stitch, fiber, and factory floor.
+              </h2>
+              <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
+                We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our zero-liquid discharge, renewable energy, and ethical worker charter exceed national standards and comply with premier international sustainability codes.
+              </p>
+            </div>
+          </section>
 
-        {/* Full-Width Sections */}
-        <div className="w-full">
           {/* Section 1: Live Environmental Impact Scorecard (Navy Blue) */}
-          <section id="scorecard" className="scroll-mt-28 bg-navy text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
+          <section id="scorecard" className="scroll-mt-24 bg-navy text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
             {/* Ambient Lighting */}
             <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-sky/10 rounded-full blur-3xl" />
@@ -261,7 +268,7 @@ export default function SustainabilityPage() {
           </section>
 
           {/* Section 2: People & Community — Bento Grid */}
-          <section id="people-bento" className="scroll-mt-28 bg-[#faf7f5] text-navy px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
+          <section id="people-bento" className="scroll-mt-24 bg-[#faf7f5] text-navy px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="max-w-3xl mb-14">
                 <p className="text-teal text-xs font-semibold tracking-[0.25em] uppercase mb-3">Social Sustainability</p>
@@ -397,7 +404,7 @@ export default function SustainabilityPage() {
           </section>
 
           {/* Section 3: Sustainability Reports & Documents (Navy Blue) */}
-          <section id="reports" className="scroll-mt-28 bg-navy text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
+          <section id="reports" className="scroll-mt-24 bg-navy text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-navy/10 relative overflow-hidden">
             <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
             <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 bg-sky/10 rounded-full blur-3xl" />
 
@@ -502,8 +509,6 @@ export default function SustainabilityPage() {
           </section>
 
 
-        </div>
-
         {/* CTA: Partner With Us */}
         <section className="relative bg-[#faf7f5] px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,128,128,0.06)_0%,_transparent_70%)]" />
@@ -540,6 +545,7 @@ export default function SustainabilityPage() {
             </div>
           </motion.div>
         </section>
+        </PageScrollLayout>
 
         {/* Back to Top */}
         <button

@@ -6,12 +6,14 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+import { PageScrollLayout } from "@/components/PageScrollLayout";
 
-const TABS = [
+const ABOUT_TABS = [
+  { id: "overview", label: "Overview" },
   { id: "legacy", label: "Our Legacy" },
   { id: "journey", label: "Our Journey" },
   { id: "certifications", label: "Certifications" },
-] as const;
+];
 
 const JOURNEY_PAIRS = [
   [
@@ -76,52 +78,8 @@ const JOURNEY_PAIRS = [
 
 
 export default function AboutPage() {
-  const [active, setActive] = useState("legacy");
   const [currentPair, setCurrentPair] = useState(0);
   const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Trigger point located around 35% from the top of the viewport
-      const triggerPoint = window.scrollY + window.innerHeight * 0.35;
-
-      const sections = TABS.map((tab) => {
-        const el = document.getElementById(tab.id);
-        if (!el) return null;
-        const rect = el.getBoundingClientRect();
-        const top = rect.top + window.scrollY;
-        const height = el.offsetHeight;
-        return { id: tab.id, top, bottom: top + height };
-      }).filter(Boolean) as { id: string; top: number; bottom: number }[];
-
-      if (!sections.length) return;
-
-      // When near very top of page
-      if (window.scrollY < sections[0].top - 100) {
-        setActive(sections[0].id);
-        return;
-      }
-
-      // When near bottom of page
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80) {
-        setActive(sections[sections.length - 1].id);
-        return;
-      }
-
-      // Determine active section
-      let currentActive = sections[0].id;
-      for (const sec of sections) {
-        if (triggerPoint >= sec.top) {
-          currentActive = sec.id;
-        }
-      }
-      setActive(currentActive);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const goToPrev = () => {
     if (currentPair > 0) {
@@ -161,42 +119,21 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Intro Statement Section (Full Width, Centered) */}
-        <section className="bg-white px-6 sm:px-10 lg:px-16 py-16 lg:py-24 border-b border-navy/10 text-center">
-          <div className="max-w-4xl lg:max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tight">
-              Manufacturing Excellence, Cutting-Edge, and Vertically Integrated
-            </h2>
-            <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-              As a premier apparel manufacturer, we manage the entire process from spinning to finished garment. Our state-of-the-art mills craft woven and knitted fabric with premium cotton fiber and materials from reputable suppliers to ensure speed, quality, and responsibility.
-            </p>
-          </div>
-        </section>
+        <PageScrollLayout tabs={ABOUT_TABS} activeIdPrefix="about">
+          {/* Intro Statement Section (Full Width, Centered) */}
+          <section id="overview" className="scroll-mt-24 bg-white px-6 sm:px-10 lg:px-16 py-16 lg:py-24 border-b border-navy/10 text-center">
+            <div className="max-w-4xl lg:max-w-5xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tight">
+                Manufacturing Excellence, Cutting-Edge, and Vertically Integrated
+              </h2>
+              <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
+                As a premier apparel manufacturer, we manage the entire process from spinning to finished garment. Our state-of-the-art mills craft woven and knitted fabric with premium cotton fiber and materials from reputable suppliers to ensure speed, quality, and responsibility.
+              </p>
+            </div>
+          </section>
 
-        {/* Sticky Sub-Navigation Bar (Unified Desktop & Mobile) */}
-        <div className="sticky top-14 sm:top-16 md:top-18 z-40 bg-white/95 border-b border-navy/10 backdrop-blur-md">
-          <nav className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex items-center justify-start md:justify-center gap-6 sm:gap-8 lg:gap-14 overflow-x-auto scrollbar-none">
-            {TABS.map((tab) => {
-              const on = active === tab.id;
-              return (
-                <a
-                  key={tab.id}
-                  href={`#${tab.id}`}
-                  className={`shrink-0 py-4 text-xs sm:text-sm tracking-[0.18em] uppercase transition-all duration-300 font-semibold border-b-2 -mb-[1px] ${
-                    on ? "text-navy border-navy" : "text-navy/40 border-transparent hover:text-navy"
-                  }`}
-                >
-                  {tab.label}
-                </a>
-              );
-            })}
-          </nav>
-        </div>
-
-        {/* Full-Width Editorial Sections */}
-        <div className="w-full">
           {/* Section 1: Our Legacy - Blue Background 3-Column Center-Portrait Layout */}
-          <section id="legacy" className="scroll-mt-28 bg-navy text-white px-6 sm:px-10 lg:px-14 py-16 lg:py-24 border-b border-navy/10 relative overflow-hidden">
+          <section id="legacy" className="scroll-mt-24 bg-navy text-white px-6 sm:px-10 lg:px-14 py-16 lg:py-24 border-b border-navy/10 relative overflow-hidden">
             {/* Subtle ambient lighting behind portrait */}
             <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] h-[34rem] bg-sky/15 rounded-full blur-[100px]" />
 
@@ -481,7 +418,7 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-        </div>
+        </PageScrollLayout>
 
         {/* Back to Top */}
         <button
