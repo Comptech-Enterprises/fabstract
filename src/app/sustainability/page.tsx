@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, Fragment } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -290,38 +290,16 @@ export default function SustainabilityPage() {
             <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-sky/10 rounded-full blur-3xl" />
 
             <div className="max-w-7xl mx-auto relative z-10">
-              <div className="max-w-3xl mb-16">
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="text-sky text-xs font-semibold tracking-[0.25em] uppercase mb-3"
-                >
-                  Verifiable Metrics
-                </motion.p>
-                <motion.h2
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight"
-                >
-                  Sustainability Impact - Energy
-                </motion.h2>
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "5rem" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-0.5 bg-gradient-to-r from-teal to-sky mt-5 mb-8 rounded-full"
-                />
-              </div>
-
-              {/* Alternating Image-Text Rows */}
-              <div className="flex flex-col gap-10 lg:gap-14">
+              {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
+              <div className="flex flex-col lg:h-screen lg:overflow-y-auto lg:overscroll-y-contain lg:snap-y lg:snap-mandatory no-scrollbar gap-10 lg:gap-0">
                 {[
                   {
+                    sectionHeader: {
+                      tag: "Verifiable Metrics",
+                      title: "Sustainability Impact - Energy",
+                    },
+                    bgPattern: "/backgrounds/lightning-tile.svg",
+                    bgRepeat: true,
                     num: "100%",
                     bulbZero: true,
                     label: "Clean Auxiliary Energy",
@@ -345,6 +323,11 @@ export default function SustainabilityPage() {
                       tag: "Verifiable Metrics",
                       title: "Sustainability Impact - Water",
                     },
+                    bgPattern: "/backgrounds/water-flow.svg",
+                    bgRepeat: true,
+                    bgTileSize: "240px 480px",
+                    bgOpacity: 0.22,
+                    bgAnimate: true,
                     imageFirst: true,
                     num: "95%+",
                     label: "Water Recycled",
@@ -370,6 +353,10 @@ export default function SustainabilityPage() {
                       tag: "Verifiable Metrics",
                       title: "Sustainability Impact - Tree Plantation",
                     },
+                    bgPattern: "/backgrounds/tree-tile.svg",
+                    bgRepeat: true,
+                    bgTileSize: "180px 180px",
+                    bgOpacity: 0.18,
                     num: "50,000+",
                     label: "Trees Planted",
                     sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
@@ -401,7 +388,32 @@ export default function SustainabilityPage() {
                   const hasVideo = Boolean(stat.video || stat.videos || stat.slides);
 
                   return (
-                    <Fragment key={stat.label}>
+                    <div
+                      key={stat.label}
+                      className="relative lg:h-screen lg:shrink-0 lg:flex lg:flex-col lg:justify-center lg:overflow-hidden lg:snap-start lg:snap-always"
+                    >
+                      {stat.bgPattern && (
+                        <div
+                          className={`pointer-events-none absolute inset-0 -z-10 ${
+                            stat.bgAnimate ? "bg-water-flow" : ""
+                          }`}
+                          style={
+                            stat.bgRepeat
+                              ? {
+                                  backgroundImage: `url(${stat.bgPattern})`,
+                                  backgroundRepeat: "repeat",
+                                  backgroundSize: stat.bgTileSize || "150px 150px",
+                                  opacity: stat.bgOpacity ?? 0.07,
+                                }
+                              : {
+                                  backgroundImage: `url(${stat.bgPattern})`,
+                                  backgroundSize: "cover",
+                                  backgroundPosition: "center",
+                                  opacity: stat.bgOpacity ?? 0.07,
+                                }
+                          }
+                        />
+                      )}
                       {stat.sectionHeader && (
                         <div className="max-w-3xl pt-10 sm:pt-14 pb-2">
                           {stat.sectionHeader.tag && (
@@ -453,8 +465,8 @@ export default function SustainabilityPage() {
                           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                           className={`relative ${
                             hasVideo
-                              ? "h-[400px] sm:h-[480px] md:h-[520px] lg:h-[540px] xl:h-[580px] lg:col-span-7 xl:col-span-7"
-                              : "h-[340px] sm:h-[400px] lg:h-[460px]"
+                              ? "h-[400px] sm:h-[480px] md:h-[520px] lg:h-[50vh] xl:h-[54vh] lg:col-span-7 xl:col-span-7"
+                              : "h-[340px] sm:h-[400px] lg:h-[42vh]"
                           } rounded-2xl overflow-hidden shadow-2xl group lg:[direction:ltr]`}
                         >
                           <StatMediaSlider slides={slides} defaultHighlight={stat.highlight} />
@@ -523,7 +535,7 @@ export default function SustainabilityPage() {
                           </motion.p>
                         </div>
                       </motion.div>
-                    </Fragment>
+                    </div>
                   );
                 })}
               </div>
