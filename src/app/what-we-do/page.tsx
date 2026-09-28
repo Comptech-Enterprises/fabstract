@@ -131,30 +131,6 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       },
     },
   },
-  {
-    label: "Home Textile & Living",
-    defaultTagline: "Handcrafted throws, organic linen beddings, table linens, and conscious artisanal lifestyle collections.",
-    segments: {
-      women: {
-        desc: "Relaxed stonewashed bed sheets, fringed waffle cotton throws, decorative botanical cushion covers, and dining linens.",
-        items: ["Stonewashed Linen Duvet", "Waffle Cotton Throws", "Botanical Cushion Covers", "Organic Napkin Sets"],
-        image: "/what-we-do/categories/card-home-textile.webp",
-        catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
-      },
-      men: {
-        desc: "Structured canvas weekend duffles, heavy slub aprons, minimalist workstation accessories, and weighted waffle blankets.",
-        items: ["Heavy Canvas Duffel", "Minimalist Table Runners", "Slub Cotton Aprons", "Textured Throws"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8150.webp",
-        catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
-      },
-      kids: {
-        desc: "Hypoallergenic crib bedding, whimsical printed cot quilts, playful storage bins, and organic muslin swaddles.",
-        items: ["Muslin Swaddle Blankets", "Organic Cot Quilts", "Printed Pillow Covers", "Nursery Play Mats"],
-        image: "/what-we-do/categories/card-woven.webp",
-        catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
-      },
-    },
-  },
 ];
 
 type TabKey = "women" | "men" | "kids";
@@ -275,17 +251,16 @@ const FLEX_ITEMS: Tile[] = [
   { label: "Production", desc: "Dummy: controlled manufacturing across categories.", img: gal("ASN_8157") },
 ];
 
-const HOME_LABEL = "Home Textile & Living";
-type TabId = TabKey | "home";
-const TAB_LABELS: Record<TabId, string> = { women: "Women's", men: "Men's", kids: "Kids", home: "Home Textiles" };
+type TabId = TabKey;
+const TAB_LABELS: Record<TabId, string> = { women: "Women's", men: "Men's", kids: "Kids" };
 
 function WhatWeMake() {
   const [tab, setTab] = useState<TabId>("women");
-  const homeCategory = PRODUCT_CATEGORIES.find((c) => c.label === HOME_LABEL)!;
-  const tiles: { key: string; label: string; seg: CategorySegment }[] =
-    tab === "home"
-      ? (["women", "men", "kids"] as TabKey[]).map((k) => ({ key: k, label: TAB_LABELS[k], seg: homeCategory.segments[k] }))
-      : PRODUCT_CATEGORIES.filter((c) => c.label !== HOME_LABEL).map((c) => ({ key: c.label, label: c.label, seg: c.segments[tab] }));
+  const tiles: { key: string; label: string; seg: CategorySegment }[] = PRODUCT_CATEGORIES.map((c) => ({
+    key: c.label,
+    label: c.label,
+    seg: c.segments[tab],
+  }));
 
   return (
     <>
