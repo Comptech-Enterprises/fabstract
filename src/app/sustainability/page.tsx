@@ -394,11 +394,16 @@ export default function SustainabilityPage() {
                     >
                       {stat.bgPattern && (
                         <div
-                          className={`pointer-events-none absolute inset-0 -z-10 ${
+                          className={`pointer-events-none absolute inset-y-0 -z-10 ${
                             stat.bgAnimate ? "bg-water-flow" : ""
                           }`}
-                          style={
-                            stat.bgRepeat
+                          style={{
+                            left: "50%",
+                            right: "50%",
+                            width: "100vw",
+                            marginLeft: "-50vw",
+                            marginRight: "-50vw",
+                            ...(stat.bgRepeat
                               ? {
                                   backgroundImage: `url(${stat.bgPattern})`,
                                   backgroundRepeat: "repeat",
@@ -410,8 +415,8 @@ export default function SustainabilityPage() {
                                   backgroundSize: "cover",
                                   backgroundPosition: "center",
                                   opacity: stat.bgOpacity ?? 0.07,
-                                }
-                          }
+                                }),
+                          }}
                         />
                       )}
                       {stat.sectionHeader && (
