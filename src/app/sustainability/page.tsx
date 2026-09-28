@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useRef, useState, Fragment } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
@@ -16,13 +16,24 @@ const SUSTAINABILITY_TABS = [
   { id: "reports", label: "Governance & ESG" },
 ];
 
-function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: string; suffix?: string; duration?: number }) {
+function AnimatedCounter({
+  target,
+  suffix = "",
+  duration = 2,
+  bulbZero = false,
+}: {
+  target: string;
+  suffix?: string;
+  duration?: number;
+  bulbZero?: boolean;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const num = parseInt(target.replace(/[^0-9]/g, ""), 10) || 0;
   const hasPlus = target.includes("+");
   const hasPercent = target.includes("%");
   const [display, setDisplay] = useState("0");
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     if (!inView) return;
@@ -30,12 +41,40 @@ function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: string
       duration,
       ease: [0.22, 1, 0.36, 1],
       onUpdate(v) {
-        const formatted = Math.round(v).toLocaleString();
-        setDisplay(formatted);
+        const val = Math.round(v);
+        setDisplay(val.toLocaleString());
+        if (val >= num) {
+          setCompleted(true);
+        }
       },
     });
     return () => ctrl.stop();
   }, [inView, num, duration]);
+
+  if (bulbZero) {
+    return (
+      <span ref={ref} className="inline-flex items-center">
+        <span className="font-['Times_New_Roman',_Times,_serif] text-[1.18em] leading-none inline-block font-normal">
+          1
+        </span>
+        <span className="inline-flex items-center gap-1.5 mx-1.5 shrink-0 -mt-1">
+          <img
+            src="/icons/lightbulb.webp"
+            alt="0"
+            className="h-[0.9em] w-auto drop-shadow-[0_0_14px_rgba(255,190,0,0.65)] select-none"
+          />
+          <img
+            src="/icons/lightbulb.webp"
+            alt="0"
+            className="h-[0.9em] w-auto drop-shadow-[0_0_14px_rgba(255,190,0,0.65)] select-none"
+          />
+        </span>
+        {hasPercent && "%"}
+        {hasPlus && "+"}
+        {suffix}
+      </span>
+    );
+  }
 
   return (
     <span ref={ref}>
@@ -44,6 +83,150 @@ function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: string
       {hasPlus && "+"}
       {suffix}
     </span>
+  );
+}
+
+interface MediaSlide {
+  type: "video" | "image";
+  src: string;
+  highlight?: string;
+  alt?: string;
+}
+
+function StatMediaSlider({
+  slides,
+  defaultHighlight,
+}: {
+  slides: MediaSlide[];
+  defaultHighlight: string;
+}) {
+  const [current, setCurrent] = useState(0);
+  const total = slides.length;
+  const activeSlide = slides[current];
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrent((prev) => (prev + 1) % total);
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrent((prev) => (prev - 1 + total) % total);
+  };
+
+  useEffect(() => {
+    if (total <= 1) return;
+    if (activeSlide.type !== "image") return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % total);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [total, activeSlide.type, current]);
+
+  return (
+    <div className="relative w-full h-full select-none overflow-hidden rounded-2xl">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeSlide.src}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+          className="absolute inset-0 w-full h-full"
+        >
+          {activeSlide.type === "video" ? (
+            <video
+              key={activeSlide.src}
+              src={activeSlide.src}
+              autoPlay
+              loop={total === 1}
+              onEnded={() => {
+                if (total > 1) {
+                  setCurrent((prev) => (prev + 1) % total);
+                }
+              }}
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <motion.img
+              src={activeSlide.src}
+              alt={activeSlide.alt || "Benchmark media"}
+              className="w-full h-full object-cover"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Gradient vignette */}
+      {!activeSlide.src?.includes("water") && !activeSlide.src?.includes("rainwater") && (
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0c141f]/70 via-transparent to-black/20 pointer-events-none" />
+      )}
+
+      {/* Top Left Badge */}
+      <span className="absolute top-5 left-5 inline-block text-[10px] tracking-[0.2em] uppercase font-semibold text-teal bg-teal/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-teal/30 z-20 pointer-events-none">
+        {activeSlide.highlight || defaultHighlight}
+      </span>
+
+      {total > 1 && (
+        <>
+          {/* Top Right Counter / Pill */}
+          <div className="absolute top-5 right-5 z-20 flex items-center gap-1.5 bg-black/40 backdrop-blur-md text-white/90 text-[11px] font-medium px-2.5 py-1 rounded-full border border-white/15">
+            <svg className="w-3 h-3 text-teal fill-teal" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>
+              {current + 1} / {total}
+            </span>
+          </div>
+
+          {/* Prev Button */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous slide"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 sm:opacity-0 sm:group-hover:opacity-100"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Next Button */}
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next slide"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer opacity-90 sm:opacity-0 sm:group-hover:opacity-100"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Bottom Dots Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrent(i);
+                }}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  current === i ? "w-6 h-1.5 bg-teal" : "w-1.5 h-1.5 bg-white/40 hover:bg-white/80"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -124,24 +307,15 @@ export default function SustainabilityPage() {
                   transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                   className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight"
                 >
-                  Sustainability Impact
+                  Sustainability Impact - Energy
                 </motion.h2>
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: "5rem" }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-0.5 bg-gradient-to-r from-teal to-sky mt-5 mb-4 rounded-full"
+                  className="h-0.5 bg-gradient-to-r from-teal to-sky mt-5 mb-8 rounded-full"
                 />
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-white/70 text-base sm:text-lg mt-4 font-light leading-relaxed"
-                >
-                  Real operational benchmarks driving our carbon neutrality, water conservation, and ethical labor roadmap.
-                </motion.p>
               </div>
 
               {/* Alternating Image-Text Rows */}
@@ -149,20 +323,53 @@ export default function SustainabilityPage() {
                 {[
                   {
                     num: "100%",
-                    label: "Zero-Coal Energy",
-                    sub: "100% clean biomass & rooftop solar daylighting powering facility boilers and mills.",
+                    bulbZero: true,
+                    label: "Clean Auxiliary Energy",
+                    subheading: "Solar Powers Fabstract",
+                    sub: "Fabstract creates its own 100% clean biomass & solar energy powering its facilities, boilers and mills.",
                     highlight: "Zero Fossil Coal",
                     img: `${R2_MEDIA}/coal.jpg`,
-                    video: `${R2_MEDIA}/solar.mp4`,
+                    videos: [
+                      {
+                        src: `${R2_MEDIA}/solar.mp4`,
+                        highlight: "Zero Fossil Coal",
+                      },
+                      {
+                        src: `${R2_MEDIA}/solar-genset.mp4`,
+                        highlight: "Clean Biomass & Solar",
+                      },
+                    ],
                   },
                   {
+                    sectionHeader: {
+                      tag: "Verifiable Metrics",
+                      title: "Sustainability Impact - Water",
+                    },
+                    imageFirst: true,
                     num: "95%+",
                     label: "Water Recycled",
                     sub: "Biological Effluent Treatment Plants (ETP) ensuring zero toxic process discharge.",
                     highlight: "Closed Loop Water",
-                    img: `${R2_MEDIA}/water.jpg`,
+                    slides: [
+                      {
+                        type: "image" as const,
+                        src: `${R2_MEDIA}/water.webp`,
+                        highlight: "Closed Loop Water",
+                        alt: "Biological Effluent Treatment Plant",
+                      },
+                      {
+                        type: "image" as const,
+                        src: `${R2_MEDIA}/rainwater.webp`,
+                        highlight: "Rainwater Harvesting",
+                        alt: "Rainwater Harvesting for Non-Potable Uses",
+                      },
+                    ],
                   },
                   {
+                    sectionHeader: {
+                      tag: "Verifiable Metrics",
+                      title: "Sustainability Impact - Tree Plantation",
+                    },
                     num: "50,000+",
                     label: "Trees Planted",
                     sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
@@ -179,88 +386,144 @@ export default function SustainabilityPage() {
                     video: `${R2_MEDIA}/working.mp4`,
                   },
                 ].map((stat, idx) => {
-                  const imageFirst = idx % 2 === 0;
-                  return (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                      className={`grid grid-cols-1 ${stat.video ? "lg:grid-cols-5" : "lg:grid-cols-2"} gap-8 items-center ${
-                        !imageFirst ? "lg:[direction:rtl]" : ""
-                      }`}
-                    >
-                      {/* Image Side */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.92 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className={`relative h-[320px] sm:h-[380px] lg:h-[420px] rounded-2xl overflow-hidden shadow-xl group lg:[direction:ltr] ${stat.video ? "lg:col-span-3" : ""}`}
-                      >
-                        {stat.video ? (
-                          <video
-                            src={stat.video}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <motion.img
-                            src={stat.img}
-                            alt={stat.label}
-                            className="w-full h-full object-cover"
-                            whileHover={{ scale: 1.06 }}
-                            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c141f]/60 via-transparent to-transparent" />
-                        <motion.span
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.5, delay: 0.5 }}
-                          className="absolute top-5 left-5 inline-block text-[10px] tracking-[0.2em] uppercase font-semibold text-teal bg-teal/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-teal/30"
-                        >
-                          {stat.highlight}
-                        </motion.span>
-                      </motion.div>
+                  const imageFirst = stat.imageFirst !== undefined ? stat.imageFirst : idx % 2 === 0;
+                  const slides: MediaSlide[] = stat.slides
+                    ? stat.slides
+                    : stat.videos
+                    ? stat.videos.map((v) => ({
+                        type: "video" as const,
+                        src: v.src,
+                        highlight: v.highlight,
+                      }))
+                    : stat.video
+                    ? [{ type: "video" as const, src: stat.video, highlight: stat.highlight }]
+                    : [{ type: "image" as const, src: stat.img, highlight: stat.highlight, alt: stat.label }];
+                  const hasVideo = Boolean(stat.video || stat.videos || stat.slides);
 
-                      {/* Text Side */}
-                      <div className={`flex flex-col justify-center lg:[direction:ltr] ${stat.video ? "lg:col-span-2" : ""}`}>
-                        <p className="font-display text-5xl sm:text-6xl lg:text-7xl text-white font-light tracking-tight">
-                          <AnimatedCounter target={stat.num} />
-                        </p>
-                        <motion.h3
-                          initial={{ opacity: 0, x: imageFirst ? 20 : -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.5, delay: 0.4 }}
-                          className="text-sky font-semibold text-2xl sm:text-3xl mt-3"
-                        >
-                          {stat.label}
-                        </motion.h3>
+                  return (
+                    <Fragment key={stat.label}>
+                      {stat.sectionHeader && (
+                        <div className="max-w-3xl pt-10 sm:pt-14 pb-2">
+                          {stat.sectionHeader.tag && (
+                            <motion.p
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.5 }}
+                              className="text-sky text-xs font-semibold tracking-[0.25em] uppercase mb-3"
+                            >
+                              {stat.sectionHeader.tag}
+                            </motion.p>
+                          )}
+                          <motion.h2
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight"
+                          >
+                            {stat.sectionHeader.title}
+                          </motion.h2>
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "5rem" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="h-0.5 bg-gradient-to-r from-teal to-sky mt-5 mb-8 rounded-full"
+                          />
+                        </div>
+                      )}
+                      <motion.div
+                        key={stat.label}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className={`grid grid-cols-1 ${
+                          hasVideo ? "lg:grid-cols-12" : "lg:grid-cols-2"
+                        } gap-8 lg:gap-12 items-center ${
+                          !imageFirst ? "lg:[direction:rtl]" : ""
+                        }`}
+                      >
+                        {/* Image / Video / Slider Side */}
                         <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: "100%" }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                          className="h-px bg-white/15 mt-4"
-                        />
-                        <motion.p
-                          initial={{ opacity: 0, y: 15 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.5, delay: 0.6 }}
-                          className="text-white/80 text-base sm:text-lg leading-relaxed font-light pt-5"
+                          initial={{ opacity: 0, scale: 0.92 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true, margin: "-80px" }}
+                          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                          className={`relative ${
+                            hasVideo
+                              ? "h-[400px] sm:h-[480px] md:h-[520px] lg:h-[540px] xl:h-[580px] lg:col-span-7 xl:col-span-7"
+                              : "h-[340px] sm:h-[400px] lg:h-[460px]"
+                          } rounded-2xl overflow-hidden shadow-2xl group lg:[direction:ltr]`}
                         >
-                          {stat.sub}
-                        </motion.p>
-                      </div>
-                    </motion.div>
+                          <StatMediaSlider slides={slides} defaultHighlight={stat.highlight} />
+                        </motion.div>
+
+                        {/* Text Side */}
+                        <div
+                          className={`flex flex-col justify-center lg:[direction:ltr] ${
+                            hasVideo ? "lg:col-span-5 xl:col-span-5" : ""
+                          }`}
+                        >
+                          {stat.subheading ? (
+                            <>
+                              {/* 1. Metric + Label in one line */}
+                              <div className="flex items-baseline gap-2.5 sm:gap-3 flex-nowrap whitespace-nowrap">
+                                <span className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-white font-light tracking-tight shrink-0">
+                                  <AnimatedCounter target={stat.num} bulbZero={Boolean(stat.bulbZero)} />
+                                </span>
+                                <h3 className="text-sky font-semibold text-xl sm:text-2xl lg:text-2xl xl:text-3xl tracking-wide shrink-0">
+                                  {stat.label}
+                                </h3>
+                              </div>
+
+                              {/* 2. Solar Powers Fabstract */}
+                              <motion.p
+                                initial={{ opacity: 0, x: imageFirst ? 20 : -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                                className="font-display text-xl sm:text-2xl text-white/90 font-light mt-2"
+                              >
+                                {stat.subheading}
+                              </motion.p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-display text-5xl sm:text-6xl lg:text-7xl text-white font-light tracking-tight">
+                                <AnimatedCounter target={stat.num} />
+                              </p>
+                              <motion.h3
+                                initial={{ opacity: 0, x: imageFirst ? 20 : -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.35 }}
+                                className="text-sky font-semibold text-2xl sm:text-3xl mt-3 tracking-wide"
+                              >
+                                {stat.label}
+                              </motion.h3>
+                            </>
+                          )}
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "100%" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="h-px bg-white/15 mt-4"
+                          />
+                          <motion.p
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                            className="text-white/80 text-base sm:text-lg leading-relaxed font-light pt-5"
+                          >
+                            {stat.sub}
+                          </motion.p>
+                        </div>
+                      </motion.div>
+                    </Fragment>
                   );
                 })}
               </div>
