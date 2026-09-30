@@ -14,7 +14,6 @@ const WHAT_WE_DO_TABS = [
   { id: "process", label: "Process" },
   { id: "quality", label: "Quality" },
   { id: "details", label: "Craft & Details" },
-  { id: "flexibility", label: "Flexibility" },
 ];
 
 interface CategorySegment {
@@ -220,47 +219,88 @@ const FABRIC_TILES: Tile[] = [
 ];
 
 const PROCESS_STEPS: Tile[] = [
-  { label: "Brief", desc: "Dummy: you share the concept, tech pack or reference.", tint: "#ece7df" },
-  { label: "Development", desc: "Dummy: our team develops the first sample.", tint: "#dcb6a8" },
-  { label: "Fit & Approval", desc: "Dummy: measurements and construction refined.", tint: "#e4dccf" },
+  { label: "Brief", desc: "Dummy: you share the concept, tech pack or reference.", img: "/what-we-do/process/brief.webp" },
+  { label: "Development", desc: "Dummy: our team develops the first sample.", img: "/what-we-do/process/development.webp" },
+  { label: "Fit & Approval", desc: "Dummy: measurements and construction refined.", img: "/what-we-do/process/fit-approval.webp" },
   { label: "Production", desc: "Dummy: approved styles move into bulk.", img: gal("ASN_8150") },
   { label: "Quality", desc: "Dummy: inspection stages through production.", img: gal("ASN_8210") },
-  { label: "Ready to Ship", desc: "Dummy: packed and prepared for delivery.", tint: "#d8cdbd" },
+  { label: "Ready to Ship", desc: "Dummy: packed and prepared for delivery.", img: "/what-we-do/process/ready-to-ship.webp" },
 ];
 
 const QUALITY_STATS = [
-  { value: "1991", label: "Years of experience" },
-  { value: "In-house", label: "Dummy: development to finishing" },
-  { value: "5-stage", label: "Dummy: garment checking" },
-  { value: "Knits + Wovens", label: "Multiple fabric platforms" },
+  { value: "1991", label: "35 years of experience" },
+  { value: "In-house", label: "Knitting to finishing" },
+  { value: "5-stage", label: "Quality audit and checking" },
+  { value: "Knits & Wovens", label: "All made in the same lines" },
 ];
 
 const DETAIL_TILES: Tile[] = [
-  { label: "Neck Finishing", tint: "#c9ccd0" },
-  { label: "Seam Construction", tint: "#e4dccf" },
-  { label: "Stitch Quality", tint: "#8a8f6c" },
-  { label: "Print & Embroidery", tint: "#3b3f47" },
+  { label: "Neck Finishing", img: "/what-we-do/details/neck-finishing.webp" },
+  { label: "Seam Construction", img: "/what-we-do/details/seam-construction.webp" },
+  { label: "Stitch Quality", img: "/what-we-do/details/stitch-quality.webp" },
+  { label: "Print & Embroidery", img: "/what-we-do/details/print-embroidery.webp" },
   { label: "Garment Washing", img: "/what-we-do/fabrics/garment-wash.webp" },
-  { label: "Measurement Checking", tint: "#b7c0cc" },
-  { label: "Final Inspection", tint: "#ece7df" },
+  { label: "Measurement Checking", img: "/what-we-do/details/measurement-checking.webp" },
+  { label: "Final Inspection", img: "/what-we-do/details/final-inspection.webp" },
 ];
 
-const FLEX_ITEMS: Tile[] = [
-  { label: "Development", desc: "Dummy: new fabrics, constructions and product ideas.", tint: "#d9d2c5" },
-  { label: "Sampling", desc: "Dummy: from first prototype to approved sample.", tint: "#e4dccf" },
-  { label: "Production", desc: "Dummy: controlled manufacturing across categories.", img: gal("ASN_8157") },
-];
 
-type TabId = TabKey;
-const TAB_LABELS: Record<TabId, string> = { women: "Women's", men: "Men's", kids: "Kids" };
+type TabId = TabKey | "home";
+const TAB_LABELS: Record<TabId, string> = {
+  women: "Women's",
+  men: "Men's",
+  kids: "Kids",
+  home: "Home Textiles",
+};
+
+interface HomeSegment {
+  label: string;
+  items: string[];
+  image: string;
+  catalogue: string;
+}
+
+const HOME_TEXTILE_TILES: HomeSegment[] = [
+  {
+    label: "Bedding & Sleep",
+    items: ["Stonewashed Linen Duvet", "Organic Cotton Sheets", "Waffle Pillow Shams"],
+    image: "/what-we-do/categories/card-home-textile.webp",
+    catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
+  },
+  {
+    label: "Living & Throws",
+    items: ["Waffle Cotton Throws", "Weighted Blankets", "Textured Cushion Covers"],
+    image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8150.webp",
+    catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
+  },
+  {
+    label: "Table & Dining",
+    items: ["Artisanal Table Runners", "Organic Napkin Sets", "Slub Cotton Aprons"],
+    image: "/what-we-do/categories/card-woven.webp",
+    catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
+  },
+  {
+    label: "Nursery & Kids",
+    items: ["Muslin Swaddle Blankets", "Organic Cot Quilts", "Nursery Play Mats"],
+    image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8156.webp",
+    catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
+  },
+];
 
 function WhatWeMake() {
   const [tab, setTab] = useState<TabId>("women");
-  const tiles: { key: string; label: string; seg: CategorySegment }[] = PRODUCT_CATEGORIES.map((c) => ({
-    key: c.label,
-    label: c.label,
-    seg: c.segments[tab],
-  }));
+  const tiles: { key: string; label: string; seg: { items: string[]; image: string; catalogue: string } }[] =
+    tab === "home"
+      ? HOME_TEXTILE_TILES.map((h) => ({
+          key: h.label,
+          label: h.label,
+          seg: { items: h.items, image: h.image, catalogue: h.catalogue },
+        }))
+      : PRODUCT_CATEGORIES.map((c) => ({
+          key: c.label,
+          label: c.label,
+          seg: c.segments[tab],
+        }));
 
   return (
     <>
@@ -491,31 +531,6 @@ export default function WhatWeDo() {
         </div>
       </section>
 
-      {/* Flexibility (DUMMY copy; Production photo is real) */}
-      <section id="flexibility" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto">
-          <Reveal>
-            <SectionHead
-              eyebrow="Flexibility is a capability"
-              title="Big enough to manufacture. Flexible enough to develop."
-              blurb="Dummy: our integrated setup lets us respond to a wide range of customer needs, from new fabric developments to scalable production runs."
-            />
-            <div className="grid md:grid-cols-3 gap-8">
-              {FLEX_ITEMS.map((t) => (
-                <div key={t.label} className="flex gap-4 items-start">
-                  <div className="w-[46%] shrink-0 aspect-[4/3] overflow-hidden bg-navy/5">
-                    {t.img ? <img src={t.img} alt={t.label} loading="lazy" className="w-full h-full object-cover" /> : <Placeholder tint={t.tint} />}
-                  </div>
-                  <div>
-                    <p className="text-[11px] tracking-[0.16em] uppercase font-semibold text-navy">{t.label}</p>
-                    <p className="mt-2 text-xs text-navy/60 leading-relaxed">{t.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* CTA (heading/body DUMMY; button link is real) */}
       <section className="bg-[#e9e4dd] grid md:grid-cols-[1.2fr_1fr]">
