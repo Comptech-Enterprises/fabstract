@@ -3,13 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<"typing" | "pause" | "zoom" | "done">("typing");
+  const [phase, setPhase] = useState<"typing" | "earth" | "pause" | "zoom" | "done">("typing");
   const [charIndex, setCharIndex] = useState(0);
 
   const topText = "FABSTRACT";
   const bottomLeft = "CL";
   const bottomRight = "THING";
-  const fullLength = topText.length + 1 + bottomLeft.length + 1 + bottomRight.length;
+  const fullLength = topText.length + 1 + bottomLeft.length + bottomRight.length;
 
   useEffect(() => {
     if (phase === "done") {
@@ -36,7 +36,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (phase !== "typing") return;
     if (charIndex >= fullLength) {
-      const t = setTimeout(() => setPhase("pause"), 50);
+      const t = setTimeout(() => setPhase("earth"), 150);
       return () => clearTimeout(t);
     }
     const delay = charIndex === 0 ? 350 : charIndex === topText.length ? 250 : 65;
@@ -45,8 +45,14 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   }, [charIndex, phase, fullLength]);
 
   useEffect(() => {
+    if (phase !== "earth") return;
+    const t = setTimeout(() => setPhase("pause"), 750);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  useEffect(() => {
     if (phase !== "pause") return;
-    const t = setTimeout(() => setPhase("zoom"), 500);
+    const t = setTimeout(() => setPhase("zoom"), 650);
     return () => clearTimeout(t);
   }, [phase]);
 
@@ -61,10 +67,9 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const bottomStart = topText.length + 1;
   const bottomChars = Math.max(0, charIndex - bottomStart);
   const bottomLeftVisible = Math.min(bottomChars, bottomLeft.length);
-  const globeVisible = bottomChars > bottomLeft.length;
-  const bottomRightStart = bottomLeft.length + 1;
-  const bottomRightVisible = Math.max(0, bottomChars - bottomRightStart);
+  const bottomRightVisible = Math.min(Math.max(0, bottomChars - bottomLeft.length), bottomRight.length);
 
+  const earthVisible = phase !== "typing";
   const showCursor = phase === "typing";
   const isZooming = phase === "zoom";
 
@@ -72,7 +77,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
 
   return (
     <>
-      {/* 1. Screen-blended layer: Fabstract clothing with video transparent cutout effect */}
+      {/* 1. Solid white intro layer */}
       <motion.div
         className="fixed inset-0 z-[100] flex items-center justify-center bg-white overflow-hidden select-none"
         initial={{ opacity: 1 }}
@@ -83,7 +88,6 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
             : { duration: 0.2 }
         }
         style={{
-          mixBlendMode: "screen",
           pointerEvents: isZooming ? "none" : "auto",
         }}
       >
@@ -112,10 +116,12 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 {bottomLeft.slice(0, bottomLeftVisible)}
               </motion.span>
 
-              {/* Solid white spacer under the globe so video is blocked at O */}
-              {globeVisible && (
-                <span className="inline-block w-[1.05em] h-[1.05em] mx-[0.03em] bg-white rounded-full" />
+              {showCursor && charIndex > topText.length && bottomChars <= bottomLeft.length && (
+                <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
               )}
+
+              {/* Reserved spacer under the globe */}
+              <span className="inline-block w-[1.05em] h-[1.05em] mx-[0.03em] bg-white rounded-full" />
 
               <motion.span
                 animate={isZooming ? { opacity: 0, x: 30 } : { opacity: 1, x: 0 }}
@@ -124,7 +130,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 {bottomRight.slice(0, bottomRightVisible)}
               </motion.span>
 
-              {showCursor && charIndex > topText.length && (
+              {showCursor && bottomChars > bottomLeft.length && (
                 <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
               )}
             </div>
@@ -132,8 +138,8 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
         </div>
       </motion.div>
 
-      {/* 2. Solid Opaque Layer for the Earth Globe (mixBlendMode: normal, z-index 101) */}
-      {charIndex > topText.length && globeVisible && (
+      {/* 2. Solid Opaque Layer for the Earth Globe */}
+      {earthVisible && (
         <div className="fixed inset-0 z-[101] flex items-center justify-center pointer-events-none select-none overflow-hidden">
           <div className="relative text-center px-4">
             {/* Mirror top text height for exact vertical alignment */}
@@ -152,16 +158,16 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
 
               <motion.span
                 className="inline-flex items-center justify-center origin-center rounded-full overflow-hidden"
-                initial={{ scale: 0.2, opacity: 0 }}
+                initial={{ scale: 0, opacity: 0 }}
                 animate={
                   isZooming
                     ? { scale: [1, 4, 8], opacity: [1, 1, 0] }
-                    : { scale: 1, opacity: 1 }
+                    : { scale: [0, 1.15, 1], opacity: 1 }
                 }
                 transition={
                   isZooming
                     ? { duration: 1.6, times: [0, 0.5, 1], ease: [0.22, 1, 0.36, 1] }
-                    : { duration: 1.5, ease: [0.05, 0.7, 0.1, 1] }
+                    : { duration: 0.65, ease: [0.16, 1, 0.3, 1] }
                 }
                 onAnimationComplete={isZooming ? handleZoomComplete : undefined}
               >
