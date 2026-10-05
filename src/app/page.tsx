@@ -126,7 +126,7 @@ function VideoBanner() {
         />
       </div>
       <div className="relative w-full text-center">
-        <div className="bg-black/30 w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
+        <div className="bg-black/55 backdrop-blur-xl w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
           <blockquote className="font-display text-[16px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-[1.3]">
             The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
             <span className="block mt-3 sm:mt-4 text-sm sm:text-base tracking-[0.28em] uppercase text-sky font-bold">— Mahatma Gandhi</span>
