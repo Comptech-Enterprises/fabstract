@@ -262,7 +262,7 @@ export default function AboutPage() {
 
                       {/* Right Column: Big Year + Story */}
                       <div className="md:pl-6">
-                        <p className="font-display text-6xl sm:text-7xl lg:text-8xl text-navy font-light tracking-tight leading-none mb-3 sm:mb-4">
+                        <p className="font-['Times_New_Roman',_Times,_serif] text-6xl sm:text-7xl lg:text-8xl text-navy font-normal tracking-tight leading-none mb-3 sm:mb-4">
                           {activeMilestones[0].year}
                         </p>
                         <h3 className="text-navy font-bold text-base sm:text-lg mb-3 tracking-normal">
@@ -278,7 +278,7 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
                       {/* Left Column: Big Year + Story */}
                       <div className="order-2 md:order-1 md:pr-6">
-                        <p className="font-display text-6xl sm:text-7xl lg:text-8xl text-navy font-light tracking-tight leading-none mb-3 sm:mb-4">
+                        <p className="font-['Times_New_Roman',_Times,_serif] text-6xl sm:text-7xl lg:text-8xl text-navy font-normal tracking-tight leading-none mb-3 sm:mb-4">
                           {activeMilestones[1].year}
                         </p>
                         <h3 className="text-navy font-bold text-base sm:text-lg mb-3 tracking-normal">

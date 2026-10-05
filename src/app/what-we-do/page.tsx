@@ -201,12 +201,12 @@ function Reveal({ children }: { children: React.ReactNode }) {
 
 // DUMMY copy and placeholder images unless a tile has `img` (real gallery photo).
 const CAPABILITY_TILES: Tile[] = [
-  { label: "Fabric Development", desc: "Dummy: knits, wovens and textures developed with mills.", img: "/what-we-do/development/fabric-development.webp" },
-  { label: "Product Development", desc: "Dummy: sketches and tech packs turned into garments.", img: "/what-we-do/development/product-development.webp" },
-  { label: "Sampling", desc: "Dummy: prototypes and fit samples with quick turnaround.", img: "/what-we-do/development/sampling.webp" },
-  { label: "Technical Engineering", desc: "Dummy: patterns, grading and construction detail.", img: "/what-we-do/development/technical-engineering.webp" },
-  { label: "Production", desc: "Dummy: scalable manufacturing under one roof.", img: gal("ASN_8161") },
-  { label: "Quality", desc: "Dummy: checkpoints from fabric to finished garment.", img: gal("ASN_8208") },
+  { label: "Fabric Development", desc: "Knits, wovens and textures developed with mills.", img: "/what-we-do/development/fabric-development.webp" },
+  { label: "Product Development", desc: "Sketches and tech packs turned into garments.", img: "/what-we-do/development/product-development.webp" },
+  { label: "Sampling", desc: "Prototypes and fit samples with quick turnaround.", img: "/what-we-do/development/sampling.webp" },
+  { label: "Technical Engineering", desc: "Patterns, grading and construction detail.", img: "/what-we-do/development/technical-engineering.webp" },
+  { label: "Production", desc: "Scalable manufacturing under one roof.", img: gal("ASN_8161") },
+  { label: "Quality", desc: "Checkpoints from fabric to finished garment.", img: gal("ASN_8208") },
 ];
 
 const FABRIC_TILES: Tile[] = [
@@ -219,12 +219,12 @@ const FABRIC_TILES: Tile[] = [
 ];
 
 const PROCESS_STEPS: Tile[] = [
-  { label: "Brief", desc: "Dummy: you share the concept, tech pack or reference.", img: "/what-we-do/process/brief.webp" },
-  { label: "Development", desc: "Dummy: our team develops the first sample.", img: "/what-we-do/process/development.webp" },
-  { label: "Fit & Approval", desc: "Dummy: measurements and construction refined.", img: "/what-we-do/process/fit-approval.webp" },
-  { label: "Production", desc: "Dummy: approved styles move into bulk.", img: gal("ASN_8150") },
-  { label: "Quality", desc: "Dummy: inspection stages through production.", img: gal("ASN_8210") },
-  { label: "Ready to Ship", desc: "Dummy: packed and prepared for delivery.", img: "/what-we-do/process/ready-to-ship.webp" },
+  { label: "Brief", desc: "You share the concept, tech pack or reference.", img: "/what-we-do/process/brief.webp" },
+  { label: "Development", desc: "Our team develops the first sample.", img: "/what-we-do/process/development.webp" },
+  { label: "Fit & Approval", desc: "Measurements and construction refined.", img: "/what-we-do/process/fit-approval.webp" },
+  { label: "Production", desc: "Approved styles move into bulk.", img: gal("ASN_8150") },
+  { label: "Quality", desc: "Inspection stages through production.", img: gal("ASN_8210") },
+  { label: "Ready to Ship", desc: "Packed and prepared for delivery.", img: "/what-we-do/process/ready-to-ship.webp" },
 ];
 
 const QUALITY_STATS = [
@@ -427,7 +427,6 @@ export default function WhatWeDo() {
               <SectionHead
                 eyebrow="Our capabilities"
                 title="More than making the garment. We help build it."
-                blurb="Dummy: from an initial concept to a production-ready garment, our teams work closely with customers to solve the details."
               />
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
                 {CAPABILITY_TILES.map((t) => (
@@ -452,7 +451,6 @@ export default function WhatWeDo() {
               <SectionHead
                 eyebrow="Fabric is where it starts"
                 title="The right garment starts with the right fabric."
-                blurb="Dummy: our development teams work across a broad range of knitted and woven structures, helping brands develop handfeel, weight and drape."
               />
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
                 {FABRIC_TILES.map((t) => (
@@ -496,7 +494,7 @@ export default function WhatWeDo() {
               Quality isn&apos;t a final inspection. It&apos;s built into the process.
             </h2>
             <p className="text-white/70 text-sm sm:text-base leading-relaxed">
-              Dummy: from fabric inspection to final packing, our quality checkpoints ensure consistency, reliability and long-term performance.
+              From fabric inspection to final packing, our quality checkpoints ensure consistency, reliability and long-term performance.
             </p>
           </div>
           <div className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 xl:grid-cols-4 gap-6">
@@ -520,7 +518,7 @@ export default function WhatWeDo() {
             <SectionHead
               eyebrow="The detail is in the difference"
               title="Thousands of small decisions go into one finished garment."
-              blurb="Dummy: our teams focus on the details that don't always appear on a tech pack but are immediately visible in the finished product."
+              blurb="Our teams focus on the details that don't always appear on a tech pack but are immediately visible in the finished product."
             />
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
               {DETAIL_TILES.map((t) => (
@@ -543,7 +541,7 @@ export default function WhatWeDo() {
           </div>
           <div>
             <p className="text-navy/65 text-sm leading-relaxed">
-              Dummy: we work alongside brands through development, production and delivery, building long-term partnerships based on consistency and communication.
+              We work alongside brands through development, production and delivery, building long-term partnerships based on consistency and communication.
             </p>
             <Link
               href="/contact"

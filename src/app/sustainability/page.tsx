@@ -487,7 +487,7 @@ export default function SustainabilityPage() {
                             <>
                               {/* 1. Metric + Label in one line */}
                               <div className="flex items-baseline gap-2.5 sm:gap-3 flex-nowrap whitespace-nowrap">
-                                <span className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-white font-light tracking-tight shrink-0">
+                                <span className="font-['Times_New_Roman',_Times,_serif] text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-white font-normal tracking-tight shrink-0">
                                   <AnimatedCounter target={stat.num} bulbZero={Boolean(stat.bulbZero)} />
                                 </span>
                                 <h3 className="text-sky font-semibold text-xl sm:text-2xl lg:text-2xl xl:text-3xl tracking-wide shrink-0">
@@ -508,7 +508,7 @@ export default function SustainabilityPage() {
                             </>
                           ) : (
                             <>
-                              <p className="font-display text-5xl sm:text-6xl lg:text-7xl text-white font-light tracking-tight">
+                              <p className="font-['Times_New_Roman',_Times,_serif] text-5xl sm:text-6xl lg:text-7xl text-white font-normal tracking-tight">
                                 <AnimatedCounter target={stat.num} />
                               </p>
                               <motion.h3
