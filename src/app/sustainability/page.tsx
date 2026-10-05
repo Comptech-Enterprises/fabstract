@@ -291,7 +291,7 @@ export default function SustainabilityPage() {
 
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
-              <div className="flex flex-col lg:h-screen lg:overflow-y-auto lg:overscroll-y-contain lg:snap-y lg:snap-mandatory no-scrollbar gap-10 lg:gap-0">
+              <div className="flex flex-col lg:h-screen lg:overflow-y-auto lg:snap-y lg:snap-mandatory no-scrollbar gap-10 lg:gap-0">
                 {[
                   {
                     sectionHeader: {
