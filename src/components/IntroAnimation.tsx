@@ -121,7 +121,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
               )}
 
               {/* Reserved spacer under the globe */}
-              <span className="inline-block w-[1.05em] h-[1.05em] mx-[0.03em] bg-white rounded-full" />
+              <span className="inline-block w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em] bg-white rounded-full" />
 
               <motion.span
                 animate={isZooming ? { opacity: 0, x: 30 } : { opacity: 1, x: 0 }}
@@ -174,7 +174,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 <img
                   src="/intro/globe.gif"
                   alt="O"
-                  className="w-[1.05em] h-[1.05em] mx-[0.03em] object-contain inline-block align-middle select-none pointer-events-none rounded-full"
+                  className="w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em] object-contain inline-block align-middle select-none pointer-events-none rounded-full"
                 />
               </motion.span>
 
