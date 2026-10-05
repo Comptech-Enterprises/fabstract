@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { EASE } from "@/lib/motion";
 
 export interface KeyPoint {
@@ -10,116 +10,100 @@ export interface KeyPoint {
   image?: string;
 }
 
-const SLIDE_SECONDS = 5;
-const ROW = 69; // 68px button + 1px divider
-const HALF_ROW = 34;
+const SPRING = "ease-[cubic-bezier(0.34,1.35,0.64,1)]";
 
 export function KeyPoints({ items }: { items: KeyPoint[] }) {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const current = items[active];
-  const junctionY = 1 + active * ROW + HALF_ROW;
-
-  const next = () => setActive((i) => (i + 1) % items.length);
 
   return (
     <section
       id="s-strengths"
       className="scroll-mt-24 bg-white py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative max-w-[1536px] mx-auto grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-24 items-start">
-        <ul className="flex flex-col">
-          {items.map((item, i) => {
-            const isActive = i === active;
-            return (
-              <li key={item.title} className="relative border-b border-navy/10 first:border-t">
-                <button
-                  type="button"
-                  onClick={() => setActive(i)}
-                  aria-current={isActive ? "true" : undefined}
-                  className="w-full h-[68px] flex items-center gap-3 text-left cursor-pointer"
-                >
-                  <span className={`text-[10px] tracking-[0.2em] transition-colors duration-300 ${isActive ? "text-teal" : "text-navy/30"}`}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={`font-display text-lg sm:text-xl leading-tight transition-colors duration-300 ${
-                      isActive ? "text-navy" : "text-navy/35 hover:text-navy/70"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                </button>
-                {isActive && (
-                  <span className="absolute left-0 right-0 bottom-[-1px] h-[2px] bg-navy/10 overflow-hidden">
-                    <span
-                      key={active}
-                      onAnimationEnd={next}
-                      className="block h-full w-full bg-navy origin-left"
-                      style={{
-                        animation: `kp-progress ${SLIDE_SECONDS}s linear forwards`,
-                        animationPlayState: paused ? "paused" : "running",
-                      }}
-                    />
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Branch: runs from the active title across the gap to the photo */}
-        <div aria-hidden className="hidden lg:block absolute inset-y-0 left-[300px] w-24 pointer-events-none">
-          <div className="absolute left-12 top-0 bottom-0 w-px bg-navy/10" />
-          <motion.div
-            className="absolute left-0 h-px w-12 bg-navy"
-            initial={false}
-            animate={{ top: junctionY }}
-            transition={{ duration: 0.5, ease: EASE }}
-          />
-          <motion.span
-            className="absolute left-12 -ml-1 w-2 h-2 rounded-full bg-navy"
-            initial={false}
-            animate={{ top: junctionY - 4 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          />
-        </div>
-
-        <div className="min-w-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.4, ease: EASE }}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, ease: EASE }}
+        className="max-w-[1536px] mx-auto flex flex-col lg:flex-row gap-3 h-[760px] sm:h-[820px] lg:h-[600px]"
+      >
+        {items.map((item, i) => {
+          const isActive = i === active;
+          return (
+            <div
+              key={item.title}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isActive}
+              onMouseEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
+              onClick={() => setActive(i)}
+              className={`relative min-h-0 min-w-0 basis-0 overflow-hidden rounded-2xl bg-navy cursor-pointer outline-none transition-[flex-grow] duration-[800ms] ${SPRING} ${
+                isActive ? "grow-[6]" : "grow"
+              }`}
             >
-              {current.image ? (
-                <div className="relative overflow-hidden rounded-2xl lg:rounded-l-none lg:[mask-image:linear-gradient(to_right,transparent,black_22%)]">
-                  <img
-                    src={current.image}
-                    alt={current.title}
-                    loading="lazy"
-                    className="w-full aspect-[16/10] sm:aspect-[16/9] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-transparent" />
-                  <p
-                    className="absolute top-0 left-0 right-0 p-5 sm:p-8 lg:p-10 lg:pl-24 text-white text-base sm:text-xl lg:text-2xl leading-[1.55] max-w-4xl [&_strong]:font-semibold"
-                    dangerouslySetInnerHTML={{ __html: current.desc }}
-                  />
-                </div>
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt=""
+                  loading="lazy"
+                  className={`absolute inset-0 w-full h-full object-cover transform-gpu transition-[transform,filter] duration-[800ms] ${SPRING} ${
+                    isActive ? "scale-100 grayscale-0" : "scale-110 grayscale"
+                  }`}
+                />
               ) : (
-                <p
-                  className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-[1.6] max-w-3xl"
-                  dangerouslySetInnerHTML={{ __html: current.desc }}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br from-navy to-navy transition-all duration-[800ms] ${
+                    isActive ? "via-teal/70 to-sky/60" : "via-navy"
+                  }`}
                 />
               )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition-opacity duration-500 ${
+                  isActive ? "opacity-100" : "opacity-70"
+                }`}
+              />
+
+              <div
+                className={`absolute inset-0 flex lg:flex-col items-center lg:justify-end gap-3 p-4 transition-opacity duration-300 ${
+                  isActive ? "opacity-0 pointer-events-none" : "opacity-100 delay-300"
+                }`}
+              >
+                <span className="text-[10px] tracking-[0.2em] text-white/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-base lg:text-lg text-white whitespace-nowrap lg:[writing-mode:vertical-rl] lg:rotate-180">
+                  {item.title}
+                </span>
+              </div>
+
+              <div
+                className={`absolute inset-x-0 bottom-0 p-6 sm:p-8 transition-all duration-500 ${
+                  isActive
+                    ? "opacity-100 translate-y-0 delay-300"
+                    : "opacity-0 translate-y-4 pointer-events-none"
+                }`}
+              >
+                <span className="inline-block rounded-full border border-white/30 bg-white/10 backdrop-blur-sm px-3 py-1 text-[10px] tracking-[0.2em] uppercase text-white/90">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-4 font-display text-2xl sm:text-3xl text-white leading-[1.2] max-w-xl">
+                  {item.title}
+                </h3>
+                <p
+                  className="mt-3 text-sm sm:text-base text-white/80 leading-relaxed max-w-xl [&_strong]:font-semibold"
+                  dangerouslySetInnerHTML={{ __html: item.desc }}
+                />
+                <span className="mt-5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M7 17L17 7M8 7h9v9" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </motion.div>
     </section>
   );
 }
