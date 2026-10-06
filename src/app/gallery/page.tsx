@@ -505,7 +505,7 @@ export default function GalleryPage() {
       </PageScrollLayout>
 
       {/* Crowd Canvas Section */}
-      <section className="relative h-[40vh] sm:h-[45vh] lg:h-[50vh] min-h-[280px] max-h-[500px] bg-white overflow-hidden">
+      <section className="relative h-[28vh] sm:h-[32vh] lg:h-[36vh] min-h-[200px] max-h-[360px] bg-white overflow-hidden">
         <CrowdCanvas />
       </section>
 
