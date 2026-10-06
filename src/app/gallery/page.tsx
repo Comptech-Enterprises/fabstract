@@ -505,12 +505,7 @@ export default function GalleryPage() {
       </PageScrollLayout>
 
       {/* Crowd Canvas Section */}
-      <section className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] min-h-[400px] max-h-[800px] bg-white overflow-hidden">
-        <div className="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 z-10 text-center">
-          <span className="block text-[10px] tracking-[0.25em] uppercase text-navy/40 font-medium">
-            Our People
-          </span>
-        </div>
+      <section className="relative h-[40vh] sm:h-[45vh] lg:h-[50vh] min-h-[280px] max-h-[500px] bg-white overflow-hidden">
         <CrowdCanvas />
       </section>
 

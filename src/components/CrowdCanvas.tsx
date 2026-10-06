@@ -199,5 +199,5 @@ export function CrowdCanvas({
     };
   }, [src, rows, cols]);
 
-  return <canvas ref={canvasRef} className="absolute bottom-0 h-[90vh] w-full" />;
+  return <canvas ref={canvasRef} className="absolute bottom-0 h-full w-full" />;
 }
