@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 import { INTRO_VIDEOS } from "@/data/hero";
 
 const MAX_CLIP_MS = 10000;
@@ -8,27 +9,54 @@ const MAX_CLIP_MS = 10000;
 export function IntroVideo() {
   const [index, setIndex] = useState(0);
   const [muted, setMuted] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const isInView = useInView(sectionRef, { amount: 0.25 });
 
   const next = () => setIndex((i) => (i + 1) % INTRO_VIDEOS.length);
 
+  // When coming into view, start fresh from clip 0; when leaving, pause
   useEffect(() => {
+    if (isInView) {
+      setIndex(0);
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+      }
+      videoRef.current?.play().catch(() => {});
+    } else {
+      videoRef.current?.pause();
+    }
+  }, [isInView]);
+
+  // When clip changes while in view, start playback
+  useEffect(() => {
+    if (!isInView) return;
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [index, isInView]);
+
+  // Rotate clips every MAX_CLIP_MS only while in view
+  useEffect(() => {
+    if (!isInView) return;
     const t = setTimeout(next, MAX_CLIP_MS);
     return () => clearTimeout(t);
-  }, [index]);
-
-  useEffect(() => {
-    videoRef.current?.play().catch(() => {});
-  }, [index]);
+  }, [index, isInView]);
 
   return (
-    <section id="s-showcase" className="scroll-mt-24 bg-white px-4 sm:px-8 lg:px-14 py-10 sm:py-16">
+    <section
+      ref={sectionRef}
+      id="s-showcase"
+      className="scroll-mt-24 bg-white px-4 sm:px-8 lg:px-14 py-10 sm:py-16"
+    >
       <div className="relative mx-auto max-w-[1536px] aspect-video rounded-2xl overflow-hidden border-2 border-navy/15 shadow-xl bg-navy">
         <video
           key={index}
           ref={videoRef}
           src={INTRO_VIDEOS[index]}
-          autoPlay
+          autoPlay={isInView}
           muted={muted}
           playsInline
           preload="auto"

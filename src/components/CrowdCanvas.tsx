@@ -88,8 +88,11 @@ export function CrowdCanvas({
 
     const resetPeep = (peep: Peep) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
-      const startY = stage.height - peep.height + offsetY;
+      // Headroom padding so the bounce (startY - 10) never reaches or clips past the top (y = 0)
+      const minHeadroom = 24;
+      const minStartY = minHeadroom + 12; // bounce allowance
+      const naturalStartY = stage.height - peep.height + (100 - 250 * gsap.parseEase("power2.in")(Math.random()));
+      const startY = Math.max(minStartY, naturalStartY);
       let startX: number, endX: number;
 
       if (direction === 1) {
