@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { PageScrollLayout } from "@/components/PageScrollLayout";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
+import { INTRO_VIDEOS } from "@/data/hero";
 
 const GALLERY_TABS = [
   { id: "production", label: "Knits & Production" },
@@ -503,26 +504,26 @@ export default function GalleryPage() {
         </section>
       </PageScrollLayout>
 
-      {/* Crowd Canvas — animated community section */}
-      <section className="relative bg-navy overflow-hidden py-20 sm:py-28 lg:py-36">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_120%,rgba(86,124,141,0.25),transparent)]" />
+      {/* People Video Section */}
+      <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] min-h-[360px] max-h-[700px] bg-navy overflow-hidden">
+        <video
+          src={INTRO_VIDEOS[0]}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/30 to-navy/20" />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 text-center mb-14 sm:mb-20">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-sky text-xs font-semibold tracking-[0.25em] uppercase mb-3"
-          >
-            Our People
-          </motion.p>
+        <div className="relative z-10 h-full flex flex-col items-center justify-end pb-12 sm:pb-16 lg:pb-20 px-6 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-3xl sm:text-4xl lg:text-5xl text-white font-medium tracking-tight"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-3xl sm:text-4xl lg:text-5xl text-white font-medium tracking-tight mb-4"
           >
             The faces behind every stitch
           </motion.h2>
@@ -530,58 +531,16 @@ export default function GalleryPage() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-white/50 text-base sm:text-lg max-w-2xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-white/60 text-base sm:text-lg max-w-xl mb-8"
           >
             Over 800 skilled artisans across 4 factories, working together to deliver quality, craft, and care.
           </motion.p>
-        </div>
-
-        {/* Rising crowd of circular images */}
-        <div className="relative z-10 flex justify-center items-end gap-3 sm:gap-4 lg:gap-5 px-4 h-[220px] sm:h-[280px] lg:h-[340px]">
-          {POSTS.slice(0, 7).map((post, i) => {
-            const sizes = [100, 120, 90, 130, 95, 115, 105];
-            const offsets = [40, 10, 55, 0, 45, 15, 50];
-            const size = sizes[i % sizes.length];
-            const offset = offsets[i % offsets.length];
-            return (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 80, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{
-                  duration: 0.7,
-                  delay: i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="shrink-0 rounded-full overflow-hidden border-[3px] border-white/15 shadow-xl hover:border-sky/60 hover:scale-110 transition-all duration-500 cursor-pointer"
-                style={{
-                  width: `${size}px`,
-                  height: `${size}px`,
-                  marginBottom: `${offset}px`,
-                }}
-              >
-                <img
-                  src={gallerySrc(post.file)}
-                  alt={post.caption}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Follow CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="relative z-10 text-center mt-12 sm:mt-16"
-        >
-          <a
+          <motion.a
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             href="https://www.instagram.com/fabstract.official"
             target="_blank"
             rel="noopener noreferrer"
@@ -591,8 +550,8 @@ export default function GalleryPage() {
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
             </svg>
             Follow @fabstract.official
-          </a>
-        </motion.div>
+          </motion.a>
+        </div>
       </section>
 
       <Footer />
