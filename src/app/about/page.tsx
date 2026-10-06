@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
@@ -15,88 +14,61 @@ const ABOUT_TABS = [
   { id: "certifications", label: "Certifications" },
 ];
 
-const JOURNEY_PAIRS = [
-  [
-    {
-      year: "1991",
-      title: "Founding & First Workshop",
-      desc: "Fabstract was established in New Delhi as an export garment house, dedicated to high fashion woven and knitted apparel crafted by skilled master artisans.",
-      img: GALLERY_FILES[0],
-    },
-    {
-      year: "1998",
-      title: "Noida Production Expansion",
-      desc: "Commissioned modern multi-line manufacturing unit in Sector 63, Noida, expanding cutting, multi-needle sewing, and finishing capacity to serve international brands.",
-      img: GALLERY_FILES[1],
-    },
-  ],
-  [
-    {
-      year: "2005",
-      title: "Dedicated Knits & Sampling Studio",
-      desc: "Established a specialized sample development studio and rapid prototyping line for international buyer collections across USA and Europe.",
-      img: GALLERY_FILES[2],
-    },
-    {
-      year: "2012",
-      title: "In-House Quality Control & Testing Lab",
-      desc: "Built an internal fabric testing and physical quality laboratory. Today, the laboratory conducts performance testing, color approvals, and 5-stage AQL checks to reduce lead times.",
-      img: GALLERY_FILES[3],
-    },
-  ],
-  [
-    {
-      year: "2018",
-      title: "Sustainable & Fairtrade Operations",
-      desc: "Adopted Fairtrade and BSCI compliance, sponsored urban Miyawaki micro-forests in Delhi NCR, and strengthened women empowerment programs across all factory units.",
-      img: GALLERY_FILES[4],
-    },
-    {
-      year: "2021",
-      title: "Circular Sourcing & Eco-Blends",
-      desc: "Integrated GOTS-certified organic cotton, natural linen, and sustainable blends into core collections with zero-waste cutting practices.",
-      img: GALLERY_FILES[5],
-    },
-  ],
-  [
-    {
-      year: "2024",
-      title: "Global Reach & Digital Integration",
-      desc: "Expanded monthly capacity to 80,000–100,000 units, supplying premier buyers across USA, Canada, France, Italy, and Sweden with seamless cloud-managed buyer assets.",
-      img: GALLERY_FILES[6] || GALLERY_FILES[0],
-    },
-    {
-      year: "2026",
-      title: "Automated Finishing & Sustainable Innovation",
-      desc: "Upgraded smart cutting tables, solar-powered lines, and closed-loop garment recycling to lead ethical fashion manufacturing into the future.",
-      img: GALLERY_FILES[7] || GALLERY_FILES[1],
-    },
-  ],
+const MILESTONES = [
+  {
+    year: "1991",
+    title: "Founding & First Workshop",
+    desc: "Fabstract was established in New Delhi as an export garment house, dedicated to high fashion woven and knitted apparel crafted by skilled master artisans.",
+    img: GALLERY_FILES[0],
+  },
+  {
+    year: "1998",
+    title: "Noida Production Expansion",
+    desc: "Commissioned modern multi-line manufacturing unit in Sector 63, Noida, expanding cutting, multi-needle sewing, and finishing capacity to serve international brands.",
+    img: GALLERY_FILES[1],
+  },
+  {
+    year: "2005",
+    title: "Dedicated Knits & Sampling Studio",
+    desc: "Established a specialized sample development studio and rapid prototyping line for international buyer collections across USA and Europe.",
+    img: GALLERY_FILES[2],
+  },
+  {
+    year: "2012",
+    title: "In-House Quality Control & Testing Lab",
+    desc: "Built an internal fabric testing and physical quality laboratory. Today, the laboratory conducts performance testing, color approvals, and 5-stage AQL checks to reduce lead times.",
+    img: GALLERY_FILES[3],
+  },
+  {
+    year: "2018",
+    title: "Sustainable & Fairtrade Operations",
+    desc: "Adopted Fairtrade and BSCI compliance, sponsored urban Miyawaki micro-forests in Delhi NCR, and strengthened women empowerment programs across all factory units.",
+    img: GALLERY_FILES[4],
+  },
+  {
+    year: "2021",
+    title: "Circular Sourcing & Eco-Blends",
+    desc: "Integrated GOTS-certified organic cotton, natural linen, and sustainable blends into core collections with zero-waste cutting practices.",
+    img: GALLERY_FILES[5],
+  },
+  {
+    year: "2024",
+    title: "Global Reach & Digital Integration",
+    desc: "Expanded monthly capacity to 80,000–100,000 units, supplying premier buyers across USA, Canada, France, Italy, and Sweden with seamless cloud-managed buyer assets.",
+    img: GALLERY_FILES[6] || GALLERY_FILES[0],
+  },
+  {
+    year: "2026",
+    title: "Automated Finishing & Sustainable Innovation",
+    desc: "Upgraded smart cutting tables, solar-powered lines, and closed-loop garment recycling to lead ethical fashion manufacturing into the future.",
+    img: GALLERY_FILES[7] || GALLERY_FILES[1],
+  },
 ];
 
 
 
 
 export default function AboutPage() {
-  const [currentPair, setCurrentPair] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
-
-  const goToPrev = () => {
-    if (currentPair > 0) {
-      setSlideDirection(-1);
-      setCurrentPair((c) => c - 1);
-    }
-  };
-
-  const goToNext = () => {
-    if (currentPair < JOURNEY_PAIRS.length - 1) {
-      setSlideDirection(1);
-      setCurrentPair((c) => c + 1);
-    }
-  };
-
-  const activeMilestones = JOURNEY_PAIRS[currentPair];
-
   return (
     <>
       <Navbar />
@@ -206,124 +178,87 @@ export default function AboutPage() {
               </div>
             </section>
 
-          {/* Section 2: Explore Our Journey - Exactly 2 Years at a time */}
-          <section id="journey" className="scroll-mt-28 bg-white px-6 sm:px-10 lg:px-14 py-16 lg:py-24 border-b border-navy/10">
-            <div className="max-w-7xl mx-auto">
-              {/* Centered Bold Title */}
-              <div className="text-center max-w-4xl mx-auto mb-10">
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-navy tracking-tight">
-                  Explore our Journey
+          {/* Section 2: Explore Our Journey - Animated Timeline */}
+          <section id="journey" className="scroll-mt-28 bg-navy text-white px-6 sm:px-10 lg:px-14 py-16 lg:py-28 border-b border-navy/10 relative overflow-hidden">
+            <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-teal/8 rounded-full blur-[120px]" />
+
+            <div className="max-w-6xl mx-auto relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="text-center mb-16 lg:mb-24"
+              >
+                <span className="text-sky text-xs font-semibold tracking-[0.25em] uppercase mb-3 block">Our Story</span>
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium tracking-tight">
+                  A Story of Growth
                 </h2>
-              </div>
+                <p className="mt-4 text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                  Our journey reflects years of dedication, craftsmanship, and commitment to helping brands stand out online.
+                </p>
+              </motion.div>
 
-              {/* Centered Top Arrow Indicator */}
-              <div className="flex justify-center mb-6">
-                <button
-                  type="button"
-                  onClick={goToPrev}
-                  disabled={currentPair === 0}
-                  className={`p-1.5 transition-colors ${
-                    currentPair === 0 ? "text-navy/15 cursor-not-allowed" : "text-navy/40 hover:text-navy cursor-pointer"
-                  }`}
-                  aria-label="Previous slide"
-                >
-                  <svg className="w-7 h-7 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-                  </svg>
-                </button>
-              </div>
+              <div className="relative">
+                {/* Vertical center line (desktop only) */}
+                <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent -translate-x-1/2 pointer-events-none" />
 
-              {/* Journey 2-Year Viewport with Animated Transition */}
-              <div className="relative min-h-[580px] overflow-hidden py-2">
-                {/* Center Vertical Dotted Line */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 border-r border-dotted border-navy/25 pointer-events-none" />
+                <div className="space-y-16 lg:space-y-24">
+                  {MILESTONES.map((m, i) => {
+                    const isLeft = i % 2 === 0;
+                    return (
+                      <div key={m.year} className="relative">
+                        {/* Center dot */}
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          viewport={{ once: true, margin: "-80px" }}
+                          transition={{ duration: 0.4, delay: 0.1 }}
+                          className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-10 w-4 h-4 rounded-full bg-sky border-[3px] border-navy shadow-[0_0_12px_rgba(86,124,141,0.5)]"
+                        />
 
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentPair}
-                    initial={{ opacity: 0, y: slideDirection * 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: slideDirection * -40 }}
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    className="space-y-16"
-                  >
-                    {/* First Year in Pair (Image Left, Content Right) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-                      {/* Left Column: Image */}
-                      <div className="md:pr-6">
-                        <div className="relative group overflow-hidden rounded-xs border border-navy/10 shadow-xs bg-beige/30">
-                          <Still
-                            src={gallerySrc(activeMilestones[0].img)}
-                            alt={activeMilestones[0].title}
-                            className="aspect-[16/10] w-full object-cover group-hover:scale-103 transition-transform duration-700"
-                          />
+                        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center`}>
+                          {/* Image side */}
+                          <motion.div
+                            initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                            className={`${isLeft ? "lg:order-1" : "lg:order-2"}`}
+                          >
+                            <div className="relative group overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+                              <Still
+                                src={gallerySrc(m.img)}
+                                alt={m.title}
+                                className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+                            </div>
+                          </motion.div>
+
+                          {/* Text side */}
+                          <motion.div
+                            initial={{ opacity: 0, x: isLeft ? 40 : -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                            className={`${isLeft ? "lg:order-2 lg:pl-12" : "lg:order-1 lg:pr-12 lg:text-right"}`}
+                          >
+                            <span className="inline-block text-sky/70 text-xs tracking-[0.25em] uppercase font-medium mb-2">
+                              ({m.year})
+                            </span>
+                            <h3 className="font-display text-2xl sm:text-3xl text-white font-medium leading-snug mb-3">
+                              {m.title}
+                            </h3>
+                            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-lg">
+                              {m.desc}
+                            </p>
+                          </motion.div>
                         </div>
                       </div>
-
-                      {/* Right Column: Big Year + Story */}
-                      <div className="md:pl-6">
-                        <p className="font-['Times_New_Roman',_Times,_serif] text-6xl sm:text-7xl lg:text-8xl text-navy font-normal tracking-tight leading-none mb-3 sm:mb-4">
-                          {activeMilestones[0].year}
-                        </p>
-                        <h3 className="text-navy font-bold text-base sm:text-lg mb-3 tracking-normal">
-                          {activeMilestones[0].title}
-                        </h3>
-                        <p className="text-navy/70 text-sm sm:text-base leading-relaxed max-w-lg">
-                          {activeMilestones[0].desc}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Second Year in Pair (Content Left, Image Right) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-                      {/* Left Column: Big Year + Story */}
-                      <div className="order-2 md:order-1 md:pr-6">
-                        <p className="font-['Times_New_Roman',_Times,_serif] text-6xl sm:text-7xl lg:text-8xl text-navy font-normal tracking-tight leading-none mb-3 sm:mb-4">
-                          {activeMilestones[1].year}
-                        </p>
-                        <h3 className="text-navy font-bold text-base sm:text-lg mb-3 tracking-normal">
-                          {activeMilestones[1].title}
-                        </h3>
-                        <p className="text-navy/70 text-sm sm:text-base leading-relaxed max-w-lg">
-                          {activeMilestones[1].desc}
-                        </p>
-                      </div>
-
-                      {/* Right Column: Image */}
-                      <div className="order-1 md:order-2 md:pl-6">
-                        <div className="relative group overflow-hidden rounded-xs border border-navy/10 shadow-xs bg-beige/30">
-                          <Still
-                            src={gallerySrc(activeMilestones[1].img)}
-                            alt={activeMilestones[1].title}
-                            className="aspect-[16/10] w-full object-cover group-hover:scale-103 transition-transform duration-700"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Centered Bottom Arrow Indicator (Click to advance to next 2 years) */}
-              <div className="flex flex-col items-center justify-center mt-6">
-                <button
-                  type="button"
-                  onClick={goToNext}
-                  disabled={currentPair === JOURNEY_PAIRS.length - 1}
-                  className={`group flex flex-col items-center gap-1 p-2 transition-colors ${
-                    currentPair === JOURNEY_PAIRS.length - 1
-                      ? "text-navy/15 cursor-not-allowed"
-                      : "text-navy/50 hover:text-navy cursor-pointer"
-                  }`}
-                  aria-label="Next 2 years"
-                >
-                  <span className="text-[10px] tracking-[0.2em] uppercase font-medium">
-                    {currentPair === JOURNEY_PAIRS.length - 1 ? "End of Journey" : "Next Milestones"}
-                  </span>
-                  <svg className="w-7 h-7 stroke-current group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </section>
