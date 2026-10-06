@@ -2,6 +2,14 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+function Caret() {
+  return (
+    <span aria-hidden className="animate-blink relative inline-block w-0 align-baseline">
+      <span className="absolute left-0 -top-[0.78em] h-[0.8em] w-[3px] bg-black" />
+    </span>
+  );
+}
+
 export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<"typing" | "earth" | "pause" | "zoom" | "done">("typing");
   const [charIndex, setCharIndex] = useState(0);
@@ -9,7 +17,7 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const topText = "FABSTRACT";
   const bottomLeft = "CL";
   const bottomRight = "THING";
-  const fullLength = topText.length + 1 + bottomLeft.length + bottomRight.length;
+  const fullLength = topText.length + 1 + bottomLeft.length + 1 + bottomRight.length;
 
   useEffect(() => {
     if (phase === "done") {
@@ -39,14 +47,15 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
       const t = setTimeout(() => setPhase("earth"), 150);
       return () => clearTimeout(t);
     }
-    const delay = charIndex === 0 ? 350 : charIndex === topText.length ? 250 : 65;
+    const globeStep = topText.length + 1 + bottomLeft.length;
+    const delay = charIndex === 0 ? 350 : charIndex === topText.length ? 250 : charIndex === globeStep ? 140 : 65;
     const t = setTimeout(() => setCharIndex((i) => i + 1), delay);
     return () => clearTimeout(t);
   }, [charIndex, phase, fullLength]);
 
   useEffect(() => {
     if (phase !== "earth") return;
-    const t = setTimeout(() => setPhase("pause"), 750);
+    const t = setTimeout(() => setPhase("pause"), 200);
     return () => clearTimeout(t);
   }, [phase]);
 
@@ -67,9 +76,10 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
   const bottomStart = topText.length + 1;
   const bottomChars = Math.max(0, charIndex - bottomStart);
   const bottomLeftVisible = Math.min(bottomChars, bottomLeft.length);
-  const bottomRightVisible = Math.min(Math.max(0, bottomChars - bottomLeft.length), bottomRight.length);
+  const globeTyped = bottomChars > bottomLeft.length;
+  const bottomRightVisible = Math.min(Math.max(0, bottomChars - bottomLeft.length - 1), bottomRight.length);
 
-  const earthVisible = phase !== "typing";
+  const earthVisible = globeTyped || phase !== "typing";
   const showCursor = phase === "typing";
   const isZooming = phase === "zoom";
 
@@ -99,9 +109,8 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <span>{topText.slice(0, topVisible)}</span>
-            {showCursor && charIndex <= topText.length && (
-              <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
-            )}
+            {showCursor && charIndex <= topText.length && <Caret />}
+            <span className="invisible">{topText.slice(topVisible)}</span>
           </motion.div>
 
           {charIndex > topText.length && (
@@ -114,25 +123,22 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 {bottomLeft.slice(0, bottomLeftVisible)}
+                {showCursor && !globeTyped && <Caret />}
+                <span className="invisible">{bottomLeft.slice(bottomLeftVisible)}</span>
               </motion.span>
 
-              {showCursor && charIndex > topText.length && bottomChars <= bottomLeft.length && (
-                <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
-              )}
-
-              {/* Reserved spacer under the globe */}
-              <span className="inline-block w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em] bg-white rounded-full" />
+              {/* Slot where the globe is "typed" in (globe itself lives in the layer above) */}
+              <span className="inline-block w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em]" />
+              {showCursor && bottomChars === bottomLeft.length + 1 && <Caret />}
 
               <motion.span
                 animate={isZooming ? { opacity: 0, x: 30 } : { opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 {bottomRight.slice(0, bottomRightVisible)}
+                {showCursor && bottomChars > bottomLeft.length + 1 && <Caret />}
+                <span className="invisible">{bottomRight.slice(bottomRightVisible)}</span>
               </motion.span>
-
-              {showCursor && bottomChars > bottomLeft.length && (
-                <span className="animate-blink border-r-[3px] border-black ml-0.5">&nbsp;</span>
-              )}
             </div>
           )}
         </div>
@@ -162,19 +168,20 @@ export function IntroAnimation({ onComplete }: { onComplete: () => void }) {
                 animate={
                   isZooming
                     ? { scale: [1, 4, 8], opacity: [1, 1, 0] }
-                    : { scale: [0, 1.15, 1], opacity: 1 }
+                    : { scale: [0.3, 1.12, 1], opacity: 1 }
                 }
                 transition={
                   isZooming
                     ? { duration: 1.6, times: [0, 0.5, 1], ease: [0.22, 1, 0.36, 1] }
-                    : { duration: 0.65, ease: [0.16, 1, 0.3, 1] }
+                    : { duration: 0.35, ease: [0.16, 1, 0.3, 1] }
                 }
                 onAnimationComplete={isZooming ? handleZoomComplete : undefined}
               >
                 <img
                   src="/intro/globe.gif"
                   alt="O"
-                  className="w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em] object-contain inline-block align-middle select-none pointer-events-none rounded-full"
+                  className="w-[1.05em] h-[1.05em] -ml-[0.12em] sm:-ml-[0.14em] mr-[0.05em] sm:mr-[0.06em] object-contain inline-block align-middle select-none pointer-events-none"
+                  style={{ clipPath: "circle(44.5%)", transform: "scale(1.12)" }}
                 />
               </motion.span>
 
