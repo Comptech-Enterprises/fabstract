@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BANNER_VIDEO } from "@/data/hero";
@@ -108,6 +109,50 @@ function GlobalPartner() {
   );
 }
 
+const FADE_PHRASES = [
+  "Putting people at the core.",
+  "Building for the planet.",
+  "Redefining manufacturing.",
+  "Innovation, always.",
+];
+
+function FadeThroughSection() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % FADE_PHRASES.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <section
+      id="s-about"
+      className="scroll-mt-24 h-screen flex flex-col items-center justify-center bg-navy px-6 sm:px-10 text-center"
+    >
+      <p className="max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+        We are redefining apparel manufacturing by putting people, planet, and
+        innovation at the core of our business.
+      </p>
+      <div className="relative mt-6 sm:mt-10 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={index}
+            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -24, filter: "blur(8px)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute font-display text-2xl sm:text-3xl lg:text-5xl text-white font-medium whitespace-nowrap"
+          >
+            {FADE_PHRASES[index]}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
+
 function VideoBanner() {
   return (
     <section
@@ -147,13 +192,7 @@ export default function Home() {
       <Navbar />
       <VideoBanner />
       <StickyScrollTabs>
-      <section id="s-about" className="scroll-mt-24 bg-sky/20 py-14 sm:py-20 px-6 sm:px-10 lg:px-14">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-center font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-medium leading-[1.3]">
-            We are redefining apparel manufacturing by putting people, planet, and innovation at the core of our business.
-          </p>
-        </div>
-      </section>
+      <FadeThroughSection />
       <GlobalPartner />
 
       <IntroVideo />
