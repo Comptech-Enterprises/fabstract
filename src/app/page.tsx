@@ -65,7 +65,7 @@ const BRAND_LOGOS = [
 ];
 
 const MARQUEE_PATH =
-  "M1.12756 531.57C28.0893 516.8 74.8013 483.241 115.862 435.167M115.862 435.167C142.71 403.734 167.142 366.095 182.056 323.447C229.212 188.604 -65.6747 303.582 53.6794 397.09C73.8056 412.858 94.5052 425.626 115.862 435.167ZM115.862 435.167C221.157 482.211 342.426 450.85 489.709 314.125C517.752 288.093 540.139 265.319 557.876 245.305M557.876 245.305C652.19 138.884 615.024 110.493 597.546 85.1004C576.782 54.9327 401.867 14.2899 417.559 188.351C424.308 263.214 481.985 261.608 557.876 245.305ZM557.876 245.305C749.947 226.232 1020.389 187.041 1106.650 226.667M1106.650 226.667C1118.081 231.918 1129.031 238.554 1139.376 246.804C1294.500 370.518 1217.576 540.884 1103.253 562.658C1028.137 576.964 1027.606 395.943 1106.650 226.667ZM1106.650 226.667C1147.908 138.309 1210.848 53.1511 1296.180 0.642822";
+  "M71.13 581.57C98.09 566.80 144.80 533.24 185.86 485.17M185.86 485.17C212.71 453.73 237.14 416.10 252.06 373.45C299.21 238.60 4.33 353.58 123.68 447.09C143.81 462.86 164.51 475.63 185.86 485.17ZM185.86 485.17C291.16 532.21 412.43 500.85 559.71 364.13C587.75 338.09 610.14 315.32 627.88 295.31M627.88 295.31C722.19 188.88 685.02 160.49 667.55 135.10C646.78 104.93 471.87 64.29 487.56 238.35C494.31 313.21 551.99 311.61 627.88 295.31ZM627.88 295.31C819.95 276.23 1090.39 237.04 1176.65 276.67M1176.65 276.67C1188.08 281.92 1199.03 288.55 1209.38 296.80C1364.50 420.52 1287.58 590.88 1173.25 612.66C1098.14 626.96 1097.61 445.94 1176.65 276.67ZM1176.65 276.67C1217.91 188.31 1280.85 103.15 1366.18 50.64";
 
 function GlobalPartner() {
   return (
@@ -77,10 +77,10 @@ function GlobalPartner() {
         </h2>
       </div>
 
-      <div className="relative w-full h-[520px] sm:h-[600px] md:h-[680px] lg:h-[720px] overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-[540px] sm:h-[620px] md:h-[680px] lg:h-[740px] overflow-hidden flex items-center justify-center">
         <MarqueeAlongSvgPath
           path={MARQUEE_PATH}
-          viewBox="0 0 1300 570"
+          viewBox="0 0 1440 680"
           alignX="right"
           baseVelocity={4}
           showPath={false}
@@ -102,14 +102,14 @@ function GlobalPartner() {
           {BRAND_LOGOS.map((logo, i) => (
             <div
               key={`${logo.name}-${i}`}
-              className="w-28 sm:w-34 md:w-40 h-16 sm:h-18 md:h-22 rounded-2xl border border-navy/10 bg-white/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.14)] flex items-center justify-center px-4 sm:px-5 transition-all duration-300 hover:scale-110 cursor-pointer"
+              className="w-24 sm:w-28 md:w-32 h-13 sm:h-15 md:h-17 rounded-xl sm:rounded-2xl border border-navy/10 bg-white/95 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.14)] flex items-center justify-center px-3 sm:px-4 transition-all duration-300 hover:scale-110 cursor-pointer"
             >
               <img
                 src={logo.src}
                 alt={logo.name}
                 draggable={false}
                 loading="lazy"
-                className="max-h-7 sm:max-h-9 md:max-h-10 max-w-[85%] w-auto object-contain pointer-events-none"
+                className="max-h-6 sm:max-h-7 md:max-h-8 max-w-[80%] w-auto object-contain pointer-events-none"
               />
             </div>
           ))}
