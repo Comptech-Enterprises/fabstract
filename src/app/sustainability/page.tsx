@@ -8,6 +8,7 @@ import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 import { R2_MEDIA } from "@/data/hero";
 import { PageScrollLayout } from "@/components/PageScrollLayout";
+import GlyphPortal from "@/components/ui/glyph-portal";
 
 const SUSTAINABILITY_TABS = [
   { id: "commitment", label: "Commitment" },
@@ -235,37 +236,28 @@ export default function SustainabilityPage() {
     <>
       <Navbar />
       <main className="bg-[#07241a] text-white">
-        {/* Hero with Forest Green Background */}
-        <section className="relative min-h-[520px] sm:min-h-[580px] md:min-h-[640px] lg:h-[78vh] overflow-hidden bg-[#0a3324] flex items-center justify-center">
-          <div className="absolute inset-0 z-0">
-            <img
-              src={gallerySrc(GALLERY_FILES[0])}
-              alt=""
-              className="w-full h-full object-cover opacity-25 mix-blend-overlay"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#07241a] via-[#0a3324]/75 to-[#0b3b2a]/60 pointer-events-none" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(5,26,19,0.92)_100%)] pointer-events-none" />
-          </div>
-
-          <div className="relative z-10 text-center px-6 sm:px-10 lg:px-16 max-w-5xl mx-auto">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-4xl sm:text-5xl lg:text-7xl xl:text-8xl text-white font-medium leading-[1.08] [text-shadow:0_4px_40px_rgba(4,18,13,0.7)]"
-            >
+        {/* Scroll-driven Glyph Portal Intro */}
+        <GlyphPortal
+          word="SUSTAINABILITY"
+          scrollLength={2.4}
+          interactive
+          style={{
+            "--gp-paper": "#fff",
+            "--gp-ink": "#0c141f",
+            "--gp-field": "#0b3b2a",
+            "--gp-foreground": "#f4f0d7",
+          }}
+          enterLabel="Explore our commitment"
+        >
+          <div style={{ maxWidth: 850 }}>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-white font-medium leading-[1.08] mb-6">
               Manufacturing with Radical Responsibility
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-6 text-emerald-100/80 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl mx-auto"
-            >
+            </h2>
+            <p className="text-white/70 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
               Enabling sustainability, one fabric at a time.
-            </motion.p>
+            </p>
           </div>
-        </section>
+        </GlyphPortal>
 
         <PageScrollLayout tabs={SUSTAINABILITY_TABS} activeIdPrefix="sustainability" theme="dark">
           {/* Intro Statement Section */}
