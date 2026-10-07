@@ -14,6 +14,7 @@ interface PageScrollLayoutProps {
   activeIdPrefix?: string;
   className?: string;
   sidebarTopClass?: string;
+  theme?: "light" | "dark";
 }
 
 export function PageScrollLayout({
@@ -22,6 +23,7 @@ export function PageScrollLayout({
   activeIdPrefix,
   className = "",
   sidebarTopClass = "top-20",
+  theme = "light",
 }: PageScrollLayoutProps) {
   const generatedId = useId();
   const layoutId = activeIdPrefix || generatedId;
@@ -75,11 +77,17 @@ export function PageScrollLayout({
   }, [tabs]);
 
   return (
-    <section className={`bg-white relative ${className}`}>
+    <section className={`relative ${className}`}>
       {/* ─────────────────────────────────────────────── */}
       {/*  MOBILE HORIZONTAL TABS                         */}
       {/* ─────────────────────────────────────────────── */}
-      <div className="lg:hidden sticky top-14 sm:top-16 z-30 bg-white/95 backdrop-blur-md border-b border-navy/10 w-full">
+      <div
+        className={`lg:hidden sticky top-14 sm:top-16 z-30 backdrop-blur-md border-b w-full ${
+          theme === "dark"
+            ? "bg-[#0b3b2a]/90 border-white/10"
+            : "bg-white/95 border-navy/10"
+        }`}
+      >
         <div className="flex overflow-x-auto px-6 sm:px-10 gap-6 no-scrollbar">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -89,14 +97,22 @@ export function PageScrollLayout({
                 type="button"
                 onClick={() => scrollToSection(tab.id)}
                 className={`relative py-4 text-sm tracking-wide whitespace-nowrap transition-colors duration-300 cursor-pointer ${
-                  isActive ? "text-navy font-medium" : "text-navy/40"
+                  isActive
+                    ? theme === "dark"
+                      ? "text-white font-medium"
+                      : "text-navy font-medium"
+                    : theme === "dark"
+                    ? "text-white/40 hover:text-white/70"
+                    : "text-navy/40"
                 }`}
               >
                 {tab.label}
                 {isActive && (
                   <motion.span
                     layoutId={`mobileStickyTab-${layoutId}`}
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-navy"
+                    className={`absolute bottom-0 left-0 right-0 h-[2px] ${
+                      theme === "dark" ? "bg-emerald-400" : "bg-navy"
+                    }`}
                     transition={{
                       type: "spring",
                       stiffness: 400,
@@ -127,7 +143,11 @@ export function PageScrollLayout({
                   onClick={() => scrollToSection(tab.id)}
                   className={`group flex items-center text-left py-2 transition-colors duration-300 cursor-pointer ${
                     isActive
-                      ? "text-navy font-semibold"
+                      ? theme === "dark"
+                        ? "text-white font-semibold"
+                        : "text-navy font-semibold"
+                      : theme === "dark"
+                      ? "text-white/35 hover:text-white/80"
                       : "text-navy/35 hover:text-navy/70"
                   }`}
                   aria-current={isActive ? "true" : undefined}
@@ -135,7 +155,11 @@ export function PageScrollLayout({
                   <span
                     className={`inline-block h-[2px] rounded-full transition-all duration-300 ${
                       isActive
-                        ? "w-7 bg-navy mr-3"
+                        ? theme === "dark"
+                          ? "w-7 bg-emerald-400 mr-3"
+                          : "w-7 bg-navy mr-3"
+                        : theme === "dark"
+                        ? "w-0 bg-white/30 mr-0 opacity-0 group-hover:w-3 group-hover:opacity-60 group-hover:mr-2"
                         : "w-0 bg-navy/30 mr-0 opacity-0 group-hover:w-3 group-hover:opacity-40 group-hover:mr-2"
                     }`}
                   />
