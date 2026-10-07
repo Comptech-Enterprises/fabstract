@@ -97,6 +97,7 @@ export interface MarqueeAlongSvgPathProps {
 
   // Responsive properties
   responsive?: boolean;
+  alignX?: "center" | "left" | "right";
 }
 
 export function MarqueeAlongSvgPath({
@@ -115,6 +116,8 @@ export function MarqueeAlongSvgPath({
   width = "100%",
   height = "100%",
   viewBox = "0 0 100 100",
+
+  alignX = "center",
 
   // Marquee defaults
   baseVelocity = 5,
@@ -183,8 +186,13 @@ export function MarqueeAlongSvgPath({
       const scaledWidth = originalWidth * scale;
       const scaledHeight = originalHeight * scale;
 
-      // Center the marquee container within the wrapper
-      const offsetX = (wrapperWidth - scaledWidth) / 2;
+      // Center or align the marquee container within the wrapper
+      let offsetX = (wrapperWidth - scaledWidth) / 2;
+      if (alignX === "right") {
+        offsetX = Math.max(0, wrapperWidth - scaledWidth);
+      } else if (alignX === "left") {
+        offsetX = 0;
+      }
       const offsetY = (wrapperHeight - scaledHeight) / 2;
 
       // Set fixed dimensions on the container
@@ -199,7 +207,7 @@ export function MarqueeAlongSvgPath({
     updateScale();
     window.addEventListener("resize", updateScale);
     return () => window.removeEventListener("resize", updateScale);
-  }, [responsive, viewBox]);
+  }, [responsive, viewBox, alignX]);
 
   // Create an array of items outside of the render function
   const items = React.useMemo(() => {

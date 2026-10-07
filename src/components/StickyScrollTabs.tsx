@@ -108,12 +108,30 @@ export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
     setSelectedArticles(shuffled.slice(0, 3));
   }, []);
 
+  const getNavOffset = () => {
+    if (typeof window === "undefined") return 72;
+    const nav = document.querySelector("nav");
+    const navHeight = nav
+      ? nav.getBoundingClientRect().height
+      : window.innerWidth < 640
+      ? 56
+      : window.innerWidth < 768
+      ? 64
+      : 72;
+    if (window.innerWidth < 1024) {
+      const mobileTabs = document.querySelector(".lg\\:hidden.sticky");
+      const tabsHeight = mobileTabs ? mobileTabs.getBoundingClientRect().height : 52;
+      return navHeight + tabsHeight;
+    }
+    return navHeight;
+  };
+
   /* ── Click-to-scroll ── */
   const scrollToSection = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
     setActiveTab(id);
-    const navOffset = window.innerWidth < 1024 ? 80 : 96;
+    const navOffset = getNavOffset();
     const top = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
@@ -121,7 +139,7 @@ export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
   /* ── Robust Scrollspy for Active Tab ── */
   useEffect(() => {
     const updateActiveTab = () => {
-      const navOffset = window.innerWidth < 1024 ? 80 : 100;
+      const navOffset = getNavOffset();
 
       let current = TABS[0].id;
       for (const tab of TABS) {

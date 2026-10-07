@@ -65,7 +65,7 @@ const BRAND_LOGOS = [
 ];
 
 const MARQUEE_PATH =
-  "M1.12756 531.57C28.0893 516.8 74.8013 483.241 115.862 435.167M115.862 435.167C142.71 403.734 167.142 366.095 182.056 323.447C229.212 188.604 -65.6747 303.582 53.6794 397.09C73.8056 412.858 94.5052 425.626 115.862 435.167ZM115.862 435.167C221.157 482.211 342.426 450.85 489.709 314.125C517.752 288.093 540.139 265.319 557.876 245.305M557.876 245.305C652.19 138.884 615.024 110.493 597.546 85.1004C576.782 54.9327 401.867 14.2899 417.559 188.351C424.308 263.214 481.985 261.608 557.876 245.305ZM557.876 245.305C646.667 226.232 760.389 187.041 846.65 226.667M846.65 226.667C858.081 231.918 869.031 238.554 879.376 246.804C1034.5 370.518 957.576 540.884 843.253 562.658C768.137 576.964 767.606 395.943 846.65 226.667ZM846.65 226.667C887.908 138.309 950.848 53.1511 1036.18 0.642822";
+  "M1.12756 531.57C28.0893 516.8 74.8013 483.241 115.862 435.167M115.862 435.167C142.71 403.734 167.142 366.095 182.056 323.447C229.212 188.604 -65.6747 303.582 53.6794 397.09C73.8056 412.858 94.5052 425.626 115.862 435.167ZM115.862 435.167C221.157 482.211 342.426 450.85 489.709 314.125C517.752 288.093 540.139 265.319 557.876 245.305M557.876 245.305C652.19 138.884 615.024 110.493 597.546 85.1004C576.782 54.9327 401.867 14.2899 417.559 188.351C424.308 263.214 481.985 261.608 557.876 245.305ZM557.876 245.305C749.947 226.232 1020.389 187.041 1106.650 226.667M1106.650 226.667C1118.081 231.918 1129.031 238.554 1139.376 246.804C1294.500 370.518 1217.576 540.884 1103.253 562.658C1028.137 576.964 1027.606 395.943 1106.650 226.667ZM1106.650 226.667C1147.908 138.309 1210.848 53.1511 1296.180 0.642822";
 
 function GlobalPartner() {
   return (
@@ -80,7 +80,8 @@ function GlobalPartner() {
       <div className="relative w-full h-[520px] sm:h-[600px] md:h-[680px] lg:h-[720px] overflow-hidden flex items-center justify-center">
         <MarqueeAlongSvgPath
           path={MARQUEE_PATH}
-          viewBox="0 0 1040 570"
+          viewBox="0 0 1300 570"
+          alignX="right"
           baseVelocity={4}
           showPath={false}
           offsetRotate="auto"
@@ -133,28 +134,30 @@ function FadeThroughSection() {
   return (
     <section
       id="s-about"
-      className="scroll-mt-24 h-screen flex flex-col items-center justify-center bg-navy px-6 sm:px-10 text-center"
+      className="scroll-mt-14 sm:scroll-mt-16 md:scroll-mt-18 min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-4.5rem)] flex flex-col items-center justify-center bg-white px-4 sm:px-6 lg:px-10 py-8 sm:py-12"
     >
-      <p className="max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
-        We redefine garment manufacturing by putting
-      </p>
-      <div className="relative mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold"
-          >
-            {FADE_WORDS[index]}
-          </motion.span>
-        </AnimatePresence>
+      <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-navy py-14 sm:py-20 lg:py-24 px-6 sm:px-10 text-center flex flex-col items-center justify-center shadow-xl">
+        <p className="max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+          We redefine garment manufacturing by putting
+        </p>
+        <div className="relative mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold"
+            >
+              {FADE_WORDS[index]}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+        <p className="mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+          at the core of our business.
+        </p>
       </div>
-      <p className="mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
-        at the core of our business.
-      </p>
     </section>
   );
 }
