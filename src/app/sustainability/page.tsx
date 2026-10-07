@@ -235,17 +235,29 @@ export default function SustainabilityPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#07241a] text-white">
+      <main className="bg-[#08261c] text-white relative">
+        {/* Unified ambient lighting across the entire page */}
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_25%,_rgba(16,185,129,0.12)_0%,_transparent_75%)]" />
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_75%,_rgba(52,211,153,0.08)_0%,_transparent_65%)]" />
+
         {/* Scroll-driven Glyph Portal Intro */}
         <GlyphPortal
           word="SUSTAINABILITY"
           scrollLength={2.4}
           interactive
+          background={
+            <div className="absolute inset-0 bg-[#08261c] overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,_rgba(16,185,129,0.2)_0%,_transparent_70%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_20%_80%,_rgba(52,211,153,0.12)_0%,_transparent_60%)]" />
+              {/* Fade to base green at bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-[#08261c]" />
+            </div>
+          }
           style={{
             "--gp-paper": "#fff",
             "--gp-ink": "#0c141f",
-            "--gp-field": "#0b3b2a",
-            "--gp-foreground": "#f4f0d7",
+            "--gp-field": "#08261c",
+            "--gp-foreground": "#ffffff",
           }}
           enterLabel="Explore our commitment"
         >
@@ -253,7 +265,7 @@ export default function SustainabilityPage() {
             <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-white font-medium leading-[1.08] mb-6">
               Manufacturing with Radical Responsibility
             </h2>
-            <p className="text-white/70 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
+            <p className="text-emerald-100/80 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
               Enabling sustainability, one fabric at a time.
             </p>
           </div>
@@ -261,7 +273,7 @@ export default function SustainabilityPage() {
 
         <PageScrollLayout tabs={SUSTAINABILITY_TABS} activeIdPrefix="sustainability" theme="dark">
           {/* Intro Statement Section */}
-          <section id="commitment" className="scroll-mt-24 bg-[#07241a] px-6 sm:px-10 lg:px-16 py-16 lg:py-24 border-b border-white/10 text-center">
+          <section id="commitment" className="scroll-mt-24 bg-transparent px-6 sm:px-10 lg:px-16 py-16 lg:py-24 text-center relative z-10">
             <div className="max-w-4xl lg:max-w-5xl mx-auto">
               <p className="text-emerald-400 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">The Fabstract Commitment</p>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 tracking-tight">
@@ -273,11 +285,11 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* Section 1: Live Environmental Impact Scorecard (Forest Green) */}
-          <section id="scorecard" className="scroll-mt-24 bg-[#092b1e] text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-white/10 relative overflow-hidden">
+          {/* Section 1: Live Environmental Impact Scorecard */}
+          <section id="scorecard" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
             {/* Ambient Lighting */}
-            <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-teal/10 rounded-full blur-3xl" />
 
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
@@ -537,8 +549,8 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* Section 2: People & Community — Bento Grid (Deep Forest Green) */}
-          <section id="people-bento" className="scroll-mt-24 bg-[#08291d] text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-white/10 relative overflow-hidden">
+          {/* Section 2: People & Community — Bento Grid */}
+          <section id="people-bento" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="max-w-3xl mb-14">
                 <p className="text-emerald-400 text-xs font-semibold tracking-[0.25em] uppercase mb-3">Social Sustainability</p>
@@ -673,10 +685,10 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* Section 3: Sustainability Reports & Documents (Deep Green) */}
-          <section id="reports" className="scroll-mt-24 bg-[#0a3324] text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-b border-white/10 relative overflow-hidden">
-            <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl" />
+          {/* Section 3: Sustainability Reports & Documents */}
+          <section id="reports" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
+            <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 bg-teal/10 rounded-full blur-3xl" />
 
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="max-w-3xl mb-14">
@@ -725,7 +737,7 @@ export default function SustainabilityPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: idx * 0.15 }}
-                    className="group relative rounded-2xl bg-[#07241a] border border-white/10 hover:border-emerald-400/50 transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-1 hover:shadow-2xl"
+                    className="group relative rounded-2xl bg-[#0b3325]/75 border border-emerald-500/20 hover:border-emerald-400/50 transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-1 hover:shadow-2xl backdrop-blur-xs"
                   >
                     {/* Decorative top bar */}
                     <div className="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-teal to-emerald-400" />
@@ -778,8 +790,8 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* CTA: Partner With Us (Forest Green Ambient) */}
-          <section className="relative bg-[#061f16] text-white px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden border-t border-white/10">
+          {/* CTA: Partner With Us */}
+          <section className="relative bg-transparent text-white px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden z-10">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.12)_0%,_transparent_70%)]" />
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -820,7 +832,7 @@ export default function SustainabilityPage() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="hidden lg:flex fixed bottom-8 left-6 z-40 items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-emerald-200/70 hover:text-white transition-colors bg-[#0a3324]/90 px-3 py-1.5 rounded-full backdrop-blur-xs border border-white/10 shadow-xs cursor-pointer"
+          className="hidden lg:flex fixed bottom-8 left-6 z-40 items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-emerald-200/70 hover:text-white transition-colors bg-[#08261c]/90 px-3 py-1.5 rounded-full backdrop-blur-xs border border-white/10 shadow-xs cursor-pointer"
         >
           <span>↑</span>
           Back to top

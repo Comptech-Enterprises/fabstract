@@ -84,7 +84,7 @@ export function PageScrollLayout({
       <div
         className={`lg:hidden sticky top-14 sm:top-16 z-30 backdrop-blur-md border-b w-full ${
           theme === "dark"
-            ? "bg-[#0b3b2a]/90 border-white/10"
+            ? "bg-[#08261c]/90 border-white/10"
             : "bg-white/95 border-navy/10"
         }`}
       >

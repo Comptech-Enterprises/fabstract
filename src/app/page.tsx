@@ -10,6 +10,7 @@ import { StickyScrollTabs } from "@/components/StickyScrollTabs";
 import { FactoryVideoShowcase } from "@/components/FactoryVideoShowcase";
 import { IntroVideo } from "@/components/IntroVideo";
 import { KeyPoints } from "@/components/KeyPoints";
+import { MarqueeAlongSvgPath } from "@/components/ui/marquee-along-svg-path";
 
 const CAPABILITIES = [
   {
@@ -63,47 +64,55 @@ const BRAND_LOGOS = [
   { name: "Kowtow", src: "/brands/kowtow.webp" },
 ];
 
-function LogoRow({ logos, reverse = false }: { logos: typeof BRAND_LOGOS; reverse?: boolean }) {
-  const loop = [...logos, ...logos];
-
-  return (
-    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-      <div
-        className="flex w-max gap-6 sm:gap-10 hover:[animation-play-state:paused]"
-        style={{ animation: `logo-marquee 35s linear infinite ${reverse ? "reverse" : "normal"}` }}
-      >
-        {loop.map((logo, i) => (
-          <div
-            key={i}
-            className="w-44 sm:w-56 h-24 sm:h-28 shrink-0 rounded-xl border border-navy/10 bg-sky/20 flex items-center justify-center px-6"
-          >
-            <img
-              src={logo.src}
-              alt={logo.name}
-              loading="lazy"
-              className="max-h-12 sm:max-h-14 max-w-full w-auto object-contain"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+const MARQUEE_PATH =
+  "M1.12756 531.57C28.0893 516.8 74.8013 483.241 115.862 435.167M115.862 435.167C142.71 403.734 167.142 366.095 182.056 323.447C229.212 188.604 -65.6747 303.582 53.6794 397.09C73.8056 412.858 94.5052 425.626 115.862 435.167ZM115.862 435.167C221.157 482.211 342.426 450.85 489.709 314.125C517.752 288.093 540.139 265.319 557.876 245.305M557.876 245.305C652.19 138.884 615.024 110.493 597.546 85.1004C576.782 54.9327 401.867 14.2899 417.559 188.351C424.308 263.214 481.985 261.608 557.876 245.305ZM557.876 245.305C646.667 226.232 760.389 187.041 846.65 226.667M846.65 226.667C858.081 231.918 869.031 238.554 879.376 246.804C1034.5 370.518 957.576 540.884 843.253 562.658C768.137 576.964 767.606 395.943 846.65 226.667ZM846.65 226.667C887.908 138.309 950.848 53.1511 1036.18 0.642822";
 
 function GlobalPartner() {
-  const reversed = [...BRAND_LOGOS].reverse();
-
   return (
-    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden">
-      <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden relative">
+      <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 mb-8 sm:mb-12 relative z-20">
         <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
         <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
           A global manufacturing partner to 50+ leading brands.
         </h2>
       </div>
-      <div className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-10">
-        <LogoRow logos={BRAND_LOGOS} reverse />
-        <LogoRow logos={reversed} />
+
+      <div className="relative w-full h-[520px] sm:h-[600px] md:h-[680px] lg:h-[720px] overflow-hidden flex items-center justify-center">
+        <MarqueeAlongSvgPath
+          path={MARQUEE_PATH}
+          viewBox="0 0 1040 570"
+          baseVelocity={4}
+          showPath={false}
+          offsetRotate="auto"
+          slowdownOnHover={true}
+          slowDownFactor={0.25}
+          draggable={true}
+          dragAwareDirection={true}
+          dragVelocityDecay={0.98}
+          scrollAwareDirection={true}
+          useScrollVelocity={true}
+          repeat={1}
+          enableRollingZIndex={true}
+          dragSensitivity={0.015}
+          responsive={true}
+          grabCursor={true}
+          className="w-full h-full"
+        >
+          {BRAND_LOGOS.map((logo, i) => (
+            <div
+              key={`${logo.name}-${i}`}
+              className="w-28 sm:w-34 md:w-40 h-16 sm:h-18 md:h-22 rounded-2xl border border-navy/10 bg-white/95 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.14)] flex items-center justify-center px-4 sm:px-5 transition-all duration-300 hover:scale-110 cursor-pointer"
+            >
+              <img
+                src={logo.src}
+                alt={logo.name}
+                draggable={false}
+                loading="lazy"
+                className="max-h-7 sm:max-h-9 md:max-h-10 max-w-[85%] w-auto object-contain pointer-events-none"
+              />
+            </div>
+          ))}
+        </MarqueeAlongSvgPath>
       </div>
     </section>
   );
@@ -117,7 +126,7 @@ function FadeThroughSection() {
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % FADE_WORDS.length);
-    }, 3000);
+    }, 1600);
     return () => clearInterval(id);
   }, []);
 
@@ -133,10 +142,10 @@ function FadeThroughSection() {
         <AnimatePresence mode="wait">
           <motion.span
             key={index}
-            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+            initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -24, filter: "blur(8px)" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
             className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold"
           >
             {FADE_WORDS[index]}
