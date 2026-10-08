@@ -212,10 +212,9 @@ function VideoBanner() {
   return (
     <section
       id="hero-banner"
-      className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex flex-col justify-end"
+      className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] sm:max-h-[920px] sm:min-h-[480px] bg-navy overflow-hidden flex flex-col justify-end"
     >
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        {/* Ambient video blur behind on mobile so the viewport is filled with matching light & motion */}
+      <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
         <video
           src={BANNER_VIDEO}
           autoPlay
@@ -223,25 +222,14 @@ function VideoBanner() {
           loop
           playsInline
           preload="auto"
-          aria-hidden="true"
-          className="sm:hidden absolute inset-0 h-full w-full object-cover blur-2xl opacity-60 scale-110 pointer-events-none"
-        />
-        {/* Main video: zoomed out on mobile (object-contain) to show the full width with both kids */}
-        <video
-          src={BANNER_VIDEO}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="relative z-10 w-full h-full object-contain sm:object-cover sm:object-top"
+          className="w-full h-full object-cover object-[center_60%] sm:object-top"
         />
       </div>
       <div className="relative z-20 w-full text-center">
-        <div className="bg-black/55 backdrop-blur-xl w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
-          <blockquote className="font-display text-[16px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-[1.3]">
+        <div className="bg-gradient-to-t from-black/90 via-black/60 to-black/25 sm:bg-black/55 backdrop-blur-md sm:backdrop-blur-xl w-full px-4 sm:px-10 lg:px-14 py-3 sm:py-8">
+          <blockquote className="font-display text-[13px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-snug sm:leading-[1.3]">
             The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-            <span className="block mt-3 sm:mt-4 text-sm sm:text-base tracking-[0.28em] uppercase text-sky font-bold">— Mahatma Gandhi</span>
+            <span className="block mt-1 sm:mt-4 text-[10px] sm:text-base tracking-[0.25em] sm:tracking-[0.28em] uppercase text-sky font-bold">— Mahatma Gandhi</span>
           </blockquote>
         </div>
       </div>
