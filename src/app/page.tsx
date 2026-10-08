@@ -94,7 +94,7 @@ function GlobalPartner() {
   const reversed = [...BRAND_LOGOS].reverse();
 
   return (
-    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden">
+    <section id="s-brands" className="scroll-mt-24 bg-white py-10 sm:py-20 lg:py-24 overflow-hidden">
       <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
         <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
@@ -124,9 +124,9 @@ function FadeThroughSection() {
   return (
     <section
       id="s-about"
-      className="scroll-mt-14 sm:scroll-mt-16 md:scroll-mt-18 min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-4.5rem)] flex flex-col items-center justify-center bg-white px-4 sm:px-6 lg:px-10 py-8 sm:py-12"
+      className="scroll-mt-24 sm:scroll-mt-28 flex flex-col items-center justify-center bg-white px-4 sm:px-6 lg:px-10 py-6 sm:py-10 lg:py-14"
     >
-      <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-navy py-14 sm:py-20 lg:py-24 px-6 sm:px-10 text-center flex flex-col items-center justify-center shadow-xl relative overflow-hidden">
+      <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-navy py-12 sm:py-18 lg:py-22 px-6 sm:px-10 text-center flex flex-col items-center justify-center shadow-xl relative overflow-hidden">
         {/* Thematic backgrounds for People, Planet, and Innovation states */}
         {/* Video background for People */}
         <motion.div
