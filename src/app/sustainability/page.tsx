@@ -14,7 +14,6 @@ const SUSTAINABILITY_TABS = [
   { id: "commitment", label: "Commitment" },
   { id: "scorecard", label: "Impact Scorecard" },
   { id: "people-bento", label: "People First" },
-  { id: "reports", label: "Governance & ESG" },
 ];
 
 function AnimatedCounter({
@@ -92,6 +91,26 @@ interface MediaSlide {
   src: string;
   highlight?: string;
   alt?: string;
+}
+
+interface StatMetric {
+  sectionHeader?: { tag?: string; title: string };
+  bgPattern?: string;
+  bgRepeat?: boolean;
+  bgTileSize?: string;
+  bgOpacity?: number;
+  bgAnimate?: boolean;
+  imageFirst?: boolean;
+  num: string;
+  bulbZero?: boolean;
+  label: string;
+  subheading?: string;
+  sub: string;
+  highlight: string;
+  img?: string;
+  video?: string;
+  videos?: { src: string; highlight: string }[];
+  slides?: MediaSlide[];
 }
 
 function StatMediaSlider({
@@ -231,14 +250,84 @@ function StatMediaSlider({
   );
 }
 
+const STAT_METRICS: StatMetric[] = [
+  {
+    sectionHeader: {
+      tag: "Verifiable Metrics",
+      title: "Sustainability Impact - Energy",
+    },
+    bgPattern: "/backgrounds/lightning-tile.svg",
+    bgRepeat: true,
+    num: "100%",
+    bulbZero: true,
+    label: "Clean Auxiliary Energy",
+    subheading: "Solar Powers Fabstract",
+    sub: "Fabstract creates its own 100% clean biomass & solar energy powering its facilities, boilers and mills.",
+    highlight: "Zero Fossil Coal",
+    img: `${R2_MEDIA}/coal.jpg`,
+    videos: [
+      {
+        src: `${R2_MEDIA}/solar.mp4`,
+        highlight: "Zero Fossil Coal",
+      },
+      {
+        src: `${R2_MEDIA}/solar-genset.mp4`,
+        highlight: "Clean Biomass & Solar",
+      },
+    ],
+  },
+  {
+    sectionHeader: {
+      tag: "Verifiable Metrics",
+      title: "Sustainability Impact - Water",
+    },
+    bgPattern: "/backgrounds/water-flow.svg",
+    bgRepeat: true,
+    bgTileSize: "240px 480px",
+    bgOpacity: 0.22,
+    bgAnimate: true,
+    imageFirst: true,
+    num: "95%+",
+    label: "Water Recycled",
+    sub: "Biological Effluent Treatment Plants (ETP) ensuring zero toxic process discharge.",
+    highlight: "Closed Loop Water",
+    img: `${R2_MEDIA}/water.webp`,
+    video: "/videos/WhatsApp-Video-2026-10-08-at-13.05.56.mp4",
+  },
+  {
+    sectionHeader: {
+      tag: "Verifiable Metrics",
+      title: "Sustainability Impact - Tree Plantation",
+    },
+    bgPattern: "/backgrounds/tree-tile.svg",
+    bgRepeat: true,
+    bgTileSize: "180px 180px",
+    bgOpacity: 0.18,
+    num: "50,000+",
+    label: "Trees Planted",
+    sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
+    highlight: "वन से हम Initiative",
+    img: `${R2_MEDIA}/trees.jpg`,
+    video: `${R2_MEDIA}/trees.mp4`,
+  },
+  {
+    num: "100%",
+    label: "Sustainable Yarns",
+    sub: "Every knit garment crafted from BCI cotton, recycled polyester, or OEKO-TEX certified yarn — zero conventional fiber.",
+    highlight: "Clean Knitting",
+    img: `${R2_MEDIA}/yarn.jpg`,
+    video: `${R2_MEDIA}/working.mp4`,
+  },
+];
+
 export default function SustainabilityPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#08261c] text-white relative">
+      <main className="bg-white text-navy relative">
         {/* Unified ambient lighting across the entire page */}
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_25%,_rgba(16,185,129,0.12)_0%,_transparent_75%)]" />
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_75%,_rgba(52,211,153,0.08)_0%,_transparent_65%)]" />
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_25%,_rgba(16,185,129,0.06)_0%,_transparent_75%)]" />
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_75%,_rgba(52,211,153,0.04)_0%,_transparent_65%)]" />
 
         {/* Scroll-driven Glyph Portal Intro */}
         <GlyphPortal
@@ -246,135 +335,58 @@ export default function SustainabilityPage() {
           scrollLength={2.4}
           interactive
           background={
-            <div className="absolute inset-0 bg-[#08261c] overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,_rgba(16,185,129,0.2)_0%,_transparent_70%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_20%_80%,_rgba(52,211,153,0.12)_0%,_transparent_60%)]" />
-              {/* Fade to base green at bottom */}
-              <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-[#08261c]" />
+            <div
+              className="absolute inset-0 bg-white overflow-hidden"
+              style={{ transform: "scale(var(--gp-field-scale,1))" }}
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,_rgba(16,185,129,0.12)_0%,_transparent_70%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_20%_80%,_rgba(52,211,153,0.08)_0%,_transparent_60%)]" />
+              {/* Fade to base white at bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-white" />
             </div>
           }
           style={{
-            "--gp-paper": "#fff",
-            "--gp-ink": "#0c141f",
-            "--gp-field": "#08261c",
-            "--gp-foreground": "#ffffff",
+            "--gp-paper": "#08261c",
+            "--gp-ink": "#ffffff",
+            "--gp-field": "#ffffff",
+            "--gp-foreground": "#0f172a",
           }}
           enterLabel="Explore our commitment"
         >
           <div style={{ maxWidth: 850 }}>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-white font-medium leading-[1.08] mb-6">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-navy font-medium leading-[1.08] mb-6">
               Manufacturing with Radical Responsibility
             </h2>
-            <p className="text-emerald-100/80 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
+            <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
               Enabling sustainability, one fabric at a time.
             </p>
           </div>
         </GlyphPortal>
 
-        <PageScrollLayout tabs={SUSTAINABILITY_TABS} activeIdPrefix="sustainability" theme="dark">
+        <PageScrollLayout tabs={SUSTAINABILITY_TABS} activeIdPrefix="sustainability" theme="light">
           {/* Intro Statement Section */}
           <section id="commitment" className="scroll-mt-24 bg-transparent px-6 sm:px-10 lg:px-16 py-16 lg:py-24 text-center relative z-10">
             <div className="max-w-4xl lg:max-w-5xl mx-auto">
-              <p className="text-emerald-400 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">The Fabstract Commitment</p>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 tracking-tight">
+              <p className="text-emerald-700 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase mb-4">The Fabstract Commitment</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tight">
                 Sustainability is not an afterthought. It is engineered into every stitch, fiber, and factory floor.
               </h2>
-              <p className="text-emerald-100/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
+              <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
                 We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our zero-liquid discharge, renewable energy, and ethical worker charter exceed national standards and comply with premier international sustainability codes.
               </p>
             </div>
           </section>
 
           {/* Section 1: Live Environmental Impact Scorecard */}
-          <section id="scorecard" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
+          <section id="scorecard" className="scroll-mt-24 bg-transparent text-navy px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
             {/* Ambient Lighting */}
-            <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-teal/10 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-teal/5 rounded-full blur-3xl" />
 
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
               <div className="flex flex-col lg:h-screen lg:overflow-y-auto lg:snap-y lg:snap-mandatory no-scrollbar gap-10 lg:gap-0">
-                {[
-                  {
-                    sectionHeader: {
-                      tag: "Verifiable Metrics",
-                      title: "Sustainability Impact - Energy",
-                    },
-                    bgPattern: "/backgrounds/lightning-tile.svg",
-                    bgRepeat: true,
-                    num: "100%",
-                    bulbZero: true,
-                    label: "Clean Auxiliary Energy",
-                    subheading: "Solar Powers Fabstract",
-                    sub: "Fabstract creates its own 100% clean biomass & solar energy powering its facilities, boilers and mills.",
-                    highlight: "Zero Fossil Coal",
-                    img: `${R2_MEDIA}/coal.jpg`,
-                    videos: [
-                      {
-                        src: `${R2_MEDIA}/solar.mp4`,
-                        highlight: "Zero Fossil Coal",
-                      },
-                      {
-                        src: `${R2_MEDIA}/solar-genset.mp4`,
-                        highlight: "Clean Biomass & Solar",
-                      },
-                    ],
-                  },
-                  {
-                    sectionHeader: {
-                      tag: "Verifiable Metrics",
-                      title: "Sustainability Impact - Water",
-                    },
-                    bgPattern: "/backgrounds/water-flow.svg",
-                    bgRepeat: true,
-                    bgTileSize: "240px 480px",
-                    bgOpacity: 0.22,
-                    bgAnimate: true,
-                    imageFirst: true,
-                    num: "95%+",
-                    label: "Water Recycled",
-                    sub: "Biological Effluent Treatment Plants (ETP) ensuring zero toxic process discharge.",
-                    highlight: "Closed Loop Water",
-                    slides: [
-                      {
-                        type: "image" as const,
-                        src: `${R2_MEDIA}/water.webp`,
-                        highlight: "Closed Loop Water",
-                        alt: "Biological Effluent Treatment Plant",
-                      },
-                      {
-                        type: "image" as const,
-                        src: `${R2_MEDIA}/rainwater.webp`,
-                        highlight: "Rainwater Harvesting",
-                        alt: "Rainwater Harvesting for Non-Potable Uses",
-                      },
-                    ],
-                  },
-                  {
-                    sectionHeader: {
-                      tag: "Verifiable Metrics",
-                      title: "Sustainability Impact - Tree Plantation",
-                    },
-                    bgPattern: "/backgrounds/tree-tile.svg",
-                    bgRepeat: true,
-                    bgTileSize: "180px 180px",
-                    bgOpacity: 0.18,
-                    num: "50,000+",
-                    label: "Trees Planted",
-                    sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
-                    highlight: "वन से हम Initiative",
-                    img: `${R2_MEDIA}/trees.jpg`,
-                    video: `${R2_MEDIA}/trees.mp4`,
-                  },
-                  {
-                    num: "100%",
-                    label: "Sustainable Yarns",
-                    sub: "Every knit garment crafted from BCI cotton, recycled polyester, or OEKO-TEX certified yarn — zero conventional fiber.",
-                    highlight: "Clean Knitting",
-                    img: `${R2_MEDIA}/yarn.jpg`,
-                    video: `${R2_MEDIA}/working.mp4`,
-                  },
-                ].map((stat, idx) => {
+                {STAT_METRICS.map((stat, idx) => {
                   const imageFirst = stat.imageFirst !== undefined ? stat.imageFirst : idx % 2 === 0;
                   const slides: MediaSlide[] = stat.slides
                     ? stat.slides
@@ -386,7 +398,7 @@ export default function SustainabilityPage() {
                       }))
                     : stat.video
                     ? [{ type: "video" as const, src: stat.video, highlight: stat.highlight }]
-                    : [{ type: "image" as const, src: stat.img, highlight: stat.highlight, alt: stat.label }];
+                    : [{ type: "image" as const, src: stat.img || "", highlight: stat.highlight, alt: stat.label }];
                   const hasVideo = Boolean(stat.video || stat.videos || stat.slides);
 
                   return (
@@ -429,7 +441,7 @@ export default function SustainabilityPage() {
                               whileInView={{ opacity: 1, x: 0 }}
                               viewport={{ once: true }}
                               transition={{ duration: 0.5 }}
-                              className="text-emerald-300 text-xs font-semibold tracking-[0.25em] uppercase mb-3"
+                              className="text-emerald-700 text-xs font-semibold tracking-[0.25em] uppercase mb-3"
                             >
                               {stat.sectionHeader.tag}
                             </motion.p>
@@ -439,7 +451,7 @@ export default function SustainabilityPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight"
+                            className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight"
                           >
                             {stat.sectionHeader.title}
                           </motion.h2>
@@ -448,7 +460,7 @@ export default function SustainabilityPage() {
                             whileInView={{ width: "5rem" }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            className="h-0.5 bg-gradient-to-r from-emerald-400 to-teal mt-5 mb-8 rounded-full"
+                            className="h-0.5 bg-gradient-to-r from-emerald-600 to-teal mt-5 mb-8 rounded-full"
                           />
                         </div>
                       )}
@@ -489,10 +501,10 @@ export default function SustainabilityPage() {
                             <>
                               {/* 1. Metric + Label in one line */}
                               <div className="flex items-baseline gap-2.5 sm:gap-3 flex-nowrap whitespace-nowrap">
-                                <span className="font-['Times_New_Roman',_Times,_serif] text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-white font-normal tracking-tight shrink-0">
+                                <span className="font-['Times_New_Roman',_Times,_serif] text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-navy font-normal tracking-tight shrink-0">
                                   <AnimatedCounter target={stat.num} bulbZero={Boolean(stat.bulbZero)} />
                                 </span>
-                                <h3 className="text-emerald-300 font-semibold text-xl sm:text-2xl lg:text-2xl xl:text-3xl tracking-wide shrink-0">
+                                <h3 className="text-emerald-800 font-semibold text-xl sm:text-2xl lg:text-2xl xl:text-3xl tracking-wide shrink-0">
                                   {stat.label}
                                 </h3>
                               </div>
@@ -503,14 +515,14 @@ export default function SustainabilityPage() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.4 }}
-                                className="font-display text-xl sm:text-2xl text-emerald-100/90 font-light mt-2"
+                                className="font-display text-xl sm:text-2xl text-slate-800 font-light mt-2"
                               >
                                 {stat.subheading}
                               </motion.p>
                             </>
                           ) : (
                             <>
-                              <p className="font-['Times_New_Roman',_Times,_serif] text-5xl sm:text-6xl lg:text-7xl text-white font-normal tracking-tight">
+                              <p className="font-['Times_New_Roman',_Times,_serif] text-5xl sm:text-6xl lg:text-7xl text-navy font-normal tracking-tight">
                                 <AnimatedCounter target={stat.num} />
                               </p>
                               <motion.h3
@@ -518,7 +530,7 @@ export default function SustainabilityPage() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.35 }}
-                                className="text-emerald-300 font-semibold text-2xl sm:text-3xl mt-3 tracking-wide"
+                                className="text-emerald-800 font-semibold text-2xl sm:text-3xl mt-3 tracking-wide"
                               >
                                 {stat.label}
                               </motion.h3>
@@ -529,14 +541,14 @@ export default function SustainabilityPage() {
                             whileInView={{ width: "100%" }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="h-px bg-white/15 mt-4"
+                            className="h-px bg-slate-200 mt-4"
                           />
                           <motion.p
                             initial={{ opacity: 0, y: 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.6 }}
-                            className="text-emerald-100/80 text-base sm:text-lg leading-relaxed font-light pt-5"
+                            className="text-slate-600 text-base sm:text-lg leading-relaxed font-light pt-5"
                           >
                             {stat.sub}
                           </motion.p>
@@ -550,12 +562,12 @@ export default function SustainabilityPage() {
           </section>
 
           {/* Section 2: People & Community — Bento Grid */}
-          <section id="people-bento" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
+          <section id="people-bento" className="scroll-mt-24 bg-transparent text-navy px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
             <div className="max-w-7xl mx-auto relative z-10">
               <div className="max-w-3xl mb-14">
-                <p className="text-emerald-400 text-xs font-semibold tracking-[0.25em] uppercase mb-3">Social Sustainability</p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight">
-                  Empowering Our <span className="font-normal text-emerald-300">People</span>
+                <p className="text-emerald-700 text-xs font-semibold tracking-[0.25em] uppercase mb-3">Social Sustainability</p>
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight">
+                  Empowering Our <span className="font-normal text-emerald-700">People</span>
                 </h2>
               </div>
 
@@ -567,7 +579,7 @@ export default function SustainabilityPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="md:col-span-2 md:row-span-2 relative rounded-2xl overflow-hidden group cursor-default border border-white/10"
+                  className="md:col-span-2 md:row-span-2 relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
                 >
                   <img
                     src={`${R2_MEDIA}/worker.jpg`}
@@ -596,7 +608,7 @@ export default function SustainabilityPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-white/10"
+                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
                 >
                   <img
                     src={`${R2_MEDIA}/salary.jpg`}
@@ -620,7 +632,7 @@ export default function SustainabilityPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-white/10"
+                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
                 >
                   <img
                     src={`${R2_MEDIA}/health.jpg`}
@@ -644,7 +656,7 @@ export default function SustainabilityPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-white/10"
+                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
                 >
                   <img
                     src={`${R2_MEDIA}/training.jpg`}
@@ -668,7 +680,7 @@ export default function SustainabilityPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="rounded-2xl flex flex-col justify-end p-7 relative overflow-hidden group cursor-default border border-white/10"
+                  className="rounded-2xl flex flex-col justify-end p-7 relative overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
                 >
                   <img
                     src={`${R2_MEDIA}/happy.jpg`}
@@ -685,132 +697,28 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* Section 3: Sustainability Reports & Documents */}
-          <section id="reports" className="scroll-mt-24 bg-transparent text-white px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
-            <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 bg-teal/10 rounded-full blur-3xl" />
-
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="max-w-3xl mb-14">
-                <p className="text-emerald-300 text-xs font-semibold tracking-[0.25em] uppercase mb-3">Transparency &amp; Accountability</p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-light tracking-tight">
-                  Sustainability Reports &amp; Documents
-                </h2>
-                <p className="text-emerald-100/75 text-base sm:text-lg mt-4 font-light leading-relaxed">
-                  Download our independently audited reports, certifications, and policy documents for full transparency into our environmental and social commitments.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {[
-                  {
-                    title: "Annual Sustainability Report 2024",
-                    type: "PDF",
-                    size: "4.2 MB",
-                    desc: "Comprehensive overview of environmental metrics, carbon footprint, water usage, energy transition progress, and community impact for FY 2023–24.",
-                    href: "/reports/sustainability-report-2024.pdf",
-                    icon: (
-                      <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
-                      </svg>
-                    ),
-                  },
-                  {
-                    title: "BSCI Social Audit Results",
-                    type: "PDF",
-                    size: "1.8 MB",
-                    desc: "Third-party audit results covering worker welfare, safety standards, ethical governance, and supply chain compliance across all manufacturing facilities.",
-                    href: "/reports/bsci-audit-summary.pdf",
-                    icon: (
-                      <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                      </svg>
-                    ),
-                  },
-                ].map((doc, idx) => (
-                  <motion.a
-                    key={doc.title}
-                    href={doc.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 32 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: idx * 0.15 }}
-                    className="group relative rounded-2xl bg-[#0b3325]/75 border border-emerald-500/20 hover:border-emerald-400/50 transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-1 hover:shadow-2xl backdrop-blur-xs"
-                  >
-                    {/* Decorative top bar */}
-                    <div className="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-teal to-emerald-400" />
-
-                    <div className="p-10 sm:p-12 flex flex-col flex-1">
-                      {/* Icon + Badge row */}
-                      <div className="flex items-start justify-between mb-8">
-                        <motion.div
-                          whileHover={{ rotate: 6, scale: 1.1 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                          className="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-400/25 flex items-center justify-center"
-                        >
-                          {doc.icon}
-                        </motion.div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] tracking-[0.15em] uppercase font-bold text-emerald-300 bg-emerald-500/15 px-3 py-1 rounded-full">{doc.type}</span>
-                          <span className="text-[11px] tracking-wider text-emerald-100/50 font-medium">{doc.size}</span>
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-display text-2xl sm:text-3xl font-medium text-white group-hover:text-emerald-300 transition-colors duration-300 mb-4">
-                        {doc.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-emerald-100/70 text-base sm:text-lg leading-relaxed font-light flex-1">
-                        {doc.desc}
-                      </p>
-
-                      {/* Download bar */}
-                      <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-                        <span className="text-sm font-semibold text-emerald-400 tracking-wider uppercase group-hover:tracking-[0.25em] transition-all duration-300">
-                          Download Report
-                        </span>
-                        <motion.div
-                          whileHover={{ y: 3 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                          className="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors duration-300"
-                        >
-                          <svg className="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                          </svg>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {/* CTA: Partner With Us */}
-          <section className="relative bg-transparent text-white px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden z-10">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.12)_0%,_transparent_70%)]" />
+          <section className="relative bg-transparent text-navy px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden z-10">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.06)_0%,_transparent_70%)]" />
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="max-w-3xl mx-auto text-center relative z-10"
+              className="max-w-4xl mx-auto text-center relative z-10 bg-slate-50/80 backdrop-blur-sm border border-slate-200 rounded-3xl p-10 sm:p-14 lg:p-16 shadow-lg"
             >
-              <p className="text-emerald-400 text-xs font-semibold tracking-[0.25em] uppercase mb-4">Work With Fabstract</p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white font-light tracking-tight mb-6">
+              <p className="text-emerald-700 text-xs font-semibold tracking-[0.25em] uppercase mb-4">Work With Fabstract</p>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light tracking-tight mb-6">
                 Partner With Us on Sustainable Manufacturing
               </h2>
-              <p className="text-emerald-100/75 text-base sm:text-lg lg:text-xl font-light leading-relaxed mb-10">
+              <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-light leading-relaxed mb-10">
                 Looking for a Tier-1 garment manufacturer with verified environmental and social credentials? Let&apos;s build responsibly — together.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-sm font-semibold tracking-wider uppercase transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold tracking-wider uppercase transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   Get in Touch
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -819,7 +727,7 @@ export default function SustainabilityPage() {
                 </a>
                 <a
                   href="/about"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/5 text-white text-sm font-semibold tracking-wider uppercase border border-white/20 hover:border-white/40 transition-colors"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-slate-50 text-navy text-sm font-semibold tracking-wider uppercase border border-slate-300 transition-colors shadow-xs"
                 >
                   Learn About Us
                 </a>
@@ -832,7 +740,7 @@ export default function SustainabilityPage() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="hidden lg:flex fixed bottom-8 left-6 z-40 items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-emerald-200/70 hover:text-white transition-colors bg-[#08261c]/90 px-3 py-1.5 rounded-full backdrop-blur-xs border border-white/10 shadow-xs cursor-pointer"
+          className="hidden lg:flex fixed bottom-8 left-6 z-40 items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-slate-600 hover:text-navy transition-colors bg-white/95 px-3 py-1.5 rounded-full backdrop-blur-md border border-slate-200 shadow-md cursor-pointer"
         >
           <span>↑</span>
           Back to top

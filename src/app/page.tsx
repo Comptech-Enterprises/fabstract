@@ -136,11 +136,67 @@ function FadeThroughSection() {
       id="s-about"
       className="scroll-mt-14 sm:scroll-mt-16 md:scroll-mt-18 min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-4.5rem)] flex flex-col items-center justify-center bg-white px-4 sm:px-6 lg:px-10 py-8 sm:py-12"
     >
-      <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-navy py-14 sm:py-20 lg:py-24 px-6 sm:px-10 text-center flex flex-col items-center justify-center shadow-xl">
-        <p className="max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+      <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-navy py-14 sm:py-20 lg:py-24 px-6 sm:px-10 text-center flex flex-col items-center justify-center shadow-xl relative overflow-hidden">
+        {/* Thematic backgrounds for People, Planet, and Innovation states */}
+        {/* Video background for People */}
+        <motion.div
+          animate={{
+            opacity: index === 0 ? 1 : 0,
+            scale: index === 0 ? 1 : 1.05,
+          }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
+        >
+          <video
+            src="/videos/15395212_3840_2160_25fps.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover opacity-40 sm:opacity-50"
+          />
+        </motion.div>
+
+        <AnimatePresence>
+          {index === 1 && (
+            <motion.div
+              key="planet-pattern-bg"
+              initial={{ opacity: 0, scale: 1.06 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.04 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center"
+            >
+              <img
+                src="/images/planet-pattern-transparent.png"
+                alt="Planet globes pattern"
+                className="w-full h-full object-cover opacity-70 sm:opacity-80"
+              />
+            </motion.div>
+          )}
+          {index === 2 && (
+            <motion.div
+              key="innovation-pattern-bg"
+              initial={{ opacity: 0, scale: 1.06 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.04 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center"
+            >
+              <img
+                src="/images/innovation-pattern-transparent.png"
+                alt="Innovation rockets and lightbulbs pattern"
+                className="w-full h-full object-cover opacity-30 sm:opacity-35"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <p className="relative z-10 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
           We redefine garment manufacturing by putting
         </p>
-        <div className="relative mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
+        <div className="relative z-10 mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.span
               key={index}
@@ -154,7 +210,7 @@ function FadeThroughSection() {
             </motion.span>
           </AnimatePresence>
         </div>
-        <p className="mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+        <p className="relative z-10 mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
           at the core of our business.
         </p>
       </div>
@@ -166,9 +222,10 @@ function VideoBanner() {
   return (
     <section
       id="hero-banner"
-      className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex items-end"
+      className="relative w-full h-[calc(100svh-3.5rem)] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] max-h-[920px] min-h-[480px] bg-navy overflow-hidden flex flex-col justify-end"
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+        {/* Ambient video blur behind on mobile so the viewport is filled with matching light & motion */}
         <video
           src={BANNER_VIDEO}
           autoPlay
@@ -176,10 +233,21 @@ function VideoBanner() {
           loop
           playsInline
           preload="auto"
-          className="h-full w-full object-cover object-top"
+          aria-hidden="true"
+          className="sm:hidden absolute inset-0 h-full w-full object-cover blur-2xl opacity-60 scale-110 pointer-events-none"
+        />
+        {/* Main video: zoomed out on mobile (object-contain) to show the full width with both kids */}
+        <video
+          src={BANNER_VIDEO}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="relative z-10 w-full h-full object-contain sm:object-cover sm:object-top"
         />
       </div>
-      <div className="relative w-full text-center">
+      <div className="relative z-20 w-full text-center">
         <div className="bg-black/55 backdrop-blur-xl w-full px-5 sm:px-10 lg:px-14 py-6 sm:py-8">
           <blockquote className="font-display text-[16px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-[1.3]">
             The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
