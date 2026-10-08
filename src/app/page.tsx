@@ -10,7 +10,6 @@ import { StickyScrollTabs } from "@/components/StickyScrollTabs";
 import { FactoryVideoShowcase } from "@/components/FactoryVideoShowcase";
 import { IntroVideo } from "@/components/IntroVideo";
 import { KeyPoints } from "@/components/KeyPoints";
-import { MarqueeAlongSvgPath } from "@/components/ui/marquee-along-svg-path";
 
 const CAPABILITIES = [
   {
@@ -64,56 +63,47 @@ const BRAND_LOGOS = [
   { name: "Kowtow", src: "/brands/kowtow.webp" },
 ];
 
-const MARQUEE_PATH =
-  "M71.13 581.57C98.09 566.80 144.80 533.24 185.86 485.17M185.86 485.17C212.71 453.73 237.14 416.10 252.06 373.45C299.21 238.60 4.33 353.58 123.68 447.09C143.81 462.86 164.51 475.63 185.86 485.17ZM185.86 485.17C291.16 532.21 412.43 500.85 559.71 364.13C587.75 338.09 610.14 315.32 627.88 295.31M627.88 295.31C722.19 188.88 685.02 160.49 667.55 135.10C646.78 104.93 471.87 64.29 487.56 238.35C494.31 313.21 551.99 311.61 627.88 295.31ZM627.88 295.31C819.95 276.23 1090.39 237.04 1176.65 276.67M1176.65 276.67C1188.08 281.92 1199.03 288.55 1209.38 296.80C1364.50 420.52 1287.58 590.88 1173.25 612.66C1098.14 626.96 1097.61 445.94 1176.65 276.67ZM1176.65 276.67C1217.91 188.31 1280.85 103.15 1366.18 50.64";
+function LogoRow({ logos, reverse = false }: { logos: typeof BRAND_LOGOS; reverse?: boolean }) {
+  const loop = [...logos, ...logos];
+
+  return (
+    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div
+        className="flex w-max gap-6 sm:gap-10 hover:[animation-play-state:paused]"
+        style={{ animation: `logo-marquee 35s linear infinite ${reverse ? "reverse" : "normal"}` }}
+      >
+        {loop.map((logo, i) => (
+          <div
+            key={i}
+            className="w-44 sm:w-56 h-24 sm:h-28 shrink-0 rounded-xl border border-navy/10 bg-sky/20 flex items-center justify-center px-6"
+          >
+            <img
+              src={logo.src}
+              alt={logo.name}
+              loading="lazy"
+              className="max-h-12 sm:max-h-14 max-w-full w-auto object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function GlobalPartner() {
+  const reversed = [...BRAND_LOGOS].reverse();
+
   return (
-    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden relative">
-      <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 mb-8 sm:mb-12 relative z-20">
+    <section id="s-brands" className="scroll-mt-24 bg-white py-16 sm:py-24 overflow-hidden">
+      <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
         <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
           A global manufacturing partner to 50+ leading brands.
         </h2>
       </div>
-
-      <div className="relative w-full h-[540px] sm:h-[620px] md:h-[680px] lg:h-[740px] overflow-hidden flex items-center justify-center">
-        <MarqueeAlongSvgPath
-          path={MARQUEE_PATH}
-          viewBox="0 0 1440 680"
-          alignX="right"
-          baseVelocity={4}
-          showPath={false}
-          offsetRotate="auto"
-          slowdownOnHover={true}
-          slowDownFactor={0.25}
-          draggable={true}
-          dragAwareDirection={true}
-          dragVelocityDecay={0.98}
-          scrollAwareDirection={true}
-          useScrollVelocity={true}
-          repeat={1}
-          enableRollingZIndex={true}
-          dragSensitivity={0.015}
-          responsive={true}
-          grabCursor={true}
-          className="w-full h-full"
-        >
-          {BRAND_LOGOS.map((logo, i) => (
-            <div
-              key={`${logo.name}-${i}`}
-              className="w-24 sm:w-28 md:w-32 h-13 sm:h-15 md:h-17 rounded-xl sm:rounded-2xl border border-navy/10 bg-white/95 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.14)] flex items-center justify-center px-3 sm:px-4 transition-all duration-300 hover:scale-110 cursor-pointer"
-            >
-              <img
-                src={logo.src}
-                alt={logo.name}
-                draggable={false}
-                loading="lazy"
-                className="max-h-6 sm:max-h-7 md:max-h-8 max-w-[80%] w-auto object-contain pointer-events-none"
-              />
-            </div>
-          ))}
-        </MarqueeAlongSvgPath>
+      <div className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-10">
+        <LogoRow logos={BRAND_LOGOS} reverse />
+        <LogoRow logos={reversed} />
       </div>
     </section>
   );
