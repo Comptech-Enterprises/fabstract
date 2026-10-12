@@ -49,7 +49,7 @@ const MILESTONES = [
     year: "2021",
     title: "Circular Sourcing & Eco-Blends",
     desc: "Integrated GOTS-certified organic cotton, natural linen, and sustainable blends into core collections with zero-waste cutting practices.",
-    img: GALLERY_FILES[5],
+    img: "/images/timeline/2021-gots.png",
   },
   {
     year: "2024",
