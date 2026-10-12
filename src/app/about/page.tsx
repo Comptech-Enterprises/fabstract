@@ -19,31 +19,31 @@ const MILESTONES = [
     year: "1991",
     title: "Founding & First Workshop",
     desc: "Fabstract was established in New Delhi as an export garment house, dedicated to high fashion woven and knitted apparel crafted by skilled master artisans.",
-    img: GALLERY_FILES[0],
+    img: "/images/timeline/1991-workshop.png",
   },
   {
     year: "1998",
     title: "Noida Production Expansion",
     desc: "Commissioned modern multi-line manufacturing unit in Sector 63, Noida, expanding cutting, multi-needle sewing, and finishing capacity to serve international brands.",
-    img: GALLERY_FILES[1],
+    img: "/images/timeline/1998-noida.jpg",
   },
   {
     year: "2005",
     title: "Dedicated Knits & Sampling Studio",
     desc: "Established a specialized sample development studio and rapid prototyping line for international buyer collections across USA and Europe.",
-    img: GALLERY_FILES[2],
+    img: "/images/timeline/2005-knits.png",
   },
   {
     year: "2012",
     title: "In-House Quality Control & Testing Lab",
     desc: "Built an internal fabric testing and physical quality laboratory. Today, the laboratory conducts performance testing, color approvals, and 5-stage AQL checks to reduce lead times.",
-    img: GALLERY_FILES[3],
+    img: "/images/timeline/2012-qa-lab.png",
   },
   {
     year: "2018",
     title: "Sustainable & Fairtrade Operations",
     desc: "Adopted Fairtrade and BSCI compliance, sponsored urban Miyawaki micro-forests in Delhi NCR, and strengthened women empowerment programs across all factory units.",
-    img: GALLERY_FILES[4],
+    img: "/images/timeline/2018-fairtrade.jpg",
   },
   {
     year: "2021",
@@ -74,16 +74,20 @@ export default function AboutPage() {
       <Navbar />
       <main className="bg-white">
         {/* Shahi-style Hero Banner */}
-        <section className="relative h-[52vh] min-h-[360px] sm:h-[62vh] md:h-[70vh] overflow-hidden">
-          <Still
-            src={gallerySrc(GALLERY_FILES[0])}
-            alt="Fabstract manufacturing floor"
-            ken
-            zoom={false}
-            className="absolute inset-0"
-          />
+        <section className="relative h-[52vh] min-h-[360px] sm:h-[62vh] md:h-[70vh] overflow-hidden bg-navy">
+          <div className="absolute inset-0">
+            <video
+              src="/videos/about-banner.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-navy/20" />
-          <div className="absolute inset-x-0 bottom-0 px-6 sm:px-10 lg:px-14 pb-10 lg:pb-16">
+          <div className="absolute inset-x-0 bottom-0 px-6 sm:px-10 lg:px-14 pb-10 lg:pb-16 z-10">
             <p className="text-sky text-xs sm:text-sm font-medium tracking-[0.25em] uppercase mb-3">Who We Are</p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium leading-[1.08] max-w-4xl [text-shadow:0_2px_24px_rgba(12,18,28,0.4)]">
               Manufacturing with purpose, craft, and precision
@@ -120,52 +124,41 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                {/* Center Column: Founder / Legacy Portrait with cinematic reveal & living halo aura */}
-                <div className="lg:col-span-5 flex justify-center items-center relative py-8">
+                {/* Center Column: 1991 Heritage Display */}
+                <div className="lg:col-span-5 flex justify-center items-center relative py-10 lg:py-14">
                   {/* Subtle radiating living aurora */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <motion.div
                       animate={{
-                        scale: [1, 1.12, 1],
-                        opacity: [0.3, 0.5, 0.3],
+                        scale: [1, 1.15, 1],
+                        opacity: [0.35, 0.55, 0.35],
                       }}
                       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                      className="w-80 h-80 sm:w-[420px] sm:h-[420px] rounded-full bg-[radial-gradient(circle,#c8d9e6_0%,#567c8d_40%,transparent_70%)] blur-3xl pointer-events-none"
+                      className="w-72 h-72 sm:w-[380px] sm:h-[380px] rounded-full bg-[radial-gradient(circle,#c8d9e6_0%,#567c8d_45%,transparent_70%)] blur-3xl pointer-events-none"
                     />
                   </div>
                   
-                  {/* Portrait Motion Container with Blur-to-Clear Reveal & Shimmer Light Sweep (Replays on revisit) */}
+                  {/* 1991 Display with cinematic reveal */}
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.92, y: 36, filter: "blur(12px)" }}
+                    initial={{ opacity: 0, scale: 0.92, y: 24, filter: "blur(10px)" }}
                     whileInView={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                    viewport={{ once: false, amount: 0.25 }}
-                    transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ scale: 1.025, y: -6 }}
-                    className="relative z-10 max-w-[340px] sm:max-w-[420px] w-full flex justify-center group"
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 flex flex-col items-center justify-center text-center select-none"
                   >
-                    {/* Museum-grade delicate corner brackets */}
-                    <div className="absolute -top-2 -left-2 w-4 h-4 border-t border-l border-sky/30 group-hover:border-sky transition-colors duration-500 pointer-events-none" />
-                    <div className="absolute -top-2 -right-2 w-4 h-4 border-t border-r border-sky/30 group-hover:border-sky transition-colors duration-500 pointer-events-none" />
-                    <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b border-l border-sky/30 group-hover:border-sky transition-colors duration-500 pointer-events-none" />
-                    <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b border-r border-sky/30 group-hover:border-sky transition-colors duration-500 pointer-events-none" />
-
-                    {/* Shimmer light sweep sweep on reveal */}
-                    <motion.div
-                      initial={{ x: "-120%", opacity: 0.7 }}
-                      whileInView={{ x: "220%", opacity: 0 }}
-                      viewport={{ once: false, amount: 0.25 }}
-                      transition={{ duration: 1.5, delay: 0.15, ease: "easeInOut" }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 pointer-events-none z-20"
-                    />
-
-                    <img
-                      src="/paawan.png"
-                      alt="Fabstract Legacy"
-                      className="w-full h-auto max-h-[480px] object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)] transition-all duration-700 rounded-sm"
-                      onError={(e) => {
-                        e.currentTarget.src = "/paawan.PNG";
-                      }}
-                    />
+                    <span className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-sky/75 font-sans font-medium mb-1">
+                      Est.
+                    </span>
+                    <span className="font-display text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem] font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-white/95 to-sky/60 leading-none tracking-tight drop-shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
+                      1991
+                    </span>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-sky/40" />
+                      <span className="text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-sans font-light">
+                        Over Three Decades of Craft
+                      </span>
+                      <span className="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-sky/40" />
+                    </div>
                   </motion.div>
                 </div>
 
@@ -228,7 +221,7 @@ export default function AboutPage() {
                           >
                             <div className="relative group overflow-hidden rounded-xl border border-white/10 shadow-2xl">
                               <Still
-                                src={gallerySrc(m.img)}
+                                src={m.img.startsWith("/") || m.img.startsWith("http") ? m.img : gallerySrc(m.img)}
                                 alt={m.title}
                                 className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
                               />

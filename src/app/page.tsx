@@ -110,12 +110,13 @@ function GlobalPartner() {
 }
 
 const FADE_WORDS = ["People", "Planet", "Innovation"];
+const DURATION_BY_INDEX = [4000, 4500, 4000];
 
 function FadeThroughSection() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const duration = index === 0 ? 3500 : 1600;
+    const duration = DURATION_BY_INDEX[index] ?? 4000;
     const id = setTimeout(() => {
       setIndex((i) => (i + 1) % FADE_WORDS.length);
     }, duration);
@@ -157,12 +158,12 @@ function FadeThroughSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.04 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center"
+              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
             >
               <img
                 src="/images/planet-pattern-transparent.png"
                 alt="Planet globes pattern"
-                className="w-full h-full object-cover opacity-70 sm:opacity-80"
+                className="w-full h-full object-cover opacity-85 sm:opacity-90 blur-[1px]"
               />
             </motion.div>
           )}
@@ -173,18 +174,18 @@ function FadeThroughSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.04 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center"
+              className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
             >
               <img
                 src="/images/innovation-pattern-transparent.png"
                 alt="Innovation rockets and lightbulbs pattern"
-                className="w-full h-full object-cover opacity-30 sm:opacity-35"
+                className="w-full h-full object-cover opacity-45 sm:opacity-50 blur-[1px]"
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        <p className="relative z-10 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+        <p className="relative z-10 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/80 leading-relaxed [text-shadow:0_2px_12px_rgba(0,0,0,0.5)]">
           We redefine garment manufacturing by putting
         </p>
         <div className="relative z-10 mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
@@ -195,13 +196,13 @@ function FadeThroughSection() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold"
+              className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]"
             >
               {FADE_WORDS[index]}
             </motion.span>
           </AnimatePresence>
         </div>
-        <p className="relative z-10 mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/70 leading-relaxed">
+        <p className="relative z-10 mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/80 leading-relaxed [text-shadow:0_2px_12px_rgba(0,0,0,0.5)]">
           at the core of our business.
         </p>
       </div>
