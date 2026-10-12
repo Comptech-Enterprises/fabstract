@@ -86,12 +86,17 @@ export default function AboutPage() {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-navy/20" />
-          <div className="absolute inset-x-0 bottom-0 px-6 sm:px-10 lg:px-14 pb-10 lg:pb-16 z-10">
-            <p className="text-sky text-xs sm:text-sm font-medium tracking-[0.25em] uppercase mb-3">Who We Are</p>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium leading-[1.08] max-w-4xl [text-shadow:0_2px_24px_rgba(12,18,28,0.4)]">
-              Manufacturing with purpose, craft, and precision
-            </h1>
+          <div className="absolute bottom-0 left-0 px-6 sm:px-10 lg:px-14 pb-8 lg:pb-12 pt-12 pr-12 sm:pr-24 z-10">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-navy/75 backdrop-blur-md [mask-image:radial-gradient(ellipse_95%_95%_at_20%_80%,black_45%,transparent_100%)]"
+            />
+            <div className="relative z-10">
+              <p className="text-sky text-xs sm:text-sm font-medium tracking-[0.25em] uppercase mb-3">Who We Are</p>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white font-medium leading-[1.08] max-w-3xl [text-shadow:0_2px_24px_rgba(12,18,28,0.4)]">
+                Manufacturing with purpose, craft, and precision
+              </h1>
+            </div>
           </div>
         </section>
 
