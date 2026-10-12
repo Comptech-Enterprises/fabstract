@@ -35,6 +35,7 @@ const CAPABILITIES = [
   {
     title: "In-House Quality & Lab Testing",
     desc: "Real-time inline quality control backed by dedicated testing labs to verify colorfastness, shrinkage, and international durability standards.",
+    video: "/videos/WhatsApp-Video-2026-10-12-at-16.45.27.mp4",
   },
   {
     title: "Ethical & Certified Operations",

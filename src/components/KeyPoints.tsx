@@ -8,6 +8,7 @@ export interface KeyPoint {
   title: string;
   desc: string;
   image?: string;
+  video?: string;
 }
 
 const SPRING = "ease-[cubic-bezier(0.34,1.35,0.64,1)]";
@@ -51,7 +52,19 @@ export function KeyPoints({ items }: { items: KeyPoint[] }) {
                 isActive ? "grow-[6]" : "grow"
               }`}
             >
-              {item.image ? (
+              {item.video ? (
+                <video
+                  src={item.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className={`absolute inset-0 w-full h-full object-cover transform-gpu transition-[transform,filter] duration-[800ms] ${SPRING} ${
+                    isActive ? "scale-100 grayscale-0" : "scale-110 grayscale"
+                  }`}
+                />
+              ) : item.image ? (
                 <img
                   src={item.image}
                   alt=""
