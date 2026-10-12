@@ -238,7 +238,7 @@ export default function AboutPage() {
                             className={`${isLeft ? "lg:order-2 lg:pl-12" : "lg:order-1 lg:pr-12 lg:text-right"}`}
                           >
                             <span className="inline-block text-sky text-2xl sm:text-3xl tracking-wider font-bold mb-2">
-                              ({m.year})
+                              {m.year}
                             </span>
                             <h3 className="font-display text-2xl sm:text-3xl text-white font-medium leading-snug mb-3">
                               {m.title}
