@@ -115,11 +115,12 @@ function FadeThroughSection() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
+    const duration = index === 0 ? 3500 : 1600;
+    const id = setTimeout(() => {
       setIndex((i) => (i + 1) % FADE_WORDS.length);
-    }, 1600);
-    return () => clearInterval(id);
-  }, []);
+    }, duration);
+    return () => clearTimeout(id);
+  }, [index]);
 
   return (
     <section
