@@ -40,6 +40,7 @@ const CAPABILITIES = [
   {
     title: "Ethical & Certified Operations",
     desc: "Fully compliant with global benchmarks—certified by <strong>GOTS</strong>, <strong>Fairtrade</strong>, <strong>FLOCERT</strong>, and <strong>Sedex</strong>—with a focus on fair labor and a motivated workforce.",
+    image: "/images/ethical-operations.jpg",
   },
 ];
 
