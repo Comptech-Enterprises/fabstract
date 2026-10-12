@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { INTRO_VIDEOS } from "@/data/hero";
 
@@ -37,16 +37,41 @@ const DEFAULT_SHOWCASE_ITEMS: ShowcaseItem[] = [
 ];
 
 const SPRING = "ease-[cubic-bezier(0.34,1.35,0.64,1)]";
+const MAX_VOLUME = 0.3;
 
 export function IntroVideo({ items = DEFAULT_SHOWCASE_ITEMS }: { items?: ShowcaseItem[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
+  const [currentActiveIdx, setCurrentActiveIdx] = useState(0);
   const { scrollYProgress } = useScroll({ target: containerRef });
 
   const activeIndex = useTransform(scrollYProgress, (v) => {
     const idx = Math.floor(v * items.length);
     return Math.min(idx, items.length - 1);
   });
+
+  useEffect(() => {
+    const unsub = activeIndex.on("change", (v) => setCurrentActiveIdx(v));
+    return unsub;
+  }, [activeIndex]);
+
+  // Auto-mute when scrolling away from the showcase section
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setMuted(true);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -99,7 +124,7 @@ export function IntroVideo({ items = DEFAULT_SHOWCASE_ITEMS }: { items?: Showcas
                 key={item.id}
                 item={item}
                 index={i}
-                muted={muted}
+                muted={muted || currentActiveIdx !== i}
                 activeIndex={activeIndex}
               />
             ))}
@@ -121,7 +146,15 @@ function ShowcaseCard({
   muted: boolean;
   activeIndex: ReturnType<typeof useTransform<number, number>>;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isActive = useTransform(activeIndex, (v) => v === index);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.volume = MAX_VOLUME;
+    video.muted = muted;
+  }, [muted]);
 
   return (
     <motion.div
@@ -129,12 +162,21 @@ function ShowcaseCard({
       className={`relative min-h-0 min-w-0 basis-0 overflow-hidden rounded-2xl bg-navy cursor-pointer outline-none transition-[flex-grow] duration-[800ms] ${SPRING}`}
     >
       <motion.video
+        ref={videoRef}
         src={item.videoSrc}
         autoPlay
         muted={muted}
         loop
         playsInline
         preload="auto"
+        onLoadedMetadata={(e) => {
+          e.currentTarget.volume = MAX_VOLUME;
+        }}
+        onVolumeChange={(e) => {
+          if (e.currentTarget.volume > MAX_VOLUME) {
+            e.currentTarget.volume = MAX_VOLUME;
+          }
+        }}
         style={{
           scale: useTransform(isActive, (a) => (a ? 1 : 1.1)),
           filter: useTransform(isActive, (a) =>
