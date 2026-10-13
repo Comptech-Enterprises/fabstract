@@ -8,9 +8,7 @@ import { Footer } from "@/components/footer";
 import { PageScrollLayout } from "@/components/PageScrollLayout";
 
 const WHAT_WE_DO_TABS = [
-  { id: "capabilities", label: "Capabilities" },
   { id: "what-we-make", label: "What We Make" },
-  { id: "fabrics", label: "Fabrics" },
   { id: "process", label: "Process" },
   { id: "quality", label: "Quality" },
   { id: "details", label: "Craft & Details" },
@@ -198,25 +196,6 @@ function Reveal({ children }: { children: React.ReactNode }) {
     </motion.div>
   );
 }
-
-// DUMMY copy and placeholder images unless a tile has `img` (real gallery photo).
-const CAPABILITY_TILES: Tile[] = [
-  { label: "Fabric Development", desc: "Knits, wovens and textures developed with mills.", img: "/what-we-do/development/fabric-development.webp" },
-  { label: "Product Development", desc: "Sketches and tech packs turned into garments.", img: "/what-we-do/development/product-development.webp" },
-  { label: "Sampling", desc: "Prototypes and fit samples with quick turnaround.", img: "/what-we-do/development/sampling.webp" },
-  { label: "Technical Engineering", desc: "Patterns, grading and construction detail.", img: "/what-we-do/development/technical-engineering.webp" },
-  { label: "Production", desc: "Scalable manufacturing under one roof.", img: gal("ASN_8161") },
-  { label: "Quality", desc: "Checkpoints from fabric to finished garment.", img: gal("ASN_8208") },
-];
-
-const FABRIC_TILES: Tile[] = [
-  { label: "Double Gauze", img: "/what-we-do/fabrics/double-gauze.webp" },
-  { label: "Soft Slub", img: "/what-we-do/fabrics/soft-slub.webp" },
-  { label: "Slub Knit", img: "/what-we-do/fabrics/slub-knit.webp" },
-  { label: "Jersey", img: "/what-we-do/fabrics/jersey.webp" },
-  { label: "French Terry", img: "/what-we-do/fabrics/french-terry.webp" },
-  { label: "Ribs & Textures", img: "/what-we-do/fabrics/ribs-textures.webp" },
-];
 
 const PROCESS_STEPS: Tile[] = [
   { label: "Brief", desc: "You share the concept, tech pack or reference.", img: "/what-we-do/process/brief.webp" },
@@ -410,54 +389,20 @@ export default function WhatWeDo() {
           </p>
           <button
             type="button"
-            onClick={() => document.getElementById("capabilities")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("what-we-make")?.scrollIntoView({ behavior: "smooth" })}
             className="mt-8 inline-flex items-center gap-3 bg-white text-navy px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-sky transition-colors cursor-pointer"
           >
-            Explore our capabilities
+            Explore what we make
             <span aria-hidden>↓</span>
           </button>
         </motion.div>
       </section>
 
       <PageScrollLayout tabs={WHAT_WE_DO_TABS} activeIdPrefix="what-we-do">
-        {/* Capabilities (DUMMY copy; Production + Quality photos are real) */}
-        <section id="capabilities" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-          <div className="max-w-[1536px] mx-auto">
-            <Reveal>
-              <SectionHead
-                eyebrow="Our capabilities"
-                title="More than making the garment. We help build it."
-              />
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
-                {CAPABILITY_TILES.map((t) => (
-                  <TileCard key={t.label} tile={t} />
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         {/* What we make (real category data, images and catalogue links; heading is dummy) */}
         <section id="what-we-make" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
           <div className="max-w-[1536px] mx-auto">
             <WhatWeMake />
-          </div>
-        </section>
-
-        {/* Fabric (all DUMMY) */}
-        <section id="fabrics" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
-          <div className="max-w-[1536px] mx-auto">
-            <Reveal>
-              <SectionHead
-                eyebrow="Fabric is where it starts"
-                title="The right garment starts with the right fabric."
-              />
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-5">
-                {FABRIC_TILES.map((t) => (
-                  <TileCard key={t.label} tile={t} ratio="aspect-square" />
-                ))}
-              </div>
-            </Reveal>
           </div>
         </section>
 

@@ -61,7 +61,7 @@ const MILESTONES = [
     year: "2024",
     title: "Earning Our Place on the Global Stage",
     desc: "Our journey from a small job-work unit had grown into a manufacturing operation serving international customers across markets. With greater scale, stronger capabilities and decades of hands-on experience, we continued building relationships with brands that expect consistency, quality and dependable execution.",
-    img: GALLERY_FILES[6] || GALLERY_FILES[0],
+    img: "/images/2024-global.webp",
   },
   {
     year: "2026",
