@@ -92,10 +92,11 @@ export default function AboutPage() {
               className="h-full w-full object-cover object-center"
             />
           </div>
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent h-2/3 pointer-events-none z-[5]" />
           <div className="absolute bottom-0 left-0 px-6 sm:px-10 lg:px-14 pb-8 lg:pb-12 pt-12 pr-12 sm:pr-24 z-10">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-navy/75 backdrop-blur-md [mask-image:radial-gradient(ellipse_95%_95%_at_20%_80%,black_45%,transparent_100%)]"
+              className="pointer-events-none absolute inset-0 bg-navy/50 backdrop-blur-sm [mask-image:radial-gradient(ellipse_95%_95%_at_20%_80%,black_45%,transparent_100%)]"
             />
             <div className="relative z-10">
               <p className="text-sky text-xs sm:text-sm font-medium tracking-[0.25em] uppercase mb-3">Who We Are</p>
