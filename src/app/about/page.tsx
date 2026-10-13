@@ -25,7 +25,7 @@ const MILESTONES = [
     year: "1996",
     title: "Our First Step into Exports",
     desc: "After 5–6 years of consistent quality and reliable deliveries, Fabstract secured its first direct export order. It was a defining milestone that marked our transition from a local job-work unit to a garment exporter, opening the door to new markets and bigger opportunities.",
-    img: "/images/timeline/1991-workshop.png",
+    img: "/images/1996-exports.webp",
   },
   {
     year: "1998",
@@ -43,7 +43,7 @@ const MILESTONES = [
     year: "2012",
     title: "Making Quality Our Strength",
     desc: "As our operations grew, so did our commitment to getting the details right. We strengthened our quality control and testing capabilities, building systems that helped us deliver greater consistency, reliability and confidence with every order.",
-    img: "/images/timeline/2012-qa-lab.png",
+    img: "/images/2012-quality.webp",
   },
   {
     year: "2018",
