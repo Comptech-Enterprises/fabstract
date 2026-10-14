@@ -31,7 +31,7 @@ const MILESTONES = [
     year: "2001",
     title: "Our First Factory in Noida",
     desc: "A major milestone in our journey, C-57 became Fabstract’s first factory in Noida. It marked an important step in building our own manufacturing infrastructure and laying the foundation for the growth that would follow.",
-    img: "/images/timeline/placeholder.jpg",
+    img: "/images/timeline/2001-factory.webp",
   },
   {
     year: "2005",
@@ -41,9 +41,16 @@ const MILESTONES = [
   },
   {
     year: "2008",
-    title: "Building Beyond Production",
-    desc: "We began strengthening our product development and sampling capabilities, moving beyond manufacturing to become a more complete apparel partner. This helped us better understand our customers’ needs, develop new products and support their collections from an earlier stage.",
+    title: "Taking Control Through Backward Integration",
+    desc: "To strengthen quality consistency, improve control and ensure reliable delivery, we invested in state-of-the-art German Terrot circular knitting machines, bringing fabric manufacturing in-house. This strategic move gave us greater control over our supply chain, improved speed to market and enabled faster turnaround on sampling and new fabric developments.",
     img: "/images/timeline/2005-knits.png",
+  },
+  {
+    year: "2012",
+    title: "Building for Greater Scale",
+    desc: "As Fabstract continued to grow, we focused on strengthening our manufacturing processes, refining our production systems and building the capabilities needed to handle increasingly complex requirements. It was a step towards becoming a more capable, well-rounded manufacturing partner for our customers.",
+    img: "/images/timeline/2012-scale.png",
+    contain: true,
   },
   {
     year: "2018",
@@ -63,6 +70,7 @@ const MILESTONES = [
     title: "Taking Responsibility Beyond Manufacturing",
     desc: "Our C-57 facility became Fairtrade-compliant, marking an important milestone in our commitment to ethical manufacturing and worker welfare. It reflected our belief that progress should not be measured by production alone, but also by the positive impact we create for the people behind every garment.",
     img: "/images/timeline/2020-fairtrade.png",
+    contain: true,
   },
   {
     year: "2021",
@@ -74,7 +82,8 @@ const MILESTONES = [
     year: "2022",
     title: "Extending Our Fairtrade Commitment",
     desc: "Building on the progress at C-57, our 140-A facility achieved Fairtrade compliance. This was another step towards embedding responsible manufacturing practices across our growing operations.",
-    img: "/images/timeline/placeholder.jpg",
+    img: "/images/timeline/2020-fairtrade.png",
+    contain: true,
   },
   {
     year: "2024",
@@ -257,7 +266,7 @@ export default function AboutPage() {
                             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             className={`${isLeft ? "lg:order-1" : "lg:order-2"}`}
                           >
-                            <div className="relative group overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+                            <div className={`relative group overflow-hidden rounded-xl border border-white/10 shadow-2xl ${m.contain ? "bg-white" : ""}`}>
                               {m.video ? (
                                 <video
                                   src={m.video}
@@ -268,6 +277,14 @@ export default function AboutPage() {
                                   preload="metadata"
                                   className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
+                              ) : m.contain ? (
+                                <div className="aspect-[16/10] w-full flex items-center justify-center p-8">
+                                  <img
+                                    src={m.img}
+                                    alt={m.title}
+                                    className="max-w-[70%] max-h-[70%] object-contain"
+                                  />
+                                </div>
                               ) : (
                                 <Still
                                   src={m.img.startsWith("/") || m.img.startsWith("http") ? m.img : gallerySrc(m.img)}
@@ -275,7 +292,7 @@ export default function AboutPage() {
                                   className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
                               )}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+                              {!m.contain && <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />}
                             </div>
                           </motion.div>
 
