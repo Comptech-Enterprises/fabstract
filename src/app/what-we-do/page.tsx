@@ -272,7 +272,7 @@ function WhatWeMake() {
       : PRODUCT_CATEGORIES.filter((c) => c.segments[tab]).map((c) => ({
           key: c.label,
           label: c.label,
-          seg: c.segments[tab],
+          seg: c.segments[tab]!,
         }));
 
   return (
