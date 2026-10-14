@@ -430,7 +430,7 @@ export default function WhatWeDo() {
         <div className="px-6 sm:px-10 lg:px-16 xl:px-20 py-16 sm:py-20">
           <div className="grid xl:grid-cols-[1.1fr_1fr] gap-8 xl:gap-12">
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.15]">
-              Quality isn&apos;t a final inspection. It&apos;s built into the process.
+              Built into each step of the process.
             </h2>
             <p className="text-white/70 text-sm sm:text-base leading-relaxed">
               From fabric inspection to final packing, our quality checkpoints ensure consistency, reliability and long-term performance.

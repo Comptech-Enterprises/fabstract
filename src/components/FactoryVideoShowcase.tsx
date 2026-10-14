@@ -61,10 +61,9 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   },
   {
     id: 6,
-    title: "Finishing, Steaming & Packing",
-    subtitle:
-      "4 factories in Noida, India, 40+ active clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
-    tag: "Unit 06 — Logistics",
+    title: "",
+    subtitle: "",
+    tag: "",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",
   },
