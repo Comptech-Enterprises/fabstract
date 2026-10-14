@@ -62,8 +62,9 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   {
     id: 6,
     title: "",
-    subtitle: "",
-    tag: "",
+    subtitle:
+      "4 factories in Noida, India, 40+ active clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
+    tag: "Unit 06 — Logistics",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",
   },
@@ -149,15 +150,17 @@ export function FactoryVideoShowcase({
             >
               {videos[activeIndex].tag}
             </motion.span>
-            <motion.h3
-              key={`title-${activeIndex}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white font-medium leading-[1.1]"
-            >
-              {videos[activeIndex].title}
-            </motion.h3>
+            {videos[activeIndex].title && (
+              <motion.h3
+                key={`title-${activeIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white font-medium leading-[1.1]"
+              >
+                {videos[activeIndex].title}
+              </motion.h3>
+            )}
             <motion.p
               key={`sub-${activeIndex}`}
               initial={{ opacity: 0, y: 20 }}
