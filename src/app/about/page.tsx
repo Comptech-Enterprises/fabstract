@@ -34,10 +34,28 @@ const MILESTONES = [
     img: "/images/timeline/1998-noida.jpg",
   },
   {
+    year: "2001",
+    title: "Our First Factory in Noida",
+    desc: "A major milestone in our journey, C-57 became Fabstract’s first factory in Noida. It marked an important step in building our own manufacturing infrastructure and laying the foundation for the growth that would follow.",
+    img: "/images/timeline/placeholder.jpg",
+  },
+  {
     year: "2005",
     title: "Building Beyond Production",
-    desc: "We began strengthening our product development and sampling capabilities, moving beyond manufacturing to become a more complete apparel partner. This helped us better understand our customers' needs, develop new products and support their collections from an earlier stage.",
+    desc: "We began strengthening our product development and sampling capabilities, moving beyond manufacturing to become a more complete apparel partner. This helped us better understand our customers’ needs, develop new products and support their collections from an earlier stage.",
     img: "/images/timeline/2005-knits.png",
+  },
+  {
+    year: "2005",
+    title: "Expanding Our Footprint",
+    desc: "With growing business and a vision to expand our capabilities, we established our second factory at C-56, right next to C-57. This expansion strengthened our manufacturing base and prepared us to take on greater opportunities.",
+    img: "/images/timeline/placeholder.jpg",
+  },
+  {
+    year: "2008",
+    title: "Taking Greater Control of Our Supply Chain",
+    desc: "We established our own knitting unit with a clear ambition: to move towards greater vertical integration. By bringing fabric production closer to our garment manufacturing operations, we took another step towards improving control, consistency and efficiency.",
+    img: "/images/timeline/placeholder.jpg",
   },
   {
     year: "2012",
@@ -52,16 +70,40 @@ const MILESTONES = [
     img: "/images/timeline/2018-fairtrade.jpg",
   },
   {
+    year: "2020",
+    title: "A New Chapter in Manufacturing",
+    desc: "We expanded into a significantly larger facility at 140-A, marking another major step in Fabstract’s manufacturing journey. The new factory represented our continued investment in infrastructure, production capabilities and our ability to serve growing customer requirements.",
+    img: "/images/timeline/placeholder.jpg",
+  },
+  {
+    year: "2020",
+    title: "Taking Responsibility Beyond Manufacturing",
+    desc: "Our C-57 facility became Fairtrade-compliant, marking an important milestone in our commitment to ethical manufacturing and worker welfare. It reflected our belief that progress should not be measured by production alone, but also by the positive impact we create for the people behind every garment.",
+    img: "/images/timeline/placeholder.jpg",
+  },
+  {
     year: "2021",
     title: "Preparing for the Next Chapter",
     desc: "We continued expanding our material development capabilities, exploring more responsible fabric choices and improving the way we approached manufacturing. These efforts reflected our ambition to meet the changing expectations of global brands without compromising on quality.",
     img: "/images/timeline/2021-gots.png",
   },
   {
+    year: "2022",
+    title: "Extending Our Fairtrade Commitment",
+    desc: "Building on the progress at C-57, our 140-A facility achieved Fairtrade compliance. This was another step towards embedding responsible manufacturing practices across our growing operations.",
+    img: "/images/timeline/placeholder.jpg",
+  },
+  {
     year: "2024",
     title: "Earning Our Place on the Global Stage",
     desc: "Our journey from a small job-work unit had grown into a manufacturing operation serving international customers across markets. With greater scale, stronger capabilities and decades of hands-on experience, we continued building relationships with brands that expect consistency, quality and dependable execution.",
     img: "/images/2024-global.webp",
+  },
+  {
+    year: "2025",
+    title: "Building for the Future",
+    desc: "We established our newest facility at D-150, continuing our investment in manufacturing infrastructure and strengthening our capacity for the next phase of growth. From a humble beginning with 25 sewing machines, each new facility has brought us closer to our ambition of competing global apparel industry.",
+    img: "/images/timeline/placeholder.jpg",
   },
   {
     year: "2026",

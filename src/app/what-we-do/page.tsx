@@ -99,7 +99,7 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       kids: {
         desc: "Cozy hypoallergenic knitted cardigans, soft animal jacquard sweaters, and warm fleece-lined knit pullovers for children.",
         items: ["Jacquard Animal Sweaters", "Soft Button Cardigans", "Chunky Knit Beanies", "Raglan Sleeve Knits"],
-        image: "/what-we-do/categories/kids-knitted.jpg",
+        image: "/what-we-do/categories/kids-sweater.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
