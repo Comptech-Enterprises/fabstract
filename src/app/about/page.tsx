@@ -28,12 +28,6 @@ const MILESTONES = [
     img: "/images/1996-exports.webp",
   },
   {
-    year: "1998",
-    title: "Taking Our First Big Step",
-    desc: "With growing experience and a stronger foundation, we expanded into our own manufacturing facility in Noida. This was an important step in our journey, allowing us to build greater production capabilities and take on bigger opportunities.",
-    img: "/images/timeline/1998-noida.jpg",
-  },
-  {
     year: "2001",
     title: "Our First Factory in Noida",
     desc: "A major milestone in our journey, C-57 became Fabstract’s first factory in Noida. It marked an important step in building our own manufacturing infrastructure and laying the foundation for the growth that would follow.",
@@ -41,21 +35,15 @@ const MILESTONES = [
   },
   {
     year: "2005",
-    title: "Building Beyond Production",
-    desc: "We began strengthening our product development and sampling capabilities, moving beyond manufacturing to become a more complete apparel partner. This helped us better understand our customers’ needs, develop new products and support their collections from an earlier stage.",
-    img: "/images/timeline/2005-knits.png",
-  },
-  {
-    year: "2005",
     title: "Expanding Our Footprint",
     desc: "With growing business and a vision to expand our capabilities, we established our second factory at C-56, right next to C-57. This expansion strengthened our manufacturing base and prepared us to take on greater opportunities.",
-    img: "/images/timeline/placeholder.jpg",
+    img: "/images/timeline/1998-noida.jpg",
   },
   {
     year: "2008",
-    title: "Taking Greater Control of Our Supply Chain",
-    desc: "We established our own knitting unit with a clear ambition: to move towards greater vertical integration. By bringing fabric production closer to our garment manufacturing operations, we took another step towards improving control, consistency and efficiency.",
-    img: "/images/timeline/placeholder.jpg",
+    title: "Building Beyond Production",
+    desc: "We began strengthening our product development and sampling capabilities, moving beyond manufacturing to become a more complete apparel partner. This helped us better understand our customers’ needs, develop new products and support their collections from an earlier stage.",
+    img: "/images/timeline/2005-knits.png",
   },
   {
     year: "2018",
@@ -68,12 +56,13 @@ const MILESTONES = [
     title: "A New Chapter in Manufacturing",
     desc: "We expanded into a significantly larger facility at 140-A, marking another major step in Fabstract’s manufacturing journey. The new factory represented our continued investment in infrastructure, production capabilities and our ability to serve growing customer requirements.",
     img: "/images/timeline/placeholder.jpg",
+    video: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2046.mp4",
   },
   {
     year: "2020",
     title: "Taking Responsibility Beyond Manufacturing",
     desc: "Our C-57 facility became Fairtrade-compliant, marking an important milestone in our commitment to ethical manufacturing and worker welfare. It reflected our belief that progress should not be measured by production alone, but also by the positive impact we create for the people behind every garment.",
-    img: "/images/timeline/placeholder.jpg",
+    img: "/images/timeline/2020-fairtrade.png",
   },
   {
     year: "2021",
@@ -98,6 +87,7 @@ const MILESTONES = [
     title: "Building for the Future",
     desc: "We established our newest facility at D-150, continuing our investment in manufacturing infrastructure and strengthening our capacity for the next phase of growth. From a humble beginning with 25 sewing machines, each new facility has brought us closer to our ambition of competing global apparel industry.",
     img: "/images/timeline/placeholder.jpg",
+    video: "/videos/2025-factory.mp4",
   },
   {
     year: "2026",
@@ -268,11 +258,23 @@ export default function AboutPage() {
                             className={`${isLeft ? "lg:order-1" : "lg:order-2"}`}
                           >
                             <div className="relative group overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                              <Still
-                                src={m.img.startsWith("/") || m.img.startsWith("http") ? m.img : gallerySrc(m.img)}
-                                alt={m.title}
-                                className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
-                              />
+                              {m.video ? (
+                                <video
+                                  src={m.video}
+                                  autoPlay
+                                  muted
+                                  loop
+                                  playsInline
+                                  preload="metadata"
+                                  className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                              ) : (
+                                <Still
+                                  src={m.img.startsWith("/") || m.img.startsWith("http") ? m.img : gallerySrc(m.img)}
+                                  alt={m.title}
+                                  className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                              )}
                               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
                             </div>
                           </motion.div>
