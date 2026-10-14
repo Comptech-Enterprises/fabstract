@@ -91,8 +91,9 @@ export function FactoryVideoShowcase({
 
   return (
     <div
+      id="s-factories"
       ref={containerRef}
-      className="relative"
+      className="relative scroll-mt-24"
       style={{ height: `${(videos.length + 1) * 100}vh` }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">

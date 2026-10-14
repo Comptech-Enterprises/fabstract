@@ -28,7 +28,7 @@ function AnimatedCounter({
   bulbZero?: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-20px" });
   const num = parseInt(target.replace(/[^0-9]/g, ""), 10) || 0;
   const hasPlus = target.includes("+");
   const hasPercent = target.includes("%");
@@ -385,7 +385,7 @@ export default function SustainabilityPage() {
 
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
-              <div className="flex flex-col lg:h-screen lg:overflow-y-auto lg:snap-y lg:snap-mandatory no-scrollbar gap-10 lg:gap-0">
+              <div className="flex flex-col gap-10 lg:gap-0">
                 {STAT_METRICS.map((stat, idx) => {
                   const imageFirst = stat.imageFirst !== undefined ? stat.imageFirst : idx % 2 === 0;
                   const slides: MediaSlide[] = stat.slides
@@ -404,7 +404,7 @@ export default function SustainabilityPage() {
                   return (
                     <div
                       key={stat.label}
-                      className="relative lg:h-screen lg:shrink-0 lg:flex lg:flex-col lg:justify-center lg:overflow-hidden lg:snap-start lg:snap-always"
+                      className="relative lg:min-h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden"
                     >
                       {stat.bgPattern && (
                         <div

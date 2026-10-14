@@ -26,7 +26,6 @@ const OFFICES = [
 
 const CONTACTS = [
   { label: "General Enquiries", email: "marketing@fcipl.net" },
-  { label: "Managing Director", email: "nitin@fcipl.net" },
 ];
 
 export default function ContactPage() {

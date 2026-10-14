@@ -39,19 +39,19 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Relaxed silhouettes, elevated oversized tees, rib dresses, loungewear sets, and modal cotton basics with second-skin softness.",
         items: ["Rib Crop Tops", "Jersey Midi Dresses", "Co-ord Lounge Sets", "Oversized Hoodies"],
-        image: "/what-we-do/categories/knitted-women.webp",
+        image: "/what-we-do/categories/women-knitted.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       men: {
         desc: "Heavyweight drop-shoulder tees, structured polo shirts, brushed back fleece crewnecks, and premium French Terry joggers.",
         items: ["240 GSM Heavy Tees", "Pique Cotton Polos", "Brushed Fleece Sweats", "Structured Joggers"],
-        image: "/what-we-do/categories/knitted-men.webp",
+        image: "/what-we-do/categories/men-knitted.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       kids: {
         desc: "Ultra-soft, skin-friendly organic cotton playwear, breathable rompers, and everyday printed tees built to withstand everyday play.",
         items: ["Organic Cotton Tees", "Comfy Rib Rompers", "Easy-Pull Joggers", "Printed Sweatshirts"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8156.webp",
+        image: "/what-we-do/categories/kids-knitted.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
@@ -63,19 +63,19 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Flowing smocked dresses, tiered tiered midi skirts, handcrafted pintuck blouses, resort wear, and tailored summer shirts.",
         items: ["Smocked Maxi Dresses", "Embroidered Peasant Blouses", "Tiered Linen Skirts", "Relaxed Button-Downs"],
-        image: "/what-we-do/categories/woven-women.webp",
+        image: "/what-we-do/categories/women-woven.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       men: {
         desc: "Crisp organic cotton dress shirts, relaxed Cuban collar linen shirts, utility overshirts, and lightweight summer trousers.",
         items: ["Camp Collar Linen Shirts", "Oxford Button-Downs", "Utility Overshirts", "Tapered Chino Trousers"],
-        image: "/what-we-do/categories/woven-men.webp",
+        image: "/what-we-do/categories/men-woven.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
       },
       kids: {
         desc: "Charming cotton dresses, formal linen button-ups, and holiday partywear crafted with non-toxic AZO-free botanical dyes.",
         items: ["Floral Smocked Frocks", "Classic Linen Shirts", "Summer Dungarees", "Pleated Shorts"],
-        image: "/what-we-do/categories/woven-kids.webp",
+        image: "/what-we-do/categories/kids-woven.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
@@ -87,19 +87,19 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Open-front cropped cardigans, mock neck ribbed sweaters, oversized cable knits, and fine-gauge cashmere blend layering tops.",
         items: ["Cropped Knit Cardigans", "Ribbed Turtlenecks", "Cable Knit Sweaters", "Fine Cashmere Crew"],
-        image: "/what-we-do/categories/card-sweater.webp",
+        image: "/what-we-do/categories/women-sweater.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       men: {
         desc: "Classic waffle-knit crewnecks, chunky fisherman rib pullovers, half-zip merino pullovers, and timeless winter cardigans.",
         items: ["Half-Zip Merino Knits", "Heavy Cable Pullovers", "Textured Waffle Sweaters", "Buttoned Cardigans"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8199.webp",
+        image: "/what-we-do/categories/men-sweater.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       kids: {
         desc: "Cozy hypoallergenic knitted cardigans, soft animal jacquard sweaters, and warm fleece-lined knit pullovers for children.",
         items: ["Jacquard Animal Sweaters", "Soft Button Cardigans", "Chunky Knit Beanies", "Raglan Sleeve Knits"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8209.webp",
+        image: "/what-we-do/categories/kids-knitted.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
@@ -111,20 +111,14 @@ const PRODUCT_CATEGORIES: ProductCategory[] = [
       women: {
         desc: "Wire-free modal bralettes, high-waisted organic cotton briefs, seamless bodysuits, and ultra-soft modal sleepwear.",
         items: ["Modal Sleep Sets", "Seamless Rib Bralettes", "Organic Cotton Briefs", "Soft Touch Bodysuits"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8157.webp",
+        image: "/what-we-do/categories/women-intimate.jpg",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
       },
       men: {
         desc: "Ergonomic boxer briefs, breathable bamboo-blend modal trunks, and relaxed moisture-wicking everyday lounge sleep shorts.",
         items: ["Bamboo Modal Trunks", "Classic Boxer Briefs", "Pure Cotton Undershirts", "Relaxed Lounge Shorts"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8210.webp",
+        image: "/what-we-do/categories/men-intimate.png",
         catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/knitwear-2026.pdf",
-      },
-      kids: {
-        desc: "Pure combed cotton vest sets, irritation-free flat-seam underwear, and cozy temperature-regulating nightwear sets.",
-        items: ["Tagless Cotton Vests", "Soft Ribbed Boxer Sets", "Cozy 2-Piece Pyjamas", "Thermal Undershirts"],
-        image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8212.webp",
-        catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
       },
     },
   },
@@ -249,7 +243,7 @@ const HOME_TEXTILE_TILES: HomeSegment[] = [
   {
     label: "Living & Throws",
     items: ["Waffle Cotton Throws", "Weighted Blankets", "Textured Cushion Covers"],
-    image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8150.webp",
+    image: "/what-we-do/categories/living-throws.png",
     catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/wovens-2026.pdf",
   },
   {
@@ -261,7 +255,7 @@ const HOME_TEXTILE_TILES: HomeSegment[] = [
   {
     label: "Nursery & Kids",
     items: ["Muslin Swaddle Blankets", "Organic Cot Quilts", "Nursery Play Mats"],
-    image: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/gallery/ASN_8156.webp",
+    image: "/what-we-do/categories/nursery-kids.jpg",
     catalogue: "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/catalogues/credential-deck-2026.pdf",
   },
 ];
@@ -275,7 +269,7 @@ function WhatWeMake() {
           label: h.label,
           seg: { items: h.items, image: h.image, catalogue: h.catalogue },
         }))
-      : PRODUCT_CATEGORIES.map((c) => ({
+      : PRODUCT_CATEGORIES.filter((c) => c.segments[tab]).map((c) => ({
           key: c.label,
           label: c.label,
           seg: c.segments[tab],
@@ -400,7 +394,7 @@ export default function WhatWeDo() {
 
       <PageScrollLayout tabs={WHAT_WE_DO_TABS} activeIdPrefix="what-we-do">
         {/* What we make (real category data, images and catalogue links; heading is dummy) */}
-        <section id="what-we-make" className="scroll-mt-24 bg-beige pb-16 sm:pb-24 px-6 sm:px-10 lg:px-16 xl:px-20">
+        <section id="what-we-make" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20">
           <div className="max-w-[1536px] mx-auto">
             <WhatWeMake />
           </div>

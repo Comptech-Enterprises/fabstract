@@ -20,7 +20,7 @@ const CAPABILITIES = [
   {
     title: "Knits & Wovens Mastery",
     desc: "Fully equipped manufacturing units engineered to handle diverse product categories across both woven and knitted garments with ease.",
-    image: "/images/knits-wovens.webp",
+    video: "/videos/knits-wovens-bg.mp4",
   },
   {
     title: "Artisan Craft & Specialty Washes",
@@ -162,10 +162,14 @@ function FadeThroughSection() {
               transition={{ duration: 0.45, ease: "easeInOut" }}
               className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
             >
-              <img
-                src="/images/planet-pattern-transparent.png"
-                alt="Planet globes pattern"
-                className="w-full h-full object-cover opacity-85 sm:opacity-90 blur-[1px]"
+              <video
+                src="/videos/planet-bg.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover opacity-45 sm:opacity-50 blur-[2px]"
               />
             </motion.div>
           )}
@@ -178,16 +182,20 @@ function FadeThroughSection() {
               transition={{ duration: 0.45, ease: "easeInOut" }}
               className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
             >
-              <img
-                src="/images/innovation-pattern-transparent.png"
-                alt="Innovation rockets and lightbulbs pattern"
-                className="w-full h-full object-cover opacity-45 sm:opacity-50 blur-[1px]"
+              <video
+                src="/videos/innovation-bg.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover opacity-45 sm:opacity-50 blur-[2px]"
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        <p className="relative z-10 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/80 leading-relaxed [text-shadow:0_2px_12px_rgba(0,0,0,0.5)]">
+        <p className="relative z-10 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white leading-relaxed [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
           We redefine garment manufacturing by putting
         </p>
         <div className="relative z-10 mt-4 sm:mt-6 h-14 sm:h-16 lg:h-20 w-full flex items-center justify-center">
@@ -198,13 +206,13 @@ function FadeThroughSection() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -20, filter: "blur(6px)" }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]"
+              className="absolute font-display text-3xl sm:text-4xl lg:text-6xl text-white font-semibold [text-shadow:0_2px_20px_rgba(0,0,0,0.8)]"
             >
               {FADE_WORDS[index]}
             </motion.span>
           </AnimatePresence>
         </div>
-        <p className="relative z-10 mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white/80 leading-relaxed [text-shadow:0_2px_12px_rgba(0,0,0,0.5)]">
+        <p className="relative z-10 mt-4 sm:mt-6 max-w-4xl font-display text-lg sm:text-2xl lg:text-3xl text-white leading-relaxed [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
           at the core of our business.
         </p>
       </div>

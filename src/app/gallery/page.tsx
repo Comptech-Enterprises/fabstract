@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { PageIntro } from "@/components/PageIntro";
 import { PageScrollLayout } from "@/components/PageScrollLayout";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
-import { CrowdCanvas } from "@/components/CrowdCanvas";
+
 
 const GALLERY_TABS = [
   { id: "production", label: "Knits & Production" },
@@ -503,11 +503,6 @@ export default function GalleryPage() {
           </div>
         </section>
       </PageScrollLayout>
-
-      {/* Crowd Canvas Section */}
-      <section className="relative h-[28vh] sm:h-[32vh] lg:h-[36vh] min-h-[200px] max-h-[360px] bg-white overflow-hidden">
-        <CrowdCanvas />
-      </section>
 
       <Footer />
     </>
