@@ -58,12 +58,6 @@ const MILESTONES = [
     img: "/images/timeline/placeholder.jpg",
   },
   {
-    year: "2012",
-    title: "Making Quality Our Strength",
-    desc: "As our operations grew, so did our commitment to getting the details right. We strengthened our quality control and testing capabilities, building systems that helped us deliver greater consistency, reliability and confidence with every order.",
-    img: "/images/2012-quality.webp",
-  },
-  {
     year: "2018",
     title: "Growing with a Greater Purpose",
     desc: "We continued to evolve as a business, placing greater emphasis on responsible manufacturing, worker welfare and ethical practices. Our growth was no longer just about producing more; it was about building a company that our customers, employees and partners could believe in.",
