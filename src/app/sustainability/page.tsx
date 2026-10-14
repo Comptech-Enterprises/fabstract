@@ -355,11 +355,8 @@ export default function SustainabilityPage() {
         >
           <div style={{ maxWidth: 850 }}>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-navy font-medium leading-[1.08] mb-6">
-              Manufacturing with Radical Responsibility
+              Manufacturing with Responsibility
             </h2>
-            <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl font-light max-w-3xl">
-              Enabling sustainability, one fabric at a time.
-            </p>
           </div>
         </GlyphPortal>
 
