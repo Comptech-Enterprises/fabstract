@@ -27,7 +27,7 @@ interface ProductCategory {
   segments: {
     women: CategorySegment;
     men: CategorySegment;
-    kids: CategorySegment;
+    kids?: CategorySegment;
   };
 }
 
