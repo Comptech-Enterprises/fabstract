@@ -152,7 +152,7 @@ export default function AboutPage() {
                 Manufacturing Excellence, Cutting-Edge, and Vertically Integrated
               </h2>
               <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-                As a premier apparel manufacturer, we manage the entire process from spinning to finished garment. Our state-of-the-art mills craft woven and knitted fabric with premium cotton fiber and materials from reputable suppliers to ensure speed, quality, and responsibility.
+                As a premier apparel manufacturer, we manage the entire process from spinning to finished garment. Our state-of-the-art mills craft fabric with premium cotton fiber and materials from reputable suppliers to ensure speed, quality, and responsibility.
               </p>
             </div>
           </section>
@@ -174,7 +174,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Center Column: 1991 Heritage Display */}
-                <div className="lg:col-span-5 flex justify-center items-center relative py-10 lg:py-14">
+                <div className="lg:col-span-8 flex justify-center items-center relative py-10 lg:py-14">
                   {/* Subtle radiating living aurora */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <motion.div
@@ -211,12 +211,6 @@ export default function AboutPage() {
                   </motion.div>
                 </div>
 
-                {/* Right Column: Statement note */}
-                <div className="lg:col-span-3 lg:pt-24 space-y-4">
-                  <p className="text-white/75 text-sm sm:text-base leading-relaxed max-w-xs font-light">
-                    Our vertical integration and strong commitment to ethics and sustainability position us as a preferred global manufacturing partner.
-                  </p>
-                </div>
               </div>
             </section>
 

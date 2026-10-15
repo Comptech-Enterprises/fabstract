@@ -29,28 +29,6 @@ interface PostData {
 
 const POSTS: PostData[] = [
   {
-    id: 1,
-    file: GALLERY_FILES[0],
-    location: "Fabstract Studio, New Delhi",
-    initialLikes: 248,
-    caption:
-      "Precision circular knitting in full rhythm. Crafting premium luxury cotton jersey with zero compromise on drape and feel.",
-    tags: ["#fabstract", "#knits", "#sustainablefashion", "#textiles", "#madeinindia"],
-    timeAgo: "2 HOURS AGO",
-    verified: true,
-  },
-  {
-    id: 2,
-    file: GALLERY_FILES[1],
-    location: "Sector 63, Noida Manufacturing Unit",
-    initialLikes: 412,
-    caption:
-      "Empowered hands shaping global fashion. Over 60% of our skilled floor artisans are women leading daily production lines.",
-    tags: ["#womeninapparel", "#ethicalmanufacturing", "#fairtrade", "#craftsmanship"],
-    timeAgo: "5 HOURS AGO",
-    verified: true,
-  },
-  {
     id: 3,
     file: GALLERY_FILES[2],
     location: "Quality Assurance & Sampling Lab",

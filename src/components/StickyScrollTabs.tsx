@@ -72,15 +72,6 @@ const NEWS_CARDS: NewsCard[] = [
     image: `${R2_MEDIA}/trees.jpg`,
     href: ARTICLE_URL,
   },
-  {
-    category: "Industry",
-    date: "February 8, 2026",
-    title: "Government Recognises Fabstract for Export Excellence",
-    excerpt:
-      "Fabstract Clothing India receives the prestigious Star Export House recognition for consistent growth and ethical trade practices.",
-    image: `${R2_MEDIA}/training.jpg`,
-    href: ARTICLE_URL,
-  },
 ];
 
 /* ------------------------------------------------------------------ */

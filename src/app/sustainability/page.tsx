@@ -306,11 +306,15 @@ const STAT_METRICS: StatMetric[] = [
     bgRepeat: true,
     bgTileSize: "180px 180px",
     bgOpacity: 0.18,
-    num: "50,000+",
+    num: "5,000+",
     label: "Trees Planted",
     sub: "Van Se Hum is a project very close to our hearts. \"Van Se Hum\" translates to \"We exist because of forests,\" highlighting the crucial role forests play in our survival. This year, with temperatures soaring above 53 degrees Celsius, our Sustainability Head, Mrs. Abha Batra, felt a renewed urgency to act. We've embraced the Miyawaki method, a technique where native trees are planted in close proximity. Competing for sunlight, these trees grow rapidly, resulting in a dense, self-sustaining forest within just two years. All expenses for this project are sponsored by Fabstract Clothing India. We are committed to launching many more initiatives like this every month to combat global warming and severe pollution in Delhi/NCR.",
     highlight: "वन से हम Initiative",
-    img: "/images/sustainability/van-se-hum.webp",
+    slides: [
+      { type: "image", src: "/images/sustainability/van-se-hum.webp", highlight: "वन से हम Initiative", alt: "Van Se Hum" },
+      { type: "image", src: "/images/sustainability/tree-planting-collage.webp", highlight: "Tree Plantation Drive", alt: "Tree planting" },
+      { type: "image", src: "/images/sustainability/van-se-hum-banner.webp", highlight: "वन से हम Campaign", alt: "Van Se Hum banner" },
+    ],
     containImage: true,
   },
   {
