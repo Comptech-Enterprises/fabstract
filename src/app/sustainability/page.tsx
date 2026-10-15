@@ -369,7 +369,7 @@ export default function SustainabilityPage() {
                 Sustainability is not an afterthought. It is engineered into every stitch, fiber, and factory floor.
               </h2>
               <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-                We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our renewable energy and ethical worker charter exceed national standards and comply with premier international sustainability codes.
+                Our renewable energy and ethical worker charter exceed national standards and comply with premier international sustainability codes.
               </p>
             </div>
           </section>
@@ -382,7 +382,7 @@ export default function SustainabilityPage() {
 
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Alternating Image-Text Rows — snaps one screen per stat on desktop */}
-              <div className="flex flex-col gap-10 lg:gap-0">
+              <div className="flex flex-col gap-10 lg:gap-16">
                 {STAT_METRICS.map((stat, idx) => {
                   const imageFirst = stat.imageFirst !== undefined ? stat.imageFirst : idx % 2 === 0;
                   const slides: MediaSlide[] = stat.slides
@@ -401,7 +401,7 @@ export default function SustainabilityPage() {
                   return (
                     <div
                       key={stat.label}
-                      className="relative lg:min-h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden"
+                      className="relative lg:flex lg:flex-col lg:justify-center lg:overflow-hidden"
                     >
                       {stat.bgPattern && (
                         <div

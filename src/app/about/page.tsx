@@ -45,13 +45,14 @@ const MILESTONES = [
     year: "2008",
     title: "Taking Control Through Backward Integration",
     desc: "To strengthen quality consistency, improve control and ensure reliable delivery, we invested in state-of-the-art German Terrot circular knitting machines, bringing fabric manufacturing in-house. This strategic move gave us greater control over our supply chain, improved speed to market and enabled faster turnaround on sampling and new fabric developments.",
-    img: "/images/timeline/2008-integration.jpg",
+    img: "/images/timeline/2005-knits.png",
   },
   {
     year: "2012",
     title: "Building for Greater Scale",
     desc: "As Fabstract continued to grow, we focused on strengthening our manufacturing processes, refining our production systems and building the capabilities needed to handle increasingly complex requirements. It was a step towards becoming a more capable, well-rounded manufacturing partner for our customers.",
-    img: "/images/timeline/2012-factory.webp",
+    img: "/images/timeline/2012-scale.png",
+    contain: true,
   },
   {
     year: "2018",
