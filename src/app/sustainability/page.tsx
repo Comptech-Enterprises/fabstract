@@ -111,14 +111,17 @@ interface StatMetric {
   video?: string;
   videos?: { src: string; highlight: string }[];
   slides?: MediaSlide[];
+  containImage?: boolean;
 }
 
 function StatMediaSlider({
   slides,
   defaultHighlight,
+  containImage,
 }: {
   slides: MediaSlide[];
   defaultHighlight: string;
+  containImage?: boolean;
 }) {
   const [current, setCurrent] = useState(0);
   const total = slides.length;
@@ -173,7 +176,7 @@ function StatMediaSlider({
             <motion.img
               src={activeSlide.src}
               alt={activeSlide.alt || "Benchmark media"}
-              className="w-full h-full object-cover"
+              className={`w-full h-full ${containImage ? "object-contain bg-emerald-50" : "object-cover"}`}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             />
@@ -307,8 +310,8 @@ const STAT_METRICS: StatMetric[] = [
     label: "Trees Planted",
     sub: "Van Se Hum is a project very close to our hearts. \"Van Se Hum\" translates to \"We exist because of forests,\" highlighting the crucial role forests play in our survival. This year, with temperatures soaring above 53 degrees Celsius, our Sustainability Head, Mrs. Abha Batra, felt a renewed urgency to act. We've embraced the Miyawaki method, a technique where native trees are planted in close proximity. Competing for sunlight, these trees grow rapidly, resulting in a dense, self-sustaining forest within just two years. All expenses for this project are sponsored by Fabstract Clothing India. We are committed to launching many more initiatives like this every month to combat global warming and severe pollution in Delhi/NCR.",
     highlight: "वन से हम Initiative",
-    img: "/images/sustainability/tree-planting-collage.webp",
-    video: `${R2_MEDIA}/trees.mp4`,
+    img: "/images/sustainability/van-se-hum.webp",
+    containImage: true,
   },
   {
     num: "100%",
@@ -485,7 +488,7 @@ export default function SustainabilityPage() {
                               : "h-[340px] sm:h-[400px] lg:h-[42vh]"
                           } rounded-2xl overflow-hidden shadow-2xl group lg:[direction:ltr]`}
                         >
-                          <StatMediaSlider slides={slides} defaultHighlight={stat.highlight} />
+                          <StatMediaSlider slides={slides} defaultHighlight={stat.highlight} containImage={stat.containImage} />
                         </motion.div>
 
                         {/* Text Side */}
