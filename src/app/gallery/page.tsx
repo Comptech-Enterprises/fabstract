@@ -74,7 +74,7 @@ const POSTS: PostData[] = [
   },
   {
     id: 5,
-    file: GALLERY_FILES[4],
+    file: "/images/gallery/mannequin.jpg",
     location: "Miyawaki Micro-Forest, NCR",
     initialLikes: 620,
     caption:
@@ -85,7 +85,7 @@ const POSTS: PostData[] = [
   },
   {
     id: 6,
-    file: GALLERY_FILES[5],
+    file: "/images/gallery/thread-spools.jpg",
     location: "Fabric Sourcing & Organic Weaves",
     initialLikes: 374,
     caption:
@@ -118,7 +118,7 @@ const POSTS: PostData[] = [
   },
   {
     id: 9,
-    file: GALLERY_FILES[8],
+    file: "/images/gallery/finishing-export.jpg",
     location: "Finishing & Export Packaging",
     initialLikes: 512,
     caption:
@@ -243,7 +243,7 @@ function InstagramCard({ post }: { post: PostData }) {
           onDoubleClick={handleDoubleTap}
         >
           <img
-            src={gallerySrc(post.file)}
+            src={post.file.startsWith("/") ? post.file : gallerySrc(post.file)}
             alt={post.caption}
             className="w-full h-full object-cover"
             loading="lazy"

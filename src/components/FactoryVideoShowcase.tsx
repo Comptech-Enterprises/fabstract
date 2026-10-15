@@ -37,8 +37,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
     subtitle:
       "Skilled seamstresses with modular workstations crafting complex woven and knit garment constructions.",
     tag: "Unit 03 — Assembly",
-    videoSrc:
-      "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2159.mp4",
+    videoSrc: "/videos/sewing-lines.mp4",
     noFilter: true,
   },
   {

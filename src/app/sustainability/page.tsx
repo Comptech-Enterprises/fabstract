@@ -305,9 +305,9 @@ const STAT_METRICS: StatMetric[] = [
     bgOpacity: 0.18,
     num: "50,000+",
     label: "Trees Planted",
-    sub: "Miyawaki dense urban forests created across Delhi NCR absorbing 30x more carbon.",
+    sub: "Van Se Hum is a project very close to our hearts. \"Van Se Hum\" translates to \"We exist because of forests,\" highlighting the crucial role forests play in our survival. This year, with temperatures soaring above 53 degrees Celsius, our Sustainability Head, Mrs. Abha Batra, felt a renewed urgency to act. We've embraced the Miyawaki method, a technique where native trees are planted in close proximity. Competing for sunlight, these trees grow rapidly, resulting in a dense, self-sustaining forest within just two years. All expenses for this project are sponsored by Fabstract Clothing India. We are committed to launching many more initiatives like this every month to combat global warming and severe pollution in Delhi/NCR.",
     highlight: "वन से हम Initiative",
-    img: `${R2_MEDIA}/trees.jpg`,
+    img: "/images/sustainability/tree-planting-collage.webp",
     video: `${R2_MEDIA}/trees.mp4`,
   },
   {
@@ -369,7 +369,7 @@ export default function SustainabilityPage() {
                 Sustainability is not an afterthought. It is engineered into every stitch, fiber, and factory floor.
               </h2>
               <p className="text-slate-600 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-                We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our zero-liquid discharge, renewable energy, and ethical worker charter exceed national standards and comply with premier international sustainability codes.
+                We provide Tier-1 global fashion retailers with end-to-end verifiable environmental stewardship. Our renewable energy and ethical worker charter exceed national standards and comply with premier international sustainability codes.
               </p>
             </div>
           </section>

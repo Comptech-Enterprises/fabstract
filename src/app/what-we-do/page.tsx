@@ -208,11 +208,10 @@ const QUALITY_STATS = [
 ];
 
 const DETAIL_TILES: Tile[] = [
-  { label: "Neck Finishing", img: "/what-we-do/details/neck-finishing.webp" },
-  { label: "Seam Construction", img: "/what-we-do/details/seam-construction.webp" },
-  { label: "Stitch Quality", img: "/what-we-do/details/stitch-quality.webp" },
-  { label: "Print & Embroidery", img: "/what-we-do/details/print-embroidery.webp" },
-  { label: "Garment Washing", img: "/what-we-do/fabrics/garment-wash.webp" },
+  { label: "Seam Construction", img: "/what-we-do/details/seam-construction.jpg" },
+  { label: "Stitch Quality", img: "/what-we-do/details/stitch-quality.jpg" },
+  { label: "Print & Embroidery", img: "/what-we-do/details/print-embroidery.jpg" },
+  { label: "Garment Washing", img: "/what-we-do/fabrics/garment-wash.jpg" },
   { label: "Measurement Checking", img: "/what-we-do/details/measurement-checking.webp" },
   { label: "Final Inspection", img: "/what-we-do/details/final-inspection.webp" },
 ];
@@ -491,9 +490,7 @@ export default function WhatWeDo() {
           </div>
         </div>
         <div className="relative min-h-[220px]">
-          <div className="absolute inset-0">
-            <Placeholder tint="#cfc6b8" />
-          </div>
+          <img src="/what-we-do/brands-cta.jpg" alt="Brands" className="absolute inset-0 w-full h-full object-cover" />
         </div>
       </section>
       </PageScrollLayout>

@@ -60,7 +60,7 @@ const NEWS_CARDS: NewsCard[] = [
     title: "Fabstract and Innovo Fiber Scale Fibre52® Technology",
     excerpt:
       "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
-    image: `${R2_MEDIA}/yarn.jpg`,
+    image: "/images/articles-thread-spools.jpg",
     href: ARTICLE_URL,
   },
   {
