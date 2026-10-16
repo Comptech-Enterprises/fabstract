@@ -318,7 +318,6 @@ const STAT_METRICS: StatMetric[] = [
       { type: "image", src: "/images/sustainability/van-se-hum-108.jpg", highlight: "Growing Together", alt: "Tree planting volunteers" },
       { type: "image", src: "/images/sustainability/van-se-hum-109.jpg", highlight: "Nurturing Roots", alt: "Planting together" },
       { type: "image", src: "/images/sustainability/van-se-hum-110.jpg", highlight: "Planting for Future", alt: "Van Se Hum planting" },
-      { type: "image", src: "/images/sustainability/van-se-hum-111.webp", highlight: "Tree Hugging", alt: "Tree hugging" },
     ],
     containImage: true,
   },
