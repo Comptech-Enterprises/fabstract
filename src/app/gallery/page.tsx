@@ -105,6 +105,17 @@ const POSTS: PostData[] = [
     timeAgo: "1 WEEK AGO",
     verified: true,
   },
+  {
+    id: 10,
+    file: "/images/gallery/pattern-drafting.jpg",
+    location: "Pattern & Sampling Studio",
+    initialLikes: 340,
+    caption:
+      "Hand-drafted patterns on kraft paper. Where every garment begins — precision geometry meets skilled intuition.",
+    tags: ["#patternmaking", "#sampling", "#appareldesign", "#craftmanship"],
+    timeAgo: "1 WEEK AGO",
+    verified: true,
+  },
 ];
 
 function InstagramCard({ post }: { post: PostData }) {
@@ -401,8 +412,8 @@ function InstagramCard({ post }: { post: PostData }) {
 }
 
 export default function GalleryPage() {
-  const productionPosts = POSTS.filter((p) => p.id === 1 || p.id === 8);
-  const craftPosts = POSTS.filter((p) => p.id === 2 || p.id === 7);
+  const productionPosts = POSTS.filter((p) => p.id === 8 || p.id === 10);
+  const craftPosts = POSTS.filter((p) => p.id === 7);
   const qualityPosts = POSTS.filter((p) => p.id === 3 || p.id === 9);
   const ecologyPosts = POSTS.filter((p) => p.id === 4 || p.id === 5 || p.id === 6);
 
@@ -416,7 +427,7 @@ export default function GalleryPage() {
         subtitle="Live glimpses from our production floors, sustainable processes, and artisanal craft in real time."
       />
 
-      <PageScrollLayout tabs={GALLERY_TABS} activeIdPrefix="gallery">
+      <PageScrollLayout>
         {/* Section 1: Knits & Production */}
         <section id="production" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
           <div className="mb-8">

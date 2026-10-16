@@ -17,14 +17,14 @@ const DEFAULT_SHOWCASE_ITEMS: ShowcaseItem[] = [
     id: 1,
     tag: "Showcase 01 — Innovation",
     title: "Precision Craftsmanship",
-    desc: "From yarn selection to bespoke finishing, precision technology meets artisan expertise at every single stage of production.",
+    desc: "From yarn selection to finishing, precision technology meets artisan expertise at every single stage of production.",
     videoSrc: INTRO_VIDEOS[0],
   },
   {
     id: 2,
     tag: "Showcase 02 — Sustainability",
     title: "Conscious Manufacturing",
-    desc: "State-of-the-art closed-loop processes engineered to conserve natural resources, reduce carbon emissions, and optimize material efficiency.",
+    desc: "State-of-the-art processes engineered to conserve natural resources, reduce carbon emissions, and optimize material efficiency.",
     videoSrc: INTRO_VIDEOS[1],
   },
   {

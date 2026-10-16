@@ -17,7 +17,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
     id: 1,
     title: "Knitting & Fabric Engineering",
     subtitle:
-      "Precision circular and flat knitting machines turning raw yarn into luxury single jersey, interlock, and rib fabrics.",
+      "Precision circular knitting machines turning raw yarn into single jersey, interlock, and rib fabrics.",
     tag: "Unit 01 — Knitting",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-3902.mp4",
@@ -26,7 +26,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
     id: 2,
     title: "Precision Automated Cutting",
     subtitle:
-      "High-speed CAD-guided computerized spreading and laser cutting ensuring zero wastage and exact seam matching.",
+      "High-speed CAD-guided computerized machines ensuring zero wastage and exact matching.",
     tag: "Unit 02 — Cutting",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2408.mp4",
@@ -62,7 +62,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
     id: 6,
     title: "",
     subtitle:
-      "4 factories in Noida, India, 40+ active clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
+      "4 factories in Noida, India, 40+ direct clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
     tag: "Unit 06 — Logistics",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",

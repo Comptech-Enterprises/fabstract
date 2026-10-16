@@ -13,7 +13,6 @@ import GlyphPortal from "@/components/ui/glyph-portal";
 const SUSTAINABILITY_TABS = [
   { id: "commitment", label: "Commitment" },
   { id: "scorecard", label: "Impact Scorecard" },
-  { id: "people-bento", label: "People First" },
 ];
 
 function AnimatedCounter({
@@ -311,9 +310,15 @@ const STAT_METRICS: StatMetric[] = [
     sub: "Van Se Hum is a project very close to our hearts. \"Van Se Hum\" translates to \"We exist because of forests,\" highlighting the crucial role forests play in our survival. This year, with temperatures soaring above 53 degrees Celsius, our Sustainability Head, Mrs. Abha Batra, felt a renewed urgency to act. We've embraced the Miyawaki method, a technique where native trees are planted in close proximity. Competing for sunlight, these trees grow rapidly, resulting in a dense, self-sustaining forest within just two years. All expenses for this project are sponsored by Fabstract Clothing India. We are committed to launching many more initiatives like this every month to combat global warming and severe pollution in Delhi/NCR.",
     highlight: "वन से हम Initiative",
     slides: [
-      { type: "image", src: "/images/sustainability/van-se-hum.webp", highlight: "वन से हम Initiative", alt: "Van Se Hum" },
-      { type: "image", src: "/images/sustainability/tree-planting-collage.webp", highlight: "Tree Plantation Drive", alt: "Tree planting" },
-      { type: "image", src: "/images/sustainability/van-se-hum-banner.webp", highlight: "वन से हम Campaign", alt: "Van Se Hum banner" },
+      { type: "image", src: "/images/sustainability/van-se-hum-103.jpg", highlight: "वन से हम Initiative", alt: "Van Se Hum group photo" },
+      { type: "image", src: "/images/sustainability/van-se-hum-104.jpg", highlight: "वन से हम Banner", alt: "Van Se Hum banner" },
+      { type: "image", src: "/images/sustainability/van-se-hum-105.jpg", highlight: "Tree Plantation Drive", alt: "Tree planting group" },
+      { type: "image", src: "/images/sustainability/van-se-hum-106.jpg", highlight: "Community Planting", alt: "Community tree planting" },
+      { type: "image", src: "/images/sustainability/van-se-hum-107.jpg", highlight: "Sapling Care", alt: "Planting saplings" },
+      { type: "image", src: "/images/sustainability/van-se-hum-108.jpg", highlight: "Growing Together", alt: "Tree planting volunteers" },
+      { type: "image", src: "/images/sustainability/van-se-hum-109.jpg", highlight: "Nurturing Roots", alt: "Planting together" },
+      { type: "image", src: "/images/sustainability/van-se-hum-110.jpg", highlight: "Planting for Future", alt: "Van Se Hum planting" },
+      { type: "image", src: "/images/sustainability/van-se-hum-111.webp", highlight: "Tree Hugging", alt: "Tree hugging" },
     ],
     containImage: true,
   },
@@ -565,179 +570,6 @@ export default function SustainabilityPage() {
             </div>
           </section>
 
-          {/* Section 2: People & Community — Bento Grid */}
-          <section id="people-bento" className="scroll-mt-24 bg-transparent text-navy px-6 sm:px-10 lg:px-16 py-20 lg:py-28 relative overflow-hidden z-10">
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="max-w-3xl mb-14">
-                <p className="text-emerald-700 text-xs font-semibold tracking-[0.25em] uppercase mb-3">Social Sustainability</p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight">
-                  Empowering Our <span className="font-normal text-emerald-700">People</span>
-                </h2>
-              </div>
-
-              {/* Bento Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[220px]">
-                {/* Hero card — tall left */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="md:col-span-2 md:row-span-2 relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={`${R2_MEDIA}/worker.jpg`}
-                    alt="People First Always"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#051c14]/95 via-[#051c14]/50 to-transparent" />
-                  <div className="relative z-10 h-full flex flex-col justify-between p-7 sm:p-9">
-                    <h3 className="font-display text-3xl sm:text-4xl text-white font-medium leading-tight max-w-xs">
-                      People First, Always
-                    </h3>
-                    <div>
-                      <p className="text-white/80 text-sm sm:text-base font-light leading-relaxed max-w-sm mb-5">
-                        Fair living wages, gender parity, healthcare camps, and maternity security for every worker on our floor. Craft starts with care.
-                      </p>
-                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-white text-xs font-semibold tracking-wider uppercase hover:bg-emerald-500/30 transition-colors">
-                        Our Commitments
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Top-right: Fair Wages */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={`${R2_MEDIA}/salary.jpg`}
-                    alt="Fair Wages"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#051c14]/85 via-[#051c14]/40 to-transparent" />
-                  <div className="relative z-10 h-full flex flex-col justify-between p-5">
-                    <span className="self-start text-[10px] tracking-[0.2em] uppercase font-bold text-white bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
-                      Fair Wages
-                    </span>
-                    <h4 className="font-display text-xl sm:text-2xl text-white font-medium leading-tight">
-                      Equal Pay &amp; Living Wages
-                    </h4>
-                  </div>
-                </motion.div>
-
-                {/* Top-right-right: Healthcare */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={`${R2_MEDIA}/health.jpg`}
-                    alt="Healthcare Camps"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#051c14]/85 via-[#051c14]/40 to-transparent" />
-                  <div className="relative z-10 h-full flex flex-col justify-between p-5">
-                    <span className="self-start text-[10px] tracking-[0.2em] uppercase font-bold text-white bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
-                      Healthcare
-                    </span>
-                    <h4 className="font-display text-xl sm:text-2xl text-white font-medium leading-tight">
-                      On-Site Health Camps
-                    </h4>
-                  </div>
-                </motion.div>
-
-                {/* Bottom-middle: Skilling */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={`${R2_MEDIA}/training.jpg`}
-                    alt="Vocational Training"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#051c14]/85 via-[#051c14]/40 to-transparent" />
-                  <div className="relative z-10 h-full flex flex-col justify-between p-5">
-                    <span className="self-start text-[10px] tracking-[0.2em] uppercase font-bold text-white bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
-                      Skilling
-                    </span>
-                    <h4 className="font-display text-xl sm:text-2xl text-white font-medium leading-tight">
-                      Vocational Training
-                    </h4>
-                  </div>
-                </motion.div>
-
-                {/* Bottom-right: Stat card with image */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="rounded-2xl flex flex-col justify-end p-7 relative overflow-hidden group cursor-default border border-slate-200 shadow-md hover:shadow-xl transition-shadow"
-                >
-                  <img
-                    src={`${R2_MEDIA}/happy.jpg`}
-                    alt="Women in Workforce"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#051c14]/90 via-[#051c14]/50 to-transparent" />
-                  <div className="relative z-10">
-                    <p className="font-display text-5xl sm:text-6xl text-white font-medium tracking-tight">60%+</p>
-                    <p className="text-white font-semibold text-lg mt-1">Women in Workforce</p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </section>
-
-
-          {/* CTA: Partner With Us */}
-          <section className="relative bg-transparent text-navy px-6 sm:px-10 lg:px-16 py-24 lg:py-32 overflow-hidden z-10">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.06)_0%,_transparent_70%)]" />
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="max-w-4xl mx-auto text-center relative z-10 bg-slate-50/80 backdrop-blur-sm border border-slate-200 rounded-3xl p-10 sm:p-14 lg:p-16 shadow-lg"
-            >
-              <p className="text-emerald-700 text-xs font-semibold tracking-[0.25em] uppercase mb-4">Work With Fabstract</p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light tracking-tight mb-6">
-                Partner With Us on Sustainable Manufacturing
-              </h2>
-              <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-light leading-relaxed mb-10">
-                Looking for a Tier-1 garment manufacturer with verified environmental and social credentials? Let&apos;s build responsibly — together.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold tracking-wider uppercase transition-colors shadow-lg hover:shadow-xl cursor-pointer"
-                >
-                  Get in Touch
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </a>
-                <a
-                  href="/about"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-slate-50 text-navy text-sm font-semibold tracking-wider uppercase border border-slate-300 transition-colors shadow-xs"
-                >
-                  Learn About Us
-                </a>
-              </div>
-            </motion.div>
-          </section>
         </PageScrollLayout>
 
         {/* Back to Top */}

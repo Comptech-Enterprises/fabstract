@@ -195,9 +195,9 @@ const PROCESS_STEPS: Tile[] = [
   { label: "Brief", desc: "You share the concept, tech pack or reference.", img: "/what-we-do/process/brief.webp" },
   { label: "Development", desc: "Our team develops the first sample.", img: "/what-we-do/process/development.webp" },
   { label: "Fit & Approval", desc: "Measurements and construction refined.", img: "/what-we-do/process/fit-approval.webp" },
-  { label: "Production", desc: "Approved styles move into bulk.", img: gal("ASN_8150") },
+  { label: "Production", desc: "Approved styles move into bulk.", img: "/what-we-do/production-floor.webp" },
   { label: "Quality", desc: "Inspection stages through production.", img: gal("ASN_8210") },
-  { label: "Ready to Ship", desc: "Packed and prepared for delivery.", img: "/what-we-do/process/ready-to-ship.webp" },
+  { label: "Ready to Ship", desc: "Packed and prepared for delivery.", img: "/what-we-do/process/ready-to-ship.jpg" },
 ];
 
 const QUALITY_STATS = [
@@ -445,7 +445,7 @@ export default function WhatWeDo() {
           </div>
         </div>
         <div className="relative min-h-[280px] lg:min-h-full">
-          <img src={gal("ASN_8209")} alt="Quality check" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+          <img src="/what-we-do/quality-check.jpg" alt="Quality check" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
         </div>
       </section>
 
@@ -478,9 +478,6 @@ export default function WhatWeDo() {
             </h2>
           </div>
           <div>
-            <p className="text-navy/65 text-sm leading-relaxed">
-              We work alongside brands through development, production and delivery, building long-term partnerships based on consistency and communication.
-            </p>
             <Link
               href="/contact"
               className="mt-6 inline-flex items-center gap-3 bg-[#06402B] text-white px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-navy transition-colors"

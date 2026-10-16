@@ -9,7 +9,7 @@ export interface TabItem {
 }
 
 interface PageScrollLayoutProps {
-  tabs: TabItem[];
+  tabs?: TabItem[];
   children: React.ReactNode;
   activeIdPrefix?: string;
   className?: string;
@@ -18,7 +18,7 @@ interface PageScrollLayoutProps {
 }
 
 export function PageScrollLayout({
-  tabs,
+  tabs = [],
   children,
   activeIdPrefix,
   className = "",

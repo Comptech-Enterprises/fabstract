@@ -15,63 +15,7 @@ const TABS = [
   { id: "s-showcase", label: "Showcase" },
   { id: "s-strengths", label: "Strengths" },
   { id: "s-factories", label: "Factories" },
-  { id: "s-newsroom", label: "Newsroom" },
   { id: "s-contact", label: "Contact" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Newsroom data                                                      */
-/* ------------------------------------------------------------------ */
-
-interface NewsCard {
-  category: string;
-  date: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  href: string;
-}
-
-const ARTICLE_URL =
-  "https://betterfuturemedia.substack.com/p/eu-ban-destroying-unsold-clothes?r=8has2w&utm_medium=ios&utm_source=notes-share-action";
-
-const NEWS_CARDS: NewsCard[] = [
-  {
-    category: "People",
-    date: "June 30, 2026",
-    title: "Ethical Manufacturing and Shared Accountability",
-    excerpt:
-      "How garment manufacturers can prioritise interventions that fit their workforce & operational needs with accountability.",
-    image: `${R2_MEDIA}/worker.jpg`,
-    href: ARTICLE_URL,
-  },
-  {
-    category: "Media & Research",
-    date: "May 12, 2026",
-    title: "Worker Welfare Programmes Boost Productivity by 6%",
-    excerpt:
-      "Low-cost vision correction intervention delivers over 3x return; Fabstract to expand programme to all workers.",
-    image: `${R2_MEDIA}/health.jpg`,
-    href: ARTICLE_URL,
-  },
-  {
-    category: "Media & Research",
-    date: "April 21, 2026",
-    title: "Fabstract and Innovo Fiber Scale Fibre52® Technology",
-    excerpt:
-      "Fabstract Clothing, one of India's leading garment exporters, has partnered with Innovo for lower-impact cotton processing.",
-    image: "/images/articles-thread-spools.jpg",
-    href: ARTICLE_URL,
-  },
-  {
-    category: "Sustainability",
-    date: "March 15, 2026",
-    title: "Fabstract Releases Annual Sustainability Progress Report",
-    excerpt:
-      "Fabstract releases its sustainability report, highlighting a 30% reduction in water usage and 1.3M+ hours of employee training.",
-    image: `${R2_MEDIA}/trees.jpg`,
-    href: ARTICLE_URL,
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -87,17 +31,8 @@ const field =
 
 export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
-  const [selectedArticles, setSelectedArticles] = useState<NewsCard[]>(NEWS_CARDS.slice(0, 3));
-
   const containerRef = useRef<HTMLElement>(null);
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const newsScrollRef = useRef<HTMLDivElement>(null);
-
-  // Randomly select 3 articles on client mount
-  useEffect(() => {
-    const shuffled = [...NEWS_CARDS].sort(() => 0.5 - Math.random());
-    setSelectedArticles(shuffled.slice(0, 3));
-  }, []);
 
   const getNavOffset = () => {
     if (typeof window === "undefined") return 72;
@@ -158,13 +93,6 @@ export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
     },
     [],
   );
-
-  /* ── News carousel scroll ── */
-  const scrollNews = useCallback((dir: 1 | -1) => {
-    const el = newsScrollRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * 380, behavior: "smooth" });
-  }, []);
 
   return (
     <section ref={containerRef} className="bg-white relative">
@@ -251,106 +179,6 @@ export function StickyScrollTabs({ children }: { children?: React.ReactNode }) {
             </p>
           </div>
 
-          {/* ═══════════════════════════════════════════ */}
-          {/*  SECTION 2 — NEWSROOM                       */}
-          {/* ═══════════════════════════════════════════ */}
-          <article
-            id="s-newsroom"
-            ref={registerRef("s-newsroom")}
-            className="scroll-mt-24 lg:scroll-mt-24 px-6 sm:px-10 lg:px-14 py-16 lg:py-20 min-h-[calc(100vh-6rem)] flex flex-col justify-center border-t border-navy/10"
-          >
-            {/* Header + View More */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-              <div>
-                <span className="text-teal text-xs tracking-[0.25em] uppercase font-medium">Stories & Updates</span>
-                <motion.h2
-                  className="font-display text-4xl sm:text-5xl lg:text-6xl text-navy font-light tracking-tight mt-2"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, ease: EASE }}
-                >
-                  Newsroom
-                </motion.h2>
-              </div>
-
-              {/* View More Link in Header */}
-              <a
-                href={ARTICLE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-2 text-navy text-xs tracking-[0.2em] uppercase font-semibold hover:text-teal transition-colors pb-1 border-b border-navy/20 hover:border-teal"
-              >
-                View all articles
-                <span>→</span>
-              </a>
-            </div>
-
-            {/* 3 Articles Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-              {selectedArticles.map((card, i) => (
-                <motion.div
-                  key={`${card.title}-${i}`}
-                  className="bg-white group flex flex-col justify-between"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
-                >
-                  <div>
-                    {/* Card image */}
-                    <div className="relative w-full aspect-[4/3] bg-navy/5 overflow-hidden mb-4 rounded-lg">
-                      <img
-                        src={card.image}
-                        alt={card.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        loading="lazy"
-                      />
-                    </div>
-
-                    {/* Category + date */}
-                    <p className="text-navy/50 text-[13px] mb-2">
-                      {card.category}{" "}
-                      <span className="text-navy/30">|</span> {card.date}
-                    </p>
-
-                    {/* Title */}
-                    <h3 className="font-display text-navy text-xl font-medium leading-snug mb-3 group-hover:text-teal transition-colors">
-                      {card.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-navy/55 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {card.excerpt}
-                    </p>
-                  </div>
-
-                  {/* Read more */}
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-navy text-[13px] tracking-wide uppercase hover:text-teal transition-colors group-hover:underline"
-                  >
-                    Read more
-                    <span>›</span>
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Mobile View More Button */}
-            <div className="mt-10 sm:hidden">
-              <a
-                href={ARTICLE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-navy text-navy text-xs tracking-[0.2em] uppercase font-semibold hover:bg-navy hover:text-white transition-all"
-              >
-                View all articles →
-              </a>
-            </div>
-          </article>
 
           {/* ═══════════════════════════════════════════ */}
           {/*  SECTION 3 — CONTACT                        */}

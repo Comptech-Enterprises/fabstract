@@ -198,7 +198,7 @@ export default function AboutPage() {
                     <span className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-sky/75 font-sans font-medium mb-1">
                       Est.
                     </span>
-                    <span className="font-display text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem] font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-white/95 to-sky/60 leading-none tracking-tight drop-shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
+                    <span className="font-display text-8xl sm:text-9xl md:text-[10rem] lg:text-[13rem] font-light text-transparent bg-clip-text bg-gradient-to-b from-white via-white/95 to-sky/60 leading-none tracking-tight drop-shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
                       1991
                     </span>
                     <div className="mt-3 flex items-center gap-3">
