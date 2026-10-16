@@ -24,7 +24,7 @@ const CAPABILITIES = [
   },
   {
     title: "Artisan Craft & Specialty Washes",
-    desc: "In-house capabilities for intricate embroidery, handcrafted details, complex garment dyeing, and specialty washes.",
+    desc: "",
     image: "/images/strengths-bg.jpg",
   },
   {
