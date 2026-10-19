@@ -344,7 +344,6 @@ export default function SustainabilityPage() {
         <GlyphPortal
           word="SUSTAINABILITY"
           scrollLength={2.4}
-          interactive
           background={
             <div
               className="absolute inset-0 bg-white overflow-hidden"

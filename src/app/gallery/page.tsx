@@ -73,17 +73,6 @@ const POSTS: PostData[] = [
     verified: true,
   },
   {
-    id: 7,
-    file: GALLERY_FILES[6],
-    location: "Specialized Assembly Line 03",
-    initialLikes: 295,
-    caption:
-      "Master tailors assembling intricate woven summer silhouettes for our European brand partners.",
-    tags: ["#wovenapparel", "#summerfashion", "#exportapparel", "#handcrafted"],
-    timeAgo: "5 DAYS AGO",
-    verified: true,
-  },
-  {
     id: 8,
     file: GALLERY_FILES[7],
     location: "Automated Spreading & CAD Cutting",
@@ -413,7 +402,6 @@ function InstagramCard({ post }: { post: PostData }) {
 
 export default function GalleryPage() {
   const productionPosts = POSTS.filter((p) => p.id === 8 || p.id === 10);
-  const craftPosts = POSTS.filter((p) => p.id === 7);
   const qualityPosts = POSTS.filter((p) => p.id === 3 || p.id === 9);
   const ecologyPosts = POSTS.filter((p) => p.id === 4 || p.id === 5 || p.id === 6);
 
@@ -444,21 +432,6 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Section 2: Artisans & Assembly */}
-        <section id="craft" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
-          <div className="mb-8">
-            <span className="text-teal text-xs tracking-[0.25em] uppercase font-semibold">Artisans</span>
-            <h2 className="mt-2 font-display text-2xl sm:text-3xl text-navy font-semibold">Artisans & Assembly</h2>
-            <p className="mt-2 text-navy/60 text-sm max-w-xl">
-              Over 60% of our skilled floor artisans are women leading daily production lines, working alongside master tailors on intricate silhouettes.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {craftPosts.map((post) => (
-              <InstagramCard key={post.id} post={post} />
-            ))}
-          </div>
-        </section>
 
         {/* Section 3: Quality & Dispatch */}
         <section id="quality" className="scroll-mt-24 px-6 sm:px-10 lg:px-14 py-12 sm:py-16 border-b border-navy/5">
