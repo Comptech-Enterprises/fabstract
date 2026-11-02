@@ -6,11 +6,13 @@ import { Footer } from "@/components/footer";
 import { Still } from "@/components/Still";
 import { GALLERY_FILES, gallerySrc } from "@/data/gallery";
 import { PageScrollLayout } from "@/components/PageScrollLayout";
+import { WhatWeDoContent } from "@/components/WhatWeDoContent";
 
 const ABOUT_TABS = [
   { id: "overview", label: "Overview" },
   { id: "legacy", label: "Our Legacy" },
   { id: "journey", label: "Our Journey" },
+  { id: "what-we-do", label: "What We Do" },
   { id: "certifications", label: "Certifications" },
 ];
 
@@ -318,6 +320,9 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+
+          {/* Section: What We Do */}
+          <WhatWeDoContent />
 
           {/* Section 3: Certifications & Marks - Certificates (Blue Background) */}
           <section id="certifications" className="scroll-mt-28 px-6 sm:px-10 lg:px-14 py-20 lg:py-28 bg-navy text-white relative overflow-hidden border-b border-navy/10">
