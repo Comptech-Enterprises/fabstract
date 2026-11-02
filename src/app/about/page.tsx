@@ -152,7 +152,7 @@ export default function AboutPage() {
                 Manufacturing Excellence, Cutting-Edge, and Vertically Integrated
               </h2>
               <p className="text-navy/75 text-lg sm:text-xl lg:text-2xl leading-relaxed font-light">
-                As a premier apparel manufacturer, we manage the entire process from spinning to finished garment. Our state-of-the-art mills craft fabric with premium cotton fiber and materials from reputable suppliers to ensure speed, quality, and responsibility.
+                As a premier apparel manufacturer, we manage the entire process from yarn to finished garment. Maintaining complete supply chain transparency & GOTS certification accountability from reputable suppliers to ensure speed, quality & responsibility.
               </p>
             </div>
           </section>
@@ -169,7 +169,7 @@ export default function AboutPage() {
                     Our Legacy
                   </h2>
                   <p className="text-white/80 text-base sm:text-lg leading-relaxed font-light">
-                    Fabstract Clothing, founded in 1991, has grown from a specialized workshop into a premier government-recognized garment export house over three decades of craftsmanship.
+                    Fabstract Clothing, founded in 1991, has grown from a specialized production unit into a premier government-recognized garment export house over three decades of craftsmanship.
                   </p>
                 </div>
 
@@ -204,7 +204,7 @@ export default function AboutPage() {
                     <div className="mt-3 flex items-center gap-3">
                       <span className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-sky/40" />
                       <span className="text-[9px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-sans font-light">
-                        Over Three Decades of Craft
+                        Over 3 decades of responsible-progressive leadership
                       </span>
                       <span className="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-sky/40" />
                     </div>

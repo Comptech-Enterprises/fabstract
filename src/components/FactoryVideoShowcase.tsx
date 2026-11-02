@@ -47,19 +47,11 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   },
   {
     id: 5,
-    title: "Company Snapshot",
+    title: "Our Green FairTrade Facility",
     subtitle: "",
-    tag: "Unit 05 — Snapshot",
+    tag: "Unit 05 — Green Facility",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2046.mp4",
-  },
-  {
-    id: 6,
-    title: "Global Logistics & Compliance",
-    subtitle: "",
-    tag: "Unit 06 — Logistics",
-    videoSrc:
-      "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",
   },
 ];
 

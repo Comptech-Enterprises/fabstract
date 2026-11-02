@@ -252,9 +252,9 @@ function VideoBanner() {
           Combining high-capacity export production with circular, certified sustainability across the Delhi-NCR cluster.
         </p>
 
-        <blockquote className="max-w-2xl text-xs sm:text-sm text-white/60 italic leading-relaxed">
+        <blockquote className="max-w-3xl text-base sm:text-lg lg:text-xl xl:text-2xl text-white/90 font-display italic leading-relaxed [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
           &ldquo;The earth is not an inheritance from our forefathers, but on loan from our children.&rdquo;
-          <span className="block mt-1 text-[10px] sm:text-xs tracking-[0.2em] uppercase text-sky/80 font-bold not-italic">
+          <span className="block mt-2.5 text-xs sm:text-sm tracking-[0.25em] uppercase text-sky font-semibold not-italic">
             — Mahatma Gandhi
           </span>
         </blockquote>
