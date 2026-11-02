@@ -268,7 +268,7 @@ function WhatWeMake() {
         <div>
           <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-navy/55 mb-3">What we make</p>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">
-            Built across categories. Specialized where it matters.
+            Four Business Verticals
           </h2>
         </div>
         <div className="flex flex-nowrap gap-1.5 sm:gap-2 max-w-full overflow-x-auto shrink-0">
