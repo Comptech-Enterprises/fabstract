@@ -16,8 +16,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   {
     id: 1,
     title: "Knitting & Fabric Engineering",
-    subtitle:
-      "Precision circular knitting machines turning raw yarn into single jersey, interlock, and rib fabrics.",
+    subtitle: "",
     tag: "Unit 01 — Knitting",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-3902.mp4",
@@ -25,8 +24,7 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   {
     id: 2,
     title: "Precision Automated Cutting",
-    subtitle:
-      "High-speed CAD-guided computerized machines ensuring zero wastage and exact matching.",
+    subtitle: "",
     tag: "Unit 02 — Cutting",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2408.mp4",
@@ -34,17 +32,15 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   {
     id: 3,
     title: "Specialized Sewing Lines",
-    subtitle:
-      "Skilled seamstresses with modular workstations crafting complex woven and knit garment constructions.",
+    subtitle: "",
     tag: "Unit 03 — Assembly",
     videoSrc: "/videos/sewing-lines.mp4",
     noFilter: true,
   },
   {
     id: 4,
-    title: "Artisanal Embroidery & Handcraft",
-    subtitle:
-      "Multi-head automated embroidery paired with traditional artisanal embellishment for bespoke detail.",
+    title: "Multi-Head Computerized Embroidery",
+    subtitle: "",
     tag: "Unit 04 — Craft",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2243.mp4",
@@ -52,17 +48,15 @@ const DEFAULT_VIDEOS: FactoryVideoItem[] = [
   {
     id: 5,
     title: "Company Snapshot",
-    subtitle:
-      "35+ years of export experience and a capacity of 2,50,000 units per month.",
+    subtitle: "",
     tag: "Unit 05 — Snapshot",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/video-2046.mp4",
   },
   {
     id: 6,
-    title: "",
-    subtitle:
-      "4 factories in Noida, India, 40+ direct clients, and certified by GOTS, OCS, OEKO-TEX and Fairtrade.",
+    title: "Global Logistics & Compliance",
+    subtitle: "",
     tag: "Unit 06 — Logistics",
     videoSrc:
       "https://pub-3551751dc58044cb88a118691e50d580.r2.dev/media/whatsapp-video-01sept.mp4",
@@ -160,15 +154,17 @@ export function FactoryVideoShowcase({
                 {videos[activeIndex].title}
               </motion.h3>
             )}
-            <motion.p
-              key={`sub-${activeIndex}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 text-white/75 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl"
-            >
-              {videos[activeIndex].subtitle}
-            </motion.p>
+            {videos[activeIndex].subtitle ? (
+              <motion.p
+                key={`sub-${activeIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-4 text-white/75 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl"
+              >
+                {videos[activeIndex].subtitle}
+              </motion.p>
+            ) : null}
           </div>
         </div>
       </div>

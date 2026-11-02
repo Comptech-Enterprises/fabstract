@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { INTRO_VIDEOS } from "@/data/hero";
 
 export interface ShowcaseItem {
@@ -36,24 +35,12 @@ const DEFAULT_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
 ];
 
-const SPRING = "ease-[cubic-bezier(0.34,1.35,0.64,1)]";
 const MAX_VOLUME = 0.3;
 
 export function IntroVideo({ items = DEFAULT_SHOWCASE_ITEMS }: { items?: ShowcaseItem[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(true);
-  const [currentActiveIdx, setCurrentActiveIdx] = useState(0);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-
-  const activeIndex = useTransform(scrollYProgress, (v) => {
-    const idx = Math.floor(v * items.length);
-    return Math.min(idx, items.length - 1);
-  });
-
-  useEffect(() => {
-    const unsub = activeIndex.on("change", (v) => setCurrentActiveIdx(v));
-    return unsub;
-  }, [activeIndex]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Auto-mute when scrolling away from the showcase section
   useEffect(() => {
@@ -66,7 +53,7 @@ export function IntroVideo({ items = DEFAULT_SHOWCASE_ITEMS }: { items?: Showcas
           setMuted(true);
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.1 }
     );
 
     observer.observe(el);
@@ -74,80 +61,79 @@ export function IntroVideo({ items = DEFAULT_SHOWCASE_ITEMS }: { items?: Showcas
   }, []);
 
   return (
-    <div
+    <section
       ref={containerRef}
       id="s-showcase"
-      className="scroll-mt-24 relative bg-white"
-      style={{ height: `${(items.length + 1) * 100}vh` }}
+      className="scroll-mt-24 relative bg-white py-10 sm:py-16 lg:py-20"
     >
-      <div className="sticky top-0 h-screen flex items-center py-8 sm:py-12 px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="max-w-[1536px] mx-auto w-full relative">
-          {/* Header kicker */}
-          <div className="mb-6 sm:mb-8 flex items-center justify-between">
-            <div>
-              <span className="text-teal text-xs sm:text-sm tracking-[0.25em] uppercase font-medium">
-                Video Showcase
-              </span>
-              <h2 className="mt-2 font-display text-2xl sm:text-3xl lg:text-4xl text-navy font-medium">
-                Crafting the Future of Apparel
-              </h2>
-            </div>
-            <button
-              type="button"
-              onClick={() => setMuted((m) => !m)}
-              aria-label={muted ? "Unmute audio" : "Mute audio"}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy/5 hover:bg-navy/10 text-navy text-xs font-medium transition-colors"
-            >
-              {muted ? (
-                <>
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
-                    <path d="M23 9l-6 6M17 9l6 6" />
-                  </svg>
-                  <span className="hidden sm:inline">Unmute</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
-                    <path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14" />
-                  </svg>
-                  <span className="hidden sm:inline">Mute</span>
-                </>
-              )}
-            </button>
+      <div className="max-w-[1536px] mx-auto w-full px-6 sm:px-10 lg:px-16 xl:px-20 relative">
+        {/* Header kicker */}
+        <div className="mb-6 sm:mb-8 flex items-center justify-between">
+          <div>
+            <span className="text-teal text-xs sm:text-sm tracking-[0.25em] uppercase font-medium">
+              Video Showcase
+            </span>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl lg:text-4xl text-navy font-medium">
+              Crafting the Future of Apparel
+            </h2>
           </div>
+          <button
+            type="button"
+            onClick={() => setMuted((m) => !m)}
+            aria-label={muted ? "Unmute audio" : "Mute audio"}
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy/5 hover:bg-navy/10 text-navy text-xs font-medium transition-colors cursor-pointer"
+          >
+            {muted ? (
+              <>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                  <path d="M23 9l-6 6M17 9l6 6" />
+                </svg>
+                <span className="hidden sm:inline">Unmute</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                  <path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14" />
+                </svg>
+                <span className="hidden sm:inline">Mute</span>
+              </>
+            )}
+          </button>
+        </div>
 
-          <div className="flex flex-col lg:flex-row gap-3 h-[700px] sm:h-[760px] lg:h-[580px]">
-            {items.map((item, i) => (
-              <ShowcaseCard
-                key={item.id}
-                item={item}
-                index={i}
-                muted={muted || currentActiveIdx !== i}
-                activeIndex={activeIndex}
-              />
-            ))}
-          </div>
+        <div className="flex flex-col lg:flex-row gap-3 h-[700px] sm:h-[760px] lg:h-[580px]">
+          {items.map((item, i) => (
+            <ShowcaseCard
+              key={item.id}
+              item={item}
+              index={i}
+              isActive={activeIndex === i}
+              muted={muted || activeIndex !== i}
+              onActivate={() => setActiveIndex(i)}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 function ShowcaseCard({
   item,
   index,
+  isActive,
   muted,
-  activeIndex,
+  onActivate,
 }: {
   item: ShowcaseItem;
   index: number;
+  isActive: boolean;
   muted: boolean;
-  activeIndex: ReturnType<typeof useTransform<number, number>>;
+  onActivate: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isActive = useTransform(activeIndex, (v) => v === index);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -157,11 +143,15 @@ function ShowcaseCard({
   }, [muted]);
 
   return (
-    <motion.div
-      style={{ flexGrow: useTransform(isActive, (a) => (a ? 6 : 1)) }}
-      className={`relative min-h-0 min-w-0 basis-0 overflow-hidden rounded-2xl bg-navy cursor-pointer outline-none transition-[flex-grow] duration-[800ms] ${SPRING}`}
+    <div
+      onMouseEnter={onActivate}
+      onClick={onActivate}
+      onFocus={onActivate}
+      tabIndex={0}
+      style={{ flexGrow: isActive ? 6 : 1 }}
+      className="relative min-h-0 min-w-0 basis-0 overflow-hidden rounded-2xl bg-navy cursor-pointer outline-none transition-[flex-grow] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
     >
-      <motion.video
+      <video
         ref={videoRef}
         src={item.videoSrc}
         autoPlay
@@ -177,29 +167,24 @@ function ShowcaseCard({
             e.currentTarget.volume = MAX_VOLUME;
           }
         }}
-        style={{
-          scale: useTransform(isActive, (a) => (a ? 1 : 1.1)),
-          filter: useTransform(isActive, (a) =>
-            a ? "grayscale(0)" : "grayscale(0.7)"
-          ),
-        }}
-        className={`absolute inset-0 w-full h-full object-cover transform-gpu transition-[transform,filter] duration-[800ms] ${SPRING}`}
+        className={`absolute inset-0 w-full h-full object-cover transform-gpu transition-all duration-700 ease-out ${
+          isActive ? "scale-100 grayscale-0" : "scale-105 grayscale-[70%]"
+        }`}
       />
 
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition-opacity duration-500"
-        style={{ opacity: useTransform(isActive, (a) => (a ? 1 : 0.75)) }}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10 transition-opacity duration-500 ${
+          isActive ? "opacity-100" : "opacity-75"
+        }`}
       />
 
       {/* Collapsed label */}
-      <motion.div
-        className="absolute inset-0 flex lg:flex-col items-center lg:justify-end gap-3 p-4 transition-opacity duration-300"
-        style={{
-          opacity: useTransform(isActive, (a) => (a ? 0 : 1)),
-          pointerEvents: useTransform(isActive, (a) =>
-            a ? "none" : "auto"
-          ) as any,
-        }}
+      <div
+        className={`absolute inset-0 flex lg:flex-col items-center lg:justify-end gap-3 p-4 transition-all duration-300 ${
+          isActive
+            ? "opacity-0 pointer-events-none"
+            : "opacity-100 pointer-events-auto"
+        }`}
       >
         <span className="text-[10px] tracking-[0.2em] text-white/70">
           {String(index + 1).padStart(2, "0")}
@@ -207,18 +192,15 @@ function ShowcaseCard({
         <span className="font-display text-base lg:text-lg text-white whitespace-nowrap lg:[writing-mode:vertical-rl] lg:rotate-180">
           {item.title}
         </span>
-      </motion.div>
+      </div>
 
       {/* Expanded content */}
-      <motion.div
-        className="absolute inset-x-0 bottom-0 p-6 sm:p-8 transition-all duration-500"
-        style={{
-          opacity: useTransform(isActive, (a) => (a ? 1 : 0)),
-          y: useTransform(isActive, (a) => (a ? 0 : 16)),
-          pointerEvents: useTransform(isActive, (a) =>
-            a ? "auto" : "none"
-          ) as any,
-        }}
+      <div
+        className={`absolute inset-x-0 bottom-0 p-6 sm:p-8 transition-all duration-500 ${
+          isActive
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
       >
         <span className="inline-block rounded-full border border-white/30 bg-white/10 backdrop-blur-sm px-3 py-1 text-[10px] tracking-[0.2em] uppercase text-white/90">
           {item.tag}
@@ -243,7 +225,7 @@ function ShowcaseCard({
             <path d="M7 17L17 7M8 7h9v9" />
           </svg>
         </span>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

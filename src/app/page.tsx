@@ -100,7 +100,7 @@ function GlobalPartner() {
       <div className="max-w-[1536px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         <span className="text-teal text-sm tracking-[0.25em] uppercase font-medium">Made for a global audience</span>
         <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-navy font-medium leading-[1.15] max-w-4xl">
-          A global manufacturing partner to 50+ leading brands.
+          A global manufacturing partner to 50+ leading brands across the globe.
         </h2>
       </div>
       <div className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-10">
@@ -224,9 +224,9 @@ function VideoBanner() {
   return (
     <section
       id="hero-banner"
-      className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] sm:max-h-[920px] sm:min-h-[480px] bg-navy overflow-hidden flex flex-col justify-end"
+      className="relative w-full min-h-[85svh] sm:h-[calc(100svh-4rem)] md:h-[calc(100svh-4.5rem)] sm:max-h-[920px] sm:min-h-[480px] bg-navy overflow-hidden flex flex-col items-center justify-center"
     >
-      <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 overflow-hidden">
         <video
           src={BANNER_VIDEO}
           autoPlay
@@ -236,13 +236,44 @@ function VideoBanner() {
           preload="auto"
           className="w-full h-full object-cover object-[center_60%] sm:object-top"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60" />
       </div>
-      <div className="relative z-20 w-full text-center">
-        <div className="bg-gradient-to-t from-black/90 via-black/60 to-black/25 sm:bg-black/55 backdrop-blur-md sm:backdrop-blur-xl w-full px-4 sm:px-10 lg:px-14 py-3 sm:py-8">
-          <blockquote className="font-display text-[13px] sm:text-[24px] lg:text-[30px] xl:text-[34px] text-white font-medium leading-snug sm:leading-[1.3]">
-            The earth, the air, the land and the water are not an inheritance from our forefathers but on loan from our children.
-            <span className="block mt-1 sm:mt-4 text-[10px] sm:text-base tracking-[0.25em] sm:tracking-[0.28em] uppercase text-sky font-bold">— Mahatma Gandhi</span>
-          </blockquote>
+
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-10 text-center flex flex-col items-center gap-6 sm:gap-8 py-16 sm:py-0">
+        <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/70 font-medium">
+          Ethical &amp; Precision Apparel Manufacturing — Est. 1991
+        </span>
+
+        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl xl:text-7xl text-white font-semibold leading-[1.1] max-w-4xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5)]">
+          Crafting Conscious Knits &amp; Wovens for the World&#39;s Leading Brands.
+        </h1>
+
+        <p className="max-w-2xl text-sm sm:text-base lg:text-lg text-white/80 leading-relaxed [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
+          Combining high-capacity export production with circular, certified sustainability across the Delhi-NCR cluster.
+        </p>
+
+        <blockquote className="max-w-2xl text-xs sm:text-sm text-white/60 italic leading-relaxed">
+          &ldquo;The earth is not an inheritance from our forefathers, but on loan from our children.&rdquo;
+          <span className="block mt-1 text-[10px] sm:text-xs tracking-[0.2em] uppercase text-sky/80 font-bold not-italic">
+            — Mahatma Gandhi
+          </span>
+        </blockquote>
+
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2">
+          <a
+            href="#s-showcase"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-navy text-sm font-medium hover:bg-sky transition-colors"
+          >
+            Explore Capabilities
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+          </a>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/30 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+          >
+            Partner With Us
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg>
+          </a>
         </div>
       </div>
     </section>
