@@ -9,11 +9,21 @@
 
   --background: var(--white);
   --foreground: var(--navy);
+  --muted-foreground: #6b7a8d;
+  --ring: var(--teal);
+  --border: #d4dce4;
+  --card: var(--white);
+  --card-foreground: var(--navy);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ring: var(--ring);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-navy: #2f4156;
   --color-teal: #567c8d;
   --color-sky: #c8d9e6;

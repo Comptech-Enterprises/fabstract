@@ -2,6 +2,90 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ClothingRailHero, RailGarment } from "@/components/ui/product-rail-gallery";
+
+const RAIL_ITEMS: RailGarment[] = [
+  {
+    id: "women-knit",
+    name: "Women's Circular Knits",
+    description: "Rib crops, jersey dresses, co-ord lounge sets, oversized hoodies.",
+    kind: "tee",
+    color: "#c4a882",
+    trim: "#a08868",
+    image: "/what-we-do/categories/women-knitted.jpg",
+    tag: "Knits",
+  },
+  {
+    id: "men-knit",
+    name: "Men's Circular Knits",
+    description: "Heavy tees, pique polos, brushed fleece sweats, structured joggers.",
+    kind: "tee",
+    color: "#6b7a8d",
+    trim: "#4a5968",
+    image: "/what-we-do/categories/men-knitted.jpg",
+    tag: "Knits",
+  },
+  {
+    id: "women-woven",
+    name: "Women's Wovens",
+    description: "Smocked maxis, embroidered blouses, tiered linen skirts.",
+    kind: "shirt",
+    color: "#d4b8a0",
+    trim: "#b89a80",
+    image: "/what-we-do/categories/women-woven.jpg",
+    tag: "Wovens",
+  },
+  {
+    id: "men-woven",
+    name: "Men's Wovens",
+    description: "Camp collar linens, oxford button-downs, utility overshirts.",
+    kind: "shirt",
+    color: "#8a9eae",
+    trim: "#6a7e8e",
+    image: "/what-we-do/categories/men-woven.jpg",
+    tag: "Wovens",
+  },
+  {
+    id: "women-sweater",
+    name: "Women's Sweaters",
+    description: "Cropped cardigans, ribbed turtlenecks, cable knits, cashmere crew.",
+    kind: "knit",
+    color: "#c9a9b8",
+    trim: "#a98998",
+    image: "/what-we-do/categories/women-sweater.jpg",
+    tag: "Sweaters",
+  },
+  {
+    id: "men-sweater",
+    name: "Men's Sweaters",
+    description: "Half-zip merino, heavy cable pullovers, textured waffle sweaters.",
+    kind: "knit",
+    color: "#7a8a76",
+    trim: "#5a6a56",
+    image: "/what-we-do/categories/men-sweater.jpg",
+    tag: "Sweaters",
+  },
+  {
+    id: "home-textile",
+    name: "Home Textiles",
+    description: "Stonewashed duvets, organic sheets, waffle throws, table runners.",
+    kind: "coat",
+    color: "#b8c4cc",
+    trim: "#98a4ac",
+    image: "/what-we-do/categories/card-home-textile.webp",
+    tag: "Home",
+  },
+  {
+    id: "intimate",
+    name: "Intimate & Lounge",
+    description: "Modal sleep sets, seamless bralettes, bamboo trunks, organic briefs.",
+    kind: "tee",
+    color: "#d4c4b8",
+    trim: "#b4a498",
+    image: "/what-we-do/categories/women-intimate.jpg",
+    tag: "Lounge",
+  },
+];
 
 type VerticalKey = "circular-knits" | "wovens" | "home-textiles" | "sweaters";
 
@@ -217,7 +301,20 @@ function WhatWeMake() {
 export function WhatWeDoContent() {
   return (
     <div id="what-we-do" className="scroll-mt-28">
-      {/* What we make */}
+      {/* Interactive clothing rail */}
+      <section id="clothing-rail" className="scroll-mt-24 bg-beige border-b border-navy/10">
+        <ClothingRailHero
+          items={RAIL_ITEMS}
+          eyebrow="What We Make"
+          heading="Our Product Range"
+          caption="Drag to browse — click to explore"
+          hanger="wood"
+          autoplay
+          interval={3000}
+        />
+      </section>
+
+      {/* What we make — category grid */}
       <section id="what-we-make" className="scroll-mt-24 bg-beige py-16 sm:py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-navy/10">
         <div className="max-w-[1536px] mx-auto">
           <WhatWeMake />
