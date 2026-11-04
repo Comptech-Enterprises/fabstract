@@ -81,6 +81,7 @@ const MILESTONES = [
     title: "Preparing for the Next Chapter",
     desc: "We continued expanding our material development capabilities, exploring more responsible fabric choices and improving the way we approached manufacturing. These efforts reflected our ambition to meet the changing expectations of global brands without compromising on quality.",
     img: "/images/timeline/2021-gots.png",
+    contain: true,
   },
   {
     year: "2022",
@@ -276,11 +277,11 @@ export default function AboutPage() {
                                   className="aspect-[16/10] w-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
                               ) : m.contain ? (
-                                <div className="aspect-[16/10] w-full flex items-center justify-center p-8">
+                                <div className="aspect-[16/10] w-full flex items-center justify-center">
                                   <img
                                     src={m.img}
                                     alt={m.title}
-                                    className="max-w-[70%] max-h-[70%] object-contain"
+                                    className="w-full h-full object-contain"
                                   />
                                 </div>
                               ) : (
