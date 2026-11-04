@@ -156,9 +156,6 @@ function WhatWeMake() {
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-navy font-light leading-[1.15]">
             Four Business Verticals
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-navy/60 leading-relaxed max-w-2xl font-light">
-            {currentVertical.tagline}
-          </p>
         </div>
         <div className="flex flex-nowrap gap-1.5 sm:gap-2 max-w-full overflow-x-auto shrink-0">
           {VERTICALS.map((v) => {
@@ -186,7 +183,7 @@ function WhatWeMake() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-6"
         >
           {currentVertical.tiles.map((tile) => (
             <a
@@ -196,7 +193,7 @@ function WhatWeMake() {
               rel="noopener noreferrer"
               className="group block"
             >
-              <div className="aspect-[3/4] overflow-hidden bg-[#f5efe9]">
+              <div className="aspect-[3/4.5] sm:aspect-[3/4.5] overflow-hidden bg-[#f5efe9]">
                 <img
                   src={tile.image}
                   alt={`${tile.label} - ${currentVertical.label}`}
